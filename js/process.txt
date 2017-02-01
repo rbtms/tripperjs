@@ -1,0 +1,80 @@
+Statistical profiling result from isolate-000001F7AFC90FB0-v8.log, (4688 ticks, 11 unaccounted, 0 excluded).
+
+ [Shared libraries]:
+   ticks  total  nonlib   name
+     57    1.2%          C:\Program Files\nodejs\node.exe
+     19    0.4%          C:\WINDOWS\SYSTEM32\ntdll.dll
+      1    0.0%          C:\WINDOWS\System32\KERNEL32.DLL
+
+ [JavaScript]:
+   ticks  total  nonlib   name
+   4236   90.4%   91.9%  LazyCompile: *cipher C:\Users\Alvaro\Documents\javascript\tripperjs\js\tripper.js:233:16
+    198    4.2%    4.3%  LazyCompile: *gen_round_keys C:\Users\Alvaro\Documents\javascript\tripperjs\js\tripper.js:185:24
+     45    1.0%    1.0%  LazyCompile: *perturb_expansion C:\Users\Alvaro\Documents\javascript\tripperjs\js\tripper.js:351:27
+     24    0.5%    0.5%  LazyCompile: *crypt3 C:\Users\Alvaro\Documents\javascript\tripperjs\js\tripper.js:387:16
+     16    0.3%    0.3%  LazyCompile: *next native array-iterator.js:32:27
+     10    0.2%    0.2%  LazyCompile: InnerArrayFill native array.js:1253:24
+     10    0.2%    0.2%  KeyedLoadIC: A keyed load IC from the snapshot
+      8    0.2%    0.2%  LazyCompile: *CreateArrayIterator native array-iterator.js:21:29
+      8    0.2%    0.2%  KeyedStoreIC: A keyed store IC from the snapshot
+      7    0.1%    0.2%  Stub: StringAddStub_CheckNone_NotTenured
+      6    0.1%    0.1%  Builtin: ArgumentsAdaptorTrampoline
+      5    0.1%    0.1%  Stub: FastNewObjectStub
+      5    0.1%    0.1%  LazyCompile: *values native array-iterator.js:65:21
+      4    0.1%    0.1%  LazyCompile: ~charCodeAt native string.js:48:28
+      3    0.1%    0.1%  Stub: VectorKeyedStoreICStub
+      2    0.0%    0.0%  Stub: ToBooleanStub
+      2    0.0%    0.0%  Handler: An IC handler from the snapshot
+      2    0.0%    0.0%  Builtin: JSConstructStubGeneric
+      1    0.0%    0.0%  Stub: ToStringStub
+      1    0.0%    0.0%  Stub: StoreFastElementStub
+      1    0.0%    0.0%  Stub: CEntryStub
+      1    0.0%    0.0%  Stub: AllocateInNewSpaceStub
+      1    0.0%    0.0%  LazyCompile: ~gen_round_keys C:\Users\Alvaro\Documents\javascript\tripperjs\js\tripper.js:185:24
+      1    0.0%    0.0%  LazyCompile: *fill native array.js:1275:19
+      1    0.0%    0.0%  LazyCompile: *ArrayIterator native array-iterator.js:20:23
+      1    0.0%    0.0%  Builtin: Construct
+      1    0.0%    0.0%  Builtin: Call_ReceiverIsNullOrUndefined
+
+ [C++]:
+   ticks  total  nonlib   name
+
+ [Summary]:
+   ticks  total  nonlib   name
+   4600   98.1%   99.8%  JavaScript
+      0    0.0%    0.0%  C++
+      4    0.1%    0.1%  GC
+     77    1.6%          Shared libraries
+     11    0.2%          Unaccounted
+
+ [C++ entry points]:
+   ticks    cpp   total   name
+
+ [Bottom up (heavy) profile]:
+  Note: percentage shows a share of a particular caller in the total
+  amount of its parent calls.
+  Callers occupying less than 2.0% are not shown.
+
+   ticks parent  name
+   4236   90.4%  LazyCompile: *cipher C:\Users\Alvaro\Documents\javascript\tripperjs\js\tripper.js:233:16
+   4233   99.9%    LazyCompile: *crypt3 C:\Users\Alvaro\Documents\javascript\tripperjs\js\tripper.js:387:16
+   3160   74.7%      LazyCompile: *<anonymous> C:\Users\Alvaro\Documents\javascript\tripperjs\js\tripper.js:1:11
+   3160  100.0%        LazyCompile: ~Module._compile module.js:481:37
+   3160  100.0%          LazyCompile: ~Module._extensions..js module.js:548:37
+   3160  100.0%            LazyCompile: ~Module.load module.js:449:33
+   1073   25.3%      Function: ~<anonymous> C:\Users\Alvaro\Documents\javascript\tripperjs\js\tripper.js:1:11
+   1073  100.0%        LazyCompile: ~Module._compile module.js:481:37
+   1073  100.0%          LazyCompile: ~Module._extensions..js module.js:548:37
+   1073  100.0%            LazyCompile: ~Module.load module.js:449:33
+
+    198    4.2%  LazyCompile: *gen_round_keys C:\Users\Alvaro\Documents\javascript\tripperjs\js\tripper.js:185:24
+    198  100.0%    LazyCompile: *crypt3 C:\Users\Alvaro\Documents\javascript\tripperjs\js\tripper.js:387:16
+    161   81.3%      LazyCompile: *<anonymous> C:\Users\Alvaro\Documents\javascript\tripperjs\js\tripper.js:1:11
+    161  100.0%        LazyCompile: ~Module._compile module.js:481:37
+    161  100.0%          LazyCompile: ~Module._extensions..js module.js:548:37
+    161  100.0%            LazyCompile: ~Module.load module.js:449:33
+     37   18.7%      Function: ~<anonymous> C:\Users\Alvaro\Documents\javascript\tripperjs\js\tripper.js:1:11
+     37  100.0%        LazyCompile: ~Module._compile module.js:481:37
+     37  100.0%          LazyCompile: ~Module._extensions..js module.js:548:37
+     37  100.0%            LazyCompile: ~Module.load module.js:449:33
+

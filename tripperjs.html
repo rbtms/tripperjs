@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <meta charset='utf8'>
+        <link rel='stylesheet' href='css/tripperjs.css'/>
+        
+        <script src='../lib/jquery.min.js'></script>
+<!--        <script src='../js/DES.js'></script>
+        <script src='../js/crypt3.js'></script>-->
+        <script src='js/tripper_config.js'></script>
+    </head>
+
+    <body>
+        <div id='header'></div>
+        <table id='header_table'>            
+            <text id='title'>TRIPPER.JS</text>
+            
+            <text id='search'>Searching: </text>
+            <text id='search_n'>0</text>
+            
+            <text id='found'>Found: </text>
+            <text id='found_n'>0</text>
+            
+            <text id='tps'>TPS: </text>
+            <text id='tps_n'>0</text>
+            
+            <text id='trip_log'>Trip log</text>
+        </table>
+        
+        <center>
+        <table id='target_table'>
+            <td>
+                <text id='target_text' class='search_screen'>Target: </input>
+                <input type='text' name='Target:' id='target' class='search_screen'></input>
+            </td>
+        </table>
+        </center>
+        <br><br><br><br><br>
+        
+        <div id='log_div' class='log_screen'>
+        </div>
+    </body>
+</html>
