@@ -705,7 +705,7 @@ function main()
             {
                 pwd  = rand_pwd();
                 salt = get_salt(pwd);
-                hash = crypt3(pwd, salt);
+                hash = crypt3(pwd, salt).substr(-10);
         
                 if(hash.match(this.target_regex))
                     {
