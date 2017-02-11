@@ -39,7 +39,6 @@
 *
 *   - Arrays
 *       - char_list
-*       - salt_table
 *       - parity_drop
 *       - K
 *       - L
@@ -74,23 +73,6 @@ var char_list =
       + '0 1 2 3 4 5 6 7 8 9'
     ).split(' ');
 //     . / ! " $ % & ( ) = ? { } [ ]'.split(' ');
-    
-var salt_table =
-    {
-        ':' : 'A',
-        ';' : 'B',
-        '<' : 'C',
-        '=' : 'D',
-        '>' : 'E',
-        '?' : 'F',
-        '@' : 'a',
-        '[' : 'b',
-        '\\': 'c',
-        ']' : 'd',
-        '^' : 'e',
-        '_' : 'f',
-        '`' : 'g'
-    };
 
 
 /****************************************************************************
@@ -558,7 +540,6 @@ function crypt3(pwd, salt)
         var n, m;
         var c;
         var row;
-        var pad;
         
         
         /*********************************************************
@@ -578,12 +559,10 @@ function crypt3(pwd, salt)
         ******************************/
         for(n = 0; n < 8; n++)
             {
-                c = pwd[n].charCodeAt();
-                
+                c   = pwd[n].charCodeAt();
                 row = n*8;
-                pad = c < 64 ? 2 : 1;
                         
-                for(m = 0; m < 8-pad; m++) { pwd_bin[row + m] = ( c >> (7-pad-m) ) & 1; }
+                for(m = 0; m < 7; m++) { pwd_bin[row + m] = ( c >> (6-m) ) & 1; }
             }
             
         
@@ -669,10 +648,22 @@ function rand_pwd()
 *****************************************************************************************/
 function get_salt(key)
     {
-        var salt = (key+'H.').substr(1, 2);
-        
-        //salt = salt.replace(/[^\.-z]/, '.');
-        //for(var n = 0; n < 13; n++) { salt = salt.replace(n, salt_table[n]) }
+        var salt = (key+'H.')
+            .substr(1, 2)
+            .replace(/[^\.-z]/, '.')
+            .replace(':',  'A')
+            .replace(';',  'B')
+            .replace('<',  'C')
+            .replace('=',  'D')
+            .replace('>',  'E')
+            .replace('?',  'F')
+            .replace('@',  'a')
+            .replace('[',  'b')
+            .replace('\\', 'c')
+            .replace(']',  'd')
+            .replace('^',  'e')
+            .replace('_',  'f')
+            .replace('`',  'g');
         
         return salt;
     }
