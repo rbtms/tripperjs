@@ -11,10 +11,6 @@ span {
   user-select:         none;
 }
 
-.highlight {
-  background-color: darkgray;
-}
-
 /**
 * Header
 **/
@@ -123,4 +119,8 @@ span {
 .log_screen_table td {
   //border: 1px solid black;
   text-align: left;
+}
+
+.highlight {
+  background-color: darkgray;
 }

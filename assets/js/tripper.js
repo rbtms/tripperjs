@@ -210,7 +210,7 @@ function on_worker_msg(e)
 function init_worker(target, search_id, id)
     {                        
         /* Initialize worker */
-        var worker = new Worker('./js/tripper.js');
+        var worker = new Worker('./assets/js/worker.js');
         
         worker.onmessage = on_worker_msg;
         worker.target    = target;
