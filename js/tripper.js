@@ -539,7 +539,6 @@ function crypt3(pwd, salt)
         var n, m;
         var c;
         var row;
-        var pad;
         
         
         /*********************************************************
