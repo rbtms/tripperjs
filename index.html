@@ -1,41 +1,37 @@
+<!DOCYTPE html>
 <html>
-    <head>
+    <head>  
         <meta charset='utf8'>
-        <link rel='stylesheet' href='css/tripperjs.css'/>
+        <link rel='stylesheet' href='./css/tripper.css'/>
         
         <script src='https://code.jquery.com/jquery-3.1.1.min.js'></script>
-        <!--<script src='js/tripper.js'></script>-->
-        <script src='js/tripper_config.js'></script>
+        <script src='./js/worker.js'></script>
+        <script src='./js/tripper.js'></script>
     </head>
 
     <body>
-        <div id='header'></div>
-        <table id='header_table'>            
-            <text id='title'>TRIPPER.JS</text>
+        <div id='header'>
+            <text id='title' class='header_el'>TRIPPER.JS</text>
             
-            <text id='search'>Searching: </text>
-            <text id='search_n'>0</text>
+            <label for='worker_n' id='workers' class='header_el'>Workers: </label>
+            <text id='worker_n' class='header_el'>0</text>
             
-            <text id='found'>Found: </text>
-            <text id='found_n'>0</text>
+            <label for='found_n' id='found' class='header_el'>Found: </label>
+            <text id='found_n' class='header_el'>0</text>
             
-            <text id='tps'>TPS: </text>
-            <text id='tps_n'>0</text>
+            <label for='tps_n' id='tps' class='header_el'>TPS: </label>
+            <text id='tps_n' class='header_el'>0</text>
             
-            <text id='trip_log'>Trip log</text>
-        </table>
+            <text id='trip_log' class='header_el'>Trip log</text>
+        </div>
         
         <center>
-        <table id='target_table'>
-            <td>
-                <text id='target_text' class='search_screen'>Target: </input>
-                <input type='text' name='Target:' id='target' class='search_screen'></input>
-            </td>
-        </table>
+            <div id='search_screen'>
+                <input type='text' name='Target:' id='target' class='search_screen' placeholder='Search for a trip'/>
+            </div>
+
+            <div id='log_screen' class='log_screen'>
+            </div>
         </center>
-        <br><br><br><br><br>
-        
-        <div id='log_div' class='log_screen'>
-        </div>
     </body>
 </html>

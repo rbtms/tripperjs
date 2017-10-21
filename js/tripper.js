@@ -79,7 +79,7 @@ var char_list =
 * Tables
 *
 * Note: All tables except s_box_table have all their entries reduced by one
-*       to avoid constant resting operations
+*       to avoid constant substracting operations
 *
 ****************************************************************************/
 
@@ -291,13 +291,13 @@ var shift_offset = [1, 2, 4, 6, 8, 10, 12, 14, 15, 17, 19, 21, 23, 25, 27, 28];
 
 
 
-/**************************************************************************************
+/************
 * Functions
-**************************************************************************************/
+************/
 
-/**************************************************
+/*********
 * DES.js
-**************************************************/
+*********/
 
 /************************************************************************************
 * Description : gen_round_keys(): Generate 16 48-bit round keys from one 64-bit key
@@ -356,14 +356,13 @@ function gen_round_keys(key)
 
 
 
-/***************************************************************************
-* Description : cipher() - Encrypt and decrypt data with the DES algorithm
-* Takes       : data (arrayref) - 64 bit binary array containing input
+/********************************************************************
+* Name        : cipher
+* Description : Encrypt and decrypt data with the DES algorithm
+* Takes       : data (array) - 64 bit binary array containing input
 * Returns     : Nothing
-* Sets global : data (arrayref) - The same array as the input
-* Notes       : Nothing
-* TODO        : Nothing
-***************************************************************************/
+* Sets global : data (array) - The same array as the input
+********************************************************************/
 var L = new Array(32).fill(0);
 var R = new Array(32).fill(0);
 
@@ -468,18 +467,19 @@ function cipher()
 
 
 
-/***************************************************************************************************
+/************
 * crypt3.js
-***************************************************************************************************/
+************/
 
-/*******************************************************************************************
-* Description : perturb_expansion() - Perturbs expansion table with provided salt
-* Takes       : salt (string)       - Two character string
+/************************************************************
+* Name        : perturb_expansion
+* Description : Perturbs expansion table with provided salt
+* Takes       : salt (string) - Two character string
 * Returns     : Nothing
 * Sets global : perturb_expansion(salt)
-* Notes       : It is reversible, so if it's called twice it returns to its original state
-* TODO        : Nothing
-*******************************************************************************************/
+* Notes       : It is reversible, so if it's called twice
+*               it returns to its original state
+************************************************************/
 var CHAR_CODE_Z   = 90;
 var CHAR_CODE_9   = 57;
 var CHAR_CODE_DOT = 46;
@@ -521,16 +521,15 @@ function perturb_expansion(salt)
     }
 
 
-/***************************************************************************
-* Description : crypt3() - DES-based UNIX crypt(3) javascript implementation
+/******************************************************************
+* Name        : crypt3
+* Description : DES-based UNIX crypt(3) javascript implementation
 *
 * Takes       : pwd (string)  - 8 byte ascii string
 *               salt (string) - 1 or 2 byte ascii string
 *
 * Returns     : digest (string) - Ascii string with the digest
-* Notes       : Nothing
-* TODO        : Nothing
-***************************************************************************/
+******************************************************************/
 var data    = new Array(64);
 var pwd_bin = new Array(64);
 
@@ -616,17 +615,18 @@ function crypt3(pwd, salt)
 
 
 
-/*********************************************************************************************
+/**************
 * tripper.js
-*********************************************************************************************/
+**************/
 
-/***********************************************************************************
-* Description : rand_pwd() - Generate RAND_CHAR_N length ascii password for crypt3
+/**********************************************************************
+* Name        : rand_pwd
+* Description : Generate RAND_CHAR_N length ascii password for crypt3
 * Takes       : Nothing
 * Returns     : pwd (string) - 8 bit ascii password
 * Notes       : Nothing
 * TODO        : Nothing
-***********************************************************************************/
+**********************************************************************/
 var CHAR_LIST_LEN = char_list.length;
 var RAND_CHAR_N   = 8;
 
@@ -643,13 +643,12 @@ function rand_pwd()
     }
 
 
-/****************************************************************************************
-* Description : get_salt() - Get salt from 2ch/4chan tripcode salt generation algorithm
+/***************************************************************************
+* Name        : get_salt
+* Description : Get salt from 2ch/4chan tripcode salt generation algorithm
 * Takes       : key  (string) - Key to apply salt algorithm to
 * Returns     : salt (string) - Generated salt
-* Notes       : Nothing
-* TODO        : Nothing
-*****************************************************************************************/
+***************************************************************************/
 function get_salt(key)
     {
         var salt = (key+'H.')
@@ -673,34 +672,13 @@ function get_salt(key)
     }
 
 
-/***************************************************************************************
-* Description : send_tps() - Calculate worker trips per second and send to main thread
+/*********************************************************
+* Name        : main
+* Description : Loop over crypt3() with random passwords
+*               in order to search for tripcodes
 * Takes       : Nothing
 * Returns     : Nothing
-* Notes       : Nothing
-* TODO        : Nothing
-****************************************************************************************/
-function send_tps()
-    {
-        var time = (new Date().getTime() - this.start_time) / 1000;
-        var tps  = this.trip_n / time;
-        
-        self.postMessage
-            ({
-                'type': 'tps',
-                'id'  : this.id,
-                'tps' : parseInt(tps)
-            });
-    }
-
-
-/***************************************************************************************************
-* Description : main() - Loop over crypt3() with random passwords in order to search for tripcodes
-* Takes       : Nothing
-* Returns     : Nothing
-* Notes       : Nothing
-* TODO        : Nothing
-***************************************************************************************************/
+*********************************************************/
 function main()
     {
         var pwd, salt, hash;
@@ -711,59 +689,88 @@ function main()
                 salt = get_salt(pwd);
                 hash = crypt3(pwd, salt).substr(-10);
         
-                if(hash.match(this.target_regex))
+                //// test
+                if( this.target_regex.test(hash) )
                     {
-                        this.found++;
                         this.postMessage
                             ({
-                                'type'  : 'found',
-                                'id'    : this.id,
-                                'target': this.target,
-                                'found' : this.found,
-                                'pwd'   : pwd,
-                                'trip'  : hash,
-                                'trip_n': this.trip_n
+                                type         : 'found',
+                                id           : this.id,
+                                target_regex : this.target_regex,
+                                search_id    : this.search_id,
+                                pwd          : pwd,
+                                trip         : hash,
+                                trip_n       : this.trip_n
                             });
 
-                        console.log({'id': this.id, 'key': pwd, 'salt': salt, 'trip': hash, 'target': this.target});
+                        //console.log({'id': this.id, 'key': pwd, 'salt': salt, 'trip': hash, 'target': this.target});
                     }
         
         
                 this.trip_n++;
             }
         
+        
+        /* Send worker tps */
         send_tps();
-        setTimeout(main);
+        
+        if(!this.is_stopped) { setTimeout(main); }
+    }
+
+/**************************************************************************
+* Name        : send_tps
+* Description : Calculate worker trips per second and send to main thread
+* Takes       : Nothing
+* Returns     : Nothing
+**************************************************************************/
+function send_tps()
+    {
+        var time = ( (new Date()).getTime() - this.start_time ) / 1000;
+        var tps  = this.trip_n / time;
+        
+        self.postMessage
+            ({
+                type      : 'tps',
+                id        : this.id,
+                tps       : parseInt(tps)
+            });
     }
 
 
-
-/*****************************************************************************************
+/************
 * Execution
-*****************************************************************************************/
+************/
 
 /***************************
 * Set worker event handler
 ***************************/
 this.onmessage = function(e)
     {
-        if (e.data.type == 'init')
+        var type = e.data.type;
+        console.log(type);
+        
+        if (type == 'init')
             {                
                 this.id           = e.data.id;
-                this.target       = e.data.target;
                 this.target_regex = e.data.target_regex;
-                this.timeout      = e.data.timeout;
+                this.search_id    = e.data.search_id;
                 this.trip_n       = 0;
-                this.found        = 0;
-                this.start_time   = new Date().getTime();
+                this.start_time   = (new Date()).getTime();
+                
+                this.is_stopped = false;
                 
                 this.main();
             }
-        else if(e.data.type == 'target')   { target  = e.data.target;  }
-        else if(e.data.type == 'timeout')  { timeout = e.data.timeout; }
-        else if(e.data.type == 'pause')    { /** stop timeout **/ }
-        else if(e.data.type == 'continue') { main(); } ////
-        else if(e.data.type == 'stop')     { /** stop worker and remove search element **/ }
+        else if(type == 'toggle')
+            {
+                this.is_stopped = !this.is_stopped;
+                
+                if(!this.is_stopped) { this.main(); }
+            }
+        else if(type == 'stop')
+            {
+                this.close();
+            }
     };
 
 
