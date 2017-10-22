@@ -1,3 +1,5 @@
+const db = new PouchDB('trip_db');
+
 /**
 * Global variables
 **/
@@ -198,6 +200,9 @@ function on_worker_msg(e)
                 
                 /* Add to log screen */
                 log_trip(e.data.target_regex, e.data.search_id, e.data.pwd, e.data.trip);
+                
+                /* Add to DB */
+                //save_db_doc(e.data.pwd, e.data.trip, e.data.search_id);
             }
         /* Display total tps */
         else if(e.data.type == 'tps')
@@ -276,6 +281,36 @@ function update_tps()
         $('#tps_n').text(tps_n+' trips/s');
     }
 
+function save_db_doc(pwd, trip, search_id )
+    {
+        var doc = { _id: pwd, trip: trip, search_id: search_id };
+        
+        db.put(doc);
+    }
+
+function get_db_doc(pwd)
+    {
+        db.get(pwd).then( (doc) => console.log(doc) );
+    }
+
+function get_db_info()
+    {
+        db.info().then( (info) => console.log(info) );
+    }
+
+function get_db_search(search_id)
+    {
+        db.query( (doc, emit) => emit( doc.search_id), { key: search_id } ).then( function(query)
+            {
+                var rows = query.rows;
+                
+                for(var i = 0; i < rows.length; i++)
+                    {
+                        get_db_doc(rows[i].id);
+                    }
+            });
+    }
+
 
 /**
 * Execute
@@ -339,5 +374,10 @@ window.onload = function()
     /********************
     * Toggle log screen
     ********************/
-    $('#trip_log').on('click', () => $('#search_screen, #log_screen').toggle() );
+    $('#trip_log').on('click', function()
+        {
+            $('#search_screen, #log_screen').toggle();
+            
+            this.textContent = this.textContent == 'Trip log' ? 'Search' : 'Trip log';
+        });
 };
