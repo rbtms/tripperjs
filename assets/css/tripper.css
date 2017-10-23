@@ -138,6 +138,7 @@ span {
   text-align: left;
 }
 
+<<<<<<< HEAD:assets/css/tripper.css
 .toggle_log_table {
   padding-left: 2px;
   
@@ -188,4 +189,7 @@ span {
   
   width: 100px;
   height: 20px;
+}
+.highlight {
+  background-color: darkgray;
 }
