@@ -138,6 +138,12 @@ span {
   text-align: left;
 }
 
+.toggle_log_table {
+  padding-left: 2px;
+  
+  cursor: pointer;
+}
+
 .highlight {
   background-color: darkgray;
 }
@@ -171,4 +177,15 @@ span {
   bottom: 16px;
   
   padding-left: 5px;
+}
+#lng_sel {
+  position: absolute;
+  
+  float: right;
+  
+  top: 13px;
+  right: 20px;
+  
+  width: 100px;
+  height: 20px;
 }

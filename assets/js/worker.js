@@ -1,10 +1,15 @@
 /*********************************************************************************************
-* Name         : tripper.js
+* Name         : worker.js
 * Description  : Javascript implementation of 2ch/4chan tripcode generation algorithm
+* Author       : Alvaro Fernandez (nishinishi9999)
+* Notes        : Based on DES.js and crypt3.js
+*                This file does all the heavy work for tripper.js
 *
 * Version      : 1.0
-* License      : GPL 3.0
-* Author       : Alvaro Fernandez (nishinishi)
+* License      : GPL 3.0 - https://www.gnu.org/licenses/gpl-3.0.en.html
+* See also     : DES.js  - https://github.com/nishinishi9999/DES.js
+*
+* Github       : https://github.com/nishinishi9999/tripperjs (fork me!)
 * Contact mail : nishinishi9999@gmail.com
 *********************************************************************************************/
 

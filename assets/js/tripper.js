@@ -1,3 +1,17 @@
+/*********************************************************************************************
+* Name         : tripper.js
+* Description  : Javascript implementation of 2ch/4chan tripcode generation algorithm
+* Author       : Alvaro Fernandez (nishinishi9999)
+* Notes        : Based on DES.js and crypt3.js
+*
+* Version      : 1.0
+* License      : GPL 3.0 - https://www.gnu.org/licenses/gpl-3.0.en.html
+* See also     : DES.js  - https://github.com/nishinishi9999/DES.js
+*
+* Github       : https://github.com/nishinishi9999/tripperjs (fork me!)
+* Contact mail : nishinishi9999@gmail.com
+*********************************************************************************************/
+
 const db = new PouchDB('trip_db');
 
 /**
@@ -28,11 +42,11 @@ function add_search_table(target, search_id)
                 $( document.createElement('DIV') ).attr('id', 'search_div_'+search_id).addClass('search_div').append
                     (
                         /* - Button */
-                        $( document.createElement('SPAN') ).text('-').attr('class', 'stop_worker_button')
+                        $( document.createElement('SPAN') ).addClass('stop_worker_button').text('-')
                             .on('click', () => stop_worker(search_id)),
                         
                         /* + Button */
-                        $( document.createElement('SPAN') ).text('+').attr('class', 'add_worker_button')
+                        $( document.createElement('SPAN') ).addClass('add_worker_button').text('+')
                             .on('click', () => add_worker(target, search_id)),
                         
                         /* Thread number */
@@ -41,7 +55,7 @@ function add_search_table(target, search_id)
                             .addClass('search_div_worker_n'),
                         
                         /* Pause button */
-                        $( document.createElement('SPAN') ).text('Pause').attr('class', 'pause_button')
+                        $( document.createElement('SPAN') ).addClass('pause_button').text('Pause')
                             .on( 'click', function()
                                 {
                                     pause_search(search_id);
@@ -49,7 +63,7 @@ function add_search_table(target, search_id)
                                 }),
                         
                         /* Stop button */
-                        $( document.createElement('SPAN') ).text('Stop') .attr('class', 'stop_button')
+                        $( document.createElement('SPAN') ).addClass('stop_button').text('Stop')
                             .on( 'click', () => stop_search(search_id) ),
                         
                         
@@ -90,7 +104,9 @@ function add_log_screen_div(target, search_id)
                 $( document.createElement('DIV') ).addClass('log_screen_div').append
                     (
                         $( document.createElement('SPAN') ).text(target),
-                        $( document.createElement('SPAN') ).text(' [+]')
+                        $( document.createElement('SPAN') )
+                            .addClass('toggle_log_table')
+                            .text(' [+]')
                             .on('click', function()
                                 {
                                     this.textContent = this.textContent == ' [+]' ? ' [-]' : ' [+]'
