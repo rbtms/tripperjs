@@ -18,6 +18,9 @@ It was hella fun to make.
 ## But it could be faster if...
 You are welcome to fork this github.
 
+## See also:
+- DES.JS: The Javascript DES implementation this application is based on - https://github.com/nishinishi9999/DES.js
+
 ## The interface is horrible!
 You are welc(ry
 <br><br><br>
