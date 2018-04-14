@@ -29,27 +29,35 @@
         <center>
             <div id='search_screen'>
                 <input type='text' name='Target:' id='target' class='search_screen' placeholder='Search for a trip'/>
+                <br>
+                
+                <div id='mode_select_div'>
+                    <label for='mode_select'>Tripcode algorithm: </label>
+                    <select id='mode_select'>
+                        <option name='2ch' value='2ch' selected='selected'>2ch / 4chan</option>
+                        <option name='drrr' value='drrr'>Drrr Chat</option>
+                    </select>
+                </div>
             </div>
 
-            <div id='log_screen' class='log_screen'>
-            </div>
+            <div id='log_screen' class='log_screen'></div>
         
-        <div id='footer'>
-            Made with ♥ by
-            <a href='https://github.com/nishinishi9999'>nishinishi9999</a>
-            <img id='github_icon'
-                 src='./assets/icon/GitHub-Mark-32px.png'
-                 title='Fork me!'
-                 onclick='window.location = "https://github.com/nishinishi9999/tripperjs";'
-            />
-            
-            <!--
-            <select id='lng_sel'>
-                <option>Japanese</option>
-                <option>English</option>
-            </select>
-            -->
-        </div>
+            <div id='footer'>
+                Made with ♥ by
+                <a href='https://github.com/nishinishi9999'>nishinishi9999</a>
+                <img id='github_icon'
+                    src='./assets/icon/GitHub-Mark-32px.png'
+                    title='Fork me!'
+                    onclick='window.location = "https://github.com/nishinishi9999/tripperjs";'
+                />
+                
+                <!--
+                <select id='lng_sel'>
+                    <option>Japanese</option>
+                    <option>English</option>
+                </select>
+                -->
+            </div>
         </center>
     </body>
 </html>

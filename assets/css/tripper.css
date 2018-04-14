@@ -64,6 +64,12 @@ span {
   
   height: calc(100% - 110px);
   width: 100%;
+  
+  margin-bottom: 10px;
+}
+
+#mode_select_div {
+  padding-bottom: 40px;
 }
 
 #target {
@@ -73,7 +79,7 @@ span {
   text-align: center;
   
   margin-top:    40px;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
 }
 
 /**
@@ -138,7 +144,6 @@ span {
   text-align: left;
 }
 
-<<<<<<< HEAD:assets/css/tripper.css
 .toggle_log_table {
   padding-left: 2px;
   

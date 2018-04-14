@@ -228,7 +228,7 @@ function on_worker_msg(e)
             }
     }
 
-function init_worker(target, search_id, id)
+function init_worker(target, search_id, id, mode)
     {                        
         /* Initialize worker */
         var worker = new Worker('./assets/js/worker.js');
@@ -276,6 +276,7 @@ function init_worker(target, search_id, id)
             ({
                 type         : 'init',
                 id           : id,
+                mode         : mode,
                 target_regex : target_regex,
                 search_id    : search_id
             });
@@ -350,14 +351,16 @@ window.onload = function()
         {
             if(e.which == 13) /* Enter */
                 {
-                    var search_id, target, search;
+                    var search_id, target, search, mode;
                     
                     /* Get target */
                     target = $('#target').val();
+                    mode   = $('#mode_select').val();
                     
                     
                     /* Don't clear search */
                     e.preventDefault();
+                    
                     
                     
                     search = pool.filter( (worker) => worker.target == target );
@@ -380,7 +383,7 @@ window.onload = function()
                         }
                     
                     last_id++;
-                    init_worker(target, search_id, last_id);
+                    init_worker(target, search_id, last_id, mode);
                     
                     update_worker_n(worker_n+1);
                 }

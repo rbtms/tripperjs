@@ -33,7 +33,6 @@
 *       - CHAR_CODE_9
 *       - CHAR_CODE_DOT
 *       - CHAR_LIST_LEN
-*       - RAND_CHAR_N
 *
 *
 *
@@ -91,6 +90,7 @@ var char_list =
 /***************************
 * Initial permutation (IP)
 ***************************/
+/*
 var initial_table =
     [
         57, 49, 41, 33, 25, 17,  9, 1,
@@ -102,7 +102,7 @@ var initial_table =
         60, 52, 44, 36, 28, 20, 12, 4,
         62, 54, 46, 38, 30, 22, 14, 6
     ];
-
+*/
 
 /*************************************
 * Left side Initial permutation (IP)
@@ -131,6 +131,7 @@ var initial_table_R =
 /***************************
 * Final permutation (IP-1)
 ***************************/
+/*
 var final_table =
     [
         39, 7, 47, 15, 55, 23, 63, 31,
@@ -142,6 +143,7 @@ var final_table =
         33, 1, 41,  9, 49, 17, 57, 25,
         32, 0, 40,  8, 48, 16, 56, 24
     ];
+*/
 
 
 /***********************************************
@@ -195,6 +197,7 @@ var compression_table =
 /*********************************************
 * Permutation table applied to s_box results
 *********************************************/
+/*
 var straight_table =
     [
         15,  6, 19, 20, 28, 11, 27, 16,
@@ -202,6 +205,7 @@ var straight_table =
          1,  7, 23, 13, 31, 26,  2,  8,
         18, 12, 29,  5, 21, 10,  3, 24
     ];
+*/
 
 
 /****************************************************
@@ -291,7 +295,7 @@ var s_box_table =
 * Number of left shifts to apply in each round key generation round
 * and precalculated offset for speed reasons
 ********************************************************************/
-var shift_table  = [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1];
+//var shift_table  = [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1];
 var shift_offset = [1, 2, 4, 6, 8, 10, 12, 14, 15, 17, 19, 21, 23, 25, 27, 28];
 
 
@@ -544,7 +548,6 @@ function crypt3(pwd, salt)
         var n, m;
         var c;
         var row;
-        var pad;
         
         
         /*********************************************************
@@ -624,16 +627,15 @@ function crypt3(pwd, salt)
 * tripper.js
 **************/
 
-/**********************************************************************
+/*****************************************************************
 * Name        : rand_pwd
-* Description : Generate RAND_CHAR_N length ascii password for crypt3
+* Description : Generate 8 byte length ascii password for crypt3
 * Takes       : Nothing
 * Returns     : pwd (string) - 8 bit ascii password
 * Notes       : Nothing
 * TODO        : Nothing
-**********************************************************************/
+*****************************************************************/
 var CHAR_LIST_LEN = char_list.length;
-var RAND_CHAR_N   = 8;
 
 function rand_pwd()
     {
@@ -676,6 +678,34 @@ function get_salt(key)
         return salt;
     }
 
+/***************************************************************************
+* Name        : _get_salt
+* Description : Get salt from Durarara tripcode salt generation algorithm
+* Takes       : key  (string) - Key to apply salt algorithm to
+* Returns     : salt (string) - Generated salt
+***************************************************************************/
+function _get_salt(key)
+    {
+        var salt = (key)
+            .substr(2, 2)
+            .replace(/[^\.-z]/, '.')
+            .replace(':',  'A')
+            .replace(';',  'B')
+            .replace('<',  'C')
+            .replace('=',  'D')
+            .replace('>',  'E')
+            .replace('?',  'F')
+            .replace('@',  'a')
+            .replace('[',  'b')
+            .replace('\\', 'c')
+            .replace(']',  'd')
+            .replace('^',  'e')
+            .replace('_',  'f')
+            .replace('`',  'g');
+        
+        return salt;
+    }
+
 
 /*********************************************************
 * Name        : main
@@ -687,12 +717,19 @@ function get_salt(key)
 function main()
     {
         var pwd, salt, hash;
-        
+        console.log(this.mode);
         for(var n = 0; n < 2000; n++)
             {
-                pwd  = rand_pwd();
-                salt = get_salt(pwd);
-                hash = crypt3(pwd, salt).substr(-10);
+                if(this.mode === '2ch') {
+                    pwd  = rand_pwd();
+                    salt = get_salt(pwd);
+                    hash = crypt3(pwd, salt).substr(-10);
+                }
+                else {
+                    pwd  = rand_pwd();
+                    salt = _get_salt(pwd);
+                    hash = crypt3(pwd, salt).substr(3);
+                }
         
                 //// test
                 if( this.target_regex.test(hash) )
@@ -759,6 +796,7 @@ this.onmessage = function(e)
                 this.id           = e.data.id;
                 this.target_regex = e.data.target_regex;
                 this.search_id    = e.data.search_id;
+                this.mode         = e.data.mode;
                 this.trip_n       = 0;
                 this.start_time   = (new Date()).getTime();
                 
