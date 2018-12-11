@@ -1,0 +1,24 @@
+{
+  "name": "tripperjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "build": "asc app/ts/worker.ts -o app/bin/worker.ts",
+    "buildoptimize": "asc app/ts/worker.ts -o app/bin/worker.ts -O3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nishinishi9999/tripperjs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nishinishi9999/tripperjs/issues"
+  },
+  "homepage": "https://github.com/nishinishi9999/tripperjs#readme",
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  }
+}
