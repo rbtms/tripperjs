@@ -606,9 +606,8 @@ async function main_wasm() {
   // Initial length 16384 (64kb)
 
   wasm.memory.grow(100);
-  /*
   const mem = new Int8Array( wasm.memory.buffer );
-
+  /*
   for(let i = 0; i < run_n; i++) {
     const ret = wasm.crypt3(i);
     console.log(i);
@@ -619,6 +618,7 @@ async function main_wasm() {
   //console.log( mem.slice(20000) );
    */
   wasm.main(run_n);
+  console.log( read_mem(mem, 0) );
 }
 
 //main();
