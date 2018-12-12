@@ -233,28 +233,6 @@ for(let i :i32 = 0; i < 18; i++)
 
 // Initialization end
 
-export function gen_round_keys() :void {
-  let i      :i32, j :i32;
-  let k      :i32[];
-  let value  :i32;
-  let offset :i32;
-
-  for(i = 0; i < 56; i++)
-    PARITY_DROP[i] = PWD_BIN[ parity_drop_table[i] ];
-
-  for(i = 0; i < 16; i++) {
-    offset = shift_offset[i];
-    k = K[i];
-
-    for(j = 0; j < 48; j++) {
-      value = compression_table[j];
-
-      k[j] = value < 28
-        ? PARITY_DROP[ (offset + value   )%28      ]
-        : PARITY_DROP[ (offset + value%28)%28 + 28 ];
-    }
-  }
-}
 
 function set_initial_lr(L :i32[], R :i32[], round_n :i32) :void {
   if( round_n == 0 ) {
@@ -1402,114 +1380,1587 @@ export function cipher() :void {
 
   for(round_n = 0; round_n < 25; round_n++) {
     set_initial_lr(L, R, round_n);
-    
-    for(i = 0; i < 16; i++) {
-      k = K[i];
 
-        row = ( ( k[5] ^ R[ET5] ) << 0 )
-            + ( ( k[0] ^ R[ET0] ) << 1 );
-        col = ( ( k[4] ^ R[ET4] ) << 0 )
-            + ( ( k[3] ^ R[ET3] ) << 1 )
-            + ( ( k[2] ^ R[ET2] ) << 2 )
-            + ( ( k[1] ^ R[ET1] ) << 3 );
-        dec = s_box_table[ 0 + row*16 + col ];
-        L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
-        L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
-        L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
-        L[IST3] = L[IST3] ^ ( (dec >> 0) & 1 );
+    // 0
+    row = ( ( K0_5 ^ R[ET5] ) << 0 )
+        + ( ( K0_0 ^ R[ET0] ) << 1 );
+    col = ( ( K0_4 ^ R[ET4] ) << 0 )
+        + ( ( K0_3 ^ R[ET3] ) << 1 )
+        + ( ( K0_2 ^ R[ET2] ) << 2 )
+        + ( ( K0_1 ^ R[ET1] ) << 3 );
+    dec = s_box_table[ 0 + row*16 + col ];
+    L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
+    L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
+    L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
+    L[IST3] = L[IST3] ^ ( (dec >> 0) & 1 );
 
-        row = ( ( k[11] ^ R[ET11] ) << 0 )
-            + ( ( k[6]  ^ R[ET6 ] ) << 1 );
-        col = ( ( k[10] ^ R[ET10] ) << 0 )
-            + ( ( k[9]  ^ R[ET9 ] ) << 1 )
-            + ( ( k[8]  ^ R[ET8 ] ) << 2 )
-            + ( ( k[7]  ^ R[ET7 ] ) << 3 );
-        dec = s_box_table[ 64 + row*16 + col ];
-        L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
-        L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
-        L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
-        L[IST7] = L[IST7] ^ ( (dec >> 0) & 1 );
- 
-        row = ( ( k[17] ^ R[ET17] ) << 0 )
-            + ( ( k[12] ^ R[ET12] ) << 1 );
-        col = ( ( k[16] ^ R[ET16] ) << 0 )
-            + ( ( k[15] ^ R[ET15] ) << 1 )
-            + ( ( k[14] ^ R[ET14] ) << 2 )
-            + ( ( k[13] ^ R[ET13] ) << 3 );
-        dec = s_box_table[ 128 + row*16 + col ];
-        L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
-        L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
-        L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
-        L[IST11] = L[IST11] ^ ( (dec >> 0) & 1 );     
+    row = ( ( K0_11 ^ R[ET11] ) << 0 )
+        + ( ( K0_6  ^ R[ET6 ] ) << 1 );
+    col = ( ( K0_10 ^ R[ET10] ) << 0 )
+        + ( ( K0_9  ^ R[ET9 ] ) << 1 )
+        + ( ( K0_8  ^ R[ET8 ] ) << 2 )
+        + ( ( K0_7  ^ R[ET7 ] ) << 3 );
+    dec = s_box_table[ 64 + row*16 + col ];
+    L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
+    L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
+    L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
+    L[IST7] = L[IST7] ^ ( (dec >> 0) & 1 );
 
-        row = ( ( k[23] ^ R[ET23] ) << 0 )
-            + ( ( k[18] ^ R[ET18] ) << 1 );
-        col = ( ( k[22] ^ R[ET22] ) << 0 )
-            + ( ( k[21] ^ R[ET21] ) << 1 )
-            + ( ( k[20] ^ R[ET20] ) << 2 )
-            + ( ( k[19] ^ R[ET19] ) << 3 );
-        dec = s_box_table[ 192 + row*16 + col ];
-        L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
-        L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
-        L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
-        L[IST15] = L[IST15] ^ ( (dec >> 0) & 1 );
-      
-        row = ( ( k[29] ^ R[ET29] ) << 0 )
-            + ( ( k[24] ^ R[ET24] ) << 1 );
-        col = ( ( k[28] ^ R[ET28] ) << 0 )
-            + ( ( k[27] ^ R[ET27] ) << 1 )
-            + ( ( k[26] ^ R[ET26] ) << 2 )
-            + ( ( k[25] ^ R[ET25] ) << 3 );
-        dec = s_box_table[ 256 + row*16 + col ];
-        L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
-        L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
-        L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
-        L[IST19] = L[IST19] ^ ( (dec >> 0) & 1 );
+    row = ( ( K0_17 ^ R[ET17] ) << 0 )
+        + ( ( K0_12 ^ R[ET12] ) << 1 );
+    col = ( ( K0_16 ^ R[ET16] ) << 0 )
+        + ( ( K0_15 ^ R[ET15] ) << 1 )
+        + ( ( K0_14 ^ R[ET14] ) << 2 )
+        + ( ( K0_13 ^ R[ET13] ) << 3 );
+    dec = s_box_table[ 128 + row*16 + col ];
+    L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
+    L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
+    L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
+    L[IST11] = L[IST11] ^ ( (dec >> 0) & 1 );     
 
-        row = ( ( k[35] ^ R[ET35] ) << 0 )
-            + ( ( k[30] ^ R[ET30] ) << 1 );
-        col = ( ( k[34] ^ R[ET34] ) << 0 )
-            + ( ( k[33] ^ R[ET33] ) << 1 )
-            + ( ( k[32] ^ R[ET32] ) << 2 )
-            + ( ( k[31] ^ R[ET31] ) << 3 );
-        dec = s_box_table[ 320 + row*16 + col ];
-        L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
-        L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
-        L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
-        L[IST23] = L[IST23] ^ ( (dec >> 0) & 1 );
+    row = ( ( K0_23 ^ R[ET23] ) << 0 )
+        + ( ( K0_18 ^ R[ET18] ) << 1 );
+    col = ( ( K0_22 ^ R[ET22] ) << 0 )
+        + ( ( K0_21 ^ R[ET21] ) << 1 )
+        + ( ( K0_20 ^ R[ET20] ) << 2 )
+        + ( ( K0_19 ^ R[ET19] ) << 3 );
+    dec = s_box_table[ 192 + row*16 + col ];
+    L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
+    L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
+    L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
+    L[IST15] = L[IST15] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K0_29 ^ R[ET29] ) << 0 )
+        + ( ( K0_24 ^ R[ET24] ) << 1 );
+    col = ( ( K0_28 ^ R[ET28] ) << 0 )
+        + ( ( K0_27 ^ R[ET27] ) << 1 )
+        + ( ( K0_26 ^ R[ET26] ) << 2 )
+        + ( ( K0_25 ^ R[ET25] ) << 3 );
+    dec = s_box_table[ 256 + row*16 + col ];
+    L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
+    L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
+    L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
+    L[IST19] = L[IST19] ^ ( (dec >> 0) & 1 );
 
-        row = ( ( k[41] ^ R[ET41] ) << 0 )
-            + ( ( k[36] ^ R[ET36] ) << 1 );
-        col = ( ( k[40] ^ R[ET40] ) << 0 )
-            + ( ( k[39] ^ R[ET39] ) << 1 )
-            + ( ( k[38] ^ R[ET38] ) << 2 )
-            + ( ( k[37] ^ R[ET37] ) << 3 );
-        dec = s_box_table[ 384 + row*16 + col ];
-        L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
-        L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
-        L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
-        L[IST27] = L[IST27] ^ ( (dec >> 0) & 1 );
-      
-        row = ( ( k[47] ^ R[ET47] ) << 0 )
-            + ( ( k[42] ^ R[ET42] ) << 1 );
-        col = ( ( k[46] ^ R[ET46] ) << 0 )
-            + ( ( k[45] ^ R[ET45] ) << 1 )
-            + ( ( k[44] ^ R[ET44] ) << 2 )
-            + ( ( k[43] ^ R[ET43] ) << 3 );
-        dec = s_box_table[ 448 + row*16 + col ];
-        L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
-        L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
-        L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
-        L[IST31] = L[IST31] ^ ( (dec >> 0) & 1 );
+    row = ( ( K0_35 ^ R[ET35] ) << 0 )
+        + ( ( K0_30 ^ R[ET30] ) << 1 );
+    col = ( ( K0_34 ^ R[ET34] ) << 0 )
+        + ( ( K0_33 ^ R[ET33] ) << 1 )
+        + ( ( K0_32 ^ R[ET32] ) << 2 )
+        + ( ( K0_31 ^ R[ET31] ) << 3 );
+    dec = s_box_table[ 320 + row*16 + col ];
+    L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
+    L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
+    L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
+    L[IST23] = L[IST23] ^ ( (dec >> 0) & 1 );
 
-      if(i != 15) {
-        temp = L;
-        L    = R;
-        R    = temp;
-      }
-    }
-    
+    row = ( ( K0_41 ^ R[ET41] ) << 0 )
+        + ( ( K0_36 ^ R[ET36] ) << 1 );
+    col = ( ( K0_40 ^ R[ET40] ) << 0 )
+        + ( ( K0_39 ^ R[ET39] ) << 1 )
+        + ( ( K0_38 ^ R[ET38] ) << 2 )
+        + ( ( K0_37 ^ R[ET37] ) << 3 );
+    dec = s_box_table[ 384 + row*16 + col ];
+    L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
+    L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
+    L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
+    L[IST27] = L[IST27] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K0_47 ^ R[ET47] ) << 0 )
+        + ( ( K0_42 ^ R[ET42] ) << 1 );
+    col = ( ( K0_46 ^ R[ET46] ) << 0 )
+        + ( ( K0_45 ^ R[ET45] ) << 1 )
+        + ( ( K0_44 ^ R[ET44] ) << 2 )
+        + ( ( K0_43 ^ R[ET43] ) << 3 );
+    dec = s_box_table[ 448 + row*16 + col ];
+    L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
+    L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
+    L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
+    L[IST31] = L[IST31] ^ ( (dec >> 0) & 1 );
+
+    // 1
+    row = ( ( K1_5 ^ L[ET5] ) << 0 )
+        + ( ( K1_0 ^ L[ET0] ) << 1 );
+    col = ( ( K1_4 ^ L[ET4] ) << 0 )
+        + ( ( K1_3 ^ L[ET3] ) << 1 )
+        + ( ( K1_2 ^ L[ET2] ) << 2 )
+        + ( ( K1_1 ^ L[ET1] ) << 3 );
+    dec = s_box_table[ 0 + row*16 + col ];
+    R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
+    R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
+    R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
+    R[IST3] = R[IST3] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K1_11 ^ L[ET11] ) << 0 )
+        + ( ( K1_6  ^ L[ET6 ] ) << 1 );
+    col = ( ( K1_10 ^ L[ET10] ) << 0 )
+        + ( ( K1_9  ^ L[ET9 ] ) << 1 )
+        + ( ( K1_8  ^ L[ET8 ] ) << 2 )
+        + ( ( K1_7  ^ L[ET7 ] ) << 3 );
+    dec = s_box_table[ 64 + row*16 + col ];
+    R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
+    R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
+    R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
+    R[IST7] = R[IST7] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K1_17 ^ L[ET17] ) << 0 )
+        + ( ( K1_12 ^ L[ET12] ) << 1 );
+    col = ( ( K1_16 ^ L[ET16] ) << 0 )
+        + ( ( K1_15 ^ L[ET15] ) << 1 )
+        + ( ( K1_14 ^ L[ET14] ) << 2 )
+        + ( ( K1_13 ^ L[ET13] ) << 3 );
+    dec = s_box_table[ 128 + row*16 + col ];
+    R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
+    R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
+    R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
+    R[IST11] = R[IST11] ^ ( (dec >> 0) & 1 );     
+
+    row = ( ( K1_23 ^ L[ET23] ) << 0 )
+        + ( ( K1_18 ^ L[ET18] ) << 1 );
+    col = ( ( K1_22 ^ L[ET22] ) << 0 )
+        + ( ( K1_21 ^ L[ET21] ) << 1 )
+        + ( ( K1_20 ^ L[ET20] ) << 2 )
+        + ( ( K1_19 ^ L[ET19] ) << 3 );
+    dec = s_box_table[ 192 + row*16 + col ];
+    R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
+    R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
+    R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
+    R[IST15] = R[IST15] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K1_29 ^ L[ET29] ) << 0 )
+        + ( ( K1_24 ^ L[ET24] ) << 1 );
+    col = ( ( K1_28 ^ L[ET28] ) << 0 )
+        + ( ( K1_27 ^ L[ET27] ) << 1 )
+        + ( ( K1_26 ^ L[ET26] ) << 2 )
+        + ( ( K1_25 ^ L[ET25] ) << 3 );
+    dec = s_box_table[ 256 + row*16 + col ];
+    R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
+    R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
+    R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
+    R[IST19] = R[IST19] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K1_35 ^ L[ET35] ) << 0 )
+        + ( ( K1_30 ^ L[ET30] ) << 1 );
+    col = ( ( K1_34 ^ L[ET34] ) << 0 )
+        + ( ( K1_33 ^ L[ET33] ) << 1 )
+        + ( ( K1_32 ^ L[ET32] ) << 2 )
+        + ( ( K1_31 ^ L[ET31] ) << 3 );
+    dec = s_box_table[ 320 + row*16 + col ];
+    R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
+    R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
+    R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
+    R[IST23] = R[IST23] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K1_41 ^ L[ET41] ) << 0 )
+        + ( ( K1_36 ^ L[ET36] ) << 1 );
+    col = ( ( K1_40 ^ L[ET40] ) << 0 )
+        + ( ( K1_39 ^ L[ET39] ) << 1 )
+        + ( ( K1_38 ^ L[ET38] ) << 2 )
+        + ( ( K1_37 ^ L[ET37] ) << 3 );
+    dec = s_box_table[ 384 + row*16 + col ];
+    R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
+    R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
+    R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
+    R[IST27] = R[IST27] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K1_47 ^ L[ET47] ) << 0 )
+        + ( ( K1_42 ^ L[ET42] ) << 1 );
+    col = ( ( K1_46 ^ L[ET46] ) << 0 )
+        + ( ( K1_45 ^ L[ET45] ) << 1 )
+        + ( ( K1_44 ^ L[ET44] ) << 2 )
+        + ( ( K1_43 ^ L[ET43] ) << 3 );
+    dec = s_box_table[ 448 + row*16 + col ];
+    R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
+    R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
+    R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
+    R[IST31] = R[IST31] ^ ( (dec >> 0) & 1 );
+
+    // 2
+    row = ( ( K2_5 ^ R[ET5] ) << 0 )
+        + ( ( K2_0 ^ R[ET0] ) << 1 );
+    col = ( ( K2_4 ^ R[ET4] ) << 0 )
+        + ( ( K2_3 ^ R[ET3] ) << 1 )
+        + ( ( K2_2 ^ R[ET2] ) << 2 )
+        + ( ( K2_1 ^ R[ET1] ) << 3 );
+    dec = s_box_table[ 0 + row*16 + col ];
+    L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
+    L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
+    L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
+    L[IST3] = L[IST3] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K2_11 ^ R[ET11] ) << 0 )
+        + ( ( K2_6  ^ R[ET6 ] ) << 1 );
+    col = ( ( K2_10 ^ R[ET10] ) << 0 )
+        + ( ( K2_9  ^ R[ET9 ] ) << 1 )
+        + ( ( K2_8  ^ R[ET8 ] ) << 2 )
+        + ( ( K2_7  ^ R[ET7 ] ) << 3 );
+    dec = s_box_table[ 64 + row*16 + col ];
+    L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
+    L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
+    L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
+    L[IST7] = L[IST7] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K2_17 ^ R[ET17] ) << 0 )
+        + ( ( K2_12 ^ R[ET12] ) << 1 );
+    col = ( ( K2_16 ^ R[ET16] ) << 0 )
+        + ( ( K2_15 ^ R[ET15] ) << 1 )
+        + ( ( K2_14 ^ R[ET14] ) << 2 )
+        + ( ( K2_13 ^ R[ET13] ) << 3 );
+    dec = s_box_table[ 128 + row*16 + col ];
+    L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
+    L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
+    L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
+    L[IST11] = L[IST11] ^ ( (dec >> 0) & 1 );     
+
+    row = ( ( K2_23 ^ R[ET23] ) << 0 )
+        + ( ( K2_18 ^ R[ET18] ) << 1 );
+    col = ( ( K2_22 ^ R[ET22] ) << 0 )
+        + ( ( K2_21 ^ R[ET21] ) << 1 )
+        + ( ( K2_20 ^ R[ET20] ) << 2 )
+        + ( ( K2_19 ^ R[ET19] ) << 3 );
+    dec = s_box_table[ 192 + row*16 + col ];
+    L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
+    L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
+    L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
+    L[IST15] = L[IST15] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K2_29 ^ R[ET29] ) << 0 )
+        + ( ( K2_24 ^ R[ET24] ) << 1 );
+    col = ( ( K2_28 ^ R[ET28] ) << 0 )
+        + ( ( K2_27 ^ R[ET27] ) << 1 )
+        + ( ( K2_26 ^ R[ET26] ) << 2 )
+        + ( ( K2_25 ^ R[ET25] ) << 3 );
+    dec = s_box_table[ 256 + row*16 + col ];
+    L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
+    L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
+    L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
+    L[IST19] = L[IST19] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K2_35 ^ R[ET35] ) << 0 )
+        + ( ( K2_30 ^ R[ET30] ) << 1 );
+    col = ( ( K2_34 ^ R[ET34] ) << 0 )
+        + ( ( K2_33 ^ R[ET33] ) << 1 )
+        + ( ( K2_32 ^ R[ET32] ) << 2 )
+        + ( ( K2_31 ^ R[ET31] ) << 3 );
+    dec = s_box_table[ 320 + row*16 + col ];
+    L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
+    L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
+    L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
+    L[IST23] = L[IST23] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K2_41 ^ R[ET41] ) << 0 )
+        + ( ( K2_36 ^ R[ET36] ) << 1 );
+    col = ( ( K2_40 ^ R[ET40] ) << 0 )
+        + ( ( K2_39 ^ R[ET39] ) << 1 )
+        + ( ( K2_38 ^ R[ET38] ) << 2 )
+        + ( ( K2_37 ^ R[ET37] ) << 3 );
+    dec = s_box_table[ 384 + row*16 + col ];
+    L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
+    L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
+    L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
+    L[IST27] = L[IST27] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K2_47 ^ R[ET47] ) << 0 )
+        + ( ( K2_42 ^ R[ET42] ) << 1 );
+    col = ( ( K2_46 ^ R[ET46] ) << 0 )
+        + ( ( K2_45 ^ R[ET45] ) << 1 )
+        + ( ( K2_44 ^ R[ET44] ) << 2 )
+        + ( ( K2_43 ^ R[ET43] ) << 3 );
+    dec = s_box_table[ 448 + row*16 + col ];
+    L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
+    L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
+    L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
+    L[IST31] = L[IST31] ^ ( (dec >> 0) & 1 );
+
+    // 3
+    row = ( ( K3_5 ^ L[ET5] ) << 0 )
+        + ( ( K3_0 ^ L[ET0] ) << 1 );
+    col = ( ( K3_4 ^ L[ET4] ) << 0 )
+        + ( ( K3_3 ^ L[ET3] ) << 1 )
+        + ( ( K3_2 ^ L[ET2] ) << 2 )
+        + ( ( K3_1 ^ L[ET1] ) << 3 );
+    dec = s_box_table[ 0 + row*16 + col ];
+    R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
+    R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
+    R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
+    R[IST3] = R[IST3] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K3_11 ^ L[ET11] ) << 0 )
+        + ( ( K3_6  ^ L[ET6 ] ) << 1 );
+    col = ( ( K3_10 ^ L[ET10] ) << 0 )
+        + ( ( K3_9  ^ L[ET9 ] ) << 1 )
+        + ( ( K3_8  ^ L[ET8 ] ) << 2 )
+        + ( ( K3_7  ^ L[ET7 ] ) << 3 );
+    dec = s_box_table[ 64 + row*16 + col ];
+    R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
+    R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
+    R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
+    R[IST7] = R[IST7] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K3_17 ^ L[ET17] ) << 0 )
+        + ( ( K3_12 ^ L[ET12] ) << 1 );
+    col = ( ( K3_16 ^ L[ET16] ) << 0 )
+        + ( ( K3_15 ^ L[ET15] ) << 1 )
+        + ( ( K3_14 ^ L[ET14] ) << 2 )
+        + ( ( K3_13 ^ L[ET13] ) << 3 );
+    dec = s_box_table[ 128 + row*16 + col ];
+    R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
+    R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
+    R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
+    R[IST11] = R[IST11] ^ ( (dec >> 0) & 1 );     
+
+    row = ( ( K3_23 ^ L[ET23] ) << 0 )
+        + ( ( K3_18 ^ L[ET18] ) << 1 );
+    col = ( ( K3_22 ^ L[ET22] ) << 0 )
+        + ( ( K3_21 ^ L[ET21] ) << 1 )
+        + ( ( K3_20 ^ L[ET20] ) << 2 )
+        + ( ( K3_19 ^ L[ET19] ) << 3 );
+    dec = s_box_table[ 192 + row*16 + col ];
+    R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
+    R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
+    R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
+    R[IST15] = R[IST15] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K3_29 ^ L[ET29] ) << 0 )
+        + ( ( K3_24 ^ L[ET24] ) << 1 );
+    col = ( ( K3_28 ^ L[ET28] ) << 0 )
+        + ( ( K3_27 ^ L[ET27] ) << 1 )
+        + ( ( K3_26 ^ L[ET26] ) << 2 )
+        + ( ( K3_25 ^ L[ET25] ) << 3 );
+    dec = s_box_table[ 256 + row*16 + col ];
+    R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
+    R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
+    R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
+    R[IST19] = R[IST19] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K3_35 ^ L[ET35] ) << 0 )
+        + ( ( K3_30 ^ L[ET30] ) << 1 );
+    col = ( ( K3_34 ^ L[ET34] ) << 0 )
+        + ( ( K3_33 ^ L[ET33] ) << 1 )
+        + ( ( K3_32 ^ L[ET32] ) << 2 )
+        + ( ( K3_31 ^ L[ET31] ) << 3 );
+    dec = s_box_table[ 320 + row*16 + col ];
+    R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
+    R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
+    R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
+    R[IST23] = R[IST23] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K3_41 ^ L[ET41] ) << 0 )
+        + ( ( K3_36 ^ L[ET36] ) << 1 );
+    col = ( ( K3_40 ^ L[ET40] ) << 0 )
+        + ( ( K3_39 ^ L[ET39] ) << 1 )
+        + ( ( K3_38 ^ L[ET38] ) << 2 )
+        + ( ( K3_37 ^ L[ET37] ) << 3 );
+    dec = s_box_table[ 384 + row*16 + col ];
+    R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
+    R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
+    R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
+    R[IST27] = R[IST27] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K3_47 ^ L[ET47] ) << 0 )
+        + ( ( K3_42 ^ L[ET42] ) << 1 );
+    col = ( ( K3_46 ^ L[ET46] ) << 0 )
+        + ( ( K3_45 ^ L[ET45] ) << 1 )
+        + ( ( K3_44 ^ L[ET44] ) << 2 )
+        + ( ( K3_43 ^ L[ET43] ) << 3 );
+    dec = s_box_table[ 448 + row*16 + col ];
+    R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
+    R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
+    R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
+    R[IST31] = R[IST31] ^ ( (dec >> 0) & 1 );
+
+    // 4
+    row = ( ( K4_5 ^ R[ET5] ) << 0 )
+        + ( ( K4_0 ^ R[ET0] ) << 1 );
+    col = ( ( K4_4 ^ R[ET4] ) << 0 )
+        + ( ( K4_3 ^ R[ET3] ) << 1 )
+        + ( ( K4_2 ^ R[ET2] ) << 2 )
+        + ( ( K4_1 ^ R[ET1] ) << 3 );
+    dec = s_box_table[ 0 + row*16 + col ];
+    L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
+    L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
+    L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
+    L[IST3] = L[IST3] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K4_11 ^ R[ET11] ) << 0 )
+        + ( ( K4_6  ^ R[ET6 ] ) << 1 );
+    col = ( ( K4_10 ^ R[ET10] ) << 0 )
+        + ( ( K4_9  ^ R[ET9 ] ) << 1 )
+        + ( ( K4_8  ^ R[ET8 ] ) << 2 )
+        + ( ( K4_7  ^ R[ET7 ] ) << 3 );
+    dec = s_box_table[ 64 + row*16 + col ];
+    L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
+    L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
+    L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
+    L[IST7] = L[IST7] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K4_17 ^ R[ET17] ) << 0 )
+        + ( ( K4_12 ^ R[ET12] ) << 1 );
+    col = ( ( K4_16 ^ R[ET16] ) << 0 )
+        + ( ( K4_15 ^ R[ET15] ) << 1 )
+        + ( ( K4_14 ^ R[ET14] ) << 2 )
+        + ( ( K4_13 ^ R[ET13] ) << 3 );
+    dec = s_box_table[ 128 + row*16 + col ];
+    L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
+    L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
+    L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
+    L[IST11] = L[IST11] ^ ( (dec >> 0) & 1 );     
+
+    row = ( ( K4_23 ^ R[ET23] ) << 0 )
+        + ( ( K4_18 ^ R[ET18] ) << 1 );
+    col = ( ( K4_22 ^ R[ET22] ) << 0 )
+        + ( ( K4_21 ^ R[ET21] ) << 1 )
+        + ( ( K4_20 ^ R[ET20] ) << 2 )
+        + ( ( K4_19 ^ R[ET19] ) << 3 );
+    dec = s_box_table[ 192 + row*16 + col ];
+    L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
+    L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
+    L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
+    L[IST15] = L[IST15] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K4_29 ^ R[ET29] ) << 0 )
+        + ( ( K4_24 ^ R[ET24] ) << 1 );
+    col = ( ( K4_28 ^ R[ET28] ) << 0 )
+        + ( ( K4_27 ^ R[ET27] ) << 1 )
+        + ( ( K4_26 ^ R[ET26] ) << 2 )
+        + ( ( K4_25 ^ R[ET25] ) << 3 );
+    dec = s_box_table[ 256 + row*16 + col ];
+    L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
+    L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
+    L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
+    L[IST19] = L[IST19] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K4_35 ^ R[ET35] ) << 0 )
+        + ( ( K4_30 ^ R[ET30] ) << 1 );
+    col = ( ( K4_34 ^ R[ET34] ) << 0 )
+        + ( ( K4_33 ^ R[ET33] ) << 1 )
+        + ( ( K4_32 ^ R[ET32] ) << 2 )
+        + ( ( K4_31 ^ R[ET31] ) << 3 );
+    dec = s_box_table[ 320 + row*16 + col ];
+    L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
+    L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
+    L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
+    L[IST23] = L[IST23] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K4_41 ^ R[ET41] ) << 0 )
+        + ( ( K4_36 ^ R[ET36] ) << 1 );
+    col = ( ( K4_40 ^ R[ET40] ) << 0 )
+        + ( ( K4_39 ^ R[ET39] ) << 1 )
+        + ( ( K4_38 ^ R[ET38] ) << 2 )
+        + ( ( K4_37 ^ R[ET37] ) << 3 );
+    dec = s_box_table[ 384 + row*16 + col ];
+    L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
+    L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
+    L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
+    L[IST27] = L[IST27] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K4_47 ^ R[ET47] ) << 0 )
+        + ( ( K4_42 ^ R[ET42] ) << 1 );
+    col = ( ( K4_46 ^ R[ET46] ) << 0 )
+        + ( ( K4_45 ^ R[ET45] ) << 1 )
+        + ( ( K4_44 ^ R[ET44] ) << 2 )
+        + ( ( K4_43 ^ R[ET43] ) << 3 );
+    dec = s_box_table[ 448 + row*16 + col ];
+    L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
+    L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
+    L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
+    L[IST31] = L[IST31] ^ ( (dec >> 0) & 1 );
+
+    // 5
+    row = ( ( K5_5 ^ L[ET5] ) << 0 )
+        + ( ( K5_0 ^ L[ET0] ) << 1 );
+    col = ( ( K5_4 ^ L[ET4] ) << 0 )
+        + ( ( K5_3 ^ L[ET3] ) << 1 )
+        + ( ( K5_2 ^ L[ET2] ) << 2 )
+        + ( ( K5_1 ^ L[ET1] ) << 3 );
+    dec = s_box_table[ 0 + row*16 + col ];
+    R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
+    R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
+    R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
+    R[IST3] = R[IST3] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K5_11 ^ L[ET11] ) << 0 )
+        + ( ( K5_6  ^ L[ET6 ] ) << 1 );
+    col = ( ( K5_10 ^ L[ET10] ) << 0 )
+        + ( ( K5_9  ^ L[ET9 ] ) << 1 )
+        + ( ( K5_8  ^ L[ET8 ] ) << 2 )
+        + ( ( K5_7  ^ L[ET7 ] ) << 3 );
+    dec = s_box_table[ 64 + row*16 + col ];
+    R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
+    R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
+    R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
+    R[IST7] = R[IST7] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K5_17 ^ L[ET17] ) << 0 )
+        + ( ( K5_12 ^ L[ET12] ) << 1 );
+    col = ( ( K5_16 ^ L[ET16] ) << 0 )
+        + ( ( K5_15 ^ L[ET15] ) << 1 )
+        + ( ( K5_14 ^ L[ET14] ) << 2 )
+        + ( ( K5_13 ^ L[ET13] ) << 3 );
+    dec = s_box_table[ 128 + row*16 + col ];
+    R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
+    R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
+    R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
+    R[IST11] = R[IST11] ^ ( (dec >> 0) & 1 );     
+
+    row = ( ( K5_23 ^ L[ET23] ) << 0 )
+        + ( ( K5_18 ^ L[ET18] ) << 1 );
+    col = ( ( K5_22 ^ L[ET22] ) << 0 )
+        + ( ( K5_21 ^ L[ET21] ) << 1 )
+        + ( ( K5_20 ^ L[ET20] ) << 2 )
+        + ( ( K5_19 ^ L[ET19] ) << 3 );
+    dec = s_box_table[ 192 + row*16 + col ];
+    R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
+    R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
+    R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
+    R[IST15] = R[IST15] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K5_29 ^ L[ET29] ) << 0 )
+        + ( ( K5_24 ^ L[ET24] ) << 1 );
+    col = ( ( K5_28 ^ L[ET28] ) << 0 )
+        + ( ( K5_27 ^ L[ET27] ) << 1 )
+        + ( ( K5_26 ^ L[ET26] ) << 2 )
+        + ( ( K5_25 ^ L[ET25] ) << 3 );
+    dec = s_box_table[ 256 + row*16 + col ];
+    R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
+    R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
+    R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
+    R[IST19] = R[IST19] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K5_35 ^ L[ET35] ) << 0 )
+        + ( ( K5_30 ^ L[ET30] ) << 1 );
+    col = ( ( K5_34 ^ L[ET34] ) << 0 )
+        + ( ( K5_33 ^ L[ET33] ) << 1 )
+        + ( ( K5_32 ^ L[ET32] ) << 2 )
+        + ( ( K5_31 ^ L[ET31] ) << 3 );
+    dec = s_box_table[ 320 + row*16 + col ];
+    R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
+    R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
+    R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
+    R[IST23] = R[IST23] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K5_41 ^ L[ET41] ) << 0 )
+        + ( ( K5_36 ^ L[ET36] ) << 1 );
+    col = ( ( K5_40 ^ L[ET40] ) << 0 )
+        + ( ( K5_39 ^ L[ET39] ) << 1 )
+        + ( ( K5_38 ^ L[ET38] ) << 2 )
+        + ( ( K5_37 ^ L[ET37] ) << 3 );
+    dec = s_box_table[ 384 + row*16 + col ];
+    R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
+    R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
+    R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
+    R[IST27] = R[IST27] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K5_47 ^ L[ET47] ) << 0 )
+        + ( ( K5_42 ^ L[ET42] ) << 1 );
+    col = ( ( K5_46 ^ L[ET46] ) << 0 )
+        + ( ( K5_45 ^ L[ET45] ) << 1 )
+        + ( ( K5_44 ^ L[ET44] ) << 2 )
+        + ( ( K5_43 ^ L[ET43] ) << 3 );
+    dec = s_box_table[ 448 + row*16 + col ];
+    R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
+    R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
+    R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
+    R[IST31] = R[IST31] ^ ( (dec >> 0) & 1 );
+
+    // 6
+    row = ( ( K6_5 ^ R[ET5] ) << 0 )
+        + ( ( K6_0 ^ R[ET0] ) << 1 );
+    col = ( ( K6_4 ^ R[ET4] ) << 0 )
+        + ( ( K6_3 ^ R[ET3] ) << 1 )
+        + ( ( K6_2 ^ R[ET2] ) << 2 )
+        + ( ( K6_1 ^ R[ET1] ) << 3 );
+    dec = s_box_table[ 0 + row*16 + col ];
+    L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
+    L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
+    L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
+    L[IST3] = L[IST3] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K6_11 ^ R[ET11] ) << 0 )
+        + ( ( K6_6  ^ R[ET6 ] ) << 1 );
+    col = ( ( K6_10 ^ R[ET10] ) << 0 )
+        + ( ( K6_9  ^ R[ET9 ] ) << 1 )
+        + ( ( K6_8  ^ R[ET8 ] ) << 2 )
+        + ( ( K6_7  ^ R[ET7 ] ) << 3 );
+    dec = s_box_table[ 64 + row*16 + col ];
+    L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
+    L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
+    L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
+    L[IST7] = L[IST7] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K6_17 ^ R[ET17] ) << 0 )
+        + ( ( K6_12 ^ R[ET12] ) << 1 );
+    col = ( ( K6_16 ^ R[ET16] ) << 0 )
+        + ( ( K6_15 ^ R[ET15] ) << 1 )
+        + ( ( K6_14 ^ R[ET14] ) << 2 )
+        + ( ( K6_13 ^ R[ET13] ) << 3 );
+    dec = s_box_table[ 128 + row*16 + col ];
+    L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
+    L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
+    L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
+    L[IST11] = L[IST11] ^ ( (dec >> 0) & 1 );     
+
+    row = ( ( K6_23 ^ R[ET23] ) << 0 )
+        + ( ( K6_18 ^ R[ET18] ) << 1 );
+    col = ( ( K6_22 ^ R[ET22] ) << 0 )
+        + ( ( K6_21 ^ R[ET21] ) << 1 )
+        + ( ( K6_20 ^ R[ET20] ) << 2 )
+        + ( ( K6_19 ^ R[ET19] ) << 3 );
+    dec = s_box_table[ 192 + row*16 + col ];
+    L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
+    L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
+    L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
+    L[IST15] = L[IST15] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K6_29 ^ R[ET29] ) << 0 )
+        + ( ( K6_24 ^ R[ET24] ) << 1 );
+    col = ( ( K6_28 ^ R[ET28] ) << 0 )
+        + ( ( K6_27 ^ R[ET27] ) << 1 )
+        + ( ( K6_26 ^ R[ET26] ) << 2 )
+        + ( ( K6_25 ^ R[ET25] ) << 3 );
+    dec = s_box_table[ 256 + row*16 + col ];
+    L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
+    L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
+    L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
+    L[IST19] = L[IST19] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K6_35 ^ R[ET35] ) << 0 )
+        + ( ( K6_30 ^ R[ET30] ) << 1 );
+    col = ( ( K6_34 ^ R[ET34] ) << 0 )
+        + ( ( K6_33 ^ R[ET33] ) << 1 )
+        + ( ( K6_32 ^ R[ET32] ) << 2 )
+        + ( ( K6_31 ^ R[ET31] ) << 3 );
+    dec = s_box_table[ 320 + row*16 + col ];
+    L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
+    L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
+    L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
+    L[IST23] = L[IST23] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K6_41 ^ R[ET41] ) << 0 )
+        + ( ( K6_36 ^ R[ET36] ) << 1 );
+    col = ( ( K6_40 ^ R[ET40] ) << 0 )
+        + ( ( K6_39 ^ R[ET39] ) << 1 )
+        + ( ( K6_38 ^ R[ET38] ) << 2 )
+        + ( ( K6_37 ^ R[ET37] ) << 3 );
+    dec = s_box_table[ 384 + row*16 + col ];
+    L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
+    L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
+    L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
+    L[IST27] = L[IST27] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K6_47 ^ R[ET47] ) << 0 )
+        + ( ( K6_42 ^ R[ET42] ) << 1 );
+    col = ( ( K6_46 ^ R[ET46] ) << 0 )
+        + ( ( K6_45 ^ R[ET45] ) << 1 )
+        + ( ( K6_44 ^ R[ET44] ) << 2 )
+        + ( ( K6_43 ^ R[ET43] ) << 3 );
+    dec = s_box_table[ 448 + row*16 + col ];
+    L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
+    L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
+    L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
+    L[IST31] = L[IST31] ^ ( (dec >> 0) & 1 );
+
+    // 7
+    row = ( ( K7_5 ^ L[ET5] ) << 0 )
+        + ( ( K7_0 ^ L[ET0] ) << 1 );
+    col = ( ( K7_4 ^ L[ET4] ) << 0 )
+        + ( ( K7_3 ^ L[ET3] ) << 1 )
+        + ( ( K7_2 ^ L[ET2] ) << 2 )
+        + ( ( K7_1 ^ L[ET1] ) << 3 );
+    dec = s_box_table[ 0 + row*16 + col ];
+    R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
+    R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
+    R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
+    R[IST3] = R[IST3] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K7_11 ^ L[ET11] ) << 0 )
+        + ( ( K7_6  ^ L[ET6 ] ) << 1 );
+    col = ( ( K7_10 ^ L[ET10] ) << 0 )
+        + ( ( K7_9  ^ L[ET9 ] ) << 1 )
+        + ( ( K7_8  ^ L[ET8 ] ) << 2 )
+        + ( ( K7_7  ^ L[ET7 ] ) << 3 );
+    dec = s_box_table[ 64 + row*16 + col ];
+    R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
+    R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
+    R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
+    R[IST7] = R[IST7] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K7_17 ^ L[ET17] ) << 0 )
+        + ( ( K7_12 ^ L[ET12] ) << 1 );
+    col = ( ( K7_16 ^ L[ET16] ) << 0 )
+        + ( ( K7_15 ^ L[ET15] ) << 1 )
+        + ( ( K7_14 ^ L[ET14] ) << 2 )
+        + ( ( K7_13 ^ L[ET13] ) << 3 );
+    dec = s_box_table[ 128 + row*16 + col ];
+    R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
+    R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
+    R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
+    R[IST11] = R[IST11] ^ ( (dec >> 0) & 1 );     
+
+    row = ( ( K7_23 ^ L[ET23] ) << 0 )
+        + ( ( K7_18 ^ L[ET18] ) << 1 );
+    col = ( ( K7_22 ^ L[ET22] ) << 0 )
+        + ( ( K7_21 ^ L[ET21] ) << 1 )
+        + ( ( K7_20 ^ L[ET20] ) << 2 )
+        + ( ( K7_19 ^ L[ET19] ) << 3 );
+    dec = s_box_table[ 192 + row*16 + col ];
+    R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
+    R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
+    R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
+    R[IST15] = R[IST15] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K7_29 ^ L[ET29] ) << 0 )
+        + ( ( K7_24 ^ L[ET24] ) << 1 );
+    col = ( ( K7_28 ^ L[ET28] ) << 0 )
+        + ( ( K7_27 ^ L[ET27] ) << 1 )
+        + ( ( K7_26 ^ L[ET26] ) << 2 )
+        + ( ( K7_25 ^ L[ET25] ) << 3 );
+    dec = s_box_table[ 256 + row*16 + col ];
+    R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
+    R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
+    R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
+    R[IST19] = R[IST19] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K7_35 ^ L[ET35] ) << 0 )
+        + ( ( K7_30 ^ L[ET30] ) << 1 );
+    col = ( ( K7_34 ^ L[ET34] ) << 0 )
+        + ( ( K7_33 ^ L[ET33] ) << 1 )
+        + ( ( K7_32 ^ L[ET32] ) << 2 )
+        + ( ( K7_31 ^ L[ET31] ) << 3 );
+    dec = s_box_table[ 320 + row*16 + col ];
+    R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
+    R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
+    R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
+    R[IST23] = R[IST23] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K7_41 ^ L[ET41] ) << 0 )
+        + ( ( K7_36 ^ L[ET36] ) << 1 );
+    col = ( ( K7_40 ^ L[ET40] ) << 0 )
+        + ( ( K7_39 ^ L[ET39] ) << 1 )
+        + ( ( K7_38 ^ L[ET38] ) << 2 )
+        + ( ( K7_37 ^ L[ET37] ) << 3 );
+    dec = s_box_table[ 384 + row*16 + col ];
+    R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
+    R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
+    R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
+    R[IST27] = R[IST27] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K7_47 ^ L[ET47] ) << 0 )
+        + ( ( K7_42 ^ L[ET42] ) << 1 );
+    col = ( ( K7_46 ^ L[ET46] ) << 0 )
+        + ( ( K7_45 ^ L[ET45] ) << 1 )
+        + ( ( K7_44 ^ L[ET44] ) << 2 )
+        + ( ( K7_43 ^ L[ET43] ) << 3 );
+    dec = s_box_table[ 448 + row*16 + col ];
+    R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
+    R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
+    R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
+    R[IST31] = R[IST31] ^ ( (dec >> 0) & 1 );
+
+    // 8
+    row = ( ( K8_5 ^ R[ET5] ) << 0 )
+        + ( ( K8_0 ^ R[ET0] ) << 1 );
+    col = ( ( K8_4 ^ R[ET4] ) << 0 )
+        + ( ( K8_3 ^ R[ET3] ) << 1 )
+        + ( ( K8_2 ^ R[ET2] ) << 2 )
+        + ( ( K8_1 ^ R[ET1] ) << 3 );
+    dec = s_box_table[ 0 + row*16 + col ];
+    L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
+    L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
+    L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
+    L[IST3] = L[IST3] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K8_11 ^ R[ET11] ) << 0 )
+        + ( ( K8_6  ^ R[ET6 ] ) << 1 );
+    col = ( ( K8_10 ^ R[ET10] ) << 0 )
+        + ( ( K8_9  ^ R[ET9 ] ) << 1 )
+        + ( ( K8_8  ^ R[ET8 ] ) << 2 )
+        + ( ( K8_7  ^ R[ET7 ] ) << 3 );
+    dec = s_box_table[ 64 + row*16 + col ];
+    L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
+    L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
+    L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
+    L[IST7] = L[IST7] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K8_17 ^ R[ET17] ) << 0 )
+        + ( ( K8_12 ^ R[ET12] ) << 1 );
+    col = ( ( K8_16 ^ R[ET16] ) << 0 )
+        + ( ( K8_15 ^ R[ET15] ) << 1 )
+        + ( ( K8_14 ^ R[ET14] ) << 2 )
+        + ( ( K8_13 ^ R[ET13] ) << 3 );
+    dec = s_box_table[ 128 + row*16 + col ];
+    L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
+    L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
+    L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
+    L[IST11] = L[IST11] ^ ( (dec >> 0) & 1 );     
+
+    row = ( ( K8_23 ^ R[ET23] ) << 0 )
+        + ( ( K8_18 ^ R[ET18] ) << 1 );
+    col = ( ( K8_22 ^ R[ET22] ) << 0 )
+        + ( ( K8_21 ^ R[ET21] ) << 1 )
+        + ( ( K8_20 ^ R[ET20] ) << 2 )
+        + ( ( K8_19 ^ R[ET19] ) << 3 );
+    dec = s_box_table[ 192 + row*16 + col ];
+    L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
+    L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
+    L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
+    L[IST15] = L[IST15] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K8_29 ^ R[ET29] ) << 0 )
+        + ( ( K8_24 ^ R[ET24] ) << 1 );
+    col = ( ( K8_28 ^ R[ET28] ) << 0 )
+        + ( ( K8_27 ^ R[ET27] ) << 1 )
+        + ( ( K8_26 ^ R[ET26] ) << 2 )
+        + ( ( K8_25 ^ R[ET25] ) << 3 );
+    dec = s_box_table[ 256 + row*16 + col ];
+    L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
+    L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
+    L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
+    L[IST19] = L[IST19] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K8_35 ^ R[ET35] ) << 0 )
+        + ( ( K8_30 ^ R[ET30] ) << 1 );
+    col = ( ( K8_34 ^ R[ET34] ) << 0 )
+        + ( ( K8_33 ^ R[ET33] ) << 1 )
+        + ( ( K8_32 ^ R[ET32] ) << 2 )
+        + ( ( K8_31 ^ R[ET31] ) << 3 );
+    dec = s_box_table[ 320 + row*16 + col ];
+    L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
+    L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
+    L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
+    L[IST23] = L[IST23] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K8_41 ^ R[ET41] ) << 0 )
+        + ( ( K8_36 ^ R[ET36] ) << 1 );
+    col = ( ( K8_40 ^ R[ET40] ) << 0 )
+        + ( ( K8_39 ^ R[ET39] ) << 1 )
+        + ( ( K8_38 ^ R[ET38] ) << 2 )
+        + ( ( K8_37 ^ R[ET37] ) << 3 );
+    dec = s_box_table[ 384 + row*16 + col ];
+    L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
+    L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
+    L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
+    L[IST27] = L[IST27] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K8_47 ^ R[ET47] ) << 0 )
+        + ( ( K8_42 ^ R[ET42] ) << 1 );
+    col = ( ( K8_46 ^ R[ET46] ) << 0 )
+        + ( ( K8_45 ^ R[ET45] ) << 1 )
+        + ( ( K8_44 ^ R[ET44] ) << 2 )
+        + ( ( K8_43 ^ R[ET43] ) << 3 );
+    dec = s_box_table[ 448 + row*16 + col ];
+    L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
+    L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
+    L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
+    L[IST31] = L[IST31] ^ ( (dec >> 0) & 1 );
+
+    // 9
+    row = ( ( K9_5 ^ L[ET5] ) << 0 )
+        + ( ( K9_0 ^ L[ET0] ) << 1 );
+    col = ( ( K9_4 ^ L[ET4] ) << 0 )
+        + ( ( K9_3 ^ L[ET3] ) << 1 )
+        + ( ( K9_2 ^ L[ET2] ) << 2 )
+        + ( ( K9_1 ^ L[ET1] ) << 3 );
+    dec = s_box_table[ 0 + row*16 + col ];
+    R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
+    R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
+    R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
+    R[IST3] = R[IST3] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K9_11 ^ L[ET11] ) << 0 )
+        + ( ( K9_6  ^ L[ET6 ] ) << 1 );
+    col = ( ( K9_10 ^ L[ET10] ) << 0 )
+        + ( ( K9_9  ^ L[ET9 ] ) << 1 )
+        + ( ( K9_8  ^ L[ET8 ] ) << 2 )
+        + ( ( K9_7  ^ L[ET7 ] ) << 3 );
+    dec = s_box_table[ 64 + row*16 + col ];
+    R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
+    R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
+    R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
+    R[IST7] = R[IST7] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K9_17 ^ L[ET17] ) << 0 )
+        + ( ( K9_12 ^ L[ET12] ) << 1 );
+    col = ( ( K9_16 ^ L[ET16] ) << 0 )
+        + ( ( K9_15 ^ L[ET15] ) << 1 )
+        + ( ( K9_14 ^ L[ET14] ) << 2 )
+        + ( ( K9_13 ^ L[ET13] ) << 3 );
+    dec = s_box_table[ 128 + row*16 + col ];
+    R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
+    R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
+    R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
+    R[IST11] = R[IST11] ^ ( (dec >> 0) & 1 );     
+
+    row = ( ( K9_23 ^ L[ET23] ) << 0 )
+        + ( ( K9_18 ^ L[ET18] ) << 1 );
+    col = ( ( K9_22 ^ L[ET22] ) << 0 )
+        + ( ( K9_21 ^ L[ET21] ) << 1 )
+        + ( ( K9_20 ^ L[ET20] ) << 2 )
+        + ( ( K9_19 ^ L[ET19] ) << 3 );
+    dec = s_box_table[ 192 + row*16 + col ];
+    R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
+    R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
+    R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
+    R[IST15] = R[IST15] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K9_29 ^ L[ET29] ) << 0 )
+        + ( ( K9_24 ^ L[ET24] ) << 1 );
+    col = ( ( K9_28 ^ L[ET28] ) << 0 )
+        + ( ( K9_27 ^ L[ET27] ) << 1 )
+        + ( ( K9_26 ^ L[ET26] ) << 2 )
+        + ( ( K9_25 ^ L[ET25] ) << 3 );
+    dec = s_box_table[ 256 + row*16 + col ];
+    R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
+    R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
+    R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
+    R[IST19] = R[IST19] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K9_35 ^ L[ET35] ) << 0 )
+        + ( ( K9_30 ^ L[ET30] ) << 1 );
+    col = ( ( K9_34 ^ L[ET34] ) << 0 )
+        + ( ( K9_33 ^ L[ET33] ) << 1 )
+        + ( ( K9_32 ^ L[ET32] ) << 2 )
+        + ( ( K9_31 ^ L[ET31] ) << 3 );
+    dec = s_box_table[ 320 + row*16 + col ];
+    R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
+    R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
+    R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
+    R[IST23] = R[IST23] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K9_41 ^ L[ET41] ) << 0 )
+        + ( ( K9_36 ^ L[ET36] ) << 1 );
+    col = ( ( K9_40 ^ L[ET40] ) << 0 )
+        + ( ( K9_39 ^ L[ET39] ) << 1 )
+        + ( ( K9_38 ^ L[ET38] ) << 2 )
+        + ( ( K9_37 ^ L[ET37] ) << 3 );
+    dec = s_box_table[ 384 + row*16 + col ];
+    R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
+    R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
+    R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
+    R[IST27] = R[IST27] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K9_47 ^ L[ET47] ) << 0 )
+        + ( ( K9_42 ^ L[ET42] ) << 1 );
+    col = ( ( K9_46 ^ L[ET46] ) << 0 )
+        + ( ( K9_45 ^ L[ET45] ) << 1 )
+        + ( ( K9_44 ^ L[ET44] ) << 2 )
+        + ( ( K9_43 ^ L[ET43] ) << 3 );
+    dec = s_box_table[ 448 + row*16 + col ];
+    R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
+    R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
+    R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
+    R[IST31] = R[IST31] ^ ( (dec >> 0) & 1 );
+
+    // 10
+    row = ( ( K10_5 ^ R[ET5] ) << 0 )
+        + ( ( K10_0 ^ R[ET0] ) << 1 );
+    col = ( ( K10_4 ^ R[ET4] ) << 0 )
+        + ( ( K10_3 ^ R[ET3] ) << 1 )
+        + ( ( K10_2 ^ R[ET2] ) << 2 )
+        + ( ( K10_1 ^ R[ET1] ) << 3 );
+    dec = s_box_table[ 0 + row*16 + col ];
+    L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
+    L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
+    L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
+    L[IST3] = L[IST3] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K10_11 ^ R[ET11] ) << 0 )
+        + ( ( K10_6  ^ R[ET6 ] ) << 1 );
+    col = ( ( K10_10 ^ R[ET10] ) << 0 )
+        + ( ( K10_9  ^ R[ET9 ] ) << 1 )
+        + ( ( K10_8  ^ R[ET8 ] ) << 2 )
+        + ( ( K10_7  ^ R[ET7 ] ) << 3 );
+    dec = s_box_table[ 64 + row*16 + col ];
+    L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
+    L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
+    L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
+    L[IST7] = L[IST7] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K10_17 ^ R[ET17] ) << 0 )
+        + ( ( K10_12 ^ R[ET12] ) << 1 );
+    col = ( ( K10_16 ^ R[ET16] ) << 0 )
+        + ( ( K10_15 ^ R[ET15] ) << 1 )
+        + ( ( K10_14 ^ R[ET14] ) << 2 )
+        + ( ( K10_13 ^ R[ET13] ) << 3 );
+    dec = s_box_table[ 128 + row*16 + col ];
+    L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
+    L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
+    L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
+    L[IST11] = L[IST11] ^ ( (dec >> 0) & 1 );     
+
+    row = ( ( K10_23 ^ R[ET23] ) << 0 )
+        + ( ( K10_18 ^ R[ET18] ) << 1 );
+    col = ( ( K10_22 ^ R[ET22] ) << 0 )
+        + ( ( K10_21 ^ R[ET21] ) << 1 )
+        + ( ( K10_20 ^ R[ET20] ) << 2 )
+        + ( ( K10_19 ^ R[ET19] ) << 3 );
+    dec = s_box_table[ 192 + row*16 + col ];
+    L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
+    L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
+    L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
+    L[IST15] = L[IST15] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K10_29 ^ R[ET29] ) << 0 )
+        + ( ( K10_24 ^ R[ET24] ) << 1 );
+    col = ( ( K10_28 ^ R[ET28] ) << 0 )
+        + ( ( K10_27 ^ R[ET27] ) << 1 )
+        + ( ( K10_26 ^ R[ET26] ) << 2 )
+        + ( ( K10_25 ^ R[ET25] ) << 3 );
+    dec = s_box_table[ 256 + row*16 + col ];
+    L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
+    L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
+    L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
+    L[IST19] = L[IST19] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K10_35 ^ R[ET35] ) << 0 )
+        + ( ( K10_30 ^ R[ET30] ) << 1 );
+    col = ( ( K10_34 ^ R[ET34] ) << 0 )
+        + ( ( K10_33 ^ R[ET33] ) << 1 )
+        + ( ( K10_32 ^ R[ET32] ) << 2 )
+        + ( ( K10_31 ^ R[ET31] ) << 3 );
+    dec = s_box_table[ 320 + row*16 + col ];
+    L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
+    L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
+    L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
+    L[IST23] = L[IST23] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K10_41 ^ R[ET41] ) << 0 )
+        + ( ( K10_36 ^ R[ET36] ) << 1 );
+    col = ( ( K10_40 ^ R[ET40] ) << 0 )
+        + ( ( K10_39 ^ R[ET39] ) << 1 )
+        + ( ( K10_38 ^ R[ET38] ) << 2 )
+        + ( ( K10_37 ^ R[ET37] ) << 3 );
+    dec = s_box_table[ 384 + row*16 + col ];
+    L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
+    L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
+    L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
+    L[IST27] = L[IST27] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K10_47 ^ R[ET47] ) << 0 )
+        + ( ( K10_42 ^ R[ET42] ) << 1 );
+    col = ( ( K10_46 ^ R[ET46] ) << 0 )
+        + ( ( K10_45 ^ R[ET45] ) << 1 )
+        + ( ( K10_44 ^ R[ET44] ) << 2 )
+        + ( ( K10_43 ^ R[ET43] ) << 3 );
+    dec = s_box_table[ 448 + row*16 + col ];
+    L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
+    L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
+    L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
+    L[IST31] = L[IST31] ^ ( (dec >> 0) & 1 );
+
+    // 11
+    row = ( ( K11_5 ^ L[ET5] ) << 0 )
+        + ( ( K11_0 ^ L[ET0] ) << 1 );
+    col = ( ( K11_4 ^ L[ET4] ) << 0 )
+        + ( ( K11_3 ^ L[ET3] ) << 1 )
+        + ( ( K11_2 ^ L[ET2] ) << 2 )
+        + ( ( K11_1 ^ L[ET1] ) << 3 );
+    dec = s_box_table[ 0 + row*16 + col ];
+    R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
+    R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
+    R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
+    R[IST3] = R[IST3] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K11_11 ^ L[ET11] ) << 0 )
+        + ( ( K11_6  ^ L[ET6 ] ) << 1 );
+    col = ( ( K11_10 ^ L[ET10] ) << 0 )
+        + ( ( K11_9  ^ L[ET9 ] ) << 1 )
+        + ( ( K11_8  ^ L[ET8 ] ) << 2 )
+        + ( ( K11_7  ^ L[ET7 ] ) << 3 );
+    dec = s_box_table[ 64 + row*16 + col ];
+    R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
+    R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
+    R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
+    R[IST7] = R[IST7] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K11_17 ^ L[ET17] ) << 0 )
+        + ( ( K11_12 ^ L[ET12] ) << 1 );
+    col = ( ( K11_16 ^ L[ET16] ) << 0 )
+        + ( ( K11_15 ^ L[ET15] ) << 1 )
+        + ( ( K11_14 ^ L[ET14] ) << 2 )
+        + ( ( K11_13 ^ L[ET13] ) << 3 );
+    dec = s_box_table[ 128 + row*16 + col ];
+    R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
+    R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
+    R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
+    R[IST11] = R[IST11] ^ ( (dec >> 0) & 1 );     
+
+    row = ( ( K11_23 ^ L[ET23] ) << 0 )
+        + ( ( K11_18 ^ L[ET18] ) << 1 );
+    col = ( ( K11_22 ^ L[ET22] ) << 0 )
+        + ( ( K11_21 ^ L[ET21] ) << 1 )
+        + ( ( K11_20 ^ L[ET20] ) << 2 )
+        + ( ( K11_19 ^ L[ET19] ) << 3 );
+    dec = s_box_table[ 192 + row*16 + col ];
+    R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
+    R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
+    R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
+    R[IST15] = R[IST15] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K11_29 ^ L[ET29] ) << 0 )
+        + ( ( K11_24 ^ L[ET24] ) << 1 );
+    col = ( ( K11_28 ^ L[ET28] ) << 0 )
+        + ( ( K11_27 ^ L[ET27] ) << 1 )
+        + ( ( K11_26 ^ L[ET26] ) << 2 )
+        + ( ( K11_25 ^ L[ET25] ) << 3 );
+    dec = s_box_table[ 256 + row*16 + col ];
+    R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
+    R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
+    R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
+    R[IST19] = R[IST19] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K11_35 ^ L[ET35] ) << 0 )
+        + ( ( K11_30 ^ L[ET30] ) << 1 );
+    col = ( ( K11_34 ^ L[ET34] ) << 0 )
+        + ( ( K11_33 ^ L[ET33] ) << 1 )
+        + ( ( K11_32 ^ L[ET32] ) << 2 )
+        + ( ( K11_31 ^ L[ET31] ) << 3 );
+    dec = s_box_table[ 320 + row*16 + col ];
+    R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
+    R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
+    R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
+    R[IST23] = R[IST23] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K11_41 ^ L[ET41] ) << 0 )
+        + ( ( K11_36 ^ L[ET36] ) << 1 );
+    col = ( ( K11_40 ^ L[ET40] ) << 0 )
+        + ( ( K11_39 ^ L[ET39] ) << 1 )
+        + ( ( K11_38 ^ L[ET38] ) << 2 )
+        + ( ( K11_37 ^ L[ET37] ) << 3 );
+    dec = s_box_table[ 384 + row*16 + col ];
+    R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
+    R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
+    R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
+    R[IST27] = R[IST27] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K11_47 ^ L[ET47] ) << 0 )
+        + ( ( K11_42 ^ L[ET42] ) << 1 );
+    col = ( ( K11_46 ^ L[ET46] ) << 0 )
+        + ( ( K11_45 ^ L[ET45] ) << 1 )
+        + ( ( K11_44 ^ L[ET44] ) << 2 )
+        + ( ( K11_43 ^ L[ET43] ) << 3 );
+    dec = s_box_table[ 448 + row*16 + col ];
+    R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
+    R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
+    R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
+    R[IST31] = R[IST31] ^ ( (dec >> 0) & 1 );
+
+    // 12
+    row = ( ( K12_5 ^ R[ET5] ) << 0 )
+        + ( ( K12_0 ^ R[ET0] ) << 1 );
+    col = ( ( K12_4 ^ R[ET4] ) << 0 )
+        + ( ( K12_3 ^ R[ET3] ) << 1 )
+        + ( ( K12_2 ^ R[ET2] ) << 2 )
+        + ( ( K12_1 ^ R[ET1] ) << 3 );
+    dec = s_box_table[ 0 + row*16 + col ];
+    L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
+    L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
+    L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
+    L[IST3] = L[IST3] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K12_11 ^ R[ET11] ) << 0 )
+        + ( ( K12_6  ^ R[ET6 ] ) << 1 );
+    col = ( ( K12_10 ^ R[ET10] ) << 0 )
+        + ( ( K12_9  ^ R[ET9 ] ) << 1 )
+        + ( ( K12_8  ^ R[ET8 ] ) << 2 )
+        + ( ( K12_7  ^ R[ET7 ] ) << 3 );
+    dec = s_box_table[ 64 + row*16 + col ];
+    L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
+    L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
+    L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
+    L[IST7] = L[IST7] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K12_17 ^ R[ET17] ) << 0 )
+        + ( ( K12_12 ^ R[ET12] ) << 1 );
+    col = ( ( K12_16 ^ R[ET16] ) << 0 )
+        + ( ( K12_15 ^ R[ET15] ) << 1 )
+        + ( ( K12_14 ^ R[ET14] ) << 2 )
+        + ( ( K12_13 ^ R[ET13] ) << 3 );
+    dec = s_box_table[ 128 + row*16 + col ];
+    L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
+    L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
+    L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
+    L[IST11] = L[IST11] ^ ( (dec >> 0) & 1 );     
+
+    row = ( ( K12_23 ^ R[ET23] ) << 0 )
+        + ( ( K12_18 ^ R[ET18] ) << 1 );
+    col = ( ( K12_22 ^ R[ET22] ) << 0 )
+        + ( ( K12_21 ^ R[ET21] ) << 1 )
+        + ( ( K12_20 ^ R[ET20] ) << 2 )
+        + ( ( K12_19 ^ R[ET19] ) << 3 );
+    dec = s_box_table[ 192 + row*16 + col ];
+    L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
+    L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
+    L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
+    L[IST15] = L[IST15] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K12_29 ^ R[ET29] ) << 0 )
+        + ( ( K12_24 ^ R[ET24] ) << 1 );
+    col = ( ( K12_28 ^ R[ET28] ) << 0 )
+        + ( ( K12_27 ^ R[ET27] ) << 1 )
+        + ( ( K12_26 ^ R[ET26] ) << 2 )
+        + ( ( K12_25 ^ R[ET25] ) << 3 );
+    dec = s_box_table[ 256 + row*16 + col ];
+    L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
+    L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
+    L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
+    L[IST19] = L[IST19] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K12_35 ^ R[ET35] ) << 0 )
+        + ( ( K12_30 ^ R[ET30] ) << 1 );
+    col = ( ( K12_34 ^ R[ET34] ) << 0 )
+        + ( ( K12_33 ^ R[ET33] ) << 1 )
+        + ( ( K12_32 ^ R[ET32] ) << 2 )
+        + ( ( K12_31 ^ R[ET31] ) << 3 );
+    dec = s_box_table[ 320 + row*16 + col ];
+    L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
+    L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
+    L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
+    L[IST23] = L[IST23] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K12_41 ^ R[ET41] ) << 0 )
+        + ( ( K12_36 ^ R[ET36] ) << 1 );
+    col = ( ( K12_40 ^ R[ET40] ) << 0 )
+        + ( ( K12_39 ^ R[ET39] ) << 1 )
+        + ( ( K12_38 ^ R[ET38] ) << 2 )
+        + ( ( K12_37 ^ R[ET37] ) << 3 );
+    dec = s_box_table[ 384 + row*16 + col ];
+    L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
+    L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
+    L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
+    L[IST27] = L[IST27] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K12_47 ^ R[ET47] ) << 0 )
+        + ( ( K12_42 ^ R[ET42] ) << 1 );
+    col = ( ( K12_46 ^ R[ET46] ) << 0 )
+        + ( ( K12_45 ^ R[ET45] ) << 1 )
+        + ( ( K12_44 ^ R[ET44] ) << 2 )
+        + ( ( K12_43 ^ R[ET43] ) << 3 );
+    dec = s_box_table[ 448 + row*16 + col ];
+    L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
+    L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
+    L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
+    L[IST31] = L[IST31] ^ ( (dec >> 0) & 1 );
+
+    // 13
+    row = ( ( K13_5 ^ L[ET5] ) << 0 )
+        + ( ( K13_0 ^ L[ET0] ) << 1 );
+    col = ( ( K13_4 ^ L[ET4] ) << 0 )
+        + ( ( K13_3 ^ L[ET3] ) << 1 )
+        + ( ( K13_2 ^ L[ET2] ) << 2 )
+        + ( ( K13_1 ^ L[ET1] ) << 3 );
+    dec = s_box_table[ 0 + row*16 + col ];
+    R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
+    R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
+    R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
+    R[IST3] = R[IST3] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K13_11 ^ L[ET11] ) << 0 )
+        + ( ( K13_6  ^ L[ET6 ] ) << 1 );
+    col = ( ( K13_10 ^ L[ET10] ) << 0 )
+        + ( ( K13_9  ^ L[ET9 ] ) << 1 )
+        + ( ( K13_8  ^ L[ET8 ] ) << 2 )
+        + ( ( K13_7  ^ L[ET7 ] ) << 3 );
+    dec = s_box_table[ 64 + row*16 + col ];
+    R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
+    R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
+    R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
+    R[IST7] = R[IST7] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K13_17 ^ L[ET17] ) << 0 )
+        + ( ( K13_12 ^ L[ET12] ) << 1 );
+    col = ( ( K13_16 ^ L[ET16] ) << 0 )
+        + ( ( K13_15 ^ L[ET15] ) << 1 )
+        + ( ( K13_14 ^ L[ET14] ) << 2 )
+        + ( ( K13_13 ^ L[ET13] ) << 3 );
+    dec = s_box_table[ 128 + row*16 + col ];
+    R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
+    R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
+    R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
+    R[IST11] = R[IST11] ^ ( (dec >> 0) & 1 );     
+
+    row = ( ( K13_23 ^ L[ET23] ) << 0 )
+        + ( ( K13_18 ^ L[ET18] ) << 1 );
+    col = ( ( K13_22 ^ L[ET22] ) << 0 )
+        + ( ( K13_21 ^ L[ET21] ) << 1 )
+        + ( ( K13_20 ^ L[ET20] ) << 2 )
+        + ( ( K13_19 ^ L[ET19] ) << 3 );
+    dec = s_box_table[ 192 + row*16 + col ];
+    R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
+    R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
+    R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
+    R[IST15] = R[IST15] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K13_29 ^ L[ET29] ) << 0 )
+        + ( ( K13_24 ^ L[ET24] ) << 1 );
+    col = ( ( K13_28 ^ L[ET28] ) << 0 )
+        + ( ( K13_27 ^ L[ET27] ) << 1 )
+        + ( ( K13_26 ^ L[ET26] ) << 2 )
+        + ( ( K13_25 ^ L[ET25] ) << 3 );
+    dec = s_box_table[ 256 + row*16 + col ];
+    R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
+    R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
+    R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
+    R[IST19] = R[IST19] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K13_35 ^ L[ET35] ) << 0 )
+        + ( ( K13_30 ^ L[ET30] ) << 1 );
+    col = ( ( K13_34 ^ L[ET34] ) << 0 )
+        + ( ( K13_33 ^ L[ET33] ) << 1 )
+        + ( ( K13_32 ^ L[ET32] ) << 2 )
+        + ( ( K13_31 ^ L[ET31] ) << 3 );
+    dec = s_box_table[ 320 + row*16 + col ];
+    R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
+    R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
+    R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
+    R[IST23] = R[IST23] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K13_41 ^ L[ET41] ) << 0 )
+        + ( ( K13_36 ^ L[ET36] ) << 1 );
+    col = ( ( K13_40 ^ L[ET40] ) << 0 )
+        + ( ( K13_39 ^ L[ET39] ) << 1 )
+        + ( ( K13_38 ^ L[ET38] ) << 2 )
+        + ( ( K13_37 ^ L[ET37] ) << 3 );
+    dec = s_box_table[ 384 + row*16 + col ];
+    R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
+    R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
+    R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
+    R[IST27] = R[IST27] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K13_47 ^ L[ET47] ) << 0 )
+        + ( ( K13_42 ^ L[ET42] ) << 1 );
+    col = ( ( K13_46 ^ L[ET46] ) << 0 )
+        + ( ( K13_45 ^ L[ET45] ) << 1 )
+        + ( ( K13_44 ^ L[ET44] ) << 2 )
+        + ( ( K13_43 ^ L[ET43] ) << 3 );
+    dec = s_box_table[ 448 + row*16 + col ];
+    R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
+    R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
+    R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
+    R[IST31] = R[IST31] ^ ( (dec >> 0) & 1 );
+
+    // 14
+    row = ( ( K14_5 ^ R[ET5] ) << 0 )
+        + ( ( K14_0 ^ R[ET0] ) << 1 );
+    col = ( ( K14_4 ^ R[ET4] ) << 0 )
+        + ( ( K14_3 ^ R[ET3] ) << 1 )
+        + ( ( K14_2 ^ R[ET2] ) << 2 )
+        + ( ( K14_1 ^ R[ET1] ) << 3 );
+    dec = s_box_table[ 0 + row*16 + col ];
+    L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
+    L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
+    L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
+    L[IST3] = L[IST3] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K14_11 ^ R[ET11] ) << 0 )
+        + ( ( K14_6  ^ R[ET6 ] ) << 1 );
+    col = ( ( K14_10 ^ R[ET10] ) << 0 )
+        + ( ( K14_9  ^ R[ET9 ] ) << 1 )
+        + ( ( K14_8  ^ R[ET8 ] ) << 2 )
+        + ( ( K14_7  ^ R[ET7 ] ) << 3 );
+    dec = s_box_table[ 64 + row*16 + col ];
+    L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
+    L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
+    L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
+    L[IST7] = L[IST7] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K14_17 ^ R[ET17] ) << 0 )
+        + ( ( K14_12 ^ R[ET12] ) << 1 );
+    col = ( ( K14_16 ^ R[ET16] ) << 0 )
+        + ( ( K14_15 ^ R[ET15] ) << 1 )
+        + ( ( K14_14 ^ R[ET14] ) << 2 )
+        + ( ( K14_13 ^ R[ET13] ) << 3 );
+    dec = s_box_table[ 128 + row*16 + col ];
+    L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
+    L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
+    L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
+    L[IST11] = L[IST11] ^ ( (dec >> 0) & 1 );     
+
+    row = ( ( K14_23 ^ R[ET23] ) << 0 )
+        + ( ( K14_18 ^ R[ET18] ) << 1 );
+    col = ( ( K14_22 ^ R[ET22] ) << 0 )
+        + ( ( K14_21 ^ R[ET21] ) << 1 )
+        + ( ( K14_20 ^ R[ET20] ) << 2 )
+        + ( ( K14_19 ^ R[ET19] ) << 3 );
+    dec = s_box_table[ 192 + row*16 + col ];
+    L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
+    L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
+    L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
+    L[IST15] = L[IST15] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K14_29 ^ R[ET29] ) << 0 )
+        + ( ( K14_24 ^ R[ET24] ) << 1 );
+    col = ( ( K14_28 ^ R[ET28] ) << 0 )
+        + ( ( K14_27 ^ R[ET27] ) << 1 )
+        + ( ( K14_26 ^ R[ET26] ) << 2 )
+        + ( ( K14_25 ^ R[ET25] ) << 3 );
+    dec = s_box_table[ 256 + row*16 + col ];
+    L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
+    L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
+    L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
+    L[IST19] = L[IST19] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K14_35 ^ R[ET35] ) << 0 )
+        + ( ( K14_30 ^ R[ET30] ) << 1 );
+    col = ( ( K14_34 ^ R[ET34] ) << 0 )
+        + ( ( K14_33 ^ R[ET33] ) << 1 )
+        + ( ( K14_32 ^ R[ET32] ) << 2 )
+        + ( ( K14_31 ^ R[ET31] ) << 3 );
+    dec = s_box_table[ 320 + row*16 + col ];
+    L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
+    L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
+    L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
+    L[IST23] = L[IST23] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K14_41 ^ R[ET41] ) << 0 )
+        + ( ( K14_36 ^ R[ET36] ) << 1 );
+    col = ( ( K14_40 ^ R[ET40] ) << 0 )
+        + ( ( K14_39 ^ R[ET39] ) << 1 )
+        + ( ( K14_38 ^ R[ET38] ) << 2 )
+        + ( ( K14_37 ^ R[ET37] ) << 3 );
+    dec = s_box_table[ 384 + row*16 + col ];
+    L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
+    L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
+    L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
+    L[IST27] = L[IST27] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K14_47 ^ R[ET47] ) << 0 )
+        + ( ( K14_42 ^ R[ET42] ) << 1 );
+    col = ( ( K14_46 ^ R[ET46] ) << 0 )
+        + ( ( K14_45 ^ R[ET45] ) << 1 )
+        + ( ( K14_44 ^ R[ET44] ) << 2 )
+        + ( ( K14_43 ^ R[ET43] ) << 3 );
+    dec = s_box_table[ 448 + row*16 + col ];
+    L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
+    L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
+    L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
+    L[IST31] = L[IST31] ^ ( (dec >> 0) & 1 );
+
+    // 15
+    row = ( ( K15_5 ^ L[ET5] ) << 0 )
+        + ( ( K15_0 ^ L[ET0] ) << 1 );
+    col = ( ( K15_4 ^ L[ET4] ) << 0 )
+        + ( ( K15_3 ^ L[ET3] ) << 1 )
+        + ( ( K15_2 ^ L[ET2] ) << 2 )
+        + ( ( K15_1 ^ L[ET1] ) << 3 );
+    dec = s_box_table[ 0 + row*16 + col ];
+    R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
+    R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
+    R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
+    R[IST3] = R[IST3] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K15_11 ^ L[ET11] ) << 0 )
+        + ( ( K15_6  ^ L[ET6 ] ) << 1 );
+    col = ( ( K15_10 ^ L[ET10] ) << 0 )
+        + ( ( K15_9  ^ L[ET9 ] ) << 1 )
+        + ( ( K15_8  ^ L[ET8 ] ) << 2 )
+        + ( ( K15_7  ^ L[ET7 ] ) << 3 );
+    dec = s_box_table[ 64 + row*16 + col ];
+    R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
+    R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
+    R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
+    R[IST7] = R[IST7] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K15_17 ^ L[ET17] ) << 0 )
+        + ( ( K15_12 ^ L[ET12] ) << 1 );
+    col = ( ( K15_16 ^ L[ET16] ) << 0 )
+        + ( ( K15_15 ^ L[ET15] ) << 1 )
+        + ( ( K15_14 ^ L[ET14] ) << 2 )
+        + ( ( K15_13 ^ L[ET13] ) << 3 );
+    dec = s_box_table[ 128 + row*16 + col ];
+    R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
+    R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
+    R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
+    R[IST11] = R[IST11] ^ ( (dec >> 0) & 1 );     
+
+    row = ( ( K15_23 ^ L[ET23] ) << 0 )
+        + ( ( K15_18 ^ L[ET18] ) << 1 );
+    col = ( ( K15_22 ^ L[ET22] ) << 0 )
+        + ( ( K15_21 ^ L[ET21] ) << 1 )
+        + ( ( K15_20 ^ L[ET20] ) << 2 )
+        + ( ( K15_19 ^ L[ET19] ) << 3 );
+    dec = s_box_table[ 192 + row*16 + col ];
+    R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
+    R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
+    R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
+    R[IST15] = R[IST15] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K15_29 ^ L[ET29] ) << 0 )
+        + ( ( K15_24 ^ L[ET24] ) << 1 );
+    col = ( ( K15_28 ^ L[ET28] ) << 0 )
+        + ( ( K15_27 ^ L[ET27] ) << 1 )
+        + ( ( K15_26 ^ L[ET26] ) << 2 )
+        + ( ( K15_25 ^ L[ET25] ) << 3 );
+    dec = s_box_table[ 256 + row*16 + col ];
+    R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
+    R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
+    R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
+    R[IST19] = R[IST19] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K15_35 ^ L[ET35] ) << 0 )
+        + ( ( K15_30 ^ L[ET30] ) << 1 );
+    col = ( ( K15_34 ^ L[ET34] ) << 0 )
+        + ( ( K15_33 ^ L[ET33] ) << 1 )
+        + ( ( K15_32 ^ L[ET32] ) << 2 )
+        + ( ( K15_31 ^ L[ET31] ) << 3 );
+    dec = s_box_table[ 320 + row*16 + col ];
+    R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
+    R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
+    R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
+    R[IST23] = R[IST23] ^ ( (dec >> 0) & 1 );
+
+    row = ( ( K15_41 ^ L[ET41] ) << 0 )
+        + ( ( K15_36 ^ L[ET36] ) << 1 );
+    col = ( ( K15_40 ^ L[ET40] ) << 0 )
+        + ( ( K15_39 ^ L[ET39] ) << 1 )
+        + ( ( K15_38 ^ L[ET38] ) << 2 )
+        + ( ( K15_37 ^ L[ET37] ) << 3 );
+    dec = s_box_table[ 384 + row*16 + col ];
+    R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
+    R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
+    R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
+    R[IST27] = R[IST27] ^ ( (dec >> 0) & 1 );
+  
+    row = ( ( K15_47 ^ L[ET47] ) << 0 )
+        + ( ( K15_42 ^ L[ET42] ) << 1 );
+    col = ( ( K15_46 ^ L[ET46] ) << 0 )
+        + ( ( K15_45 ^ L[ET45] ) << 1 )
+        + ( ( K15_44 ^ L[ET44] ) << 2 )
+        + ( ( K15_43 ^ L[ET43] ) << 3 );
+    dec = s_box_table[ 448 + row*16 + col ];
+    R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
+    R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
+    R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
+    R[IST31] = R[IST31] ^ ( (dec >> 0) & 1 );
+  
+    temp = L;
+    L    = R;
+    R    = temp;
+
     set_end_initial_lr(L, R);
+  }
+}
+
+function gen_round_keys() :void {
+  let i      :i32, j :i32;
+  let k      :i32[];
+  let value  :i32;
+  let offset :i32;
+
+  for(i = 0; i < 56; i++)
+    PARITY_DROP[i] = PWD_BIN[ parity_drop_table[i] ];
+
+  for(i = 0; i < 16; i++) {
+    offset = shift_offset[i];
+    k = K[i];
+
+    for(j = 0; j < 48; j++) {
+      value = compression_table[j];
+
+      k[j] = value < 28
+        ? PARITY_DROP[ (offset + value   )%28      ]
+        : PARITY_DROP[ (offset + value%28)%28 + 28 ];
+    }
   }
 }
 
@@ -1565,12 +3016,6 @@ export function crypt3(mem_offset :i32) :i32 {
    */
   gen_pwd();
   gen_salt();
-
-  /*
-   * Init DATA
-   */
-  for(i = 0; i < 64; i++)
-    DATA[i] = 0;
 
   /*
    * Init digest as the two first chars of salt
