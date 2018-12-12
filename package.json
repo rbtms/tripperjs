@@ -4,9 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
-    "build": "asc app/ts/worker.ts -o app/bin/worker.ts",
-    "buildoptimize": "asc app/ts/worker.ts -o app/bin/worker.ts -O3"
+    "test"          : "env TESTJS=1 TESTWASM=1 ENSURE_CORRECTNESS=1 mocha",
+    "testjs"        : "env TESTJS=1 ENSURE_CORRECTNESS=1 mocha",
+    "testwasm"      : "env TESTWASM=1 ENSURE_CORRECTNESS=1 mocha",
+    "benchmarkjs"   : "env TESTJS=1 mocha",
+    "benchmarkwasm" : "env TESTWASM=1 mocha",
+    "build": "asc app/ts/worker.ts -o app/bin/worker.wasm",
+    "buildoptimize": "asc app/ts/worker.ts -o app/bin/worker.ts -O3",
+    "wat": "asc --textFormat linear app/ts/worker.ts -o app/bin/worker.wat",
+    "wast": "asc --textFormat sexpr app/ts/worker.ts -o app/bin/worker.wast"
   },
   "repository": {
     "type": "git",
