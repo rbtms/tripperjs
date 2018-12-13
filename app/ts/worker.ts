@@ -3038,6 +3038,10 @@ export function cipher() :void {
   const K15_46 :i32 = PARITY_DROP[SOFF15_CT46_MOD];
   const K15_47 :i32 = PARITY_DROP[SOFF15_CT47_MOD];
 
+
+  for(let z :i32 = 0; z < 64; z++)
+    DATA[z] = 0;
+
   for(round_n = 0; round_n < 13; round_n++) {
    /********************************************************************
     *
@@ -3045,7 +3049,8 @@ export function cipher() :void {
     * Ronuds 0 - 2 - 4 - 6 - 8 - 10 - 12 - 14 - 16 - 18 - 20 - 22 - 24
     *
     *******************************************************************/
-    set_initial_lr(L, R, round_n);
+    //if(round_n == 12)
+    //  set_initial_lr(L, R, round_n);
 
     // 0
     row = ( ( K0_5 ^ R[ET5] ) << 0 )
@@ -4598,8 +4603,10 @@ export function cipher() :void {
     R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
     R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
     R[IST31] = R[IST31] ^ ( (dec >> 0) & 1 );
-  
-    set_end_initial_lr(R, L);
+
+
+    //if(round_n == 12)
+    //  set_end_initial_lr(R, L);
 
 
     /*********************************************************************
@@ -4609,7 +4616,7 @@ export function cipher() :void {
      * 
      ********************************************************************/
     if( round_n != 12 ) {
-      set_initial_lr(R, L, 1);
+      //set_initial_lr(R, L, 1);
 
       // 0
       row = ( ( K0_5 ^ L[ET5] ) << 0 )
@@ -6163,9 +6170,11 @@ export function cipher() :void {
       L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
       L[IST31] = L[IST31] ^ ( (dec >> 0) & 1 );
     
-      set_end_initial_lr(L, R);
+      //set_end_initial_lr(L, R);
     }
   }
+
+  set_end_initial_lr(R, L);
 }
 
 /*
