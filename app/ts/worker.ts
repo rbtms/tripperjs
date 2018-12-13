@@ -8,13 +8,14 @@ function store_i32(index :i32, n :i32, mem_offset :i32) :void {
 /*************************************
 * Left side Initial permutation (IP)
 *************************************/
+/*
 const initial_table_L :i32[] = [
   57, 49, 41, 33, 25, 17,  9, 1,
   59, 51, 43, 35, 27, 19, 11, 3,
   61, 53, 45, 37, 29, 21, 13, 5,
   63, 55, 47, 39, 31, 23, 15, 7,
 ];
-
+*/
    
 
 const ITL0  :i32 = 57;
@@ -56,12 +57,14 @@ const ITL31 :i32 =  7;
 /*****************************************
 * Right side of Initial permutation (IP)
 *****************************************/
+/*
 const initial_table_R :i32[] = [
   56, 48, 40, 32, 24, 16,  8, 0,
   58, 50, 42, 34, 26, 18, 10, 2,
   60, 52, 44, 36, 28, 20, 12, 4,
   62, 54, 46, 38, 30, 22, 14, 6
 ];
+ */
 
 const ITR0  :i32 = 56;
 const ITR1  :i32 = 48;
@@ -152,6 +155,7 @@ const _offset13 :i32 = 25;
 const _offset14 :i32 = 27;
 const _offset15 :i32 = 28;
 
+/*
 const compression_table :i32[] = [
   13, 16, 10, 23,  0,  4,  2, 27,
   14,  5, 20,  9, 22, 18, 11,  3,
@@ -160,6 +164,7 @@ const compression_table :i32[] = [
   50, 44, 32, 47, 43, 48, 38, 55,
   33, 52, 45, 41, 49, 35, 28, 31
 ];
+ */
 
 const CT0  :i32 = 13;
 const CT1  :i32 = 16;
@@ -1906,47 +1911,62 @@ const inverse_straight_table :i32[] = [
   31, 11, 21,  6,  4, 26, 14, 20
 ];
 
-const s_box_table :i32[] = [
+// S-Box Tables
+const SB0 :i32[] = [
   // 0
   14,  4, 13,  1,  2, 15, 11,  8,  3, 10,  6, 12,  5,  9,  0,  7,
    0, 15,  7,  4, 14,  2, 13,  1, 10,  6, 12, 11,  9,  5,  3,  8,
    4,  1, 14,  8, 13,  6,  2, 11, 15, 12,  9,  7,  3, 10,  5,  0,
-  15, 12,  8,  2,  4,  9,  1,  7,  5, 11,  3, 14, 10,  0,  6, 13,
+  15, 12,  8,  2,  4,  9,  1,  7,  5, 11,  3, 14, 10,  0,  6, 13
+];
+const SB1 :i32[] = [
   // 1
   15,  1,  8, 14,  6, 11,  3,  4,  9,  7,  2, 13, 12,  0,  5, 10,
    3, 13,  4,  7, 15,  2,  8, 14, 12,  0,  1, 10,  6,  9, 11,  5,
    0, 14,  7, 11, 10,  4, 13,  1,  5,  8, 12,  6,  9,  3,  2, 15,
-  13,  8, 10,  1,  3, 15,  4,  2, 11,  6,  7, 12,  0,  5, 14,  9,
+  13,  8, 10,  1,  3, 15,  4,  2, 11,  6,  7, 12,  0,  5, 14,  9
+];
+const SB2 :i32[] = [
   // 2
   10,  0,  9, 14,  6,  3, 15,  5,  1, 13, 12,  7, 11,  4,  2,  8,
   13,  7,  0,  9,  3,  4,  6, 10,  2,  8,  5, 14, 12, 11, 15,  1,
   13,  6,  4,  9,  8, 15,  3,  0, 11,  1,  2, 12,  5, 10, 14,  7,
-   1, 10, 13,  0,  6,  9,  8,  7,  4, 15, 14,  3, 11,  5,  2, 12,
+  1, 10, 13,  0,  6,  9,  8,  7,  4, 15, 14,  3, 11,  5,  2, 12
+];
+const SB3 :i32[] = [
   // 3
    7, 13, 14,  3,  0,  6,  9, 10,  1,  2,  8,  5, 11, 12,  4, 15,
   13,  8, 11,  5,  6, 15,  0,  3,  4,  7,  2, 12,  1, 10, 14,  9,
   10,  6,  9,  0, 12, 11,  7, 13, 15,  1,  3, 14,  5,  2,  8,  4,
-   3, 15,  0,  6, 10,  1, 13,  8,  9,  4,  5, 11, 12,  7,  2, 14,
+   3, 15,  0,  6, 10,  1, 13,  8,  9,  4,  5, 11, 12,  7,  2, 14
+];
+const SB4 :i32[] = [
   // 4
    2, 12,  4,  1,  7, 10, 11,  6,  8,  5,  3, 15, 13,  0, 14,  9,
   14, 11,  2, 12,  4,  7, 13,  1,  5,  0, 15, 10,  3,  9,  8,  6,
    4,  2,  1, 11, 10, 13,  7,  8, 15,  9, 12,  5,  6,  3,  0, 14,
-  11,  8, 12,  7,  1, 14,  2, 13,  6, 15,  0,  9, 10,  4,  5,  3,
+  11,  8, 12,  7,  1, 14,  2, 13,  6, 15,  0,  9, 10,  4,  5,  3
+];
+const SB5 :i32[] = [
   // 5
   12,  1, 10, 15,  9,  2,  6,  8,  0, 13,  3,  4, 14,  7,  5, 11,
   10, 15,  4,  2,  7, 12,  9,  5,  6,  1, 13, 14,  0, 11,  3,  8,
    9, 14, 15,  5,  2,  8, 12,  3,  7,  0,  4, 10,  1, 13, 11,  6,
-   4,  3,  2, 12,  9,  5, 15, 10, 11, 14,  1,  7,  6,  0,  8, 13,
+  4,  3,  2, 12,  9,  5, 15, 10, 11, 14,  1,  7,  6,  0,  8, 13
+];
+const SB6 :i32[] = [
   // 6
    4, 11,  2, 14, 15,  0,  8, 13,  3, 12,  9,  7,  5, 10,  6,  1,
   13,  0, 11,  7,  4,  9,  1, 10, 14,  3,  5, 12,  2, 15,  8,  6,
    1,  4, 11, 13, 12,  3,  7, 14, 10, 15,  6,  8,  0,  5,  9,  2,
-   6, 11, 13,  8,  1,  4, 10,  7,  9,  5,  0, 15, 14,  2,  3, 12,
+  6, 11, 13,  8,  1,  4, 10,  7,  9,  5,  0, 15, 14,  2,  3, 12
+];
+const SB7 :i32[] = [
   // 7
   13,  2,  8,  4,  6, 15, 11,  1, 10,  9,  3, 14,  5,  0, 12,  7,
    1, 15, 13,  8, 10,  3,  7,  4, 12,  5,  6, 11,  0, 14,  9,  2,
    7, 11,  4,  1,  9, 12, 14,  2,  0,  6, 10, 13, 15,  3,  5,  8,
-   2,  1, 14,  7,  4, 10,  8, 13, 15, 12,  9,  0,  3,  5,  6, 11,
+   2,  1, 14,  7,  4, 10,  8, 13, 15, 12,  9,  0,  3,  5,  6, 11
 ];
 
 
@@ -1959,10 +1979,10 @@ const CHAR_CODE_DOT :i32 = 46;
 const PARITY_DROP :i32[] = new Array(56);
 const PWD_BIN     :i32[] = new Array(64);
 
-const PWD    :i32[] = new Array(8);
-const SALT   :i32[] = new Array(2);
-const DATA   :i32[] = new Array(64);
-const DIGEST :i32[] = new Array(13);
+const PWD    :i32[]  = new Array(8);
+const SALT   :i32[]  = new Array(2);
+const DATA   :i32[]  = new Array(64);
+const DIGEST :i32[]  = new Array(13);
 const _L      :i32[] = new Array(32);
 const _R      :i32[] = new Array(32);
 
@@ -3028,11 +3048,11 @@ export function cipher() :void {
         + ( ( K0_3 ^ R[ET3] ) << 1 )
         + ( ( K0_2 ^ R[ET2] ) << 2 )
         + ( ( K0_1 ^ R[ET1] ) << 3 );
-    dec = s_box_table[ 0 + row*16 + col ];
-    L[IST0] ^= L[IST0] ^ ( (dec >> 3) & 1 );
-    L[IST1] ^= L[IST1] ^ ( (dec >> 2) & 1 );
-    L[IST2] ^= L[IST2] ^ ( (dec >> 1) & 1 );
-    L[IST3] ^= L[IST3] ^ ( (dec >> 0) & 1 );
+    dec = SB0[ row*16 + col ];
+    L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
+    L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
+    L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
+    L[IST3] = L[IST3] ^ ( (dec >> 0) & 1 );
 
     row = ( ( K0_11 ^ R[ET11] ) << 0 )
         + ( ( K0_6  ^ R[ET6 ] ) << 1 );
@@ -3040,7 +3060,7 @@ export function cipher() :void {
         + ( ( K0_9  ^ R[ET9 ] ) << 1 )
         + ( ( K0_8  ^ R[ET8 ] ) << 2 )
         + ( ( K0_7  ^ R[ET7 ] ) << 3 );
-    dec = s_box_table[ 64 + row*16 + col ];
+    dec = SB1[ row*16 + col ];
     L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
     L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
     L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
@@ -3052,7 +3072,7 @@ export function cipher() :void {
         + ( ( K0_15 ^ R[ET15] ) << 1 )
         + ( ( K0_14 ^ R[ET14] ) << 2 )
         + ( ( K0_13 ^ R[ET13] ) << 3 );
-    dec = s_box_table[ 128 + row*16 + col ];
+    dec = SB2[ row*16 + col ];
     L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
     L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
     L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
@@ -3064,7 +3084,7 @@ export function cipher() :void {
         + ( ( K0_21 ^ R[ET21] ) << 1 )
         + ( ( K0_20 ^ R[ET20] ) << 2 )
         + ( ( K0_19 ^ R[ET19] ) << 3 );
-    dec = s_box_table[ 192 + row*16 + col ];
+    dec = SB3[ row*16 + col ];
     L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
     L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
     L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
@@ -3076,7 +3096,7 @@ export function cipher() :void {
         + ( ( K0_27 ^ R[ET27] ) << 1 )
         + ( ( K0_26 ^ R[ET26] ) << 2 )
         + ( ( K0_25 ^ R[ET25] ) << 3 );
-    dec = s_box_table[ 256 + row*16 + col ];
+    dec = SB4[ row*16 + col ];
     L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
     L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
     L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
@@ -3088,7 +3108,7 @@ export function cipher() :void {
         + ( ( K0_33 ^ R[ET33] ) << 1 )
         + ( ( K0_32 ^ R[ET32] ) << 2 )
         + ( ( K0_31 ^ R[ET31] ) << 3 );
-    dec = s_box_table[ 320 + row*16 + col ];
+    dec = SB5[ row*16 + col ];
     L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
     L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
     L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
@@ -3100,7 +3120,7 @@ export function cipher() :void {
         + ( ( K0_39 ^ R[ET39] ) << 1 )
         + ( ( K0_38 ^ R[ET38] ) << 2 )
         + ( ( K0_37 ^ R[ET37] ) << 3 );
-    dec = s_box_table[ 384 + row*16 + col ];
+    dec = SB6[ row*16 + col ];
     L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
     L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
     L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
@@ -3112,7 +3132,7 @@ export function cipher() :void {
         + ( ( K0_45 ^ R[ET45] ) << 1 )
         + ( ( K0_44 ^ R[ET44] ) << 2 )
         + ( ( K0_43 ^ R[ET43] ) << 3 );
-    dec = s_box_table[ 448 + row*16 + col ];
+    dec = SB7[ row*16 + col ];
     L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
     L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
     L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
@@ -3125,7 +3145,7 @@ export function cipher() :void {
         + ( ( K1_3 ^ L[ET3] ) << 1 )
         + ( ( K1_2 ^ L[ET2] ) << 2 )
         + ( ( K1_1 ^ L[ET1] ) << 3 );
-    dec = s_box_table[ 0 + row*16 + col ];
+    dec = SB0[ row*16 + col ];
     R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
     R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
     R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
@@ -3137,7 +3157,7 @@ export function cipher() :void {
         + ( ( K1_9  ^ L[ET9 ] ) << 1 )
         + ( ( K1_8  ^ L[ET8 ] ) << 2 )
         + ( ( K1_7  ^ L[ET7 ] ) << 3 );
-    dec = s_box_table[ 64 + row*16 + col ];
+    dec = SB1[ row*16 + col ];
     R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
     R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
     R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
@@ -3149,7 +3169,7 @@ export function cipher() :void {
         + ( ( K1_15 ^ L[ET15] ) << 1 )
         + ( ( K1_14 ^ L[ET14] ) << 2 )
         + ( ( K1_13 ^ L[ET13] ) << 3 );
-    dec = s_box_table[ 128 + row*16 + col ];
+    dec = SB2[ row*16 + col ];
     R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
     R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
     R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
@@ -3161,7 +3181,7 @@ export function cipher() :void {
         + ( ( K1_21 ^ L[ET21] ) << 1 )
         + ( ( K1_20 ^ L[ET20] ) << 2 )
         + ( ( K1_19 ^ L[ET19] ) << 3 );
-    dec = s_box_table[ 192 + row*16 + col ];
+    dec = SB3[ row*16 + col ];
     R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
     R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
     R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
@@ -3173,7 +3193,7 @@ export function cipher() :void {
         + ( ( K1_27 ^ L[ET27] ) << 1 )
         + ( ( K1_26 ^ L[ET26] ) << 2 )
         + ( ( K1_25 ^ L[ET25] ) << 3 );
-    dec = s_box_table[ 256 + row*16 + col ];
+    dec = SB4[ row*16 + col ];
     R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
     R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
     R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
@@ -3185,7 +3205,7 @@ export function cipher() :void {
         + ( ( K1_33 ^ L[ET33] ) << 1 )
         + ( ( K1_32 ^ L[ET32] ) << 2 )
         + ( ( K1_31 ^ L[ET31] ) << 3 );
-    dec = s_box_table[ 320 + row*16 + col ];
+    dec = SB5[ row*16 + col ];
     R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
     R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
     R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
@@ -3197,7 +3217,7 @@ export function cipher() :void {
         + ( ( K1_39 ^ L[ET39] ) << 1 )
         + ( ( K1_38 ^ L[ET38] ) << 2 )
         + ( ( K1_37 ^ L[ET37] ) << 3 );
-    dec = s_box_table[ 384 + row*16 + col ];
+    dec = SB6[ row*16 + col ];
     R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
     R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
     R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
@@ -3209,7 +3229,7 @@ export function cipher() :void {
         + ( ( K1_45 ^ L[ET45] ) << 1 )
         + ( ( K1_44 ^ L[ET44] ) << 2 )
         + ( ( K1_43 ^ L[ET43] ) << 3 );
-    dec = s_box_table[ 448 + row*16 + col ];
+    dec = SB7[ row*16 + col ];
     R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
     R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
     R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
@@ -3222,7 +3242,7 @@ export function cipher() :void {
         + ( ( K2_3 ^ R[ET3] ) << 1 )
         + ( ( K2_2 ^ R[ET2] ) << 2 )
         + ( ( K2_1 ^ R[ET1] ) << 3 );
-    dec = s_box_table[ 0 + row*16 + col ];
+    dec = SB0[ row*16 + col ];
     L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
     L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
     L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
@@ -3234,7 +3254,7 @@ export function cipher() :void {
         + ( ( K2_9  ^ R[ET9 ] ) << 1 )
         + ( ( K2_8  ^ R[ET8 ] ) << 2 )
         + ( ( K2_7  ^ R[ET7 ] ) << 3 );
-    dec = s_box_table[ 64 + row*16 + col ];
+    dec = SB1[ row*16 + col ];
     L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
     L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
     L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
@@ -3246,7 +3266,7 @@ export function cipher() :void {
         + ( ( K2_15 ^ R[ET15] ) << 1 )
         + ( ( K2_14 ^ R[ET14] ) << 2 )
         + ( ( K2_13 ^ R[ET13] ) << 3 );
-    dec = s_box_table[ 128 + row*16 + col ];
+    dec = SB2[ row*16 + col ];
     L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
     L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
     L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
@@ -3258,7 +3278,7 @@ export function cipher() :void {
         + ( ( K2_21 ^ R[ET21] ) << 1 )
         + ( ( K2_20 ^ R[ET20] ) << 2 )
         + ( ( K2_19 ^ R[ET19] ) << 3 );
-    dec = s_box_table[ 192 + row*16 + col ];
+    dec = SB3[ row*16 + col ];
     L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
     L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
     L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
@@ -3270,7 +3290,7 @@ export function cipher() :void {
         + ( ( K2_27 ^ R[ET27] ) << 1 )
         + ( ( K2_26 ^ R[ET26] ) << 2 )
         + ( ( K2_25 ^ R[ET25] ) << 3 );
-    dec = s_box_table[ 256 + row*16 + col ];
+    dec = SB4[ row*16 + col ];
     L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
     L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
     L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
@@ -3282,7 +3302,7 @@ export function cipher() :void {
         + ( ( K2_33 ^ R[ET33] ) << 1 )
         + ( ( K2_32 ^ R[ET32] ) << 2 )
         + ( ( K2_31 ^ R[ET31] ) << 3 );
-    dec = s_box_table[ 320 + row*16 + col ];
+    dec = SB5[ row*16 + col ];
     L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
     L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
     L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
@@ -3294,7 +3314,7 @@ export function cipher() :void {
         + ( ( K2_39 ^ R[ET39] ) << 1 )
         + ( ( K2_38 ^ R[ET38] ) << 2 )
         + ( ( K2_37 ^ R[ET37] ) << 3 );
-    dec = s_box_table[ 384 + row*16 + col ];
+    dec = SB6[ row*16 + col ];
     L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
     L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
     L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
@@ -3306,7 +3326,7 @@ export function cipher() :void {
         + ( ( K2_45 ^ R[ET45] ) << 1 )
         + ( ( K2_44 ^ R[ET44] ) << 2 )
         + ( ( K2_43 ^ R[ET43] ) << 3 );
-    dec = s_box_table[ 448 + row*16 + col ];
+    dec = SB7[ row*16 + col ];
     L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
     L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
     L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
@@ -3319,7 +3339,7 @@ export function cipher() :void {
         + ( ( K3_3 ^ L[ET3] ) << 1 )
         + ( ( K3_2 ^ L[ET2] ) << 2 )
         + ( ( K3_1 ^ L[ET1] ) << 3 );
-    dec = s_box_table[ 0 + row*16 + col ];
+    dec = SB0[ row*16 + col ];
     R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
     R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
     R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
@@ -3331,7 +3351,7 @@ export function cipher() :void {
         + ( ( K3_9  ^ L[ET9 ] ) << 1 )
         + ( ( K3_8  ^ L[ET8 ] ) << 2 )
         + ( ( K3_7  ^ L[ET7 ] ) << 3 );
-    dec = s_box_table[ 64 + row*16 + col ];
+    dec = SB1[ row*16 + col ];
     R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
     R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
     R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
@@ -3343,7 +3363,7 @@ export function cipher() :void {
         + ( ( K3_15 ^ L[ET15] ) << 1 )
         + ( ( K3_14 ^ L[ET14] ) << 2 )
         + ( ( K3_13 ^ L[ET13] ) << 3 );
-    dec = s_box_table[ 128 + row*16 + col ];
+    dec = SB2[ row*16 + col ];
     R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
     R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
     R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
@@ -3355,7 +3375,7 @@ export function cipher() :void {
         + ( ( K3_21 ^ L[ET21] ) << 1 )
         + ( ( K3_20 ^ L[ET20] ) << 2 )
         + ( ( K3_19 ^ L[ET19] ) << 3 );
-    dec = s_box_table[ 192 + row*16 + col ];
+    dec = SB3[ row*16 + col ];
     R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
     R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
     R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
@@ -3367,7 +3387,7 @@ export function cipher() :void {
         + ( ( K3_27 ^ L[ET27] ) << 1 )
         + ( ( K3_26 ^ L[ET26] ) << 2 )
         + ( ( K3_25 ^ L[ET25] ) << 3 );
-    dec = s_box_table[ 256 + row*16 + col ];
+    dec = SB4[ row*16 + col ];
     R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
     R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
     R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
@@ -3379,7 +3399,7 @@ export function cipher() :void {
         + ( ( K3_33 ^ L[ET33] ) << 1 )
         + ( ( K3_32 ^ L[ET32] ) << 2 )
         + ( ( K3_31 ^ L[ET31] ) << 3 );
-    dec = s_box_table[ 320 + row*16 + col ];
+    dec = SB5[ row*16 + col ];
     R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
     R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
     R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
@@ -3391,7 +3411,7 @@ export function cipher() :void {
         + ( ( K3_39 ^ L[ET39] ) << 1 )
         + ( ( K3_38 ^ L[ET38] ) << 2 )
         + ( ( K3_37 ^ L[ET37] ) << 3 );
-    dec = s_box_table[ 384 + row*16 + col ];
+    dec = SB6[ row*16 + col ];
     R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
     R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
     R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
@@ -3403,7 +3423,7 @@ export function cipher() :void {
         + ( ( K3_45 ^ L[ET45] ) << 1 )
         + ( ( K3_44 ^ L[ET44] ) << 2 )
         + ( ( K3_43 ^ L[ET43] ) << 3 );
-    dec = s_box_table[ 448 + row*16 + col ];
+    dec = SB7[ row*16 + col ];
     R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
     R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
     R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
@@ -3416,7 +3436,7 @@ export function cipher() :void {
         + ( ( K4_3 ^ R[ET3] ) << 1 )
         + ( ( K4_2 ^ R[ET2] ) << 2 )
         + ( ( K4_1 ^ R[ET1] ) << 3 );
-    dec = s_box_table[ 0 + row*16 + col ];
+    dec = SB0[ row*16 + col ];
     L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
     L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
     L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
@@ -3428,7 +3448,7 @@ export function cipher() :void {
         + ( ( K4_9  ^ R[ET9 ] ) << 1 )
         + ( ( K4_8  ^ R[ET8 ] ) << 2 )
         + ( ( K4_7  ^ R[ET7 ] ) << 3 );
-    dec = s_box_table[ 64 + row*16 + col ];
+    dec = SB1[ row*16 + col ];
     L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
     L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
     L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
@@ -3440,7 +3460,7 @@ export function cipher() :void {
         + ( ( K4_15 ^ R[ET15] ) << 1 )
         + ( ( K4_14 ^ R[ET14] ) << 2 )
         + ( ( K4_13 ^ R[ET13] ) << 3 );
-    dec = s_box_table[ 128 + row*16 + col ];
+    dec = SB2[ row*16 + col ];
     L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
     L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
     L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
@@ -3452,7 +3472,7 @@ export function cipher() :void {
         + ( ( K4_21 ^ R[ET21] ) << 1 )
         + ( ( K4_20 ^ R[ET20] ) << 2 )
         + ( ( K4_19 ^ R[ET19] ) << 3 );
-    dec = s_box_table[ 192 + row*16 + col ];
+    dec = SB3[ row*16 + col ];
     L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
     L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
     L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
@@ -3464,7 +3484,7 @@ export function cipher() :void {
         + ( ( K4_27 ^ R[ET27] ) << 1 )
         + ( ( K4_26 ^ R[ET26] ) << 2 )
         + ( ( K4_25 ^ R[ET25] ) << 3 );
-    dec = s_box_table[ 256 + row*16 + col ];
+    dec = SB4[ row*16 + col ];
     L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
     L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
     L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
@@ -3476,7 +3496,7 @@ export function cipher() :void {
         + ( ( K4_33 ^ R[ET33] ) << 1 )
         + ( ( K4_32 ^ R[ET32] ) << 2 )
         + ( ( K4_31 ^ R[ET31] ) << 3 );
-    dec = s_box_table[ 320 + row*16 + col ];
+    dec = SB5[ row*16 + col ];
     L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
     L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
     L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
@@ -3488,7 +3508,7 @@ export function cipher() :void {
         + ( ( K4_39 ^ R[ET39] ) << 1 )
         + ( ( K4_38 ^ R[ET38] ) << 2 )
         + ( ( K4_37 ^ R[ET37] ) << 3 );
-    dec = s_box_table[ 384 + row*16 + col ];
+    dec = SB6[ row*16 + col ];
     L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
     L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
     L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
@@ -3500,7 +3520,7 @@ export function cipher() :void {
         + ( ( K4_45 ^ R[ET45] ) << 1 )
         + ( ( K4_44 ^ R[ET44] ) << 2 )
         + ( ( K4_43 ^ R[ET43] ) << 3 );
-    dec = s_box_table[ 448 + row*16 + col ];
+    dec = SB7[ row*16 + col ];
     L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
     L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
     L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
@@ -3513,7 +3533,7 @@ export function cipher() :void {
         + ( ( K5_3 ^ L[ET3] ) << 1 )
         + ( ( K5_2 ^ L[ET2] ) << 2 )
         + ( ( K5_1 ^ L[ET1] ) << 3 );
-    dec = s_box_table[ 0 + row*16 + col ];
+    dec = SB0[ row*16 + col ];
     R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
     R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
     R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
@@ -3525,7 +3545,7 @@ export function cipher() :void {
         + ( ( K5_9  ^ L[ET9 ] ) << 1 )
         + ( ( K5_8  ^ L[ET8 ] ) << 2 )
         + ( ( K5_7  ^ L[ET7 ] ) << 3 );
-    dec = s_box_table[ 64 + row*16 + col ];
+    dec = SB1[ row*16 + col ];
     R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
     R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
     R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
@@ -3537,7 +3557,7 @@ export function cipher() :void {
         + ( ( K5_15 ^ L[ET15] ) << 1 )
         + ( ( K5_14 ^ L[ET14] ) << 2 )
         + ( ( K5_13 ^ L[ET13] ) << 3 );
-    dec = s_box_table[ 128 + row*16 + col ];
+    dec = SB2[ row*16 + col ];
     R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
     R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
     R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
@@ -3549,7 +3569,7 @@ export function cipher() :void {
         + ( ( K5_21 ^ L[ET21] ) << 1 )
         + ( ( K5_20 ^ L[ET20] ) << 2 )
         + ( ( K5_19 ^ L[ET19] ) << 3 );
-    dec = s_box_table[ 192 + row*16 + col ];
+    dec = SB3[ row*16 + col ];
     R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
     R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
     R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
@@ -3561,7 +3581,7 @@ export function cipher() :void {
         + ( ( K5_27 ^ L[ET27] ) << 1 )
         + ( ( K5_26 ^ L[ET26] ) << 2 )
         + ( ( K5_25 ^ L[ET25] ) << 3 );
-    dec = s_box_table[ 256 + row*16 + col ];
+    dec = SB4[ row*16 + col ];
     R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
     R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
     R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
@@ -3573,7 +3593,7 @@ export function cipher() :void {
         + ( ( K5_33 ^ L[ET33] ) << 1 )
         + ( ( K5_32 ^ L[ET32] ) << 2 )
         + ( ( K5_31 ^ L[ET31] ) << 3 );
-    dec = s_box_table[ 320 + row*16 + col ];
+    dec = SB5[ row*16 + col ];
     R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
     R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
     R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
@@ -3585,7 +3605,7 @@ export function cipher() :void {
         + ( ( K5_39 ^ L[ET39] ) << 1 )
         + ( ( K5_38 ^ L[ET38] ) << 2 )
         + ( ( K5_37 ^ L[ET37] ) << 3 );
-    dec = s_box_table[ 384 + row*16 + col ];
+    dec = SB6[ row*16 + col ];
     R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
     R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
     R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
@@ -3597,7 +3617,7 @@ export function cipher() :void {
         + ( ( K5_45 ^ L[ET45] ) << 1 )
         + ( ( K5_44 ^ L[ET44] ) << 2 )
         + ( ( K5_43 ^ L[ET43] ) << 3 );
-    dec = s_box_table[ 448 + row*16 + col ];
+    dec = SB7[ row*16 + col ];
     R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
     R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
     R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
@@ -3610,7 +3630,7 @@ export function cipher() :void {
         + ( ( K6_3 ^ R[ET3] ) << 1 )
         + ( ( K6_2 ^ R[ET2] ) << 2 )
         + ( ( K6_1 ^ R[ET1] ) << 3 );
-    dec = s_box_table[ 0 + row*16 + col ];
+    dec = SB0[ row*16 + col ];
     L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
     L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
     L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
@@ -3622,7 +3642,7 @@ export function cipher() :void {
         + ( ( K6_9  ^ R[ET9 ] ) << 1 )
         + ( ( K6_8  ^ R[ET8 ] ) << 2 )
         + ( ( K6_7  ^ R[ET7 ] ) << 3 );
-    dec = s_box_table[ 64 + row*16 + col ];
+    dec = SB1[ row*16 + col ];
     L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
     L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
     L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
@@ -3634,7 +3654,7 @@ export function cipher() :void {
         + ( ( K6_15 ^ R[ET15] ) << 1 )
         + ( ( K6_14 ^ R[ET14] ) << 2 )
         + ( ( K6_13 ^ R[ET13] ) << 3 );
-    dec = s_box_table[ 128 + row*16 + col ];
+    dec = SB2[ row*16 + col ];
     L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
     L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
     L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
@@ -3646,7 +3666,7 @@ export function cipher() :void {
         + ( ( K6_21 ^ R[ET21] ) << 1 )
         + ( ( K6_20 ^ R[ET20] ) << 2 )
         + ( ( K6_19 ^ R[ET19] ) << 3 );
-    dec = s_box_table[ 192 + row*16 + col ];
+    dec = SB3[ row*16 + col ];
     L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
     L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
     L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
@@ -3658,7 +3678,7 @@ export function cipher() :void {
         + ( ( K6_27 ^ R[ET27] ) << 1 )
         + ( ( K6_26 ^ R[ET26] ) << 2 )
         + ( ( K6_25 ^ R[ET25] ) << 3 );
-    dec = s_box_table[ 256 + row*16 + col ];
+    dec = SB4[ row*16 + col ];
     L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
     L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
     L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
@@ -3670,7 +3690,7 @@ export function cipher() :void {
         + ( ( K6_33 ^ R[ET33] ) << 1 )
         + ( ( K6_32 ^ R[ET32] ) << 2 )
         + ( ( K6_31 ^ R[ET31] ) << 3 );
-    dec = s_box_table[ 320 + row*16 + col ];
+    dec = SB5[ row*16 + col ];
     L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
     L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
     L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
@@ -3682,7 +3702,7 @@ export function cipher() :void {
         + ( ( K6_39 ^ R[ET39] ) << 1 )
         + ( ( K6_38 ^ R[ET38] ) << 2 )
         + ( ( K6_37 ^ R[ET37] ) << 3 );
-    dec = s_box_table[ 384 + row*16 + col ];
+    dec = SB6[ row*16 + col ];
     L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
     L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
     L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
@@ -3694,7 +3714,7 @@ export function cipher() :void {
         + ( ( K6_45 ^ R[ET45] ) << 1 )
         + ( ( K6_44 ^ R[ET44] ) << 2 )
         + ( ( K6_43 ^ R[ET43] ) << 3 );
-    dec = s_box_table[ 448 + row*16 + col ];
+    dec = SB7[ row*16 + col ];
     L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
     L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
     L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
@@ -3707,7 +3727,7 @@ export function cipher() :void {
         + ( ( K7_3 ^ L[ET3] ) << 1 )
         + ( ( K7_2 ^ L[ET2] ) << 2 )
         + ( ( K7_1 ^ L[ET1] ) << 3 );
-    dec = s_box_table[ 0 + row*16 + col ];
+    dec = SB0[ row*16 + col ];
     R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
     R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
     R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
@@ -3719,7 +3739,7 @@ export function cipher() :void {
         + ( ( K7_9  ^ L[ET9 ] ) << 1 )
         + ( ( K7_8  ^ L[ET8 ] ) << 2 )
         + ( ( K7_7  ^ L[ET7 ] ) << 3 );
-    dec = s_box_table[ 64 + row*16 + col ];
+    dec = SB1[ row*16 + col ];
     R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
     R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
     R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
@@ -3731,7 +3751,7 @@ export function cipher() :void {
         + ( ( K7_15 ^ L[ET15] ) << 1 )
         + ( ( K7_14 ^ L[ET14] ) << 2 )
         + ( ( K7_13 ^ L[ET13] ) << 3 );
-    dec = s_box_table[ 128 + row*16 + col ];
+    dec = SB2[ row*16 + col ];
     R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
     R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
     R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
@@ -3743,7 +3763,7 @@ export function cipher() :void {
         + ( ( K7_21 ^ L[ET21] ) << 1 )
         + ( ( K7_20 ^ L[ET20] ) << 2 )
         + ( ( K7_19 ^ L[ET19] ) << 3 );
-    dec = s_box_table[ 192 + row*16 + col ];
+    dec = SB3[ row*16 + col ];
     R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
     R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
     R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
@@ -3755,7 +3775,7 @@ export function cipher() :void {
         + ( ( K7_27 ^ L[ET27] ) << 1 )
         + ( ( K7_26 ^ L[ET26] ) << 2 )
         + ( ( K7_25 ^ L[ET25] ) << 3 );
-    dec = s_box_table[ 256 + row*16 + col ];
+    dec = SB4[ row*16 + col ];
     R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
     R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
     R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
@@ -3767,7 +3787,7 @@ export function cipher() :void {
         + ( ( K7_33 ^ L[ET33] ) << 1 )
         + ( ( K7_32 ^ L[ET32] ) << 2 )
         + ( ( K7_31 ^ L[ET31] ) << 3 );
-    dec = s_box_table[ 320 + row*16 + col ];
+    dec = SB5[ row*16 + col ];
     R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
     R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
     R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
@@ -3779,7 +3799,7 @@ export function cipher() :void {
         + ( ( K7_39 ^ L[ET39] ) << 1 )
         + ( ( K7_38 ^ L[ET38] ) << 2 )
         + ( ( K7_37 ^ L[ET37] ) << 3 );
-    dec = s_box_table[ 384 + row*16 + col ];
+    dec = SB6[ row*16 + col ];
     R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
     R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
     R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
@@ -3791,7 +3811,7 @@ export function cipher() :void {
         + ( ( K7_45 ^ L[ET45] ) << 1 )
         + ( ( K7_44 ^ L[ET44] ) << 2 )
         + ( ( K7_43 ^ L[ET43] ) << 3 );
-    dec = s_box_table[ 448 + row*16 + col ];
+    dec = SB7[ row*16 + col ];
     R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
     R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
     R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
@@ -3804,7 +3824,7 @@ export function cipher() :void {
         + ( ( K8_3 ^ R[ET3] ) << 1 )
         + ( ( K8_2 ^ R[ET2] ) << 2 )
         + ( ( K8_1 ^ R[ET1] ) << 3 );
-    dec = s_box_table[ 0 + row*16 + col ];
+    dec = SB0[ row*16 + col ];
     L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
     L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
     L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
@@ -3816,7 +3836,7 @@ export function cipher() :void {
         + ( ( K8_9  ^ R[ET9 ] ) << 1 )
         + ( ( K8_8  ^ R[ET8 ] ) << 2 )
         + ( ( K8_7  ^ R[ET7 ] ) << 3 );
-    dec = s_box_table[ 64 + row*16 + col ];
+    dec = SB1[ row*16 + col ];
     L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
     L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
     L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
@@ -3828,7 +3848,7 @@ export function cipher() :void {
         + ( ( K8_15 ^ R[ET15] ) << 1 )
         + ( ( K8_14 ^ R[ET14] ) << 2 )
         + ( ( K8_13 ^ R[ET13] ) << 3 );
-    dec = s_box_table[ 128 + row*16 + col ];
+    dec = SB2[ row*16 + col ];
     L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
     L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
     L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
@@ -3840,7 +3860,7 @@ export function cipher() :void {
         + ( ( K8_21 ^ R[ET21] ) << 1 )
         + ( ( K8_20 ^ R[ET20] ) << 2 )
         + ( ( K8_19 ^ R[ET19] ) << 3 );
-    dec = s_box_table[ 192 + row*16 + col ];
+    dec = SB3[ row*16 + col ];
     L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
     L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
     L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
@@ -3852,7 +3872,7 @@ export function cipher() :void {
         + ( ( K8_27 ^ R[ET27] ) << 1 )
         + ( ( K8_26 ^ R[ET26] ) << 2 )
         + ( ( K8_25 ^ R[ET25] ) << 3 );
-    dec = s_box_table[ 256 + row*16 + col ];
+    dec = SB4[ row*16 + col ];
     L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
     L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
     L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
@@ -3864,7 +3884,7 @@ export function cipher() :void {
         + ( ( K8_33 ^ R[ET33] ) << 1 )
         + ( ( K8_32 ^ R[ET32] ) << 2 )
         + ( ( K8_31 ^ R[ET31] ) << 3 );
-    dec = s_box_table[ 320 + row*16 + col ];
+    dec = SB5[ row*16 + col ];
     L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
     L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
     L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
@@ -3876,7 +3896,7 @@ export function cipher() :void {
         + ( ( K8_39 ^ R[ET39] ) << 1 )
         + ( ( K8_38 ^ R[ET38] ) << 2 )
         + ( ( K8_37 ^ R[ET37] ) << 3 );
-    dec = s_box_table[ 384 + row*16 + col ];
+    dec = SB6[ row*16 + col ];
     L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
     L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
     L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
@@ -3888,7 +3908,7 @@ export function cipher() :void {
         + ( ( K8_45 ^ R[ET45] ) << 1 )
         + ( ( K8_44 ^ R[ET44] ) << 2 )
         + ( ( K8_43 ^ R[ET43] ) << 3 );
-    dec = s_box_table[ 448 + row*16 + col ];
+    dec = SB7[ row*16 + col ];
     L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
     L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
     L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
@@ -3901,7 +3921,7 @@ export function cipher() :void {
         + ( ( K9_3 ^ L[ET3] ) << 1 )
         + ( ( K9_2 ^ L[ET2] ) << 2 )
         + ( ( K9_1 ^ L[ET1] ) << 3 );
-    dec = s_box_table[ 0 + row*16 + col ];
+    dec = SB0[ row*16 + col ];
     R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
     R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
     R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
@@ -3913,7 +3933,7 @@ export function cipher() :void {
         + ( ( K9_9  ^ L[ET9 ] ) << 1 )
         + ( ( K9_8  ^ L[ET8 ] ) << 2 )
         + ( ( K9_7  ^ L[ET7 ] ) << 3 );
-    dec = s_box_table[ 64 + row*16 + col ];
+    dec = SB1[ row*16 + col ];
     R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
     R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
     R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
@@ -3925,7 +3945,7 @@ export function cipher() :void {
         + ( ( K9_15 ^ L[ET15] ) << 1 )
         + ( ( K9_14 ^ L[ET14] ) << 2 )
         + ( ( K9_13 ^ L[ET13] ) << 3 );
-    dec = s_box_table[ 128 + row*16 + col ];
+    dec = SB2[ row*16 + col ];
     R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
     R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
     R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
@@ -3937,7 +3957,7 @@ export function cipher() :void {
         + ( ( K9_21 ^ L[ET21] ) << 1 )
         + ( ( K9_20 ^ L[ET20] ) << 2 )
         + ( ( K9_19 ^ L[ET19] ) << 3 );
-    dec = s_box_table[ 192 + row*16 + col ];
+    dec = SB3[ row*16 + col ];
     R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
     R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
     R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
@@ -3949,7 +3969,7 @@ export function cipher() :void {
         + ( ( K9_27 ^ L[ET27] ) << 1 )
         + ( ( K9_26 ^ L[ET26] ) << 2 )
         + ( ( K9_25 ^ L[ET25] ) << 3 );
-    dec = s_box_table[ 256 + row*16 + col ];
+    dec = SB4[ row*16 + col ];
     R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
     R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
     R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
@@ -3961,7 +3981,7 @@ export function cipher() :void {
         + ( ( K9_33 ^ L[ET33] ) << 1 )
         + ( ( K9_32 ^ L[ET32] ) << 2 )
         + ( ( K9_31 ^ L[ET31] ) << 3 );
-    dec = s_box_table[ 320 + row*16 + col ];
+    dec = SB5[ row*16 + col ];
     R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
     R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
     R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
@@ -3973,7 +3993,7 @@ export function cipher() :void {
         + ( ( K9_39 ^ L[ET39] ) << 1 )
         + ( ( K9_38 ^ L[ET38] ) << 2 )
         + ( ( K9_37 ^ L[ET37] ) << 3 );
-    dec = s_box_table[ 384 + row*16 + col ];
+    dec = SB6[ row*16 + col ];
     R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
     R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
     R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
@@ -3985,7 +4005,7 @@ export function cipher() :void {
         + ( ( K9_45 ^ L[ET45] ) << 1 )
         + ( ( K9_44 ^ L[ET44] ) << 2 )
         + ( ( K9_43 ^ L[ET43] ) << 3 );
-    dec = s_box_table[ 448 + row*16 + col ];
+    dec = SB7[ row*16 + col ];
     R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
     R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
     R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
@@ -3998,7 +4018,7 @@ export function cipher() :void {
         + ( ( K10_3 ^ R[ET3] ) << 1 )
         + ( ( K10_2 ^ R[ET2] ) << 2 )
         + ( ( K10_1 ^ R[ET1] ) << 3 );
-    dec = s_box_table[ 0 + row*16 + col ];
+    dec = SB0[ row*16 + col ];
     L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
     L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
     L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
@@ -4010,7 +4030,7 @@ export function cipher() :void {
         + ( ( K10_9  ^ R[ET9 ] ) << 1 )
         + ( ( K10_8  ^ R[ET8 ] ) << 2 )
         + ( ( K10_7  ^ R[ET7 ] ) << 3 );
-    dec = s_box_table[ 64 + row*16 + col ];
+    dec = SB1[ row*16 + col ];
     L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
     L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
     L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
@@ -4022,7 +4042,7 @@ export function cipher() :void {
         + ( ( K10_15 ^ R[ET15] ) << 1 )
         + ( ( K10_14 ^ R[ET14] ) << 2 )
         + ( ( K10_13 ^ R[ET13] ) << 3 );
-    dec = s_box_table[ 128 + row*16 + col ];
+    dec = SB2[ row*16 + col ];
     L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
     L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
     L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
@@ -4034,7 +4054,7 @@ export function cipher() :void {
         + ( ( K10_21 ^ R[ET21] ) << 1 )
         + ( ( K10_20 ^ R[ET20] ) << 2 )
         + ( ( K10_19 ^ R[ET19] ) << 3 );
-    dec = s_box_table[ 192 + row*16 + col ];
+    dec = SB3[ row*16 + col ];
     L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
     L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
     L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
@@ -4046,7 +4066,7 @@ export function cipher() :void {
         + ( ( K10_27 ^ R[ET27] ) << 1 )
         + ( ( K10_26 ^ R[ET26] ) << 2 )
         + ( ( K10_25 ^ R[ET25] ) << 3 );
-    dec = s_box_table[ 256 + row*16 + col ];
+    dec = SB4[ row*16 + col ];
     L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
     L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
     L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
@@ -4058,7 +4078,7 @@ export function cipher() :void {
         + ( ( K10_33 ^ R[ET33] ) << 1 )
         + ( ( K10_32 ^ R[ET32] ) << 2 )
         + ( ( K10_31 ^ R[ET31] ) << 3 );
-    dec = s_box_table[ 320 + row*16 + col ];
+    dec = SB5[ row*16 + col ];
     L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
     L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
     L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
@@ -4070,7 +4090,7 @@ export function cipher() :void {
         + ( ( K10_39 ^ R[ET39] ) << 1 )
         + ( ( K10_38 ^ R[ET38] ) << 2 )
         + ( ( K10_37 ^ R[ET37] ) << 3 );
-    dec = s_box_table[ 384 + row*16 + col ];
+    dec = SB6[ row*16 + col ];
     L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
     L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
     L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
@@ -4082,7 +4102,7 @@ export function cipher() :void {
         + ( ( K10_45 ^ R[ET45] ) << 1 )
         + ( ( K10_44 ^ R[ET44] ) << 2 )
         + ( ( K10_43 ^ R[ET43] ) << 3 );
-    dec = s_box_table[ 448 + row*16 + col ];
+    dec = SB7[ row*16 + col ];
     L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
     L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
     L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
@@ -4095,7 +4115,7 @@ export function cipher() :void {
         + ( ( K11_3 ^ L[ET3] ) << 1 )
         + ( ( K11_2 ^ L[ET2] ) << 2 )
         + ( ( K11_1 ^ L[ET1] ) << 3 );
-    dec = s_box_table[ 0 + row*16 + col ];
+    dec = SB0[ row*16 + col ];
     R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
     R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
     R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
@@ -4107,7 +4127,7 @@ export function cipher() :void {
         + ( ( K11_9  ^ L[ET9 ] ) << 1 )
         + ( ( K11_8  ^ L[ET8 ] ) << 2 )
         + ( ( K11_7  ^ L[ET7 ] ) << 3 );
-    dec = s_box_table[ 64 + row*16 + col ];
+    dec = SB1[ row*16 + col ];
     R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
     R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
     R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
@@ -4119,7 +4139,7 @@ export function cipher() :void {
         + ( ( K11_15 ^ L[ET15] ) << 1 )
         + ( ( K11_14 ^ L[ET14] ) << 2 )
         + ( ( K11_13 ^ L[ET13] ) << 3 );
-    dec = s_box_table[ 128 + row*16 + col ];
+    dec = SB2[ row*16 + col ];
     R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
     R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
     R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
@@ -4131,7 +4151,7 @@ export function cipher() :void {
         + ( ( K11_21 ^ L[ET21] ) << 1 )
         + ( ( K11_20 ^ L[ET20] ) << 2 )
         + ( ( K11_19 ^ L[ET19] ) << 3 );
-    dec = s_box_table[ 192 + row*16 + col ];
+    dec = SB3[ row*16 + col ];
     R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
     R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
     R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
@@ -4143,7 +4163,7 @@ export function cipher() :void {
         + ( ( K11_27 ^ L[ET27] ) << 1 )
         + ( ( K11_26 ^ L[ET26] ) << 2 )
         + ( ( K11_25 ^ L[ET25] ) << 3 );
-    dec = s_box_table[ 256 + row*16 + col ];
+    dec = SB4[ row*16 + col ];
     R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
     R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
     R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
@@ -4155,7 +4175,7 @@ export function cipher() :void {
         + ( ( K11_33 ^ L[ET33] ) << 1 )
         + ( ( K11_32 ^ L[ET32] ) << 2 )
         + ( ( K11_31 ^ L[ET31] ) << 3 );
-    dec = s_box_table[ 320 + row*16 + col ];
+    dec = SB5[ row*16 + col ];
     R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
     R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
     R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
@@ -4167,7 +4187,7 @@ export function cipher() :void {
         + ( ( K11_39 ^ L[ET39] ) << 1 )
         + ( ( K11_38 ^ L[ET38] ) << 2 )
         + ( ( K11_37 ^ L[ET37] ) << 3 );
-    dec = s_box_table[ 384 + row*16 + col ];
+    dec = SB6[ row*16 + col ];
     R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
     R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
     R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
@@ -4179,7 +4199,7 @@ export function cipher() :void {
         + ( ( K11_45 ^ L[ET45] ) << 1 )
         + ( ( K11_44 ^ L[ET44] ) << 2 )
         + ( ( K11_43 ^ L[ET43] ) << 3 );
-    dec = s_box_table[ 448 + row*16 + col ];
+    dec = SB7[ row*16 + col ];
     R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
     R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
     R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
@@ -4192,7 +4212,7 @@ export function cipher() :void {
         + ( ( K12_3 ^ R[ET3] ) << 1 )
         + ( ( K12_2 ^ R[ET2] ) << 2 )
         + ( ( K12_1 ^ R[ET1] ) << 3 );
-    dec = s_box_table[ 0 + row*16 + col ];
+    dec = SB0[ row*16 + col ];
     L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
     L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
     L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
@@ -4204,7 +4224,7 @@ export function cipher() :void {
         + ( ( K12_9  ^ R[ET9 ] ) << 1 )
         + ( ( K12_8  ^ R[ET8 ] ) << 2 )
         + ( ( K12_7  ^ R[ET7 ] ) << 3 );
-    dec = s_box_table[ 64 + row*16 + col ];
+    dec = SB1[ row*16 + col ];
     L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
     L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
     L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
@@ -4216,7 +4236,7 @@ export function cipher() :void {
         + ( ( K12_15 ^ R[ET15] ) << 1 )
         + ( ( K12_14 ^ R[ET14] ) << 2 )
         + ( ( K12_13 ^ R[ET13] ) << 3 );
-    dec = s_box_table[ 128 + row*16 + col ];
+    dec = SB2[ row*16 + col ];
     L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
     L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
     L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
@@ -4228,7 +4248,7 @@ export function cipher() :void {
         + ( ( K12_21 ^ R[ET21] ) << 1 )
         + ( ( K12_20 ^ R[ET20] ) << 2 )
         + ( ( K12_19 ^ R[ET19] ) << 3 );
-    dec = s_box_table[ 192 + row*16 + col ];
+    dec = SB3[ row*16 + col ];
     L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
     L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
     L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
@@ -4240,7 +4260,7 @@ export function cipher() :void {
         + ( ( K12_27 ^ R[ET27] ) << 1 )
         + ( ( K12_26 ^ R[ET26] ) << 2 )
         + ( ( K12_25 ^ R[ET25] ) << 3 );
-    dec = s_box_table[ 256 + row*16 + col ];
+    dec = SB4[ row*16 + col ];
     L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
     L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
     L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
@@ -4252,7 +4272,7 @@ export function cipher() :void {
         + ( ( K12_33 ^ R[ET33] ) << 1 )
         + ( ( K12_32 ^ R[ET32] ) << 2 )
         + ( ( K12_31 ^ R[ET31] ) << 3 );
-    dec = s_box_table[ 320 + row*16 + col ];
+    dec = SB5[ row*16 + col ];
     L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
     L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
     L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
@@ -4264,7 +4284,7 @@ export function cipher() :void {
         + ( ( K12_39 ^ R[ET39] ) << 1 )
         + ( ( K12_38 ^ R[ET38] ) << 2 )
         + ( ( K12_37 ^ R[ET37] ) << 3 );
-    dec = s_box_table[ 384 + row*16 + col ];
+    dec = SB6[ row*16 + col ];
     L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
     L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
     L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
@@ -4276,7 +4296,7 @@ export function cipher() :void {
         + ( ( K12_45 ^ R[ET45] ) << 1 )
         + ( ( K12_44 ^ R[ET44] ) << 2 )
         + ( ( K12_43 ^ R[ET43] ) << 3 );
-    dec = s_box_table[ 448 + row*16 + col ];
+    dec = SB7[ row*16 + col ];
     L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
     L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
     L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
@@ -4289,7 +4309,7 @@ export function cipher() :void {
         + ( ( K13_3 ^ L[ET3] ) << 1 )
         + ( ( K13_2 ^ L[ET2] ) << 2 )
         + ( ( K13_1 ^ L[ET1] ) << 3 );
-    dec = s_box_table[ 0 + row*16 + col ];
+    dec = SB0[ row*16 + col ];
     R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
     R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
     R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
@@ -4301,7 +4321,7 @@ export function cipher() :void {
         + ( ( K13_9  ^ L[ET9 ] ) << 1 )
         + ( ( K13_8  ^ L[ET8 ] ) << 2 )
         + ( ( K13_7  ^ L[ET7 ] ) << 3 );
-    dec = s_box_table[ 64 + row*16 + col ];
+    dec = SB1[ row*16 + col ];
     R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
     R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
     R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
@@ -4313,7 +4333,7 @@ export function cipher() :void {
         + ( ( K13_15 ^ L[ET15] ) << 1 )
         + ( ( K13_14 ^ L[ET14] ) << 2 )
         + ( ( K13_13 ^ L[ET13] ) << 3 );
-    dec = s_box_table[ 128 + row*16 + col ];
+    dec = SB2[ row*16 + col ];
     R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
     R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
     R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
@@ -4325,7 +4345,7 @@ export function cipher() :void {
         + ( ( K13_21 ^ L[ET21] ) << 1 )
         + ( ( K13_20 ^ L[ET20] ) << 2 )
         + ( ( K13_19 ^ L[ET19] ) << 3 );
-    dec = s_box_table[ 192 + row*16 + col ];
+    dec = SB3[ row*16 + col ];
     R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
     R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
     R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
@@ -4337,7 +4357,7 @@ export function cipher() :void {
         + ( ( K13_27 ^ L[ET27] ) << 1 )
         + ( ( K13_26 ^ L[ET26] ) << 2 )
         + ( ( K13_25 ^ L[ET25] ) << 3 );
-    dec = s_box_table[ 256 + row*16 + col ];
+    dec = SB4[ row*16 + col ];
     R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
     R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
     R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
@@ -4349,7 +4369,7 @@ export function cipher() :void {
         + ( ( K13_33 ^ L[ET33] ) << 1 )
         + ( ( K13_32 ^ L[ET32] ) << 2 )
         + ( ( K13_31 ^ L[ET31] ) << 3 );
-    dec = s_box_table[ 320 + row*16 + col ];
+    dec = SB5[ row*16 + col ];
     R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
     R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
     R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
@@ -4361,7 +4381,7 @@ export function cipher() :void {
         + ( ( K13_39 ^ L[ET39] ) << 1 )
         + ( ( K13_38 ^ L[ET38] ) << 2 )
         + ( ( K13_37 ^ L[ET37] ) << 3 );
-    dec = s_box_table[ 384 + row*16 + col ];
+    dec = SB6[ row*16 + col ];
     R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
     R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
     R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
@@ -4373,7 +4393,7 @@ export function cipher() :void {
         + ( ( K13_45 ^ L[ET45] ) << 1 )
         + ( ( K13_44 ^ L[ET44] ) << 2 )
         + ( ( K13_43 ^ L[ET43] ) << 3 );
-    dec = s_box_table[ 448 + row*16 + col ];
+    dec = SB7[ row*16 + col ];
     R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
     R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
     R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
@@ -4386,7 +4406,7 @@ export function cipher() :void {
         + ( ( K14_3 ^ R[ET3] ) << 1 )
         + ( ( K14_2 ^ R[ET2] ) << 2 )
         + ( ( K14_1 ^ R[ET1] ) << 3 );
-    dec = s_box_table[ 0 + row*16 + col ];
+    dec = SB0[ row*16 + col ];
     L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
     L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
     L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
@@ -4398,7 +4418,7 @@ export function cipher() :void {
         + ( ( K14_9  ^ R[ET9 ] ) << 1 )
         + ( ( K14_8  ^ R[ET8 ] ) << 2 )
         + ( ( K14_7  ^ R[ET7 ] ) << 3 );
-    dec = s_box_table[ 64 + row*16 + col ];
+    dec = SB1[ row*16 + col ];
     L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
     L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
     L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
@@ -4410,7 +4430,7 @@ export function cipher() :void {
         + ( ( K14_15 ^ R[ET15] ) << 1 )
         + ( ( K14_14 ^ R[ET14] ) << 2 )
         + ( ( K14_13 ^ R[ET13] ) << 3 );
-    dec = s_box_table[ 128 + row*16 + col ];
+    dec = SB2[ row*16 + col ];
     L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
     L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
     L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
@@ -4422,7 +4442,7 @@ export function cipher() :void {
         + ( ( K14_21 ^ R[ET21] ) << 1 )
         + ( ( K14_20 ^ R[ET20] ) << 2 )
         + ( ( K14_19 ^ R[ET19] ) << 3 );
-    dec = s_box_table[ 192 + row*16 + col ];
+    dec = SB3[ row*16 + col ];
     L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
     L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
     L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
@@ -4434,7 +4454,7 @@ export function cipher() :void {
         + ( ( K14_27 ^ R[ET27] ) << 1 )
         + ( ( K14_26 ^ R[ET26] ) << 2 )
         + ( ( K14_25 ^ R[ET25] ) << 3 );
-    dec = s_box_table[ 256 + row*16 + col ];
+    dec = SB4[ row*16 + col ];
     L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
     L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
     L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
@@ -4446,7 +4466,7 @@ export function cipher() :void {
         + ( ( K14_33 ^ R[ET33] ) << 1 )
         + ( ( K14_32 ^ R[ET32] ) << 2 )
         + ( ( K14_31 ^ R[ET31] ) << 3 );
-    dec = s_box_table[ 320 + row*16 + col ];
+    dec = SB5[ row*16 + col ];
     L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
     L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
     L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
@@ -4458,7 +4478,7 @@ export function cipher() :void {
         + ( ( K14_39 ^ R[ET39] ) << 1 )
         + ( ( K14_38 ^ R[ET38] ) << 2 )
         + ( ( K14_37 ^ R[ET37] ) << 3 );
-    dec = s_box_table[ 384 + row*16 + col ];
+    dec = SB6[ row*16 + col ];
     L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
     L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
     L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
@@ -4470,7 +4490,7 @@ export function cipher() :void {
         + ( ( K14_45 ^ R[ET45] ) << 1 )
         + ( ( K14_44 ^ R[ET44] ) << 2 )
         + ( ( K14_43 ^ R[ET43] ) << 3 );
-    dec = s_box_table[ 448 + row*16 + col ];
+    dec = SB7[ row*16 + col ];
     L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
     L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
     L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
@@ -4483,7 +4503,7 @@ export function cipher() :void {
         + ( ( K15_3 ^ L[ET3] ) << 1 )
         + ( ( K15_2 ^ L[ET2] ) << 2 )
         + ( ( K15_1 ^ L[ET1] ) << 3 );
-    dec = s_box_table[ 0 + row*16 + col ];
+    dec = SB0[ row*16 + col ];
     R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
     R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
     R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
@@ -4495,7 +4515,7 @@ export function cipher() :void {
         + ( ( K15_9  ^ L[ET9 ] ) << 1 )
         + ( ( K15_8  ^ L[ET8 ] ) << 2 )
         + ( ( K15_7  ^ L[ET7 ] ) << 3 );
-    dec = s_box_table[ 64 + row*16 + col ];
+    dec = SB1[ row*16 + col ];
     R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
     R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
     R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
@@ -4507,7 +4527,7 @@ export function cipher() :void {
         + ( ( K15_15 ^ L[ET15] ) << 1 )
         + ( ( K15_14 ^ L[ET14] ) << 2 )
         + ( ( K15_13 ^ L[ET13] ) << 3 );
-    dec = s_box_table[ 128 + row*16 + col ];
+    dec = SB2[ row*16 + col ];
     R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
     R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
     R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
@@ -4519,7 +4539,7 @@ export function cipher() :void {
         + ( ( K15_21 ^ L[ET21] ) << 1 )
         + ( ( K15_20 ^ L[ET20] ) << 2 )
         + ( ( K15_19 ^ L[ET19] ) << 3 );
-    dec = s_box_table[ 192 + row*16 + col ];
+    dec = SB3[ row*16 + col ];
     R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
     R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
     R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
@@ -4531,7 +4551,7 @@ export function cipher() :void {
         + ( ( K15_27 ^ L[ET27] ) << 1 )
         + ( ( K15_26 ^ L[ET26] ) << 2 )
         + ( ( K15_25 ^ L[ET25] ) << 3 );
-    dec = s_box_table[ 256 + row*16 + col ];
+    dec = SB4[ row*16 + col ];
     R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
     R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
     R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
@@ -4543,7 +4563,7 @@ export function cipher() :void {
         + ( ( K15_33 ^ L[ET33] ) << 1 )
         + ( ( K15_32 ^ L[ET32] ) << 2 )
         + ( ( K15_31 ^ L[ET31] ) << 3 );
-    dec = s_box_table[ 320 + row*16 + col ];
+    dec = SB5[ row*16 + col ];
     R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
     R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
     R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
@@ -4555,7 +4575,7 @@ export function cipher() :void {
         + ( ( K15_39 ^ L[ET39] ) << 1 )
         + ( ( K15_38 ^ L[ET38] ) << 2 )
         + ( ( K15_37 ^ L[ET37] ) << 3 );
-    dec = s_box_table[ 384 + row*16 + col ];
+    dec = SB6[ row*16 + col ];
     R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
     R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
     R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
@@ -4567,7 +4587,7 @@ export function cipher() :void {
         + ( ( K15_45 ^ L[ET45] ) << 1 )
         + ( ( K15_44 ^ L[ET44] ) << 2 )
         + ( ( K15_43 ^ L[ET43] ) << 3 );
-    dec = s_box_table[ 448 + row*16 + col ];
+    dec = SB7[ row*16 + col ];
     R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
     R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
     R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
@@ -4581,6 +4601,7 @@ export function cipher() :void {
   }
 }
 
+/*
 function gen_round_keys() :void {
   let i      :i32, j :i32;
   let k      :i32[];
@@ -4603,6 +4624,7 @@ function gen_round_keys() :void {
     }
   }
 }
+*/
 
 function perturb_expansion() :void {
   let i :i32, j :i32;

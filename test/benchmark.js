@@ -63,6 +63,10 @@ if( process.env.TESTWASM ) {
 
       wasm.memory.grow(100);
       mem = new Int8Array(wasm.memory.buffer);
+
+//      console.time('wasm');
+  //    wasm.main(100000);
+    //  console.timeEnd('wasm');
     });
 
     if( process.env.ENSURE_CORRECTNESS ) {
@@ -74,6 +78,7 @@ if( process.env.TESTWASM ) {
     }
     
     it('100.000 runs', function() {
+
       wasm.main(100000);
     });
   });
