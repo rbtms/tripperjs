@@ -220,30 +220,6 @@ const CT45 :i32 = 35;
 const CT46 :i32 = 28;
 const CT47 :i32 = 31;
 
-const CT0_MOD  :i32 = CT0  % 28;
-const CT1_MOD  :i32 = CT1  % 28;
-const CT2_MOD  :i32 = CT2  % 28;
-const CT3_MOD  :i32 = CT3  % 28;
-const CT4_MOD  :i32 = CT4  % 28;
-const CT5_MOD  :i32 = CT5  % 28;
-const CT6_MOD  :i32 = CT6  % 28;
-const CT7_MOD  :i32 = CT7  % 28;
-const CT8_MOD  :i32 = CT8  % 28;
-const CT9_MOD  :i32 = CT9  % 28;
-const CT10_MOD :i32 = CT10 % 28;
-const CT11_MOD :i32 = CT11 % 28;
-const CT12_MOD :i32 = CT12 % 28;
-const CT13_MOD :i32 = CT13 % 28;
-const CT14_MOD :i32 = CT14 % 28;
-const CT15_MOD :i32 = CT15 % 28;
-const CT16_MOD :i32 = CT16 % 28;
-const CT17_MOD :i32 = CT17 % 28;
-const CT18_MOD :i32 = CT18 % 28;
-const CT19_MOD :i32 = CT19 % 28;
-const CT20_MOD :i32 = CT20 % 28;
-const CT21_MOD :i32 = CT21 % 28;
-const CT22_MOD :i32 = CT22 % 28;
-const CT23_MOD :i32 = CT23 % 28;
 const CT24_MOD :i32 = CT24 % 28;
 const CT25_MOD :i32 = CT25 % 28;
 const CT26_MOD :i32 = CT26 % 28;
@@ -311,30 +287,6 @@ const SOFF0_CT20 :i32 = (_offset + CT20) % 28;
 const SOFF0_CT21 :i32 = (_offset + CT21) % 28;
 const SOFF0_CT22 :i32 = (_offset + CT22) % 28;
 const SOFF0_CT23 :i32 = (_offset + CT23) % 28;
-const SOFF0_CT24 :i32 = (_offset + CT24) % 28;
-const SOFF0_CT25 :i32 = (_offset + CT25) % 28;
-const SOFF0_CT26 :i32 = (_offset + CT26) % 28;
-const SOFF0_CT27 :i32 = (_offset + CT27) % 28;
-const SOFF0_CT28 :i32 = (_offset + CT28) % 28;
-const SOFF0_CT29 :i32 = (_offset + CT29) % 28;
-const SOFF0_CT30 :i32 = (_offset + CT30) % 28;
-const SOFF0_CT31 :i32 = (_offset + CT31) % 28;
-const SOFF0_CT32 :i32 = (_offset + CT32) % 28;
-const SOFF0_CT33 :i32 = (_offset + CT33) % 28;
-const SOFF0_CT34 :i32 = (_offset + CT34) % 28;
-const SOFF0_CT35 :i32 = (_offset + CT35) % 28;
-const SOFF0_CT36 :i32 = (_offset + CT36) % 28;
-const SOFF0_CT37 :i32 = (_offset + CT37) % 28;
-const SOFF0_CT38 :i32 = (_offset + CT38) % 28;
-const SOFF0_CT39 :i32 = (_offset + CT39) % 28;
-const SOFF0_CT40 :i32 = (_offset + CT40) % 28;
-const SOFF0_CT41 :i32 = (_offset + CT41) % 28;
-const SOFF0_CT42 :i32 = (_offset + CT42) % 28;
-const SOFF0_CT43 :i32 = (_offset + CT43) % 28;
-const SOFF0_CT44 :i32 = (_offset + CT44) % 28;
-const SOFF0_CT45 :i32 = (_offset + CT45) % 28;
-const SOFF0_CT46 :i32 = (_offset + CT46) % 28;
-const SOFF0_CT47 :i32 = (_offset + CT47) % 28;
 
 
 const SOFF1_CT0  :i32 = (_offset1 + CT0)  % 28;
@@ -361,30 +313,6 @@ const SOFF1_CT20 :i32 = (_offset1 + CT20) % 28;
 const SOFF1_CT21 :i32 = (_offset1 + CT21) % 28;
 const SOFF1_CT22 :i32 = (_offset1 + CT22) % 28;
 const SOFF1_CT23 :i32 = (_offset1 + CT23) % 28;
-const SOFF1_CT24 :i32 = (_offset1 + CT24) % 28;
-const SOFF1_CT25 :i32 = (_offset1 + CT25) % 28;
-const SOFF1_CT26 :i32 = (_offset1 + CT26) % 28;
-const SOFF1_CT27 :i32 = (_offset1 + CT27) % 28;
-const SOFF1_CT28 :i32 = (_offset1 + CT28) % 28;
-const SOFF1_CT29 :i32 = (_offset1 + CT29) % 28;
-const SOFF1_CT30 :i32 = (_offset1 + CT30) % 28;
-const SOFF1_CT31 :i32 = (_offset1 + CT31) % 28;
-const SOFF1_CT32 :i32 = (_offset1 + CT32) % 28;
-const SOFF1_CT33 :i32 = (_offset1 + CT33) % 28;
-const SOFF1_CT34 :i32 = (_offset1 + CT34) % 28;
-const SOFF1_CT35 :i32 = (_offset1 + CT35) % 28;
-const SOFF1_CT36 :i32 = (_offset1 + CT36) % 28;
-const SOFF1_CT37 :i32 = (_offset1 + CT37) % 28;
-const SOFF1_CT38 :i32 = (_offset1 + CT38) % 28;
-const SOFF1_CT39 :i32 = (_offset1 + CT39) % 28;
-const SOFF1_CT40 :i32 = (_offset1 + CT40) % 28;
-const SOFF1_CT41 :i32 = (_offset1 + CT41) % 28;
-const SOFF1_CT42 :i32 = (_offset1 + CT42) % 28;
-const SOFF1_CT43 :i32 = (_offset1 + CT43) % 28;
-const SOFF1_CT44 :i32 = (_offset1 + CT44) % 28;
-const SOFF1_CT45 :i32 = (_offset1 + CT45) % 28;
-const SOFF1_CT46 :i32 = (_offset1 + CT46) % 28;
-const SOFF1_CT47 :i32 = (_offset1 + CT47) % 28;
 
 
 const SOFF2_CT0  :i32 = (_offset2 + CT0)  % 28;
@@ -411,30 +339,6 @@ const SOFF2_CT20 :i32 = (_offset2 + CT20) % 28;
 const SOFF2_CT21 :i32 = (_offset2 + CT21) % 28;
 const SOFF2_CT22 :i32 = (_offset2 + CT22) % 28;
 const SOFF2_CT23 :i32 = (_offset2 + CT23) % 28;
-const SOFF2_CT24 :i32 = (_offset2 + CT24) % 28;
-const SOFF2_CT25 :i32 = (_offset2 + CT25) % 28;
-const SOFF2_CT26 :i32 = (_offset2 + CT26) % 28;
-const SOFF2_CT27 :i32 = (_offset2 + CT27) % 28;
-const SOFF2_CT28 :i32 = (_offset2 + CT28) % 28;
-const SOFF2_CT29 :i32 = (_offset2 + CT29) % 28;
-const SOFF2_CT30 :i32 = (_offset2 + CT30) % 28;
-const SOFF2_CT31 :i32 = (_offset2 + CT31) % 28;
-const SOFF2_CT32 :i32 = (_offset2 + CT32) % 28;
-const SOFF2_CT33 :i32 = (_offset2 + CT33) % 28;
-const SOFF2_CT34 :i32 = (_offset2 + CT34) % 28;
-const SOFF2_CT35 :i32 = (_offset2 + CT35) % 28;
-const SOFF2_CT36 :i32 = (_offset2 + CT36) % 28;
-const SOFF2_CT37 :i32 = (_offset2 + CT37) % 28;
-const SOFF2_CT38 :i32 = (_offset2 + CT38) % 28;
-const SOFF2_CT39 :i32 = (_offset2 + CT39) % 28;
-const SOFF2_CT40 :i32 = (_offset2 + CT40) % 28;
-const SOFF2_CT41 :i32 = (_offset2 + CT41) % 28;
-const SOFF2_CT42 :i32 = (_offset2 + CT42) % 28;
-const SOFF2_CT43 :i32 = (_offset2 + CT43) % 28;
-const SOFF2_CT44 :i32 = (_offset2 + CT44) % 28;
-const SOFF2_CT45 :i32 = (_offset2 + CT45) % 28;
-const SOFF2_CT46 :i32 = (_offset2 + CT46) % 28;
-const SOFF2_CT47 :i32 = (_offset2 + CT47) % 28;
 
 
 const SOFF3_CT0  :i32 = (_offset3 + CT0)  % 28;
@@ -461,30 +365,6 @@ const SOFF3_CT20 :i32 = (_offset3 + CT20) % 28;
 const SOFF3_CT21 :i32 = (_offset3 + CT21) % 28;
 const SOFF3_CT22 :i32 = (_offset3 + CT22) % 28;
 const SOFF3_CT23 :i32 = (_offset3 + CT23) % 28;
-const SOFF3_CT24 :i32 = (_offset3 + CT24) % 28;
-const SOFF3_CT25 :i32 = (_offset3 + CT25) % 28;
-const SOFF3_CT26 :i32 = (_offset3 + CT26) % 28;
-const SOFF3_CT27 :i32 = (_offset3 + CT27) % 28;
-const SOFF3_CT28 :i32 = (_offset3 + CT28) % 28;
-const SOFF3_CT29 :i32 = (_offset3 + CT29) % 28;
-const SOFF3_CT30 :i32 = (_offset3 + CT30) % 28;
-const SOFF3_CT31 :i32 = (_offset3 + CT31) % 28;
-const SOFF3_CT32 :i32 = (_offset3 + CT32) % 28;
-const SOFF3_CT33 :i32 = (_offset3 + CT33) % 28;
-const SOFF3_CT34 :i32 = (_offset3 + CT34) % 28;
-const SOFF3_CT35 :i32 = (_offset3 + CT35) % 28;
-const SOFF3_CT36 :i32 = (_offset3 + CT36) % 28;
-const SOFF3_CT37 :i32 = (_offset3 + CT37) % 28;
-const SOFF3_CT38 :i32 = (_offset3 + CT38) % 28;
-const SOFF3_CT39 :i32 = (_offset3 + CT39) % 28;
-const SOFF3_CT40 :i32 = (_offset3 + CT40) % 28;
-const SOFF3_CT41 :i32 = (_offset3 + CT41) % 28;
-const SOFF3_CT42 :i32 = (_offset3 + CT42) % 28;
-const SOFF3_CT43 :i32 = (_offset3 + CT43) % 28;
-const SOFF3_CT44 :i32 = (_offset3 + CT44) % 28;
-const SOFF3_CT45 :i32 = (_offset3 + CT45) % 28;
-const SOFF3_CT46 :i32 = (_offset3 + CT46) % 28;
-const SOFF3_CT47 :i32 = (_offset3 + CT47) % 28;
 
 
 const SOFF4_CT0  :i32 = (_offset4 + CT0)  % 28;
@@ -511,30 +391,6 @@ const SOFF4_CT20 :i32 = (_offset4 + CT20) % 28;
 const SOFF4_CT21 :i32 = (_offset4 + CT21) % 28;
 const SOFF4_CT22 :i32 = (_offset4 + CT22) % 28;
 const SOFF4_CT23 :i32 = (_offset4 + CT23) % 28;
-const SOFF4_CT24 :i32 = (_offset4 + CT24) % 28;
-const SOFF4_CT25 :i32 = (_offset4 + CT25) % 28;
-const SOFF4_CT26 :i32 = (_offset4 + CT26) % 28;
-const SOFF4_CT27 :i32 = (_offset4 + CT27) % 28;
-const SOFF4_CT28 :i32 = (_offset4 + CT28) % 28;
-const SOFF4_CT29 :i32 = (_offset4 + CT29) % 28;
-const SOFF4_CT30 :i32 = (_offset4 + CT30) % 28;
-const SOFF4_CT31 :i32 = (_offset4 + CT31) % 28;
-const SOFF4_CT32 :i32 = (_offset4 + CT32) % 28;
-const SOFF4_CT33 :i32 = (_offset4 + CT33) % 28;
-const SOFF4_CT34 :i32 = (_offset4 + CT34) % 28;
-const SOFF4_CT35 :i32 = (_offset4 + CT35) % 28;
-const SOFF4_CT36 :i32 = (_offset4 + CT36) % 28;
-const SOFF4_CT37 :i32 = (_offset4 + CT37) % 28;
-const SOFF4_CT38 :i32 = (_offset4 + CT38) % 28;
-const SOFF4_CT39 :i32 = (_offset4 + CT39) % 28;
-const SOFF4_CT40 :i32 = (_offset4 + CT40) % 28;
-const SOFF4_CT41 :i32 = (_offset4 + CT41) % 28;
-const SOFF4_CT42 :i32 = (_offset4 + CT42) % 28;
-const SOFF4_CT43 :i32 = (_offset4 + CT43) % 28;
-const SOFF4_CT44 :i32 = (_offset4 + CT44) % 28;
-const SOFF4_CT45 :i32 = (_offset4 + CT45) % 28;
-const SOFF4_CT46 :i32 = (_offset4 + CT46) % 28;
-const SOFF4_CT47 :i32 = (_offset4 + CT47) % 28;
 
 
 const SOFF5_CT0  :i32 = (_offset5 + CT0)  % 28;
@@ -561,30 +417,6 @@ const SOFF5_CT20 :i32 = (_offset5 + CT20) % 28;
 const SOFF5_CT21 :i32 = (_offset5 + CT21) % 28;
 const SOFF5_CT22 :i32 = (_offset5 + CT22) % 28;
 const SOFF5_CT23 :i32 = (_offset5 + CT23) % 28;
-const SOFF5_CT24 :i32 = (_offset5 + CT24) % 28;
-const SOFF5_CT25 :i32 = (_offset5 + CT25) % 28;
-const SOFF5_CT26 :i32 = (_offset5 + CT26) % 28;
-const SOFF5_CT27 :i32 = (_offset5 + CT27) % 28;
-const SOFF5_CT28 :i32 = (_offset5 + CT28) % 28;
-const SOFF5_CT29 :i32 = (_offset5 + CT29) % 28;
-const SOFF5_CT30 :i32 = (_offset5 + CT30) % 28;
-const SOFF5_CT31 :i32 = (_offset5 + CT31) % 28;
-const SOFF5_CT32 :i32 = (_offset5 + CT32) % 28;
-const SOFF5_CT33 :i32 = (_offset5 + CT33) % 28;
-const SOFF5_CT34 :i32 = (_offset5 + CT34) % 28;
-const SOFF5_CT35 :i32 = (_offset5 + CT35) % 28;
-const SOFF5_CT36 :i32 = (_offset5 + CT36) % 28;
-const SOFF5_CT37 :i32 = (_offset5 + CT37) % 28;
-const SOFF5_CT38 :i32 = (_offset5 + CT38) % 28;
-const SOFF5_CT39 :i32 = (_offset5 + CT39) % 28;
-const SOFF5_CT40 :i32 = (_offset5 + CT40) % 28;
-const SOFF5_CT41 :i32 = (_offset5 + CT41) % 28;
-const SOFF5_CT42 :i32 = (_offset5 + CT42) % 28;
-const SOFF5_CT43 :i32 = (_offset5 + CT43) % 28;
-const SOFF5_CT44 :i32 = (_offset5 + CT44) % 28;
-const SOFF5_CT45 :i32 = (_offset5 + CT45) % 28;
-const SOFF5_CT46 :i32 = (_offset5 + CT46) % 28;
-const SOFF5_CT47 :i32 = (_offset5 + CT47) % 28;
 
 
 const SOFF6_CT0  :i32 = (_offset6 + CT0)  % 28;
@@ -611,30 +443,6 @@ const SOFF6_CT20 :i32 = (_offset6 + CT20) % 28;
 const SOFF6_CT21 :i32 = (_offset6 + CT21) % 28;
 const SOFF6_CT22 :i32 = (_offset6 + CT22) % 28;
 const SOFF6_CT23 :i32 = (_offset6 + CT23) % 28;
-const SOFF6_CT24 :i32 = (_offset6 + CT24) % 28;
-const SOFF6_CT25 :i32 = (_offset6 + CT25) % 28;
-const SOFF6_CT26 :i32 = (_offset6 + CT26) % 28;
-const SOFF6_CT27 :i32 = (_offset6 + CT27) % 28;
-const SOFF6_CT28 :i32 = (_offset6 + CT28) % 28;
-const SOFF6_CT29 :i32 = (_offset6 + CT29) % 28;
-const SOFF6_CT30 :i32 = (_offset6 + CT30) % 28;
-const SOFF6_CT31 :i32 = (_offset6 + CT31) % 28;
-const SOFF6_CT32 :i32 = (_offset6 + CT32) % 28;
-const SOFF6_CT33 :i32 = (_offset6 + CT33) % 28;
-const SOFF6_CT34 :i32 = (_offset6 + CT34) % 28;
-const SOFF6_CT35 :i32 = (_offset6 + CT35) % 28;
-const SOFF6_CT36 :i32 = (_offset6 + CT36) % 28;
-const SOFF6_CT37 :i32 = (_offset6 + CT37) % 28;
-const SOFF6_CT38 :i32 = (_offset6 + CT38) % 28;
-const SOFF6_CT39 :i32 = (_offset6 + CT39) % 28;
-const SOFF6_CT40 :i32 = (_offset6 + CT40) % 28;
-const SOFF6_CT41 :i32 = (_offset6 + CT41) % 28;
-const SOFF6_CT42 :i32 = (_offset6 + CT42) % 28;
-const SOFF6_CT43 :i32 = (_offset6 + CT43) % 28;
-const SOFF6_CT44 :i32 = (_offset6 + CT44) % 28;
-const SOFF6_CT45 :i32 = (_offset6 + CT45) % 28;
-const SOFF6_CT46 :i32 = (_offset6 + CT46) % 28;
-const SOFF6_CT47 :i32 = (_offset6 + CT47) % 28;
 
 
 const SOFF7_CT0  :i32 = (_offset7 + CT0)  % 28;
@@ -661,30 +469,6 @@ const SOFF7_CT20 :i32 = (_offset7 + CT20) % 28;
 const SOFF7_CT21 :i32 = (_offset7 + CT21) % 28;
 const SOFF7_CT22 :i32 = (_offset7 + CT22) % 28;
 const SOFF7_CT23 :i32 = (_offset7 + CT23) % 28;
-const SOFF7_CT24 :i32 = (_offset7 + CT24) % 28;
-const SOFF7_CT25 :i32 = (_offset7 + CT25) % 28;
-const SOFF7_CT26 :i32 = (_offset7 + CT26) % 28;
-const SOFF7_CT27 :i32 = (_offset7 + CT27) % 28;
-const SOFF7_CT28 :i32 = (_offset7 + CT28) % 28;
-const SOFF7_CT29 :i32 = (_offset7 + CT29) % 28;
-const SOFF7_CT30 :i32 = (_offset7 + CT30) % 28;
-const SOFF7_CT31 :i32 = (_offset7 + CT31) % 28;
-const SOFF7_CT32 :i32 = (_offset7 + CT32) % 28;
-const SOFF7_CT33 :i32 = (_offset7 + CT33) % 28;
-const SOFF7_CT34 :i32 = (_offset7 + CT34) % 28;
-const SOFF7_CT35 :i32 = (_offset7 + CT35) % 28;
-const SOFF7_CT36 :i32 = (_offset7 + CT36) % 28;
-const SOFF7_CT37 :i32 = (_offset7 + CT37) % 28;
-const SOFF7_CT38 :i32 = (_offset7 + CT38) % 28;
-const SOFF7_CT39 :i32 = (_offset7 + CT39) % 28;
-const SOFF7_CT40 :i32 = (_offset7 + CT40) % 28;
-const SOFF7_CT41 :i32 = (_offset7 + CT41) % 28;
-const SOFF7_CT42 :i32 = (_offset7 + CT42) % 28;
-const SOFF7_CT43 :i32 = (_offset7 + CT43) % 28;
-const SOFF7_CT44 :i32 = (_offset7 + CT44) % 28;
-const SOFF7_CT45 :i32 = (_offset7 + CT45) % 28;
-const SOFF7_CT46 :i32 = (_offset7 + CT46) % 28;
-const SOFF7_CT47 :i32 = (_offset7 + CT47) % 28;
 
 
 const SOFF8_CT0  :i32 = (_offset8 + CT0)  % 28;
@@ -711,30 +495,6 @@ const SOFF8_CT20 :i32 = (_offset8 + CT20) % 28;
 const SOFF8_CT21 :i32 = (_offset8 + CT21) % 28;
 const SOFF8_CT22 :i32 = (_offset8 + CT22) % 28;
 const SOFF8_CT23 :i32 = (_offset8 + CT23) % 28;
-const SOFF8_CT24 :i32 = (_offset8 + CT24) % 28;
-const SOFF8_CT25 :i32 = (_offset8 + CT25) % 28;
-const SOFF8_CT26 :i32 = (_offset8 + CT26) % 28;
-const SOFF8_CT27 :i32 = (_offset8 + CT27) % 28;
-const SOFF8_CT28 :i32 = (_offset8 + CT28) % 28;
-const SOFF8_CT29 :i32 = (_offset8 + CT29) % 28;
-const SOFF8_CT30 :i32 = (_offset8 + CT30) % 28;
-const SOFF8_CT31 :i32 = (_offset8 + CT31) % 28;
-const SOFF8_CT32 :i32 = (_offset8 + CT32) % 28;
-const SOFF8_CT33 :i32 = (_offset8 + CT33) % 28;
-const SOFF8_CT34 :i32 = (_offset8 + CT34) % 28;
-const SOFF8_CT35 :i32 = (_offset8 + CT35) % 28;
-const SOFF8_CT36 :i32 = (_offset8 + CT36) % 28;
-const SOFF8_CT37 :i32 = (_offset8 + CT37) % 28;
-const SOFF8_CT38 :i32 = (_offset8 + CT38) % 28;
-const SOFF8_CT39 :i32 = (_offset8 + CT39) % 28;
-const SOFF8_CT40 :i32 = (_offset8 + CT40) % 28;
-const SOFF8_CT41 :i32 = (_offset8 + CT41) % 28;
-const SOFF8_CT42 :i32 = (_offset8 + CT42) % 28;
-const SOFF8_CT43 :i32 = (_offset8 + CT43) % 28;
-const SOFF8_CT44 :i32 = (_offset8 + CT44) % 28;
-const SOFF8_CT45 :i32 = (_offset8 + CT45) % 28;
-const SOFF8_CT46 :i32 = (_offset8 + CT46) % 28;
-const SOFF8_CT47 :i32 = (_offset8 + CT47) % 28;
 
 
 const SOFF9_CT0  :i32 = (_offset9 + CT0)  % 28;
@@ -761,30 +521,6 @@ const SOFF9_CT20 :i32 = (_offset9 + CT20) % 28;
 const SOFF9_CT21 :i32 = (_offset9 + CT21) % 28;
 const SOFF9_CT22 :i32 = (_offset9 + CT22) % 28;
 const SOFF9_CT23 :i32 = (_offset9 + CT23) % 28;
-const SOFF9_CT24 :i32 = (_offset9 + CT24) % 28;
-const SOFF9_CT25 :i32 = (_offset9 + CT25) % 28;
-const SOFF9_CT26 :i32 = (_offset9 + CT26) % 28;
-const SOFF9_CT27 :i32 = (_offset9 + CT27) % 28;
-const SOFF9_CT28 :i32 = (_offset9 + CT28) % 28;
-const SOFF9_CT29 :i32 = (_offset9 + CT29) % 28;
-const SOFF9_CT30 :i32 = (_offset9 + CT30) % 28;
-const SOFF9_CT31 :i32 = (_offset9 + CT31) % 28;
-const SOFF9_CT32 :i32 = (_offset9 + CT32) % 28;
-const SOFF9_CT33 :i32 = (_offset9 + CT33) % 28;
-const SOFF9_CT34 :i32 = (_offset9 + CT34) % 28;
-const SOFF9_CT35 :i32 = (_offset9 + CT35) % 28;
-const SOFF9_CT36 :i32 = (_offset9 + CT36) % 28;
-const SOFF9_CT37 :i32 = (_offset9 + CT37) % 28;
-const SOFF9_CT38 :i32 = (_offset9 + CT38) % 28;
-const SOFF9_CT39 :i32 = (_offset9 + CT39) % 28;
-const SOFF9_CT40 :i32 = (_offset9 + CT40) % 28;
-const SOFF9_CT41 :i32 = (_offset9 + CT41) % 28;
-const SOFF9_CT42 :i32 = (_offset9 + CT42) % 28;
-const SOFF9_CT43 :i32 = (_offset9 + CT43) % 28;
-const SOFF9_CT44 :i32 = (_offset9 + CT44) % 28;
-const SOFF9_CT45 :i32 = (_offset9 + CT45) % 28;
-const SOFF9_CT46 :i32 = (_offset9 + CT46) % 28;
-const SOFF9_CT47 :i32 = (_offset9 + CT47) % 28;
 
 
 const SOFF10_CT0  :i32 = (_offset10 + CT0)  % 28;
@@ -811,30 +547,6 @@ const SOFF10_CT20 :i32 = (_offset10 + CT20) % 28;
 const SOFF10_CT21 :i32 = (_offset10 + CT21) % 28;
 const SOFF10_CT22 :i32 = (_offset10 + CT22) % 28;
 const SOFF10_CT23 :i32 = (_offset10 + CT23) % 28;
-const SOFF10_CT24 :i32 = (_offset10 + CT24) % 28;
-const SOFF10_CT25 :i32 = (_offset10 + CT25) % 28;
-const SOFF10_CT26 :i32 = (_offset10 + CT26) % 28;
-const SOFF10_CT27 :i32 = (_offset10 + CT27) % 28;
-const SOFF10_CT28 :i32 = (_offset10 + CT28) % 28;
-const SOFF10_CT29 :i32 = (_offset10 + CT29) % 28;
-const SOFF10_CT30 :i32 = (_offset10 + CT30) % 28;
-const SOFF10_CT31 :i32 = (_offset10 + CT31) % 28;
-const SOFF10_CT32 :i32 = (_offset10 + CT32) % 28;
-const SOFF10_CT33 :i32 = (_offset10 + CT33) % 28;
-const SOFF10_CT34 :i32 = (_offset10 + CT34) % 28;
-const SOFF10_CT35 :i32 = (_offset10 + CT35) % 28;
-const SOFF10_CT36 :i32 = (_offset10 + CT36) % 28;
-const SOFF10_CT37 :i32 = (_offset10 + CT37) % 28;
-const SOFF10_CT38 :i32 = (_offset10 + CT38) % 28;
-const SOFF10_CT39 :i32 = (_offset10 + CT39) % 28;
-const SOFF10_CT40 :i32 = (_offset10 + CT40) % 28;
-const SOFF10_CT41 :i32 = (_offset10 + CT41) % 28;
-const SOFF10_CT42 :i32 = (_offset10 + CT42) % 28;
-const SOFF10_CT43 :i32 = (_offset10 + CT43) % 28;
-const SOFF10_CT44 :i32 = (_offset10 + CT44) % 28;
-const SOFF10_CT45 :i32 = (_offset10 + CT45) % 28;
-const SOFF10_CT46 :i32 = (_offset10 + CT46) % 28;
-const SOFF10_CT47 :i32 = (_offset10 + CT47) % 28;
 
 
 const SOFF11_CT0  :i32 = (_offset11 + CT0)  % 28;
@@ -861,30 +573,6 @@ const SOFF11_CT20 :i32 = (_offset11 + CT20) % 28;
 const SOFF11_CT21 :i32 = (_offset11 + CT21) % 28;
 const SOFF11_CT22 :i32 = (_offset11 + CT22) % 28;
 const SOFF11_CT23 :i32 = (_offset11 + CT23) % 28;
-const SOFF11_CT24 :i32 = (_offset11 + CT24) % 28;
-const SOFF11_CT25 :i32 = (_offset11 + CT25) % 28;
-const SOFF11_CT26 :i32 = (_offset11 + CT26) % 28;
-const SOFF11_CT27 :i32 = (_offset11 + CT27) % 28;
-const SOFF11_CT28 :i32 = (_offset11 + CT28) % 28;
-const SOFF11_CT29 :i32 = (_offset11 + CT29) % 28;
-const SOFF11_CT30 :i32 = (_offset11 + CT30) % 28;
-const SOFF11_CT31 :i32 = (_offset11 + CT31) % 28;
-const SOFF11_CT32 :i32 = (_offset11 + CT32) % 28;
-const SOFF11_CT33 :i32 = (_offset11 + CT33) % 28;
-const SOFF11_CT34 :i32 = (_offset11 + CT34) % 28;
-const SOFF11_CT35 :i32 = (_offset11 + CT35) % 28;
-const SOFF11_CT36 :i32 = (_offset11 + CT36) % 28;
-const SOFF11_CT37 :i32 = (_offset11 + CT37) % 28;
-const SOFF11_CT38 :i32 = (_offset11 + CT38) % 28;
-const SOFF11_CT39 :i32 = (_offset11 + CT39) % 28;
-const SOFF11_CT40 :i32 = (_offset11 + CT40) % 28;
-const SOFF11_CT41 :i32 = (_offset11 + CT41) % 28;
-const SOFF11_CT42 :i32 = (_offset11 + CT42) % 28;
-const SOFF11_CT43 :i32 = (_offset11 + CT43) % 28;
-const SOFF11_CT44 :i32 = (_offset11 + CT44) % 28;
-const SOFF11_CT45 :i32 = (_offset11 + CT45) % 28;
-const SOFF11_CT46 :i32 = (_offset11 + CT46) % 28;
-const SOFF11_CT47 :i32 = (_offset11 + CT47) % 28;
 
 
 const SOFF12_CT0  :i32 = (_offset12 + CT0)  % 28;
@@ -911,30 +599,6 @@ const SOFF12_CT20 :i32 = (_offset12 + CT20) % 28;
 const SOFF12_CT21 :i32 = (_offset12 + CT21) % 28;
 const SOFF12_CT22 :i32 = (_offset12 + CT22) % 28;
 const SOFF12_CT23 :i32 = (_offset12 + CT23) % 28;
-const SOFF12_CT24 :i32 = (_offset12 + CT24) % 28;
-const SOFF12_CT25 :i32 = (_offset12 + CT25) % 28;
-const SOFF12_CT26 :i32 = (_offset12 + CT26) % 28;
-const SOFF12_CT27 :i32 = (_offset12 + CT27) % 28;
-const SOFF12_CT28 :i32 = (_offset12 + CT28) % 28;
-const SOFF12_CT29 :i32 = (_offset12 + CT29) % 28;
-const SOFF12_CT30 :i32 = (_offset12 + CT30) % 28;
-const SOFF12_CT31 :i32 = (_offset12 + CT31) % 28;
-const SOFF12_CT32 :i32 = (_offset12 + CT32) % 28;
-const SOFF12_CT33 :i32 = (_offset12 + CT33) % 28;
-const SOFF12_CT34 :i32 = (_offset12 + CT34) % 28;
-const SOFF12_CT35 :i32 = (_offset12 + CT35) % 28;
-const SOFF12_CT36 :i32 = (_offset12 + CT36) % 28;
-const SOFF12_CT37 :i32 = (_offset12 + CT37) % 28;
-const SOFF12_CT38 :i32 = (_offset12 + CT38) % 28;
-const SOFF12_CT39 :i32 = (_offset12 + CT39) % 28;
-const SOFF12_CT40 :i32 = (_offset12 + CT40) % 28;
-const SOFF12_CT41 :i32 = (_offset12 + CT41) % 28;
-const SOFF12_CT42 :i32 = (_offset12 + CT42) % 28;
-const SOFF12_CT43 :i32 = (_offset12 + CT43) % 28;
-const SOFF12_CT44 :i32 = (_offset12 + CT44) % 28;
-const SOFF12_CT45 :i32 = (_offset12 + CT45) % 28;
-const SOFF12_CT46 :i32 = (_offset12 + CT46) % 28;
-const SOFF12_CT47 :i32 = (_offset12 + CT47) % 28;
 
 
 const SOFF13_CT0  :i32 = (_offset13 + CT0)  % 28;
@@ -961,30 +625,6 @@ const SOFF13_CT20 :i32 = (_offset13 + CT20) % 28;
 const SOFF13_CT21 :i32 = (_offset13 + CT21) % 28;
 const SOFF13_CT22 :i32 = (_offset13 + CT22) % 28;
 const SOFF13_CT23 :i32 = (_offset13 + CT23) % 28;
-const SOFF13_CT24 :i32 = (_offset13 + CT24) % 28;
-const SOFF13_CT25 :i32 = (_offset13 + CT25) % 28;
-const SOFF13_CT26 :i32 = (_offset13 + CT26) % 28;
-const SOFF13_CT27 :i32 = (_offset13 + CT27) % 28;
-const SOFF13_CT28 :i32 = (_offset13 + CT28) % 28;
-const SOFF13_CT29 :i32 = (_offset13 + CT29) % 28;
-const SOFF13_CT30 :i32 = (_offset13 + CT30) % 28;
-const SOFF13_CT31 :i32 = (_offset13 + CT31) % 28;
-const SOFF13_CT32 :i32 = (_offset13 + CT32) % 28;
-const SOFF13_CT33 :i32 = (_offset13 + CT33) % 28;
-const SOFF13_CT34 :i32 = (_offset13 + CT34) % 28;
-const SOFF13_CT35 :i32 = (_offset13 + CT35) % 28;
-const SOFF13_CT36 :i32 = (_offset13 + CT36) % 28;
-const SOFF13_CT37 :i32 = (_offset13 + CT37) % 28;
-const SOFF13_CT38 :i32 = (_offset13 + CT38) % 28;
-const SOFF13_CT39 :i32 = (_offset13 + CT39) % 28;
-const SOFF13_CT40 :i32 = (_offset13 + CT40) % 28;
-const SOFF13_CT41 :i32 = (_offset13 + CT41) % 28;
-const SOFF13_CT42 :i32 = (_offset13 + CT42) % 28;
-const SOFF13_CT43 :i32 = (_offset13 + CT43) % 28;
-const SOFF13_CT44 :i32 = (_offset13 + CT44) % 28;
-const SOFF13_CT45 :i32 = (_offset13 + CT45) % 28;
-const SOFF13_CT46 :i32 = (_offset13 + CT46) % 28;
-const SOFF13_CT47 :i32 = (_offset13 + CT47) % 28;
 
 
 const SOFF14_CT0  :i32 = (_offset14 + CT0)  % 28;
@@ -1011,30 +651,6 @@ const SOFF14_CT20 :i32 = (_offset14 + CT20) % 28;
 const SOFF14_CT21 :i32 = (_offset14 + CT21) % 28;
 const SOFF14_CT22 :i32 = (_offset14 + CT22) % 28;
 const SOFF14_CT23 :i32 = (_offset14 + CT23) % 28;
-const SOFF14_CT24 :i32 = (_offset14 + CT24) % 28;
-const SOFF14_CT25 :i32 = (_offset14 + CT25) % 28;
-const SOFF14_CT26 :i32 = (_offset14 + CT26) % 28;
-const SOFF14_CT27 :i32 = (_offset14 + CT27) % 28;
-const SOFF14_CT28 :i32 = (_offset14 + CT28) % 28;
-const SOFF14_CT29 :i32 = (_offset14 + CT29) % 28;
-const SOFF14_CT30 :i32 = (_offset14 + CT30) % 28;
-const SOFF14_CT31 :i32 = (_offset14 + CT31) % 28;
-const SOFF14_CT32 :i32 = (_offset14 + CT32) % 28;
-const SOFF14_CT33 :i32 = (_offset14 + CT33) % 28;
-const SOFF14_CT34 :i32 = (_offset14 + CT34) % 28;
-const SOFF14_CT35 :i32 = (_offset14 + CT35) % 28;
-const SOFF14_CT36 :i32 = (_offset14 + CT36) % 28;
-const SOFF14_CT37 :i32 = (_offset14 + CT37) % 28;
-const SOFF14_CT38 :i32 = (_offset14 + CT38) % 28;
-const SOFF14_CT39 :i32 = (_offset14 + CT39) % 28;
-const SOFF14_CT40 :i32 = (_offset14 + CT40) % 28;
-const SOFF14_CT41 :i32 = (_offset14 + CT41) % 28;
-const SOFF14_CT42 :i32 = (_offset14 + CT42) % 28;
-const SOFF14_CT43 :i32 = (_offset14 + CT43) % 28;
-const SOFF14_CT44 :i32 = (_offset14 + CT44) % 28;
-const SOFF14_CT45 :i32 = (_offset14 + CT45) % 28;
-const SOFF14_CT46 :i32 = (_offset14 + CT46) % 28;
-const SOFF14_CT47 :i32 = (_offset14 + CT47) % 28;
 
 
 const SOFF15_CT0  :i32 = (_offset15 + CT0)  % 28;
@@ -1061,59 +677,11 @@ const SOFF15_CT20 :i32 = (_offset15 + CT20) % 28;
 const SOFF15_CT21 :i32 = (_offset15 + CT21) % 28;
 const SOFF15_CT22 :i32 = (_offset15 + CT22) % 28;
 const SOFF15_CT23 :i32 = (_offset15 + CT23) % 28;
-const SOFF15_CT24 :i32 = (_offset15 + CT24) % 28;
-const SOFF15_CT25 :i32 = (_offset15 + CT25) % 28;
-const SOFF15_CT26 :i32 = (_offset15 + CT26) % 28;
-const SOFF15_CT27 :i32 = (_offset15 + CT27) % 28;
-const SOFF15_CT28 :i32 = (_offset15 + CT28) % 28;
-const SOFF15_CT29 :i32 = (_offset15 + CT29) % 28;
-const SOFF15_CT30 :i32 = (_offset15 + CT30) % 28;
-const SOFF15_CT31 :i32 = (_offset15 + CT31) % 28;
-const SOFF15_CT32 :i32 = (_offset15 + CT32) % 28;
-const SOFF15_CT33 :i32 = (_offset15 + CT33) % 28;
-const SOFF15_CT34 :i32 = (_offset15 + CT34) % 28;
-const SOFF15_CT35 :i32 = (_offset15 + CT35) % 28;
-const SOFF15_CT36 :i32 = (_offset15 + CT36) % 28;
-const SOFF15_CT37 :i32 = (_offset15 + CT37) % 28;
-const SOFF15_CT38 :i32 = (_offset15 + CT38) % 28;
-const SOFF15_CT39 :i32 = (_offset15 + CT39) % 28;
-const SOFF15_CT40 :i32 = (_offset15 + CT40) % 28;
-const SOFF15_CT41 :i32 = (_offset15 + CT41) % 28;
-const SOFF15_CT42 :i32 = (_offset15 + CT42) % 28;
-const SOFF15_CT43 :i32 = (_offset15 + CT43) % 28;
-const SOFF15_CT44 :i32 = (_offset15 + CT44) % 28;
-const SOFF15_CT45 :i32 = (_offset15 + CT45) % 28;
-const SOFF15_CT46 :i32 = (_offset15 + CT46) % 28;
-const SOFF15_CT47 :i32 = (_offset15 + CT47) % 28;
 
 /************************************************************************
  * MOD
  ***********************************************************************/
 
-const SOFF0_CT0_MOD  :i32 = (_offset + CT0_MOD)  % 28 + 28;
-const SOFF0_CT1_MOD  :i32 = (_offset + CT1_MOD)  % 28 + 28;
-const SOFF0_CT2_MOD  :i32 = (_offset + CT2_MOD)  % 28 + 28;
-const SOFF0_CT3_MOD  :i32 = (_offset + CT3_MOD)  % 28 + 28;
-const SOFF0_CT4_MOD  :i32 = (_offset + CT4_MOD)  % 28 + 28;
-const SOFF0_CT5_MOD  :i32 = (_offset + CT5_MOD)  % 28 + 28;
-const SOFF0_CT6_MOD  :i32 = (_offset + CT6_MOD)  % 28 + 28;
-const SOFF0_CT7_MOD  :i32 = (_offset + CT7_MOD)  % 28 + 28;
-const SOFF0_CT8_MOD  :i32 = (_offset + CT8_MOD)  % 28 + 28;
-const SOFF0_CT9_MOD  :i32 = (_offset + CT9_MOD)  % 28 + 28;
-const SOFF0_CT10_MOD :i32 = (_offset + CT10_MOD) % 28 + 28;
-const SOFF0_CT11_MOD :i32 = (_offset + CT11_MOD) % 28 + 28;
-const SOFF0_CT12_MOD :i32 = (_offset + CT12_MOD) % 28 + 28;
-const SOFF0_CT13_MOD :i32 = (_offset + CT13_MOD) % 28 + 28;
-const SOFF0_CT14_MOD :i32 = (_offset + CT14_MOD) % 28 + 28;
-const SOFF0_CT15_MOD :i32 = (_offset + CT15_MOD) % 28 + 28;
-const SOFF0_CT16_MOD :i32 = (_offset + CT16_MOD) % 28 + 28;
-const SOFF0_CT17_MOD :i32 = (_offset + CT17_MOD) % 28 + 28;
-const SOFF0_CT18_MOD :i32 = (_offset + CT18_MOD) % 28 + 28;
-const SOFF0_CT19_MOD :i32 = (_offset + CT19_MOD) % 28 + 28;
-const SOFF0_CT20_MOD :i32 = (_offset + CT20_MOD) % 28 + 28;
-const SOFF0_CT21_MOD :i32 = (_offset + CT21_MOD) % 28 + 28;
-const SOFF0_CT22_MOD :i32 = (_offset + CT22_MOD) % 28 + 28;
-const SOFF0_CT23_MOD :i32 = (_offset + CT23_MOD) % 28 + 28;
 const SOFF0_CT24_MOD :i32 = (_offset + CT24_MOD) % 28 + 28;
 const SOFF0_CT25_MOD :i32 = (_offset + CT25_MOD) % 28 + 28;
 const SOFF0_CT26_MOD :i32 = (_offset + CT26_MOD) % 28 + 28;
@@ -1140,30 +708,6 @@ const SOFF0_CT46_MOD :i32 = (_offset + CT46_MOD) % 28 + 28;
 const SOFF0_CT47_MOD :i32 = (_offset + CT47_MOD) % 28 + 28;
 
 
-const SOFF1_CT0_MOD  :i32 = (_offset1 + CT0_MOD)  % 28 + 28;
-const SOFF1_CT1_MOD  :i32 = (_offset1 + CT1_MOD)  % 28 + 28;
-const SOFF1_CT2_MOD  :i32 = (_offset1 + CT2_MOD)  % 28 + 28;
-const SOFF1_CT3_MOD  :i32 = (_offset1 + CT3_MOD)  % 28 + 28;
-const SOFF1_CT4_MOD  :i32 = (_offset1 + CT4_MOD)  % 28 + 28;
-const SOFF1_CT5_MOD  :i32 = (_offset1 + CT5_MOD)  % 28 + 28;
-const SOFF1_CT6_MOD  :i32 = (_offset1 + CT6_MOD)  % 28 + 28;
-const SOFF1_CT7_MOD  :i32 = (_offset1 + CT7_MOD)  % 28 + 28;
-const SOFF1_CT8_MOD  :i32 = (_offset1 + CT8_MOD)  % 28 + 28;
-const SOFF1_CT9_MOD  :i32 = (_offset1 + CT9_MOD)  % 28 + 28;
-const SOFF1_CT10_MOD :i32 = (_offset1 + CT10_MOD) % 28 + 28;
-const SOFF1_CT11_MOD :i32 = (_offset1 + CT11_MOD) % 28 + 28;
-const SOFF1_CT12_MOD :i32 = (_offset1 + CT12_MOD) % 28 + 28;
-const SOFF1_CT13_MOD :i32 = (_offset1 + CT13_MOD) % 28 + 28;
-const SOFF1_CT14_MOD :i32 = (_offset1 + CT14_MOD) % 28 + 28;
-const SOFF1_CT15_MOD :i32 = (_offset1 + CT15_MOD) % 28 + 28;
-const SOFF1_CT16_MOD :i32 = (_offset1 + CT16_MOD) % 28 + 28;
-const SOFF1_CT17_MOD :i32 = (_offset1 + CT17_MOD) % 28 + 28;
-const SOFF1_CT18_MOD :i32 = (_offset1 + CT18_MOD) % 28 + 28;
-const SOFF1_CT19_MOD :i32 = (_offset1 + CT19_MOD) % 28 + 28;
-const SOFF1_CT20_MOD :i32 = (_offset1 + CT20_MOD) % 28 + 28;
-const SOFF1_CT21_MOD :i32 = (_offset1 + CT21_MOD) % 28 + 28;
-const SOFF1_CT22_MOD :i32 = (_offset1 + CT22_MOD) % 28 + 28;
-const SOFF1_CT23_MOD :i32 = (_offset1 + CT23_MOD) % 28 + 28;
 const SOFF1_CT24_MOD :i32 = (_offset1 + CT24_MOD) % 28 + 28;
 const SOFF1_CT25_MOD :i32 = (_offset1 + CT25_MOD) % 28 + 28;
 const SOFF1_CT26_MOD :i32 = (_offset1 + CT26_MOD) % 28 + 28;
@@ -1190,30 +734,6 @@ const SOFF1_CT46_MOD :i32 = (_offset1 + CT46_MOD) % 28 + 28;
 const SOFF1_CT47_MOD :i32 = (_offset1 + CT47_MOD) % 28 + 28;
 
 
-const SOFF2_CT0_MOD  :i32 = (_offset2 + CT0_MOD)  % 28 + 28;
-const SOFF2_CT1_MOD  :i32 = (_offset2 + CT1_MOD)  % 28 + 28;
-const SOFF2_CT2_MOD  :i32 = (_offset2 + CT2_MOD)  % 28 + 28;
-const SOFF2_CT3_MOD  :i32 = (_offset2 + CT3_MOD)  % 28 + 28;
-const SOFF2_CT4_MOD  :i32 = (_offset2 + CT4_MOD)  % 28 + 28;
-const SOFF2_CT5_MOD  :i32 = (_offset2 + CT5_MOD)  % 28 + 28;
-const SOFF2_CT6_MOD  :i32 = (_offset2 + CT6_MOD)  % 28 + 28;
-const SOFF2_CT7_MOD  :i32 = (_offset2 + CT7_MOD)  % 28 + 28;
-const SOFF2_CT8_MOD  :i32 = (_offset2 + CT8_MOD)  % 28 + 28;
-const SOFF2_CT9_MOD  :i32 = (_offset2 + CT9_MOD)  % 28 + 28;
-const SOFF2_CT10_MOD :i32 = (_offset2 + CT10_MOD) % 28 + 28;
-const SOFF2_CT11_MOD :i32 = (_offset2 + CT11_MOD) % 28 + 28;
-const SOFF2_CT12_MOD :i32 = (_offset2 + CT12_MOD) % 28 + 28;
-const SOFF2_CT13_MOD :i32 = (_offset2 + CT13_MOD) % 28 + 28;
-const SOFF2_CT14_MOD :i32 = (_offset2 + CT14_MOD) % 28 + 28;
-const SOFF2_CT15_MOD :i32 = (_offset2 + CT15_MOD) % 28 + 28;
-const SOFF2_CT16_MOD :i32 = (_offset2 + CT16_MOD) % 28 + 28;
-const SOFF2_CT17_MOD :i32 = (_offset2 + CT17_MOD) % 28 + 28;
-const SOFF2_CT18_MOD :i32 = (_offset2 + CT18_MOD) % 28 + 28;
-const SOFF2_CT19_MOD :i32 = (_offset2 + CT19_MOD) % 28 + 28;
-const SOFF2_CT20_MOD :i32 = (_offset2 + CT20_MOD) % 28 + 28;
-const SOFF2_CT21_MOD :i32 = (_offset2 + CT21_MOD) % 28 + 28;
-const SOFF2_CT22_MOD :i32 = (_offset2 + CT22_MOD) % 28 + 28;
-const SOFF2_CT23_MOD :i32 = (_offset2 + CT23_MOD) % 28 + 28;
 const SOFF2_CT24_MOD :i32 = (_offset2 + CT24_MOD) % 28 + 28;
 const SOFF2_CT25_MOD :i32 = (_offset2 + CT25_MOD) % 28 + 28;
 const SOFF2_CT26_MOD :i32 = (_offset2 + CT26_MOD) % 28 + 28;
@@ -1240,30 +760,6 @@ const SOFF2_CT46_MOD :i32 = (_offset2 + CT46_MOD) % 28 + 28;
 const SOFF2_CT47_MOD :i32 = (_offset2 + CT47_MOD) % 28 + 28;
 
 
-const SOFF3_CT0_MOD  :i32 = (_offset3 + CT0_MOD)  % 28 + 28;
-const SOFF3_CT1_MOD  :i32 = (_offset3 + CT1_MOD)  % 28 + 28;
-const SOFF3_CT2_MOD  :i32 = (_offset3 + CT2_MOD)  % 28 + 28;
-const SOFF3_CT3_MOD  :i32 = (_offset3 + CT3_MOD)  % 28 + 28;
-const SOFF3_CT4_MOD  :i32 = (_offset3 + CT4_MOD)  % 28 + 28;
-const SOFF3_CT5_MOD  :i32 = (_offset3 + CT5_MOD)  % 28 + 28;
-const SOFF3_CT6_MOD  :i32 = (_offset3 + CT6_MOD)  % 28 + 28;
-const SOFF3_CT7_MOD  :i32 = (_offset3 + CT7_MOD)  % 28 + 28;
-const SOFF3_CT8_MOD  :i32 = (_offset3 + CT8_MOD)  % 28 + 28;
-const SOFF3_CT9_MOD  :i32 = (_offset3 + CT9_MOD)  % 28 + 28;
-const SOFF3_CT10_MOD :i32 = (_offset3 + CT10_MOD) % 28 + 28;
-const SOFF3_CT11_MOD :i32 = (_offset3 + CT11_MOD) % 28 + 28;
-const SOFF3_CT12_MOD :i32 = (_offset3 + CT12_MOD) % 28 + 28;
-const SOFF3_CT13_MOD :i32 = (_offset3 + CT13_MOD) % 28 + 28;
-const SOFF3_CT14_MOD :i32 = (_offset3 + CT14_MOD) % 28 + 28;
-const SOFF3_CT15_MOD :i32 = (_offset3 + CT15_MOD) % 28 + 28;
-const SOFF3_CT16_MOD :i32 = (_offset3 + CT16_MOD) % 28 + 28;
-const SOFF3_CT17_MOD :i32 = (_offset3 + CT17_MOD) % 28 + 28;
-const SOFF3_CT18_MOD :i32 = (_offset3 + CT18_MOD) % 28 + 28;
-const SOFF3_CT19_MOD :i32 = (_offset3 + CT19_MOD) % 28 + 28;
-const SOFF3_CT20_MOD :i32 = (_offset3 + CT20_MOD) % 28 + 28;
-const SOFF3_CT21_MOD :i32 = (_offset3 + CT21_MOD) % 28 + 28;
-const SOFF3_CT22_MOD :i32 = (_offset3 + CT22_MOD) % 28 + 28;
-const SOFF3_CT23_MOD :i32 = (_offset3 + CT23_MOD) % 28 + 28;
 const SOFF3_CT24_MOD :i32 = (_offset3 + CT24_MOD) % 28 + 28;
 const SOFF3_CT25_MOD :i32 = (_offset3 + CT25_MOD) % 28 + 28;
 const SOFF3_CT26_MOD :i32 = (_offset3 + CT26_MOD) % 28 + 28;
@@ -1290,30 +786,6 @@ const SOFF3_CT46_MOD :i32 = (_offset3 + CT46_MOD) % 28 + 28;
 const SOFF3_CT47_MOD :i32 = (_offset3 + CT47_MOD) % 28 + 28;
 
 
-const SOFF4_CT0_MOD  :i32 = (_offset4 + CT0_MOD)  % 28 + 28;
-const SOFF4_CT1_MOD  :i32 = (_offset4 + CT1_MOD)  % 28 + 28;
-const SOFF4_CT2_MOD  :i32 = (_offset4 + CT2_MOD)  % 28 + 28;
-const SOFF4_CT3_MOD  :i32 = (_offset4 + CT3_MOD)  % 28 + 28;
-const SOFF4_CT4_MOD  :i32 = (_offset4 + CT4_MOD)  % 28 + 28;
-const SOFF4_CT5_MOD  :i32 = (_offset4 + CT5_MOD)  % 28 + 28;
-const SOFF4_CT6_MOD  :i32 = (_offset4 + CT6_MOD)  % 28 + 28;
-const SOFF4_CT7_MOD  :i32 = (_offset4 + CT7_MOD)  % 28 + 28;
-const SOFF4_CT8_MOD  :i32 = (_offset4 + CT8_MOD)  % 28 + 28;
-const SOFF4_CT9_MOD  :i32 = (_offset4 + CT9_MOD)  % 28 + 28;
-const SOFF4_CT10_MOD :i32 = (_offset4 + CT10_MOD) % 28 + 28;
-const SOFF4_CT11_MOD :i32 = (_offset4 + CT11_MOD) % 28 + 28;
-const SOFF4_CT12_MOD :i32 = (_offset4 + CT12_MOD) % 28 + 28;
-const SOFF4_CT13_MOD :i32 = (_offset4 + CT13_MOD) % 28 + 28;
-const SOFF4_CT14_MOD :i32 = (_offset4 + CT14_MOD) % 28 + 28;
-const SOFF4_CT15_MOD :i32 = (_offset4 + CT15_MOD) % 28 + 28;
-const SOFF4_CT16_MOD :i32 = (_offset4 + CT16_MOD) % 28 + 28;
-const SOFF4_CT17_MOD :i32 = (_offset4 + CT17_MOD) % 28 + 28;
-const SOFF4_CT18_MOD :i32 = (_offset4 + CT18_MOD) % 28 + 28;
-const SOFF4_CT19_MOD :i32 = (_offset4 + CT19_MOD) % 28 + 28;
-const SOFF4_CT20_MOD :i32 = (_offset4 + CT20_MOD) % 28 + 28;
-const SOFF4_CT21_MOD :i32 = (_offset4 + CT21_MOD) % 28 + 28;
-const SOFF4_CT22_MOD :i32 = (_offset4 + CT22_MOD) % 28 + 28;
-const SOFF4_CT23_MOD :i32 = (_offset4 + CT23_MOD) % 28 + 28;
 const SOFF4_CT24_MOD :i32 = (_offset4 + CT24_MOD) % 28 + 28;
 const SOFF4_CT25_MOD :i32 = (_offset4 + CT25_MOD) % 28 + 28;
 const SOFF4_CT26_MOD :i32 = (_offset4 + CT26_MOD) % 28 + 28;
@@ -1340,30 +812,6 @@ const SOFF4_CT46_MOD :i32 = (_offset4 + CT46_MOD) % 28 + 28;
 const SOFF4_CT47_MOD :i32 = (_offset4 + CT47_MOD) % 28 + 28;
 
 
-const SOFF5_CT0_MOD  :i32 = (_offset5 + CT0_MOD)  % 28 + 28;
-const SOFF5_CT1_MOD  :i32 = (_offset5 + CT1_MOD)  % 28 + 28;
-const SOFF5_CT2_MOD  :i32 = (_offset5 + CT2_MOD)  % 28 + 28;
-const SOFF5_CT3_MOD  :i32 = (_offset5 + CT3_MOD)  % 28 + 28;
-const SOFF5_CT4_MOD  :i32 = (_offset5 + CT4_MOD)  % 28 + 28;
-const SOFF5_CT5_MOD  :i32 = (_offset5 + CT5_MOD)  % 28 + 28;
-const SOFF5_CT6_MOD  :i32 = (_offset5 + CT6_MOD)  % 28 + 28;
-const SOFF5_CT7_MOD  :i32 = (_offset5 + CT7_MOD)  % 28 + 28;
-const SOFF5_CT8_MOD  :i32 = (_offset5 + CT8_MOD)  % 28 + 28;
-const SOFF5_CT9_MOD  :i32 = (_offset5 + CT9_MOD)  % 28 + 28;
-const SOFF5_CT10_MOD :i32 = (_offset5 + CT10_MOD) % 28 + 28;
-const SOFF5_CT11_MOD :i32 = (_offset5 + CT11_MOD) % 28 + 28;
-const SOFF5_CT12_MOD :i32 = (_offset5 + CT12_MOD) % 28 + 28;
-const SOFF5_CT13_MOD :i32 = (_offset5 + CT13_MOD) % 28 + 28;
-const SOFF5_CT14_MOD :i32 = (_offset5 + CT14_MOD) % 28 + 28;
-const SOFF5_CT15_MOD :i32 = (_offset5 + CT15_MOD) % 28 + 28;
-const SOFF5_CT16_MOD :i32 = (_offset5 + CT16_MOD) % 28 + 28;
-const SOFF5_CT17_MOD :i32 = (_offset5 + CT17_MOD) % 28 + 28;
-const SOFF5_CT18_MOD :i32 = (_offset5 + CT18_MOD) % 28 + 28;
-const SOFF5_CT19_MOD :i32 = (_offset5 + CT19_MOD) % 28 + 28;
-const SOFF5_CT20_MOD :i32 = (_offset5 + CT20_MOD) % 28 + 28;
-const SOFF5_CT21_MOD :i32 = (_offset5 + CT21_MOD) % 28 + 28;
-const SOFF5_CT22_MOD :i32 = (_offset5 + CT22_MOD) % 28 + 28;
-const SOFF5_CT23_MOD :i32 = (_offset5 + CT23_MOD) % 28 + 28;
 const SOFF5_CT24_MOD :i32 = (_offset5 + CT24_MOD) % 28 + 28;
 const SOFF5_CT25_MOD :i32 = (_offset5 + CT25_MOD) % 28 + 28;
 const SOFF5_CT26_MOD :i32 = (_offset5 + CT26_MOD) % 28 + 28;
@@ -1390,30 +838,6 @@ const SOFF5_CT46_MOD :i32 = (_offset5 + CT46_MOD) % 28 + 28;
 const SOFF5_CT47_MOD :i32 = (_offset5 + CT47_MOD) % 28 + 28;
 
 
-const SOFF6_CT0_MOD  :i32 = (_offset6 + CT0_MOD)  % 28 + 28;
-const SOFF6_CT1_MOD  :i32 = (_offset6 + CT1_MOD)  % 28 + 28;
-const SOFF6_CT2_MOD  :i32 = (_offset6 + CT2_MOD)  % 28 + 28;
-const SOFF6_CT3_MOD  :i32 = (_offset6 + CT3_MOD)  % 28 + 28;
-const SOFF6_CT4_MOD  :i32 = (_offset6 + CT4_MOD)  % 28 + 28;
-const SOFF6_CT5_MOD  :i32 = (_offset6 + CT5_MOD)  % 28 + 28;
-const SOFF6_CT6_MOD  :i32 = (_offset6 + CT6_MOD)  % 28 + 28;
-const SOFF6_CT7_MOD  :i32 = (_offset6 + CT7_MOD)  % 28 + 28;
-const SOFF6_CT8_MOD  :i32 = (_offset6 + CT8_MOD)  % 28 + 28;
-const SOFF6_CT9_MOD  :i32 = (_offset6 + CT9_MOD)  % 28 + 28;
-const SOFF6_CT10_MOD :i32 = (_offset6 + CT10_MOD) % 28 + 28;
-const SOFF6_CT11_MOD :i32 = (_offset6 + CT11_MOD) % 28 + 28;
-const SOFF6_CT12_MOD :i32 = (_offset6 + CT12_MOD) % 28 + 28;
-const SOFF6_CT13_MOD :i32 = (_offset6 + CT13_MOD) % 28 + 28;
-const SOFF6_CT14_MOD :i32 = (_offset6 + CT14_MOD) % 28 + 28;
-const SOFF6_CT15_MOD :i32 = (_offset6 + CT15_MOD) % 28 + 28;
-const SOFF6_CT16_MOD :i32 = (_offset6 + CT16_MOD) % 28 + 28;
-const SOFF6_CT17_MOD :i32 = (_offset6 + CT17_MOD) % 28 + 28;
-const SOFF6_CT18_MOD :i32 = (_offset6 + CT18_MOD) % 28 + 28;
-const SOFF6_CT19_MOD :i32 = (_offset6 + CT19_MOD) % 28 + 28;
-const SOFF6_CT20_MOD :i32 = (_offset6 + CT20_MOD) % 28 + 28;
-const SOFF6_CT21_MOD :i32 = (_offset6 + CT21_MOD) % 28 + 28;
-const SOFF6_CT22_MOD :i32 = (_offset6 + CT22_MOD) % 28 + 28;
-const SOFF6_CT23_MOD :i32 = (_offset6 + CT23_MOD) % 28 + 28;
 const SOFF6_CT24_MOD :i32 = (_offset6 + CT24_MOD) % 28 + 28;
 const SOFF6_CT25_MOD :i32 = (_offset6 + CT25_MOD) % 28 + 28;
 const SOFF6_CT26_MOD :i32 = (_offset6 + CT26_MOD) % 28 + 28;
@@ -1440,30 +864,6 @@ const SOFF6_CT46_MOD :i32 = (_offset6 + CT46_MOD) % 28 + 28;
 const SOFF6_CT47_MOD :i32 = (_offset6 + CT47_MOD) % 28 + 28;
 
 
-const SOFF7_CT0_MOD  :i32 = (_offset7 + CT0_MOD)  % 28 + 28;
-const SOFF7_CT1_MOD  :i32 = (_offset7 + CT1_MOD)  % 28 + 28;
-const SOFF7_CT2_MOD  :i32 = (_offset7 + CT2_MOD)  % 28 + 28;
-const SOFF7_CT3_MOD  :i32 = (_offset7 + CT3_MOD)  % 28 + 28;
-const SOFF7_CT4_MOD  :i32 = (_offset7 + CT4_MOD)  % 28 + 28;
-const SOFF7_CT5_MOD  :i32 = (_offset7 + CT5_MOD)  % 28 + 28;
-const SOFF7_CT6_MOD  :i32 = (_offset7 + CT6_MOD)  % 28 + 28;
-const SOFF7_CT7_MOD  :i32 = (_offset7 + CT7_MOD)  % 28 + 28;
-const SOFF7_CT8_MOD  :i32 = (_offset7 + CT8_MOD)  % 28 + 28;
-const SOFF7_CT9_MOD  :i32 = (_offset7 + CT9_MOD)  % 28 + 28;
-const SOFF7_CT10_MOD :i32 = (_offset7 + CT10_MOD) % 28 + 28;
-const SOFF7_CT11_MOD :i32 = (_offset7 + CT11_MOD) % 28 + 28;
-const SOFF7_CT12_MOD :i32 = (_offset7 + CT12_MOD) % 28 + 28;
-const SOFF7_CT13_MOD :i32 = (_offset7 + CT13_MOD) % 28 + 28;
-const SOFF7_CT14_MOD :i32 = (_offset7 + CT14_MOD) % 28 + 28;
-const SOFF7_CT15_MOD :i32 = (_offset7 + CT15_MOD) % 28 + 28;
-const SOFF7_CT16_MOD :i32 = (_offset7 + CT16_MOD) % 28 + 28;
-const SOFF7_CT17_MOD :i32 = (_offset7 + CT17_MOD) % 28 + 28;
-const SOFF7_CT18_MOD :i32 = (_offset7 + CT18_MOD) % 28 + 28;
-const SOFF7_CT19_MOD :i32 = (_offset7 + CT19_MOD) % 28 + 28;
-const SOFF7_CT20_MOD :i32 = (_offset7 + CT20_MOD) % 28 + 28;
-const SOFF7_CT21_MOD :i32 = (_offset7 + CT21_MOD) % 28 + 28;
-const SOFF7_CT22_MOD :i32 = (_offset7 + CT22_MOD) % 28 + 28;
-const SOFF7_CT23_MOD :i32 = (_offset7 + CT23_MOD) % 28 + 28;
 const SOFF7_CT24_MOD :i32 = (_offset7 + CT24_MOD) % 28 + 28;
 const SOFF7_CT25_MOD :i32 = (_offset7 + CT25_MOD) % 28 + 28;
 const SOFF7_CT26_MOD :i32 = (_offset7 + CT26_MOD) % 28 + 28;
@@ -1490,30 +890,6 @@ const SOFF7_CT46_MOD :i32 = (_offset7 + CT46_MOD) % 28 + 28;
 const SOFF7_CT47_MOD :i32 = (_offset7 + CT47_MOD) % 28 + 28;
 
 
-const SOFF8_CT0_MOD  :i32 = (_offset8 + CT0_MOD)  % 28 + 28;
-const SOFF8_CT1_MOD  :i32 = (_offset8 + CT1_MOD)  % 28 + 28;
-const SOFF8_CT2_MOD  :i32 = (_offset8 + CT2_MOD)  % 28 + 28;
-const SOFF8_CT3_MOD  :i32 = (_offset8 + CT3_MOD)  % 28 + 28;
-const SOFF8_CT4_MOD  :i32 = (_offset8 + CT4_MOD)  % 28 + 28;
-const SOFF8_CT5_MOD  :i32 = (_offset8 + CT5_MOD)  % 28 + 28;
-const SOFF8_CT6_MOD  :i32 = (_offset8 + CT6_MOD)  % 28 + 28;
-const SOFF8_CT7_MOD  :i32 = (_offset8 + CT7_MOD)  % 28 + 28;
-const SOFF8_CT8_MOD  :i32 = (_offset8 + CT8_MOD)  % 28 + 28;
-const SOFF8_CT9_MOD  :i32 = (_offset8 + CT9_MOD)  % 28 + 28;
-const SOFF8_CT10_MOD :i32 = (_offset8 + CT10_MOD) % 28 + 28;
-const SOFF8_CT11_MOD :i32 = (_offset8 + CT11_MOD) % 28 + 28;
-const SOFF8_CT12_MOD :i32 = (_offset8 + CT12_MOD) % 28 + 28;
-const SOFF8_CT13_MOD :i32 = (_offset8 + CT13_MOD) % 28 + 28;
-const SOFF8_CT14_MOD :i32 = (_offset8 + CT14_MOD) % 28 + 28;
-const SOFF8_CT15_MOD :i32 = (_offset8 + CT15_MOD) % 28 + 28;
-const SOFF8_CT16_MOD :i32 = (_offset8 + CT16_MOD) % 28 + 28;
-const SOFF8_CT17_MOD :i32 = (_offset8 + CT17_MOD) % 28 + 28;
-const SOFF8_CT18_MOD :i32 = (_offset8 + CT18_MOD) % 28 + 28;
-const SOFF8_CT19_MOD :i32 = (_offset8 + CT19_MOD) % 28 + 28;
-const SOFF8_CT20_MOD :i32 = (_offset8 + CT20_MOD) % 28 + 28;
-const SOFF8_CT21_MOD :i32 = (_offset8 + CT21_MOD) % 28 + 28;
-const SOFF8_CT22_MOD :i32 = (_offset8 + CT22_MOD) % 28 + 28;
-const SOFF8_CT23_MOD :i32 = (_offset8 + CT23_MOD) % 28 + 28;
 const SOFF8_CT24_MOD :i32 = (_offset8 + CT24_MOD) % 28 + 28;
 const SOFF8_CT25_MOD :i32 = (_offset8 + CT25_MOD) % 28 + 28;
 const SOFF8_CT26_MOD :i32 = (_offset8 + CT26_MOD) % 28 + 28;
@@ -1540,30 +916,6 @@ const SOFF8_CT46_MOD :i32 = (_offset8 + CT46_MOD) % 28 + 28;
 const SOFF8_CT47_MOD :i32 = (_offset8 + CT47_MOD) % 28 + 28;
 
 
-const SOFF9_CT0_MOD  :i32 = (_offset9 + CT0_MOD)  % 28 + 28;
-const SOFF9_CT1_MOD  :i32 = (_offset9 + CT1_MOD)  % 28 + 28;
-const SOFF9_CT2_MOD  :i32 = (_offset9 + CT2_MOD)  % 28 + 28;
-const SOFF9_CT3_MOD  :i32 = (_offset9 + CT3_MOD)  % 28 + 28;
-const SOFF9_CT4_MOD  :i32 = (_offset9 + CT4_MOD)  % 28 + 28;
-const SOFF9_CT5_MOD  :i32 = (_offset9 + CT5_MOD)  % 28 + 28;
-const SOFF9_CT6_MOD  :i32 = (_offset9 + CT6_MOD)  % 28 + 28;
-const SOFF9_CT7_MOD  :i32 = (_offset9 + CT7_MOD)  % 28 + 28;
-const SOFF9_CT8_MOD  :i32 = (_offset9 + CT8_MOD)  % 28 + 28;
-const SOFF9_CT9_MOD  :i32 = (_offset9 + CT9_MOD)  % 28 + 28;
-const SOFF9_CT10_MOD :i32 = (_offset9 + CT10_MOD) % 28 + 28;
-const SOFF9_CT11_MOD :i32 = (_offset9 + CT11_MOD) % 28 + 28;
-const SOFF9_CT12_MOD :i32 = (_offset9 + CT12_MOD) % 28 + 28;
-const SOFF9_CT13_MOD :i32 = (_offset9 + CT13_MOD) % 28 + 28;
-const SOFF9_CT14_MOD :i32 = (_offset9 + CT14_MOD) % 28 + 28;
-const SOFF9_CT15_MOD :i32 = (_offset9 + CT15_MOD) % 28 + 28;
-const SOFF9_CT16_MOD :i32 = (_offset9 + CT16_MOD) % 28 + 28;
-const SOFF9_CT17_MOD :i32 = (_offset9 + CT17_MOD) % 28 + 28;
-const SOFF9_CT18_MOD :i32 = (_offset9 + CT18_MOD) % 28 + 28;
-const SOFF9_CT19_MOD :i32 = (_offset9 + CT19_MOD) % 28 + 28;
-const SOFF9_CT20_MOD :i32 = (_offset9 + CT20_MOD) % 28 + 28;
-const SOFF9_CT21_MOD :i32 = (_offset9 + CT21_MOD) % 28 + 28;
-const SOFF9_CT22_MOD :i32 = (_offset9 + CT22_MOD) % 28 + 28;
-const SOFF9_CT23_MOD :i32 = (_offset9 + CT23_MOD) % 28 + 28;
 const SOFF9_CT24_MOD :i32 = (_offset9 + CT24_MOD) % 28 + 28;
 const SOFF9_CT25_MOD :i32 = (_offset9 + CT25_MOD) % 28 + 28;
 const SOFF9_CT26_MOD :i32 = (_offset9 + CT26_MOD) % 28 + 28;
@@ -1590,30 +942,6 @@ const SOFF9_CT46_MOD :i32 = (_offset9 + CT46_MOD) % 28 + 28;
 const SOFF9_CT47_MOD :i32 = (_offset9 + CT47_MOD) % 28 + 28;
 
 
-const SOFF10_CT0_MOD  :i32 = (_offset10 + CT0_MOD)  % 28 + 28;
-const SOFF10_CT1_MOD  :i32 = (_offset10 + CT1_MOD)  % 28 + 28;
-const SOFF10_CT2_MOD  :i32 = (_offset10 + CT2_MOD)  % 28 + 28;
-const SOFF10_CT3_MOD  :i32 = (_offset10 + CT3_MOD)  % 28 + 28;
-const SOFF10_CT4_MOD  :i32 = (_offset10 + CT4_MOD)  % 28 + 28;
-const SOFF10_CT5_MOD  :i32 = (_offset10 + CT5_MOD)  % 28 + 28;
-const SOFF10_CT6_MOD  :i32 = (_offset10 + CT6_MOD)  % 28 + 28;
-const SOFF10_CT7_MOD  :i32 = (_offset10 + CT7_MOD)  % 28 + 28;
-const SOFF10_CT8_MOD  :i32 = (_offset10 + CT8_MOD)  % 28 + 28;
-const SOFF10_CT9_MOD  :i32 = (_offset10 + CT9_MOD)  % 28 + 28;
-const SOFF10_CT10_MOD :i32 = (_offset10 + CT10_MOD) % 28 + 28;
-const SOFF10_CT11_MOD :i32 = (_offset10 + CT11_MOD) % 28 + 28;
-const SOFF10_CT12_MOD :i32 = (_offset10 + CT12_MOD) % 28 + 28;
-const SOFF10_CT13_MOD :i32 = (_offset10 + CT13_MOD) % 28 + 28;
-const SOFF10_CT14_MOD :i32 = (_offset10 + CT14_MOD) % 28 + 28;
-const SOFF10_CT15_MOD :i32 = (_offset10 + CT15_MOD) % 28 + 28;
-const SOFF10_CT16_MOD :i32 = (_offset10 + CT16_MOD) % 28 + 28;
-const SOFF10_CT17_MOD :i32 = (_offset10 + CT17_MOD) % 28 + 28;
-const SOFF10_CT18_MOD :i32 = (_offset10 + CT18_MOD) % 28 + 28;
-const SOFF10_CT19_MOD :i32 = (_offset10 + CT19_MOD) % 28 + 28;
-const SOFF10_CT20_MOD :i32 = (_offset10 + CT20_MOD) % 28 + 28;
-const SOFF10_CT21_MOD :i32 = (_offset10 + CT21_MOD) % 28 + 28;
-const SOFF10_CT22_MOD :i32 = (_offset10 + CT22_MOD) % 28 + 28;
-const SOFF10_CT23_MOD :i32 = (_offset10 + CT23_MOD) % 28 + 28;
 const SOFF10_CT24_MOD :i32 = (_offset10 + CT24_MOD) % 28 + 28;
 const SOFF10_CT25_MOD :i32 = (_offset10 + CT25_MOD) % 28 + 28;
 const SOFF10_CT26_MOD :i32 = (_offset10 + CT26_MOD) % 28 + 28;
@@ -1640,30 +968,6 @@ const SOFF10_CT46_MOD :i32 = (_offset10 + CT46_MOD) % 28 + 28;
 const SOFF10_CT47_MOD :i32 = (_offset10 + CT47_MOD) % 28 + 28;
 
 
-const SOFF11_CT0_MOD  :i32 = (_offset11 + CT0_MOD)  % 28 + 28;
-const SOFF11_CT1_MOD  :i32 = (_offset11 + CT1_MOD)  % 28 + 28;
-const SOFF11_CT2_MOD  :i32 = (_offset11 + CT2_MOD)  % 28 + 28;
-const SOFF11_CT3_MOD  :i32 = (_offset11 + CT3_MOD)  % 28 + 28;
-const SOFF11_CT4_MOD  :i32 = (_offset11 + CT4_MOD)  % 28 + 28;
-const SOFF11_CT5_MOD  :i32 = (_offset11 + CT5_MOD)  % 28 + 28;
-const SOFF11_CT6_MOD  :i32 = (_offset11 + CT6_MOD)  % 28 + 28;
-const SOFF11_CT7_MOD  :i32 = (_offset11 + CT7_MOD)  % 28 + 28;
-const SOFF11_CT8_MOD  :i32 = (_offset11 + CT8_MOD)  % 28 + 28;
-const SOFF11_CT9_MOD  :i32 = (_offset11 + CT9_MOD)  % 28 + 28;
-const SOFF11_CT10_MOD :i32 = (_offset11 + CT10_MOD) % 28 + 28;
-const SOFF11_CT11_MOD :i32 = (_offset11 + CT11_MOD) % 28 + 28;
-const SOFF11_CT12_MOD :i32 = (_offset11 + CT12_MOD) % 28 + 28;
-const SOFF11_CT13_MOD :i32 = (_offset11 + CT13_MOD) % 28 + 28;
-const SOFF11_CT14_MOD :i32 = (_offset11 + CT14_MOD) % 28 + 28;
-const SOFF11_CT15_MOD :i32 = (_offset11 + CT15_MOD) % 28 + 28;
-const SOFF11_CT16_MOD :i32 = (_offset11 + CT16_MOD) % 28 + 28;
-const SOFF11_CT17_MOD :i32 = (_offset11 + CT17_MOD) % 28 + 28;
-const SOFF11_CT18_MOD :i32 = (_offset11 + CT18_MOD) % 28 + 28;
-const SOFF11_CT19_MOD :i32 = (_offset11 + CT19_MOD) % 28 + 28;
-const SOFF11_CT20_MOD :i32 = (_offset11 + CT20_MOD) % 28 + 28;
-const SOFF11_CT21_MOD :i32 = (_offset11 + CT21_MOD) % 28 + 28;
-const SOFF11_CT22_MOD :i32 = (_offset11 + CT22_MOD) % 28 + 28;
-const SOFF11_CT23_MOD :i32 = (_offset11 + CT23_MOD) % 28 + 28;
 const SOFF11_CT24_MOD :i32 = (_offset11 + CT24_MOD) % 28 + 28;
 const SOFF11_CT25_MOD :i32 = (_offset11 + CT25_MOD) % 28 + 28;
 const SOFF11_CT26_MOD :i32 = (_offset11 + CT26_MOD) % 28 + 28;
@@ -1690,30 +994,6 @@ const SOFF11_CT46_MOD :i32 = (_offset11 + CT46_MOD) % 28 + 28;
 const SOFF11_CT47_MOD :i32 = (_offset11 + CT47_MOD) % 28 + 28;
 
 
-const SOFF12_CT0_MOD  :i32 = (_offset12 + CT0_MOD)  % 28 + 28;
-const SOFF12_CT1_MOD  :i32 = (_offset12 + CT1_MOD)  % 28 + 28;
-const SOFF12_CT2_MOD  :i32 = (_offset12 + CT2_MOD)  % 28 + 28;
-const SOFF12_CT3_MOD  :i32 = (_offset12 + CT3_MOD)  % 28 + 28;
-const SOFF12_CT4_MOD  :i32 = (_offset12 + CT4_MOD)  % 28 + 28;
-const SOFF12_CT5_MOD  :i32 = (_offset12 + CT5_MOD)  % 28 + 28;
-const SOFF12_CT6_MOD  :i32 = (_offset12 + CT6_MOD)  % 28 + 28;
-const SOFF12_CT7_MOD  :i32 = (_offset12 + CT7_MOD)  % 28 + 28;
-const SOFF12_CT8_MOD  :i32 = (_offset12 + CT8_MOD)  % 28 + 28;
-const SOFF12_CT9_MOD  :i32 = (_offset12 + CT9_MOD)  % 28 + 28;
-const SOFF12_CT10_MOD :i32 = (_offset12 + CT10_MOD) % 28 + 28;
-const SOFF12_CT11_MOD :i32 = (_offset12 + CT11_MOD) % 28 + 28;
-const SOFF12_CT12_MOD :i32 = (_offset12 + CT12_MOD) % 28 + 28;
-const SOFF12_CT13_MOD :i32 = (_offset12 + CT13_MOD) % 28 + 28;
-const SOFF12_CT14_MOD :i32 = (_offset12 + CT14_MOD) % 28 + 28;
-const SOFF12_CT15_MOD :i32 = (_offset12 + CT15_MOD) % 28 + 28;
-const SOFF12_CT16_MOD :i32 = (_offset12 + CT16_MOD) % 28 + 28;
-const SOFF12_CT17_MOD :i32 = (_offset12 + CT17_MOD) % 28 + 28;
-const SOFF12_CT18_MOD :i32 = (_offset12 + CT18_MOD) % 28 + 28;
-const SOFF12_CT19_MOD :i32 = (_offset12 + CT19_MOD) % 28 + 28;
-const SOFF12_CT20_MOD :i32 = (_offset12 + CT20_MOD) % 28 + 28;
-const SOFF12_CT21_MOD :i32 = (_offset12 + CT21_MOD) % 28 + 28;
-const SOFF12_CT22_MOD :i32 = (_offset12 + CT22_MOD) % 28 + 28;
-const SOFF12_CT23_MOD :i32 = (_offset12 + CT23_MOD) % 28 + 28;
 const SOFF12_CT24_MOD :i32 = (_offset12 + CT24_MOD) % 28 + 28;
 const SOFF12_CT25_MOD :i32 = (_offset12 + CT25_MOD) % 28 + 28;
 const SOFF12_CT26_MOD :i32 = (_offset12 + CT26_MOD) % 28 + 28;
@@ -1740,30 +1020,6 @@ const SOFF12_CT46_MOD :i32 = (_offset12 + CT46_MOD) % 28 + 28;
 const SOFF12_CT47_MOD :i32 = (_offset12 + CT47_MOD) % 28 + 28;
 
 
-const SOFF13_CT0_MOD  :i32 = (_offset13 + CT0_MOD)  % 28 + 28;
-const SOFF13_CT1_MOD  :i32 = (_offset13 + CT1_MOD)  % 28 + 28;
-const SOFF13_CT2_MOD  :i32 = (_offset13 + CT2_MOD)  % 28 + 28;
-const SOFF13_CT3_MOD  :i32 = (_offset13 + CT3_MOD)  % 28 + 28;
-const SOFF13_CT4_MOD  :i32 = (_offset13 + CT4_MOD)  % 28 + 28;
-const SOFF13_CT5_MOD  :i32 = (_offset13 + CT5_MOD)  % 28 + 28;
-const SOFF13_CT6_MOD  :i32 = (_offset13 + CT6_MOD)  % 28 + 28;
-const SOFF13_CT7_MOD  :i32 = (_offset13 + CT7_MOD)  % 28 + 28;
-const SOFF13_CT8_MOD  :i32 = (_offset13 + CT8_MOD)  % 28 + 28;
-const SOFF13_CT9_MOD  :i32 = (_offset13 + CT9_MOD)  % 28 + 28;
-const SOFF13_CT10_MOD :i32 = (_offset13 + CT10_MOD) % 28 + 28;
-const SOFF13_CT11_MOD :i32 = (_offset13 + CT11_MOD) % 28 + 28;
-const SOFF13_CT12_MOD :i32 = (_offset13 + CT12_MOD) % 28 + 28;
-const SOFF13_CT13_MOD :i32 = (_offset13 + CT13_MOD) % 28 + 28;
-const SOFF13_CT14_MOD :i32 = (_offset13 + CT14_MOD) % 28 + 28;
-const SOFF13_CT15_MOD :i32 = (_offset13 + CT15_MOD) % 28 + 28;
-const SOFF13_CT16_MOD :i32 = (_offset13 + CT16_MOD) % 28 + 28;
-const SOFF13_CT17_MOD :i32 = (_offset13 + CT17_MOD) % 28 + 28;
-const SOFF13_CT18_MOD :i32 = (_offset13 + CT18_MOD) % 28 + 28;
-const SOFF13_CT19_MOD :i32 = (_offset13 + CT19_MOD) % 28 + 28;
-const SOFF13_CT20_MOD :i32 = (_offset13 + CT20_MOD) % 28 + 28;
-const SOFF13_CT21_MOD :i32 = (_offset13 + CT21_MOD) % 28 + 28;
-const SOFF13_CT22_MOD :i32 = (_offset13 + CT22_MOD) % 28 + 28;
-const SOFF13_CT23_MOD :i32 = (_offset13 + CT23_MOD) % 28 + 28;
 const SOFF13_CT24_MOD :i32 = (_offset13 + CT24_MOD) % 28 + 28;
 const SOFF13_CT25_MOD :i32 = (_offset13 + CT25_MOD) % 28 + 28;
 const SOFF13_CT26_MOD :i32 = (_offset13 + CT26_MOD) % 28 + 28;
@@ -1790,30 +1046,6 @@ const SOFF13_CT46_MOD :i32 = (_offset13 + CT46_MOD) % 28 + 28;
 const SOFF13_CT47_MOD :i32 = (_offset13 + CT47_MOD) % 28 + 28;
 
 
-const SOFF14_CT0_MOD  :i32 = (_offset14 + CT0_MOD)  % 28 + 28;
-const SOFF14_CT1_MOD  :i32 = (_offset14 + CT1_MOD)  % 28 + 28;
-const SOFF14_CT2_MOD  :i32 = (_offset14 + CT2_MOD)  % 28 + 28;
-const SOFF14_CT3_MOD  :i32 = (_offset14 + CT3_MOD)  % 28 + 28;
-const SOFF14_CT4_MOD  :i32 = (_offset14 + CT4_MOD)  % 28 + 28;
-const SOFF14_CT5_MOD  :i32 = (_offset14 + CT5_MOD)  % 28 + 28;
-const SOFF14_CT6_MOD  :i32 = (_offset14 + CT6_MOD)  % 28 + 28;
-const SOFF14_CT7_MOD  :i32 = (_offset14 + CT7_MOD)  % 28 + 28;
-const SOFF14_CT8_MOD  :i32 = (_offset14 + CT8_MOD)  % 28 + 28;
-const SOFF14_CT9_MOD  :i32 = (_offset14 + CT9_MOD)  % 28 + 28;
-const SOFF14_CT10_MOD :i32 = (_offset14 + CT10_MOD) % 28 + 28;
-const SOFF14_CT11_MOD :i32 = (_offset14 + CT11_MOD) % 28 + 28;
-const SOFF14_CT12_MOD :i32 = (_offset14 + CT12_MOD) % 28 + 28;
-const SOFF14_CT13_MOD :i32 = (_offset14 + CT13_MOD) % 28 + 28;
-const SOFF14_CT14_MOD :i32 = (_offset14 + CT14_MOD) % 28 + 28;
-const SOFF14_CT15_MOD :i32 = (_offset14 + CT15_MOD) % 28 + 28;
-const SOFF14_CT16_MOD :i32 = (_offset14 + CT16_MOD) % 28 + 28;
-const SOFF14_CT17_MOD :i32 = (_offset14 + CT17_MOD) % 28 + 28;
-const SOFF14_CT18_MOD :i32 = (_offset14 + CT18_MOD) % 28 + 28;
-const SOFF14_CT19_MOD :i32 = (_offset14 + CT19_MOD) % 28 + 28;
-const SOFF14_CT20_MOD :i32 = (_offset14 + CT20_MOD) % 28 + 28;
-const SOFF14_CT21_MOD :i32 = (_offset14 + CT21_MOD) % 28 + 28;
-const SOFF14_CT22_MOD :i32 = (_offset14 + CT22_MOD) % 28 + 28;
-const SOFF14_CT23_MOD :i32 = (_offset14 + CT23_MOD) % 28 + 28;
 const SOFF14_CT24_MOD :i32 = (_offset14 + CT24_MOD) % 28 + 28;
 const SOFF14_CT25_MOD :i32 = (_offset14 + CT25_MOD) % 28 + 28;
 const SOFF14_CT26_MOD :i32 = (_offset14 + CT26_MOD) % 28 + 28;
@@ -1840,30 +1072,6 @@ const SOFF14_CT46_MOD :i32 = (_offset14 + CT46_MOD) % 28 + 28;
 const SOFF14_CT47_MOD :i32 = (_offset14 + CT47_MOD) % 28 + 28;
 
 
-const SOFF15_CT0_MOD  :i32 = (_offset15 + CT0_MOD)  % 28 + 28;
-const SOFF15_CT1_MOD  :i32 = (_offset15 + CT1_MOD)  % 28 + 28;
-const SOFF15_CT2_MOD  :i32 = (_offset15 + CT2_MOD)  % 28 + 28;
-const SOFF15_CT3_MOD  :i32 = (_offset15 + CT3_MOD)  % 28 + 28;
-const SOFF15_CT4_MOD  :i32 = (_offset15 + CT4_MOD)  % 28 + 28;
-const SOFF15_CT5_MOD  :i32 = (_offset15 + CT5_MOD)  % 28 + 28;
-const SOFF15_CT6_MOD  :i32 = (_offset15 + CT6_MOD)  % 28 + 28;
-const SOFF15_CT7_MOD  :i32 = (_offset15 + CT7_MOD)  % 28 + 28;
-const SOFF15_CT8_MOD  :i32 = (_offset15 + CT8_MOD)  % 28 + 28;
-const SOFF15_CT9_MOD  :i32 = (_offset15 + CT9_MOD)  % 28 + 28;
-const SOFF15_CT10_MOD :i32 = (_offset15 + CT10_MOD) % 28 + 28;
-const SOFF15_CT11_MOD :i32 = (_offset15 + CT11_MOD) % 28 + 28;
-const SOFF15_CT12_MOD :i32 = (_offset15 + CT12_MOD) % 28 + 28;
-const SOFF15_CT13_MOD :i32 = (_offset15 + CT13_MOD) % 28 + 28;
-const SOFF15_CT14_MOD :i32 = (_offset15 + CT14_MOD) % 28 + 28;
-const SOFF15_CT15_MOD :i32 = (_offset15 + CT15_MOD) % 28 + 28;
-const SOFF15_CT16_MOD :i32 = (_offset15 + CT16_MOD) % 28 + 28;
-const SOFF15_CT17_MOD :i32 = (_offset15 + CT17_MOD) % 28 + 28;
-const SOFF15_CT18_MOD :i32 = (_offset15 + CT18_MOD) % 28 + 28;
-const SOFF15_CT19_MOD :i32 = (_offset15 + CT19_MOD) % 28 + 28;
-const SOFF15_CT20_MOD :i32 = (_offset15 + CT20_MOD) % 28 + 28;
-const SOFF15_CT21_MOD :i32 = (_offset15 + CT21_MOD) % 28 + 28;
-const SOFF15_CT22_MOD :i32 = (_offset15 + CT22_MOD) % 28 + 28;
-const SOFF15_CT23_MOD :i32 = (_offset15 + CT23_MOD) % 28 + 28;
 const SOFF15_CT24_MOD :i32 = (_offset15 + CT24_MOD) % 28 + 28;
 const SOFF15_CT25_MOD :i32 = (_offset15 + CT25_MOD) % 28 + 28;
 const SOFF15_CT26_MOD :i32 = (_offset15 + CT26_MOD) % 28 + 28;
@@ -1893,13 +1101,14 @@ const SOFF15_CT47_MOD :i32 = (_offset15 + CT47_MOD) % 28 + 28;
 /*********************************************
 * Permutation table applied to s_box results
 *********************************************/
+/*
 const straight_table :i32[] = [
   15,  6, 19, 20, 28, 11, 27, 16,
    0, 14, 22, 25,  4, 17, 30,  9,
    1,  7, 23, 13, 31, 26,  2,  8,
   18, 12, 29,  5, 21, 10,  3, 24
 ];
-
+*/
 
 /****************************************************
 * Inverse table of straight_table for speed reasons
@@ -2197,61 +1406,11 @@ export function cipher() :void {
   const ET46 :i32 = expansion_table[46];
   const ET47 :i32 = expansion_table[47];
 
-  const IST0  :i32 = inverse_straight_table[0];
-  const IST1  :i32 = inverse_straight_table[1];
-  const IST2  :i32 = inverse_straight_table[2];
-  const IST3  :i32 = inverse_straight_table[3];
-  const IST4  :i32 = inverse_straight_table[4];
-  const IST5  :i32 = inverse_straight_table[5];
-  const IST6  :i32 = inverse_straight_table[6];
-  const IST7  :i32 = inverse_straight_table[7];
-  const IST8  :i32 = inverse_straight_table[8];
-  const IST9  :i32 = inverse_straight_table[9];
-  const IST10 :i32 = inverse_straight_table[10];
-  const IST11 :i32 = inverse_straight_table[11];
-  const IST12 :i32 = inverse_straight_table[12];
-  const IST13 :i32 = inverse_straight_table[13];
-  const IST14 :i32 = inverse_straight_table[14];
-  const IST15 :i32 = inverse_straight_table[15];
-  const IST16 :i32 = inverse_straight_table[16];
-  const IST17 :i32 = inverse_straight_table[17];
-  const IST18 :i32 = inverse_straight_table[18];
-  const IST19 :i32 = inverse_straight_table[19];
-  const IST20 :i32 = inverse_straight_table[20];
-  const IST21 :i32 = inverse_straight_table[21];
-  const IST22 :i32 = inverse_straight_table[22];
-  const IST23 :i32 = inverse_straight_table[23];
-  const IST24 :i32 = inverse_straight_table[24];
-  const IST25 :i32 = inverse_straight_table[25];
-  const IST26 :i32 = inverse_straight_table[26];
-  const IST27 :i32 = inverse_straight_table[27];
-  const IST28 :i32 = inverse_straight_table[28];
-  const IST29 :i32 = inverse_straight_table[29];
-  const IST30 :i32 = inverse_straight_table[30];
-  const IST31 :i32 = inverse_straight_table[31];
-
-
   /***********************************************************
    *  Generate round keys
    **********************************************************/
-
-  
   for(i = 0; i < 56; i++)
     PARITY_DROP[i] = PWD_BIN[ parity_drop_table[i] ];
-  /*
-  for(i = 0; i < 16; i++) {
-    offset = shift_offset[i];
-
-    for(j = 0; j < 48; j++) {
-      value = compression_table[j];
-
-      k[i][j] = value < 28
-        ? PARITY_DROP[ (offset + value   )%28      ]
-        : PARITY_DROP[ (offset + value%28)%28 + 28 ];
-    }
-  }
-   */
-
 
   const K0_0  :i32 = PARITY_DROP[SOFF0_CT0];
   const K0_1  :i32 = PARITY_DROP[SOFF0_CT1];
@@ -3044,6 +2203,8 @@ export function cipher() :void {
     R[i] = 0;
   }
 
+  let L_IST0 :i32 = 0;
+
   for(round_n = 0; round_n < 13; round_n++) {
    /********************************************************************
     *
@@ -3059,10 +2220,10 @@ export function cipher() :void {
       + ( ( K0_2 ^ R[ET2] ) << 2 )
       + ( ( K0_1 ^ R[ET1] ) << 3 );
     dec = SB0[ (row<<4) + col ];
-    L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
-    L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
-    L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
-    L[IST3] = L[IST3] ^ ( dec & 1 );
+    L[8] = L[8] ^ ( (dec >> 3) & 1 );
+    L[16] = L[16] ^ ( (dec >> 2) & 1 );
+    L[22] = L[22] ^ ( (dec >> 1) & 1 );
+    L[30] = L[30] ^ ( dec & 1 );
 
     row = ( K0_11 ^ R[ET11] )
       + ( ( K0_6  ^ R[ET6 ] ) << 1 );
@@ -3071,10 +2232,10 @@ export function cipher() :void {
       + ( ( K0_8  ^ R[ET8 ] ) << 2 )
       + ( ( K0_7  ^ R[ET7 ] ) << 3 );
     dec = SB1[ (row<<4) + col ];
-    L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
-    L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
-    L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
-    L[IST7] = L[IST7] ^ ( dec & 1 );
+    L[12] = L[12] ^ ( (dec >> 3) & 1 );
+    L[27] = L[27] ^ ( (dec >> 2) & 1 );
+    L[1] = L[1] ^ ( (dec >> 1) & 1 );
+    L[17] = L[17] ^ ( dec & 1 );
 
     row = ( K0_17 ^ R[ET17] )
       + ( ( K0_12 ^ R[ET12] ) << 1 );
@@ -3083,10 +2244,10 @@ export function cipher() :void {
       + ( ( K0_14 ^ R[ET14] ) << 2 )
       + ( ( K0_13 ^ R[ET13] ) << 3 );
     dec = SB2[ (row<<4) + col ];
-    L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
-    L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
-    L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
-    L[IST11] = L[IST11] ^ ( dec & 1 );     
+    L[23] = L[23] ^ ( (dec >> 3) & 1 );
+    L[15] = L[15] ^ ( (dec >> 2) & 1 );
+    L[29] = L[29] ^ ( (dec >> 1) & 1 );
+    L[5] = L[5] ^ ( dec & 1 );     
 
     row = ( K0_23 ^ R[ET23] )
       + ( ( K0_18 ^ R[ET18] ) << 1 );
@@ -3095,10 +2256,10 @@ export function cipher() :void {
       + ( ( K0_20 ^ R[ET20] ) << 2 )
       + ( ( K0_19 ^ R[ET19] ) << 3 );
     dec = SB3[ (row<<4) + col ];
-    L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
-    L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
-    L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
-    L[IST15] = L[IST15] ^ ( dec & 1 );
+    L[25] = L[25] ^ ( (dec >> 3) & 1 );
+    L[19] = L[19] ^ ( (dec >> 2) & 1 );
+    L[9] = L[9] ^ ( (dec >> 1) & 1 );
+    L[0] = L[0] ^ ( dec & 1 );
   
     row = ( K0_29 ^ R[ET29] )
       + ( ( K0_24 ^ R[ET24] ) << 1 );
@@ -3107,10 +2268,10 @@ export function cipher() :void {
       + ( ( K0_26 ^ R[ET26] ) << 2 )
       + ( ( K0_25 ^ R[ET25] ) << 3 );
     dec = SB4[ (row<<4) + col ];
-    L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
-    L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
-    L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
-    L[IST19] = L[IST19] ^ ( dec & 1 );
+    L[7] = L[7] ^ ( (dec >> 3) & 1 );
+    L[13] = L[13] ^ ( (dec >> 2) & 1 );
+    L[24] = L[24] ^ ( (dec >> 1) & 1 );
+    L[2] = L[2] ^ ( dec & 1 );
 
     row = ( K0_35 ^ R[ET35] )
       + ( ( K0_30 ^ R[ET30] ) << 1 );
@@ -3119,10 +2280,10 @@ export function cipher() :void {
       + ( ( K0_32 ^ R[ET32] ) << 2 )
       + ( ( K0_31 ^ R[ET31] ) << 3 );
     dec = SB5[ (row<<4) + col ];
-    L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
-    L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
-    L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
-    L[IST23] = L[IST23] ^ ( dec & 1 );
+    L[3] = L[3] ^ ( (dec >> 3) & 1 );
+    L[28] = L[28] ^ ( (dec >> 2) & 1 );
+    L[10] = L[10] ^ ( (dec >> 1) & 1 );
+    L[18] = L[18] ^ ( dec & 1 );
 
     row = ( K0_41 ^ R[ET41] )
       + ( ( K0_36 ^ R[ET36] ) << 1 );
@@ -3131,10 +2292,10 @@ export function cipher() :void {
       + ( ( K0_38 ^ R[ET38] ) << 2 )
       + ( ( K0_37 ^ R[ET37] ) << 3 );
     dec = SB6[ (row<<4) + col ];
-    L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
-    L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
-    L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
-    L[IST27] = L[IST27] ^ ( dec & 1 );
+    L[31] = L[31] ^ ( (dec >> 3) & 1 );
+    L[11] = L[11] ^ ( (dec >> 2) & 1 );
+    L[21] = L[21] ^ ( (dec >> 1) & 1 );
+    L[6] = L[6] ^ ( dec & 1 );
   
     row = ( K0_47 ^ R[ET47] )
       + ( ( K0_42 ^ R[ET42] ) << 1 );
@@ -3143,10 +2304,10 @@ export function cipher() :void {
       + ( ( K0_44 ^ R[ET44] ) << 2 )
       + ( ( K0_43 ^ R[ET43] ) << 3 );
     dec = SB7[ (row<<4) + col ];
-    L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
-    L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
-    L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
-    L[IST31] = L[IST31] ^ ( dec & 1 );
+    L[4] = L[4] ^ ( (dec >> 3) & 1 );
+    L[26] = L[26] ^ ( (dec >> 2) & 1 );
+    L[14] = L[14] ^ ( (dec >> 1) & 1 );
+    L[20] = L[20] ^ ( dec & 1 );
 
     // 1
     row = ( K1_5 ^ L[ET5] )
@@ -3156,10 +2317,10 @@ export function cipher() :void {
       + ( ( K1_2 ^ L[ET2] ) << 2 )
       + ( ( K1_1 ^ L[ET1] ) << 3 );
     dec = SB0[ (row<<4) + col ];
-    R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
-    R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
-    R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
-    R[IST3] = R[IST3] ^ ( dec & 1 );
+    R[8] = R[8] ^ ( (dec >> 3) & 1 );
+    R[16] = R[16] ^ ( (dec >> 2) & 1 );
+    R[22] = R[22] ^ ( (dec >> 1) & 1 );
+    R[30] = R[30] ^ ( dec & 1 );
 
     row = ( K1_11 ^ L[ET11] )
       + ( ( K1_6  ^ L[ET6 ] ) << 1 );
@@ -3168,10 +2329,10 @@ export function cipher() :void {
       + ( ( K1_8  ^ L[ET8 ] ) << 2 )
       + ( ( K1_7  ^ L[ET7 ] ) << 3 );
     dec = SB1[ (row<<4) + col ];
-    R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
-    R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
-    R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
-    R[IST7] = R[IST7] ^ ( dec & 1 );
+    R[12] = R[12] ^ ( (dec >> 3) & 1 );
+    R[27] = R[27] ^ ( (dec >> 2) & 1 );
+    R[1] = R[1] ^ ( (dec >> 1) & 1 );
+    R[17] = R[17] ^ ( dec & 1 );
 
     row = ( K1_17 ^ L[ET17] )
       + ( ( K1_12 ^ L[ET12] ) << 1 );
@@ -3180,10 +2341,10 @@ export function cipher() :void {
       + ( ( K1_14 ^ L[ET14] ) << 2 )
       + ( ( K1_13 ^ L[ET13] ) << 3 );
     dec = SB2[ (row<<4) + col ];
-    R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
-    R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
-    R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
-    R[IST11] = R[IST11] ^ ( dec & 1 );     
+    R[23] = R[23] ^ ( (dec >> 3) & 1 );
+    R[15] = R[15] ^ ( (dec >> 2) & 1 );
+    R[29] = R[29] ^ ( (dec >> 1) & 1 );
+    R[5] = R[5] ^ ( dec & 1 );     
 
     row = ( K1_23 ^ L[ET23] )
       + ( ( K1_18 ^ L[ET18] ) << 1 );
@@ -3192,10 +2353,10 @@ export function cipher() :void {
       + ( ( K1_20 ^ L[ET20] ) << 2 )
       + ( ( K1_19 ^ L[ET19] ) << 3 );
     dec = SB3[ (row<<4) + col ];
-    R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
-    R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
-    R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
-    R[IST15] = R[IST15] ^ ( dec & 1 );
+    R[25] = R[25] ^ ( (dec >> 3) & 1 );
+    R[19] = R[19] ^ ( (dec >> 2) & 1 );
+    R[9] = R[9] ^ ( (dec >> 1) & 1 );
+    R[0] = R[0] ^ ( dec & 1 );
   
     row = ( K1_29 ^ L[ET29] )
       + ( ( K1_24 ^ L[ET24] ) << 1 );
@@ -3204,10 +2365,10 @@ export function cipher() :void {
       + ( ( K1_26 ^ L[ET26] ) << 2 )
       + ( ( K1_25 ^ L[ET25] ) << 3 );
     dec = SB4[ (row<<4) + col ];
-    R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
-    R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
-    R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
-    R[IST19] = R[IST19] ^ ( dec & 1 );
+    R[7] = R[7] ^ ( (dec >> 3) & 1 );
+    R[13] = R[13] ^ ( (dec >> 2) & 1 );
+    R[24] = R[24] ^ ( (dec >> 1) & 1 );
+    R[2] = R[2] ^ ( dec & 1 );
 
     row = ( K1_35 ^ L[ET35] )
       + ( ( K1_30 ^ L[ET30] ) << 1 );
@@ -3216,10 +2377,10 @@ export function cipher() :void {
       + ( ( K1_32 ^ L[ET32] ) << 2 )
       + ( ( K1_31 ^ L[ET31] ) << 3 );
     dec = SB5[ (row<<4) + col ];
-    R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
-    R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
-    R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
-    R[IST23] = R[IST23] ^ ( dec & 1 );
+    R[3] = R[3] ^ ( (dec >> 3) & 1 );
+    R[28] = R[28] ^ ( (dec >> 2) & 1 );
+    R[10] = R[10] ^ ( (dec >> 1) & 1 );
+    R[18] = R[18] ^ ( dec & 1 );
 
     row = ( K1_41 ^ L[ET41] )
       + ( ( K1_36 ^ L[ET36] ) << 1 );
@@ -3228,10 +2389,10 @@ export function cipher() :void {
       + ( ( K1_38 ^ L[ET38] ) << 2 )
       + ( ( K1_37 ^ L[ET37] ) << 3 );
     dec = SB6[ (row<<4) + col ];
-    R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
-    R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
-    R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
-    R[IST27] = R[IST27] ^ ( dec & 1 );
+    R[31] = R[31] ^ ( (dec >> 3) & 1 );
+    R[11] = R[11] ^ ( (dec >> 2) & 1 );
+    R[21] = R[21] ^ ( (dec >> 1) & 1 );
+    R[6] = R[6] ^ ( dec & 1 );
   
     row = ( K1_47 ^ L[ET47] )
       + ( ( K1_42 ^ L[ET42] ) << 1 );
@@ -3240,10 +2401,10 @@ export function cipher() :void {
       + ( ( K1_44 ^ L[ET44] ) << 2 )
       + ( ( K1_43 ^ L[ET43] ) << 3 );
     dec = SB7[ (row<<4) + col ];
-    R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
-    R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
-    R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
-    R[IST31] = R[IST31] ^ ( dec & 1 );
+    R[4] = R[4] ^ ( (dec >> 3) & 1 );
+    R[26] = R[26] ^ ( (dec >> 2) & 1 );
+    R[14] = R[14] ^ ( (dec >> 1) & 1 );
+    R[20] = R[20] ^ ( dec & 1 );
 
     // 2
     row = ( K2_5 ^ R[ET5] )
@@ -3253,10 +2414,10 @@ export function cipher() :void {
       + ( ( K2_2 ^ R[ET2] ) << 2 )
       + ( ( K2_1 ^ R[ET1] ) << 3 );
     dec = SB0[ (row<<4) + col ];
-    L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
-    L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
-    L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
-    L[IST3] = L[IST3] ^ ( dec & 1 );
+    L[8] = L[8] ^ ( (dec >> 3) & 1 );
+    L[16] = L[16] ^ ( (dec >> 2) & 1 );
+    L[22] = L[22] ^ ( (dec >> 1) & 1 );
+    L[30] = L[30] ^ ( dec & 1 );
 
     row = ( K2_11 ^ R[ET11] )
       + ( ( K2_6  ^ R[ET6 ] ) << 1 );
@@ -3265,10 +2426,10 @@ export function cipher() :void {
       + ( ( K2_8  ^ R[ET8 ] ) << 2 )
       + ( ( K2_7  ^ R[ET7 ] ) << 3 );
     dec = SB1[ (row<<4) + col ];
-    L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
-    L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
-    L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
-    L[IST7] = L[IST7] ^ ( dec & 1 );
+    L[12] = L[12] ^ ( (dec >> 3) & 1 );
+    L[27] = L[27] ^ ( (dec >> 2) & 1 );
+    L[1] = L[1] ^ ( (dec >> 1) & 1 );
+    L[17] = L[17] ^ ( dec & 1 );
 
     row = ( K2_17 ^ R[ET17] )
       + ( ( K2_12 ^ R[ET12] ) << 1 );
@@ -3277,10 +2438,10 @@ export function cipher() :void {
       + ( ( K2_14 ^ R[ET14] ) << 2 )
       + ( ( K2_13 ^ R[ET13] ) << 3 );
     dec = SB2[ (row<<4) + col ];
-    L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
-    L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
-    L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
-    L[IST11] = L[IST11] ^ ( dec & 1 );     
+    L[23] = L[23] ^ ( (dec >> 3) & 1 );
+    L[15] = L[15] ^ ( (dec >> 2) & 1 );
+    L[29] = L[29] ^ ( (dec >> 1) & 1 );
+    L[5] = L[5] ^ ( dec & 1 );     
 
     row = ( K2_23 ^ R[ET23] )
       + ( ( K2_18 ^ R[ET18] ) << 1 );
@@ -3289,10 +2450,10 @@ export function cipher() :void {
       + ( ( K2_20 ^ R[ET20] ) << 2 )
       + ( ( K2_19 ^ R[ET19] ) << 3 );
     dec = SB3[ (row<<4) + col ];
-    L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
-    L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
-    L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
-    L[IST15] = L[IST15] ^ ( dec & 1 );
+    L[25] = L[25] ^ ( (dec >> 3) & 1 );
+    L[19] = L[19] ^ ( (dec >> 2) & 1 );
+    L[9] = L[9] ^ ( (dec >> 1) & 1 );
+    L[0] = L[0] ^ ( dec & 1 );
   
     row = ( K2_29 ^ R[ET29] )
       + ( ( K2_24 ^ R[ET24] ) << 1 );
@@ -3301,10 +2462,10 @@ export function cipher() :void {
       + ( ( K2_26 ^ R[ET26] ) << 2 )
       + ( ( K2_25 ^ R[ET25] ) << 3 );
     dec = SB4[ (row<<4) + col ];
-    L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
-    L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
-    L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
-    L[IST19] = L[IST19] ^ ( dec & 1 );
+    L[7] = L[7] ^ ( (dec >> 3) & 1 );
+    L[13] = L[13] ^ ( (dec >> 2) & 1 );
+    L[24] = L[24] ^ ( (dec >> 1) & 1 );
+    L[2] = L[2] ^ ( dec & 1 );
 
     row = ( K2_35 ^ R[ET35] )
       + ( ( K2_30 ^ R[ET30] ) << 1 );
@@ -3313,10 +2474,10 @@ export function cipher() :void {
       + ( ( K2_32 ^ R[ET32] ) << 2 )
       + ( ( K2_31 ^ R[ET31] ) << 3 );
     dec = SB5[ (row<<4) + col ];
-    L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
-    L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
-    L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
-    L[IST23] = L[IST23] ^ ( dec & 1 );
+    L[3] = L[3] ^ ( (dec >> 3) & 1 );
+    L[28] = L[28] ^ ( (dec >> 2) & 1 );
+    L[10] = L[10] ^ ( (dec >> 1) & 1 );
+    L[18] = L[18] ^ ( dec & 1 );
 
     row = ( K2_41 ^ R[ET41] )
       + ( ( K2_36 ^ R[ET36] ) << 1 );
@@ -3325,10 +2486,10 @@ export function cipher() :void {
       + ( ( K2_38 ^ R[ET38] ) << 2 )
       + ( ( K2_37 ^ R[ET37] ) << 3 );
     dec = SB6[ (row<<4) + col ];
-    L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
-    L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
-    L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
-    L[IST27] = L[IST27] ^ ( dec & 1 );
+    L[31] = L[31] ^ ( (dec >> 3) & 1 );
+    L[11] = L[11] ^ ( (dec >> 2) & 1 );
+    L[21] = L[21] ^ ( (dec >> 1) & 1 );
+    L[6] = L[6] ^ ( dec & 1 );
   
     row = ( K2_47 ^ R[ET47] )
       + ( ( K2_42 ^ R[ET42] ) << 1 );
@@ -3337,10 +2498,10 @@ export function cipher() :void {
       + ( ( K2_44 ^ R[ET44] ) << 2 )
       + ( ( K2_43 ^ R[ET43] ) << 3 );
     dec = SB7[ (row<<4) + col ];
-    L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
-    L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
-    L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
-    L[IST31] = L[IST31] ^ ( dec & 1 );
+    L[4] = L[4] ^ ( (dec >> 3) & 1 );
+    L[26] = L[26] ^ ( (dec >> 2) & 1 );
+    L[14] = L[14] ^ ( (dec >> 1) & 1 );
+    L[20] = L[20] ^ ( dec & 1 );
 
     // 3
     row = ( K3_5 ^ L[ET5] )
@@ -3350,10 +2511,10 @@ export function cipher() :void {
       + ( ( K3_2 ^ L[ET2] ) << 2 )
       + ( ( K3_1 ^ L[ET1] ) << 3 );
     dec = SB0[ (row<<4) + col ];
-    R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
-    R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
-    R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
-    R[IST3] = R[IST3] ^ ( dec & 1 );
+    R[8] = R[8] ^ ( (dec >> 3) & 1 );
+    R[16] = R[16] ^ ( (dec >> 2) & 1 );
+    R[22] = R[22] ^ ( (dec >> 1) & 1 );
+    R[30] = R[30] ^ ( dec & 1 );
 
     row = ( K3_11 ^ L[ET11] )
       + ( ( K3_6  ^ L[ET6 ] ) << 1 );
@@ -3362,10 +2523,10 @@ export function cipher() :void {
       + ( ( K3_8  ^ L[ET8 ] ) << 2 )
       + ( ( K3_7  ^ L[ET7 ] ) << 3 );
     dec = SB1[ (row<<4) + col ];
-    R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
-    R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
-    R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
-    R[IST7] = R[IST7] ^ ( dec & 1 );
+    R[12] = R[12] ^ ( (dec >> 3) & 1 );
+    R[27] = R[27] ^ ( (dec >> 2) & 1 );
+    R[1] = R[1] ^ ( (dec >> 1) & 1 );
+    R[17] = R[17] ^ ( dec & 1 );
 
     row = ( K3_17 ^ L[ET17] )
       + ( ( K3_12 ^ L[ET12] ) << 1 );
@@ -3374,10 +2535,10 @@ export function cipher() :void {
       + ( ( K3_14 ^ L[ET14] ) << 2 )
       + ( ( K3_13 ^ L[ET13] ) << 3 );
     dec = SB2[ (row<<4) + col ];
-    R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
-    R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
-    R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
-    R[IST11] = R[IST11] ^ ( dec & 1 );     
+    R[23] = R[23] ^ ( (dec >> 3) & 1 );
+    R[15] = R[15] ^ ( (dec >> 2) & 1 );
+    R[29] = R[29] ^ ( (dec >> 1) & 1 );
+    R[5] = R[5] ^ ( dec & 1 );     
 
     row = ( K3_23 ^ L[ET23] )
       + ( ( K3_18 ^ L[ET18] ) << 1 );
@@ -3386,10 +2547,10 @@ export function cipher() :void {
       + ( ( K3_20 ^ L[ET20] ) << 2 )
       + ( ( K3_19 ^ L[ET19] ) << 3 );
     dec = SB3[ (row<<4) + col ];
-    R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
-    R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
-    R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
-    R[IST15] = R[IST15] ^ ( dec & 1 );
+    R[25] = R[25] ^ ( (dec >> 3) & 1 );
+    R[19] = R[19] ^ ( (dec >> 2) & 1 );
+    R[9] = R[9] ^ ( (dec >> 1) & 1 );
+    R[0] = R[0] ^ ( dec & 1 );
   
     row = ( K3_29 ^ L[ET29] )
       + ( ( K3_24 ^ L[ET24] ) << 1 );
@@ -3398,10 +2559,10 @@ export function cipher() :void {
       + ( ( K3_26 ^ L[ET26] ) << 2 )
       + ( ( K3_25 ^ L[ET25] ) << 3 );
     dec = SB4[ (row<<4) + col ];
-    R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
-    R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
-    R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
-    R[IST19] = R[IST19] ^ ( dec & 1 );
+    R[7] = R[7] ^ ( (dec >> 3) & 1 );
+    R[13] = R[13] ^ ( (dec >> 2) & 1 );
+    R[24] = R[24] ^ ( (dec >> 1) & 1 );
+    R[2] = R[2] ^ ( dec & 1 );
 
     row = ( K3_35 ^ L[ET35] )
       + ( ( K3_30 ^ L[ET30] ) << 1 );
@@ -3410,10 +2571,10 @@ export function cipher() :void {
       + ( ( K3_32 ^ L[ET32] ) << 2 )
       + ( ( K3_31 ^ L[ET31] ) << 3 );
     dec = SB5[ (row<<4) + col ];
-    R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
-    R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
-    R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
-    R[IST23] = R[IST23] ^ ( dec & 1 );
+    R[3] = R[3] ^ ( (dec >> 3) & 1 );
+    R[28] = R[28] ^ ( (dec >> 2) & 1 );
+    R[10] = R[10] ^ ( (dec >> 1) & 1 );
+    R[18] = R[18] ^ ( dec & 1 );
 
     row = ( K3_41 ^ L[ET41] )
       + ( ( K3_36 ^ L[ET36] ) << 1 );
@@ -3422,10 +2583,10 @@ export function cipher() :void {
       + ( ( K3_38 ^ L[ET38] ) << 2 )
       + ( ( K3_37 ^ L[ET37] ) << 3 );
     dec = SB6[ (row<<4) + col ];
-    R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
-    R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
-    R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
-    R[IST27] = R[IST27] ^ ( dec & 1 );
+    R[31] = R[31] ^ ( (dec >> 3) & 1 );
+    R[11] = R[11] ^ ( (dec >> 2) & 1 );
+    R[21] = R[21] ^ ( (dec >> 1) & 1 );
+    R[6] = R[6] ^ ( dec & 1 );
   
     row = ( K3_47 ^ L[ET47] )
       + ( ( K3_42 ^ L[ET42] ) << 1 );
@@ -3434,10 +2595,10 @@ export function cipher() :void {
       + ( ( K3_44 ^ L[ET44] ) << 2 )
       + ( ( K3_43 ^ L[ET43] ) << 3 );
     dec = SB7[ (row<<4) + col ];
-    R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
-    R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
-    R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
-    R[IST31] = R[IST31] ^ ( dec & 1 );
+    R[4] = R[4] ^ ( (dec >> 3) & 1 );
+    R[26] = R[26] ^ ( (dec >> 2) & 1 );
+    R[14] = R[14] ^ ( (dec >> 1) & 1 );
+    R[20] = R[20] ^ ( dec & 1 );
 
     // 4
     row = ( K4_5 ^ R[ET5] )
@@ -3447,10 +2608,10 @@ export function cipher() :void {
       + ( ( K4_2 ^ R[ET2] ) << 2 )
       + ( ( K4_1 ^ R[ET1] ) << 3 );
     dec = SB0[ (row<<4) + col ];
-    L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
-    L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
-    L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
-    L[IST3] = L[IST3] ^ ( dec & 1 );
+    L[8] = L[8] ^ ( (dec >> 3) & 1 );
+    L[16] = L[16] ^ ( (dec >> 2) & 1 );
+    L[22] = L[22] ^ ( (dec >> 1) & 1 );
+    L[30] = L[30] ^ ( dec & 1 );
 
     row = ( K4_11 ^ R[ET11] )
       + ( ( K4_6  ^ R[ET6 ] ) << 1 );
@@ -3459,10 +2620,10 @@ export function cipher() :void {
       + ( ( K4_8  ^ R[ET8 ] ) << 2 )
       + ( ( K4_7  ^ R[ET7 ] ) << 3 );
     dec = SB1[ (row<<4) + col ];
-    L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
-    L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
-    L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
-    L[IST7] = L[IST7] ^ ( dec & 1 );
+    L[12] = L[12] ^ ( (dec >> 3) & 1 );
+    L[27] = L[27] ^ ( (dec >> 2) & 1 );
+    L[1] = L[1] ^ ( (dec >> 1) & 1 );
+    L[17] = L[17] ^ ( dec & 1 );
 
     row = ( K4_17 ^ R[ET17] )
       + ( ( K4_12 ^ R[ET12] ) << 1 );
@@ -3471,10 +2632,10 @@ export function cipher() :void {
       + ( ( K4_14 ^ R[ET14] ) << 2 )
       + ( ( K4_13 ^ R[ET13] ) << 3 );
     dec = SB2[ (row<<4) + col ];
-    L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
-    L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
-    L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
-    L[IST11] = L[IST11] ^ ( dec & 1 );     
+    L[23] = L[23] ^ ( (dec >> 3) & 1 );
+    L[15] = L[15] ^ ( (dec >> 2) & 1 );
+    L[29] = L[29] ^ ( (dec >> 1) & 1 );
+    L[5] = L[5] ^ ( dec & 1 );     
 
     row = ( K4_23 ^ R[ET23] )
       + ( ( K4_18 ^ R[ET18] ) << 1 );
@@ -3483,10 +2644,10 @@ export function cipher() :void {
       + ( ( K4_20 ^ R[ET20] ) << 2 )
       + ( ( K4_19 ^ R[ET19] ) << 3 );
     dec = SB3[ (row<<4) + col ];
-    L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
-    L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
-    L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
-    L[IST15] = L[IST15] ^ ( dec & 1 );
+    L[25] = L[25] ^ ( (dec >> 3) & 1 );
+    L[19] = L[19] ^ ( (dec >> 2) & 1 );
+    L[9] = L[9] ^ ( (dec >> 1) & 1 );
+    L[0] = L[0] ^ ( dec & 1 );
   
     row = ( K4_29 ^ R[ET29] )
       + ( ( K4_24 ^ R[ET24] ) << 1 );
@@ -3495,10 +2656,10 @@ export function cipher() :void {
       + ( ( K4_26 ^ R[ET26] ) << 2 )
       + ( ( K4_25 ^ R[ET25] ) << 3 );
     dec = SB4[ (row<<4) + col ];
-    L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
-    L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
-    L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
-    L[IST19] = L[IST19] ^ ( dec & 1 );
+    L[7] = L[7] ^ ( (dec >> 3) & 1 );
+    L[13] = L[13] ^ ( (dec >> 2) & 1 );
+    L[24] = L[24] ^ ( (dec >> 1) & 1 );
+    L[2] = L[2] ^ ( dec & 1 );
 
     row = ( K4_35 ^ R[ET35] )
       + ( ( K4_30 ^ R[ET30] ) << 1 );
@@ -3507,10 +2668,10 @@ export function cipher() :void {
       + ( ( K4_32 ^ R[ET32] ) << 2 )
       + ( ( K4_31 ^ R[ET31] ) << 3 );
     dec = SB5[ (row<<4) + col ];
-    L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
-    L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
-    L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
-    L[IST23] = L[IST23] ^ ( dec & 1 );
+    L[3] = L[3] ^ ( (dec >> 3) & 1 );
+    L[28] = L[28] ^ ( (dec >> 2) & 1 );
+    L[10] = L[10] ^ ( (dec >> 1) & 1 );
+    L[18] = L[18] ^ ( dec & 1 );
 
     row = ( K4_41 ^ R[ET41] )
       + ( ( K4_36 ^ R[ET36] ) << 1 );
@@ -3519,10 +2680,10 @@ export function cipher() :void {
       + ( ( K4_38 ^ R[ET38] ) << 2 )
       + ( ( K4_37 ^ R[ET37] ) << 3 );
     dec = SB6[ (row<<4) + col ];
-    L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
-    L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
-    L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
-    L[IST27] = L[IST27] ^ ( dec & 1 );
+    L[31] = L[31] ^ ( (dec >> 3) & 1 );
+    L[11] = L[11] ^ ( (dec >> 2) & 1 );
+    L[21] = L[21] ^ ( (dec >> 1) & 1 );
+    L[6] = L[6] ^ ( dec & 1 );
   
     row = ( K4_47 ^ R[ET47] )
       + ( ( K4_42 ^ R[ET42] ) << 1 );
@@ -3531,10 +2692,10 @@ export function cipher() :void {
       + ( ( K4_44 ^ R[ET44] ) << 2 )
       + ( ( K4_43 ^ R[ET43] ) << 3 );
     dec = SB7[ (row<<4) + col ];
-    L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
-    L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
-    L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
-    L[IST31] = L[IST31] ^ ( dec & 1 );
+    L[4] = L[4] ^ ( (dec >> 3) & 1 );
+    L[26] = L[26] ^ ( (dec >> 2) & 1 );
+    L[14] = L[14] ^ ( (dec >> 1) & 1 );
+    L[20] = L[20] ^ ( dec & 1 );
 
     // 5
     row = ( K5_5 ^ L[ET5] )
@@ -3544,10 +2705,10 @@ export function cipher() :void {
       + ( ( K5_2 ^ L[ET2] ) << 2 )
       + ( ( K5_1 ^ L[ET1] ) << 3 );
     dec = SB0[ (row<<4) + col ];
-    R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
-    R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
-    R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
-    R[IST3] = R[IST3] ^ ( dec & 1 );
+    R[8] = R[8] ^ ( (dec >> 3) & 1 );
+    R[16] = R[16] ^ ( (dec >> 2) & 1 );
+    R[22] = R[22] ^ ( (dec >> 1) & 1 );
+    R[30] = R[30] ^ ( dec & 1 );
 
     row = ( K5_11 ^ L[ET11] )
       + ( ( K5_6  ^ L[ET6 ] ) << 1 );
@@ -3556,10 +2717,10 @@ export function cipher() :void {
       + ( ( K5_8  ^ L[ET8 ] ) << 2 )
       + ( ( K5_7  ^ L[ET7 ] ) << 3 );
     dec = SB1[ (row<<4) + col ];
-    R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
-    R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
-    R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
-    R[IST7] = R[IST7] ^ ( dec & 1 );
+    R[12] = R[12] ^ ( (dec >> 3) & 1 );
+    R[27] = R[27] ^ ( (dec >> 2) & 1 );
+    R[1] = R[1] ^ ( (dec >> 1) & 1 );
+    R[17] = R[17] ^ ( dec & 1 );
 
     row = ( K5_17 ^ L[ET17] )
       + ( ( K5_12 ^ L[ET12] ) << 1 );
@@ -3568,10 +2729,10 @@ export function cipher() :void {
       + ( ( K5_14 ^ L[ET14] ) << 2 )
       + ( ( K5_13 ^ L[ET13] ) << 3 );
     dec = SB2[ (row<<4) + col ];
-    R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
-    R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
-    R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
-    R[IST11] = R[IST11] ^ ( dec & 1 );     
+    R[23] = R[23] ^ ( (dec >> 3) & 1 );
+    R[15] = R[15] ^ ( (dec >> 2) & 1 );
+    R[29] = R[29] ^ ( (dec >> 1) & 1 );
+    R[5] = R[5] ^ ( dec & 1 );     
 
     row = ( K5_23 ^ L[ET23] )
       + ( ( K5_18 ^ L[ET18] ) << 1 );
@@ -3580,10 +2741,10 @@ export function cipher() :void {
       + ( ( K5_20 ^ L[ET20] ) << 2 )
       + ( ( K5_19 ^ L[ET19] ) << 3 );
     dec = SB3[ (row<<4) + col ];
-    R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
-    R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
-    R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
-    R[IST15] = R[IST15] ^ ( dec & 1 );
+    R[25] = R[25] ^ ( (dec >> 3) & 1 );
+    R[19] = R[19] ^ ( (dec >> 2) & 1 );
+    R[9] = R[9] ^ ( (dec >> 1) & 1 );
+    R[0] = R[0] ^ ( dec & 1 );
   
     row = ( K5_29 ^ L[ET29] )
       + ( ( K5_24 ^ L[ET24] ) << 1 );
@@ -3592,10 +2753,10 @@ export function cipher() :void {
       + ( ( K5_26 ^ L[ET26] ) << 2 )
       + ( ( K5_25 ^ L[ET25] ) << 3 );
     dec = SB4[ (row<<4) + col ];
-    R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
-    R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
-    R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
-    R[IST19] = R[IST19] ^ ( dec & 1 );
+    R[7] = R[7] ^ ( (dec >> 3) & 1 );
+    R[13] = R[13] ^ ( (dec >> 2) & 1 );
+    R[24] = R[24] ^ ( (dec >> 1) & 1 );
+    R[2] = R[2] ^ ( dec & 1 );
 
     row = ( K5_35 ^ L[ET35] )
       + ( ( K5_30 ^ L[ET30] ) << 1 );
@@ -3604,10 +2765,10 @@ export function cipher() :void {
       + ( ( K5_32 ^ L[ET32] ) << 2 )
       + ( ( K5_31 ^ L[ET31] ) << 3 );
     dec = SB5[ (row<<4) + col ];
-    R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
-    R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
-    R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
-    R[IST23] = R[IST23] ^ ( dec & 1 );
+    R[3] = R[3] ^ ( (dec >> 3) & 1 );
+    R[28] = R[28] ^ ( (dec >> 2) & 1 );
+    R[10] = R[10] ^ ( (dec >> 1) & 1 );
+    R[18] = R[18] ^ ( dec & 1 );
 
     row = ( K5_41 ^ L[ET41] )
       + ( ( K5_36 ^ L[ET36] ) << 1 );
@@ -3616,10 +2777,10 @@ export function cipher() :void {
       + ( ( K5_38 ^ L[ET38] ) << 2 )
       + ( ( K5_37 ^ L[ET37] ) << 3 );
     dec = SB6[ (row<<4) + col ];
-    R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
-    R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
-    R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
-    R[IST27] = R[IST27] ^ ( dec & 1 );
+    R[31] = R[31] ^ ( (dec >> 3) & 1 );
+    R[11] = R[11] ^ ( (dec >> 2) & 1 );
+    R[21] = R[21] ^ ( (dec >> 1) & 1 );
+    R[6] = R[6] ^ ( dec & 1 );
   
     row = ( K5_47 ^ L[ET47] )
       + ( ( K5_42 ^ L[ET42] ) << 1 );
@@ -3628,10 +2789,10 @@ export function cipher() :void {
       + ( ( K5_44 ^ L[ET44] ) << 2 )
       + ( ( K5_43 ^ L[ET43] ) << 3 );
     dec = SB7[ (row<<4) + col ];
-    R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
-    R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
-    R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
-    R[IST31] = R[IST31] ^ ( dec & 1 );
+    R[4] = R[4] ^ ( (dec >> 3) & 1 );
+    R[26] = R[26] ^ ( (dec >> 2) & 1 );
+    R[14] = R[14] ^ ( (dec >> 1) & 1 );
+    R[20] = R[20] ^ ( dec & 1 );
 
     // 6
     row = ( K6_5 ^ R[ET5] )
@@ -3641,10 +2802,10 @@ export function cipher() :void {
       + ( ( K6_2 ^ R[ET2] ) << 2 )
       + ( ( K6_1 ^ R[ET1] ) << 3 );
     dec = SB0[ (row<<4) + col ];
-    L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
-    L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
-    L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
-    L[IST3] = L[IST3] ^ ( dec & 1 );
+    L[8] = L[8] ^ ( (dec >> 3) & 1 );
+    L[16] = L[16] ^ ( (dec >> 2) & 1 );
+    L[22] = L[22] ^ ( (dec >> 1) & 1 );
+    L[30] = L[30] ^ ( dec & 1 );
 
     row = ( K6_11 ^ R[ET11] )
       + ( ( K6_6  ^ R[ET6 ] ) << 1 );
@@ -3653,10 +2814,10 @@ export function cipher() :void {
       + ( ( K6_8  ^ R[ET8 ] ) << 2 )
       + ( ( K6_7  ^ R[ET7 ] ) << 3 );
     dec = SB1[ (row<<4) + col ];
-    L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
-    L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
-    L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
-    L[IST7] = L[IST7] ^ ( dec & 1 );
+    L[12] = L[12] ^ ( (dec >> 3) & 1 );
+    L[27] = L[27] ^ ( (dec >> 2) & 1 );
+    L[1] = L[1] ^ ( (dec >> 1) & 1 );
+    L[17] = L[17] ^ ( dec & 1 );
 
     row = ( K6_17 ^ R[ET17] )
       + ( ( K6_12 ^ R[ET12] ) << 1 );
@@ -3665,10 +2826,10 @@ export function cipher() :void {
       + ( ( K6_14 ^ R[ET14] ) << 2 )
       + ( ( K6_13 ^ R[ET13] ) << 3 );
     dec = SB2[ (row<<4) + col ];
-    L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
-    L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
-    L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
-    L[IST11] = L[IST11] ^ ( dec & 1 );     
+    L[23] = L[23] ^ ( (dec >> 3) & 1 );
+    L[15] = L[15] ^ ( (dec >> 2) & 1 );
+    L[29] = L[29] ^ ( (dec >> 1) & 1 );
+    L[5] = L[5] ^ ( dec & 1 );     
 
     row = ( K6_23 ^ R[ET23] )
       + ( ( K6_18 ^ R[ET18] ) << 1 );
@@ -3677,10 +2838,10 @@ export function cipher() :void {
       + ( ( K6_20 ^ R[ET20] ) << 2 )
       + ( ( K6_19 ^ R[ET19] ) << 3 );
     dec = SB3[ (row<<4) + col ];
-    L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
-    L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
-    L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
-    L[IST15] = L[IST15] ^ ( dec & 1 );
+    L[25] = L[25] ^ ( (dec >> 3) & 1 );
+    L[19] = L[19] ^ ( (dec >> 2) & 1 );
+    L[9] = L[9] ^ ( (dec >> 1) & 1 );
+    L[0] = L[0] ^ ( dec & 1 );
   
     row = ( K6_29 ^ R[ET29] )
       + ( ( K6_24 ^ R[ET24] ) << 1 );
@@ -3689,10 +2850,10 @@ export function cipher() :void {
       + ( ( K6_26 ^ R[ET26] ) << 2 )
       + ( ( K6_25 ^ R[ET25] ) << 3 );
     dec = SB4[ (row<<4) + col ];
-    L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
-    L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
-    L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
-    L[IST19] = L[IST19] ^ ( dec & 1 );
+    L[7] = L[7] ^ ( (dec >> 3) & 1 );
+    L[13] = L[13] ^ ( (dec >> 2) & 1 );
+    L[24] = L[24] ^ ( (dec >> 1) & 1 );
+    L[2] = L[2] ^ ( dec & 1 );
 
     row = ( K6_35 ^ R[ET35] )
       + ( ( K6_30 ^ R[ET30] ) << 1 );
@@ -3701,10 +2862,10 @@ export function cipher() :void {
       + ( ( K6_32 ^ R[ET32] ) << 2 )
       + ( ( K6_31 ^ R[ET31] ) << 3 );
     dec = SB5[ (row<<4) + col ];
-    L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
-    L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
-    L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
-    L[IST23] = L[IST23] ^ ( dec & 1 );
+    L[3] = L[3] ^ ( (dec >> 3) & 1 );
+    L[28] = L[28] ^ ( (dec >> 2) & 1 );
+    L[10] = L[10] ^ ( (dec >> 1) & 1 );
+    L[18] = L[18] ^ ( dec & 1 );
 
     row = ( K6_41 ^ R[ET41] )
       + ( ( K6_36 ^ R[ET36] ) << 1 );
@@ -3713,10 +2874,10 @@ export function cipher() :void {
       + ( ( K6_38 ^ R[ET38] ) << 2 )
       + ( ( K6_37 ^ R[ET37] ) << 3 );
     dec = SB6[ (row<<4) + col ];
-    L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
-    L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
-    L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
-    L[IST27] = L[IST27] ^ ( dec & 1 );
+    L[31] = L[31] ^ ( (dec >> 3) & 1 );
+    L[11] = L[11] ^ ( (dec >> 2) & 1 );
+    L[21] = L[21] ^ ( (dec >> 1) & 1 );
+    L[6] = L[6] ^ ( dec & 1 );
   
     row = ( K6_47 ^ R[ET47] )
       + ( ( K6_42 ^ R[ET42] ) << 1 );
@@ -3725,10 +2886,10 @@ export function cipher() :void {
       + ( ( K6_44 ^ R[ET44] ) << 2 )
       + ( ( K6_43 ^ R[ET43] ) << 3 );
     dec = SB7[ (row<<4) + col ];
-    L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
-    L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
-    L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
-    L[IST31] = L[IST31] ^ ( dec & 1 );
+    L[4] = L[4] ^ ( (dec >> 3) & 1 );
+    L[26] = L[26] ^ ( (dec >> 2) & 1 );
+    L[14] = L[14] ^ ( (dec >> 1) & 1 );
+    L[20] = L[20] ^ ( dec & 1 );
 
     // 7
     row = ( K7_5 ^ L[ET5] )
@@ -3738,10 +2899,10 @@ export function cipher() :void {
       + ( ( K7_2 ^ L[ET2] ) << 2 )
       + ( ( K7_1 ^ L[ET1] ) << 3 );
     dec = SB0[ (row<<4) + col ];
-    R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
-    R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
-    R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
-    R[IST3] = R[IST3] ^ ( dec & 1 );
+    R[8] = R[8] ^ ( (dec >> 3) & 1 );
+    R[16] = R[16] ^ ( (dec >> 2) & 1 );
+    R[22] = R[22] ^ ( (dec >> 1) & 1 );
+    R[30] = R[30] ^ ( dec & 1 );
 
     row = ( K7_11 ^ L[ET11] )
       + ( ( K7_6  ^ L[ET6 ] ) << 1 );
@@ -3750,10 +2911,10 @@ export function cipher() :void {
       + ( ( K7_8  ^ L[ET8 ] ) << 2 )
       + ( ( K7_7  ^ L[ET7 ] ) << 3 );
     dec = SB1[ (row<<4) + col ];
-    R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
-    R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
-    R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
-    R[IST7] = R[IST7] ^ ( dec & 1 );
+    R[12] = R[12] ^ ( (dec >> 3) & 1 );
+    R[27] = R[27] ^ ( (dec >> 2) & 1 );
+    R[1] = R[1] ^ ( (dec >> 1) & 1 );
+    R[17] = R[17] ^ ( dec & 1 );
 
     row = ( K7_17 ^ L[ET17] )
       + ( ( K7_12 ^ L[ET12] ) << 1 );
@@ -3762,10 +2923,10 @@ export function cipher() :void {
       + ( ( K7_14 ^ L[ET14] ) << 2 )
       + ( ( K7_13 ^ L[ET13] ) << 3 );
     dec = SB2[ (row<<4) + col ];
-    R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
-    R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
-    R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
-    R[IST11] = R[IST11] ^ ( dec & 1 );     
+    R[23] = R[23] ^ ( (dec >> 3) & 1 );
+    R[15] = R[15] ^ ( (dec >> 2) & 1 );
+    R[29] = R[29] ^ ( (dec >> 1) & 1 );
+    R[5] = R[5] ^ ( dec & 1 );     
 
     row = ( K7_23 ^ L[ET23] )
       + ( ( K7_18 ^ L[ET18] ) << 1 );
@@ -3774,10 +2935,10 @@ export function cipher() :void {
       + ( ( K7_20 ^ L[ET20] ) << 2 )
       + ( ( K7_19 ^ L[ET19] ) << 3 );
     dec = SB3[ (row<<4) + col ];
-    R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
-    R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
-    R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
-    R[IST15] = R[IST15] ^ ( dec & 1 );
+    R[25] = R[25] ^ ( (dec >> 3) & 1 );
+    R[19] = R[19] ^ ( (dec >> 2) & 1 );
+    R[9] = R[9] ^ ( (dec >> 1) & 1 );
+    R[0] = R[0] ^ ( dec & 1 );
   
     row = ( K7_29 ^ L[ET29] )
       + ( ( K7_24 ^ L[ET24] ) << 1 );
@@ -3786,10 +2947,10 @@ export function cipher() :void {
       + ( ( K7_26 ^ L[ET26] ) << 2 )
       + ( ( K7_25 ^ L[ET25] ) << 3 );
     dec = SB4[ (row<<4) + col ];
-    R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
-    R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
-    R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
-    R[IST19] = R[IST19] ^ ( dec & 1 );
+    R[7] = R[7] ^ ( (dec >> 3) & 1 );
+    R[13] = R[13] ^ ( (dec >> 2) & 1 );
+    R[24] = R[24] ^ ( (dec >> 1) & 1 );
+    R[2] = R[2] ^ ( dec & 1 );
 
     row = ( K7_35 ^ L[ET35] )
       + ( ( K7_30 ^ L[ET30] ) << 1 );
@@ -3798,10 +2959,10 @@ export function cipher() :void {
       + ( ( K7_32 ^ L[ET32] ) << 2 )
       + ( ( K7_31 ^ L[ET31] ) << 3 );
     dec = SB5[ (row<<4) + col ];
-    R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
-    R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
-    R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
-    R[IST23] = R[IST23] ^ ( dec & 1 );
+    R[3] = R[3] ^ ( (dec >> 3) & 1 );
+    R[28] = R[28] ^ ( (dec >> 2) & 1 );
+    R[10] = R[10] ^ ( (dec >> 1) & 1 );
+    R[18] = R[18] ^ ( dec & 1 );
 
     row = ( K7_41 ^ L[ET41] )
       + ( ( K7_36 ^ L[ET36] ) << 1 );
@@ -3810,10 +2971,10 @@ export function cipher() :void {
       + ( ( K7_38 ^ L[ET38] ) << 2 )
       + ( ( K7_37 ^ L[ET37] ) << 3 );
     dec = SB6[ (row<<4) + col ];
-    R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
-    R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
-    R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
-    R[IST27] = R[IST27] ^ ( dec & 1 );
+    R[31] = R[31] ^ ( (dec >> 3) & 1 );
+    R[11] = R[11] ^ ( (dec >> 2) & 1 );
+    R[21] = R[21] ^ ( (dec >> 1) & 1 );
+    R[6] = R[6] ^ ( dec & 1 );
   
     row = ( K7_47 ^ L[ET47] )
       + ( ( K7_42 ^ L[ET42] ) << 1 );
@@ -3822,10 +2983,10 @@ export function cipher() :void {
       + ( ( K7_44 ^ L[ET44] ) << 2 )
       + ( ( K7_43 ^ L[ET43] ) << 3 );
     dec = SB7[ (row<<4) + col ];
-    R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
-    R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
-    R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
-    R[IST31] = R[IST31] ^ ( dec & 1 );
+    R[4] = R[4] ^ ( (dec >> 3) & 1 );
+    R[26] = R[26] ^ ( (dec >> 2) & 1 );
+    R[14] = R[14] ^ ( (dec >> 1) & 1 );
+    R[20] = R[20] ^ ( dec & 1 );
 
     // 8
     row = ( K8_5 ^ R[ET5] )
@@ -3835,10 +2996,10 @@ export function cipher() :void {
       + ( ( K8_2 ^ R[ET2] ) << 2 )
       + ( ( K8_1 ^ R[ET1] ) << 3 );
     dec = SB0[ (row<<4) + col ];
-    L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
-    L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
-    L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
-    L[IST3] = L[IST3] ^ ( dec & 1 );
+    L[8] = L[8] ^ ( (dec >> 3) & 1 );
+    L[16] = L[16] ^ ( (dec >> 2) & 1 );
+    L[22] = L[22] ^ ( (dec >> 1) & 1 );
+    L[30] = L[30] ^ ( dec & 1 );
 
     row = ( K8_11 ^ R[ET11] )
       + ( ( K8_6  ^ R[ET6 ] ) << 1 );
@@ -3847,10 +3008,10 @@ export function cipher() :void {
       + ( ( K8_8  ^ R[ET8 ] ) << 2 )
       + ( ( K8_7  ^ R[ET7 ] ) << 3 );
     dec = SB1[ (row<<4) + col ];
-    L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
-    L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
-    L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
-    L[IST7] = L[IST7] ^ ( dec & 1 );
+    L[12] = L[12] ^ ( (dec >> 3) & 1 );
+    L[27] = L[27] ^ ( (dec >> 2) & 1 );
+    L[1] = L[1] ^ ( (dec >> 1) & 1 );
+    L[17] = L[17] ^ ( dec & 1 );
 
     row = ( K8_17 ^ R[ET17] )
       + ( ( K8_12 ^ R[ET12] ) << 1 );
@@ -3859,10 +3020,10 @@ export function cipher() :void {
       + ( ( K8_14 ^ R[ET14] ) << 2 )
       + ( ( K8_13 ^ R[ET13] ) << 3 );
     dec = SB2[ (row<<4) + col ];
-    L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
-    L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
-    L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
-    L[IST11] = L[IST11] ^ ( dec & 1 );     
+    L[23] = L[23] ^ ( (dec >> 3) & 1 );
+    L[15] = L[15] ^ ( (dec >> 2) & 1 );
+    L[29] = L[29] ^ ( (dec >> 1) & 1 );
+    L[5] = L[5] ^ ( dec & 1 );     
 
     row = ( K8_23 ^ R[ET23] )
       + ( ( K8_18 ^ R[ET18] ) << 1 );
@@ -3871,10 +3032,10 @@ export function cipher() :void {
       + ( ( K8_20 ^ R[ET20] ) << 2 )
       + ( ( K8_19 ^ R[ET19] ) << 3 );
     dec = SB3[ (row<<4) + col ];
-    L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
-    L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
-    L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
-    L[IST15] = L[IST15] ^ ( dec & 1 );
+    L[25] = L[25] ^ ( (dec >> 3) & 1 );
+    L[19] = L[19] ^ ( (dec >> 2) & 1 );
+    L[9] = L[9] ^ ( (dec >> 1) & 1 );
+    L[0] = L[0] ^ ( dec & 1 );
   
     row = ( K8_29 ^ R[ET29] )
       + ( ( K8_24 ^ R[ET24] ) << 1 );
@@ -3883,10 +3044,10 @@ export function cipher() :void {
       + ( ( K8_26 ^ R[ET26] ) << 2 )
       + ( ( K8_25 ^ R[ET25] ) << 3 );
     dec = SB4[ (row<<4) + col ];
-    L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
-    L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
-    L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
-    L[IST19] = L[IST19] ^ ( dec & 1 );
+    L[7] = L[7] ^ ( (dec >> 3) & 1 );
+    L[13] = L[13] ^ ( (dec >> 2) & 1 );
+    L[24] = L[24] ^ ( (dec >> 1) & 1 );
+    L[2] = L[2] ^ ( dec & 1 );
 
     row = ( K8_35 ^ R[ET35] )
       + ( ( K8_30 ^ R[ET30] ) << 1 );
@@ -3895,10 +3056,10 @@ export function cipher() :void {
       + ( ( K8_32 ^ R[ET32] ) << 2 )
       + ( ( K8_31 ^ R[ET31] ) << 3 );
     dec = SB5[ (row<<4) + col ];
-    L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
-    L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
-    L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
-    L[IST23] = L[IST23] ^ ( dec & 1 );
+    L[3] = L[3] ^ ( (dec >> 3) & 1 );
+    L[28] = L[28] ^ ( (dec >> 2) & 1 );
+    L[10] = L[10] ^ ( (dec >> 1) & 1 );
+    L[18] = L[18] ^ ( dec & 1 );
 
     row = ( K8_41 ^ R[ET41] )
       + ( ( K8_36 ^ R[ET36] ) << 1 );
@@ -3907,10 +3068,10 @@ export function cipher() :void {
       + ( ( K8_38 ^ R[ET38] ) << 2 )
       + ( ( K8_37 ^ R[ET37] ) << 3 );
     dec = SB6[ (row<<4) + col ];
-    L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
-    L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
-    L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
-    L[IST27] = L[IST27] ^ ( dec & 1 );
+    L[31] = L[31] ^ ( (dec >> 3) & 1 );
+    L[11] = L[11] ^ ( (dec >> 2) & 1 );
+    L[21] = L[21] ^ ( (dec >> 1) & 1 );
+    L[6] = L[6] ^ ( dec & 1 );
   
     row = ( K8_47 ^ R[ET47] )
       + ( ( K8_42 ^ R[ET42] ) << 1 );
@@ -3919,10 +3080,10 @@ export function cipher() :void {
       + ( ( K8_44 ^ R[ET44] ) << 2 )
       + ( ( K8_43 ^ R[ET43] ) << 3 );
     dec = SB7[ (row<<4) + col ];
-    L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
-    L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
-    L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
-    L[IST31] = L[IST31] ^ ( dec & 1 );
+    L[4] = L[4] ^ ( (dec >> 3) & 1 );
+    L[26] = L[26] ^ ( (dec >> 2) & 1 );
+    L[14] = L[14] ^ ( (dec >> 1) & 1 );
+    L[20] = L[20] ^ ( dec & 1 );
 
     // 9
     row = ( K9_5 ^ L[ET5] )
@@ -3932,10 +3093,10 @@ export function cipher() :void {
       + ( ( K9_2 ^ L[ET2] ) << 2 )
       + ( ( K9_1 ^ L[ET1] ) << 3 );
     dec = SB0[ (row<<4) + col ];
-    R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
-    R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
-    R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
-    R[IST3] = R[IST3] ^ ( dec & 1 );
+    R[8] = R[8] ^ ( (dec >> 3) & 1 );
+    R[16] = R[16] ^ ( (dec >> 2) & 1 );
+    R[22] = R[22] ^ ( (dec >> 1) & 1 );
+    R[30] = R[30] ^ ( dec & 1 );
 
     row = ( K9_11 ^ L[ET11] )
       + ( ( K9_6  ^ L[ET6 ] ) << 1 );
@@ -3944,10 +3105,10 @@ export function cipher() :void {
       + ( ( K9_8  ^ L[ET8 ] ) << 2 )
       + ( ( K9_7  ^ L[ET7 ] ) << 3 );
     dec = SB1[ (row<<4) + col ];
-    R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
-    R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
-    R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
-    R[IST7] = R[IST7] ^ ( dec & 1 );
+    R[12] = R[12] ^ ( (dec >> 3) & 1 );
+    R[27] = R[27] ^ ( (dec >> 2) & 1 );
+    R[1] = R[1] ^ ( (dec >> 1) & 1 );
+    R[17] = R[17] ^ ( dec & 1 );
 
     row = ( K9_17 ^ L[ET17] )
       + ( ( K9_12 ^ L[ET12] ) << 1 );
@@ -3956,10 +3117,10 @@ export function cipher() :void {
       + ( ( K9_14 ^ L[ET14] ) << 2 )
       + ( ( K9_13 ^ L[ET13] ) << 3 );
     dec = SB2[ (row<<4) + col ];
-    R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
-    R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
-    R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
-    R[IST11] = R[IST11] ^ ( dec & 1 );     
+    R[23] = R[23] ^ ( (dec >> 3) & 1 );
+    R[15] = R[15] ^ ( (dec >> 2) & 1 );
+    R[29] = R[29] ^ ( (dec >> 1) & 1 );
+    R[5] = R[5] ^ ( dec & 1 );     
 
     row = ( K9_23 ^ L[ET23] )
       + ( ( K9_18 ^ L[ET18] ) << 1 );
@@ -3968,10 +3129,10 @@ export function cipher() :void {
       + ( ( K9_20 ^ L[ET20] ) << 2 )
       + ( ( K9_19 ^ L[ET19] ) << 3 );
     dec = SB3[ (row<<4) + col ];
-    R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
-    R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
-    R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
-    R[IST15] = R[IST15] ^ ( dec & 1 );
+    R[25] = R[25] ^ ( (dec >> 3) & 1 );
+    R[19] = R[19] ^ ( (dec >> 2) & 1 );
+    R[9] = R[9] ^ ( (dec >> 1) & 1 );
+    R[0] = R[0] ^ ( dec & 1 );
   
     row = ( K9_29 ^ L[ET29] )
       + ( ( K9_24 ^ L[ET24] ) << 1 );
@@ -3980,10 +3141,10 @@ export function cipher() :void {
       + ( ( K9_26 ^ L[ET26] ) << 2 )
       + ( ( K9_25 ^ L[ET25] ) << 3 );
     dec = SB4[ (row<<4) + col ];
-    R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
-    R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
-    R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
-    R[IST19] = R[IST19] ^ ( dec & 1 );
+    R[7] = R[7] ^ ( (dec >> 3) & 1 );
+    R[13] = R[13] ^ ( (dec >> 2) & 1 );
+    R[24] = R[24] ^ ( (dec >> 1) & 1 );
+    R[2] = R[2] ^ ( dec & 1 );
 
     row = ( K9_35 ^ L[ET35] )
       + ( ( K9_30 ^ L[ET30] ) << 1 );
@@ -3992,10 +3153,10 @@ export function cipher() :void {
       + ( ( K9_32 ^ L[ET32] ) << 2 )
       + ( ( K9_31 ^ L[ET31] ) << 3 );
     dec = SB5[ (row<<4) + col ];
-    R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
-    R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
-    R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
-    R[IST23] = R[IST23] ^ ( dec & 1 );
+    R[3] = R[3] ^ ( (dec >> 3) & 1 );
+    R[28] = R[28] ^ ( (dec >> 2) & 1 );
+    R[10] = R[10] ^ ( (dec >> 1) & 1 );
+    R[18] = R[18] ^ ( dec & 1 );
 
     row = ( K9_41 ^ L[ET41] )
       + ( ( K9_36 ^ L[ET36] ) << 1 );
@@ -4004,10 +3165,10 @@ export function cipher() :void {
       + ( ( K9_38 ^ L[ET38] ) << 2 )
       + ( ( K9_37 ^ L[ET37] ) << 3 );
     dec = SB6[ (row<<4) + col ];
-    R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
-    R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
-    R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
-    R[IST27] = R[IST27] ^ ( dec & 1 );
+    R[31] = R[31] ^ ( (dec >> 3) & 1 );
+    R[11] = R[11] ^ ( (dec >> 2) & 1 );
+    R[21] = R[21] ^ ( (dec >> 1) & 1 );
+    R[6] = R[6] ^ ( dec & 1 );
   
     row = ( K9_47 ^ L[ET47] )
       + ( ( K9_42 ^ L[ET42] ) << 1 );
@@ -4016,10 +3177,10 @@ export function cipher() :void {
       + ( ( K9_44 ^ L[ET44] ) << 2 )
       + ( ( K9_43 ^ L[ET43] ) << 3 );
     dec = SB7[ (row<<4) + col ];
-    R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
-    R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
-    R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
-    R[IST31] = R[IST31] ^ ( dec & 1 );
+    R[4] = R[4] ^ ( (dec >> 3) & 1 );
+    R[26] = R[26] ^ ( (dec >> 2) & 1 );
+    R[14] = R[14] ^ ( (dec >> 1) & 1 );
+    R[20] = R[20] ^ ( dec & 1 );
 
     // 10
     row = ( K10_5 ^ R[ET5] )
@@ -4029,10 +3190,10 @@ export function cipher() :void {
       + ( ( K10_2 ^ R[ET2] ) << 2 )
       + ( ( K10_1 ^ R[ET1] ) << 3 );
     dec = SB0[ (row<<4) + col ];
-    L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
-    L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
-    L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
-    L[IST3] = L[IST3] ^ ( dec & 1 );
+    L[8] = L[8] ^ ( (dec >> 3) & 1 );
+    L[16] = L[16] ^ ( (dec >> 2) & 1 );
+    L[22] = L[22] ^ ( (dec >> 1) & 1 );
+    L[30] = L[30] ^ ( dec & 1 );
 
     row = ( K10_11 ^ R[ET11] )
       + ( ( K10_6  ^ R[ET6 ] ) << 1 );
@@ -4041,10 +3202,10 @@ export function cipher() :void {
       + ( ( K10_8  ^ R[ET8 ] ) << 2 )
       + ( ( K10_7  ^ R[ET7 ] ) << 3 );
     dec = SB1[ (row<<4) + col ];
-    L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
-    L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
-    L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
-    L[IST7] = L[IST7] ^ ( dec & 1 );
+    L[12] = L[12] ^ ( (dec >> 3) & 1 );
+    L[27] = L[27] ^ ( (dec >> 2) & 1 );
+    L[1] = L[1] ^ ( (dec >> 1) & 1 );
+    L[17] = L[17] ^ ( dec & 1 );
 
     row = ( K10_17 ^ R[ET17] )
       + ( ( K10_12 ^ R[ET12] ) << 1 );
@@ -4053,10 +3214,10 @@ export function cipher() :void {
       + ( ( K10_14 ^ R[ET14] ) << 2 )
       + ( ( K10_13 ^ R[ET13] ) << 3 );
     dec = SB2[ (row<<4) + col ];
-    L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
-    L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
-    L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
-    L[IST11] = L[IST11] ^ ( dec & 1 );     
+    L[23] = L[23] ^ ( (dec >> 3) & 1 );
+    L[15] = L[15] ^ ( (dec >> 2) & 1 );
+    L[29] = L[29] ^ ( (dec >> 1) & 1 );
+    L[5] = L[5] ^ ( dec & 1 );     
 
     row = ( K10_23 ^ R[ET23] )
       + ( ( K10_18 ^ R[ET18] ) << 1 );
@@ -4065,10 +3226,10 @@ export function cipher() :void {
       + ( ( K10_20 ^ R[ET20] ) << 2 )
       + ( ( K10_19 ^ R[ET19] ) << 3 );
     dec = SB3[ (row<<4) + col ];
-    L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
-    L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
-    L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
-    L[IST15] = L[IST15] ^ ( dec & 1 );
+    L[25] = L[25] ^ ( (dec >> 3) & 1 );
+    L[19] = L[19] ^ ( (dec >> 2) & 1 );
+    L[9] = L[9] ^ ( (dec >> 1) & 1 );
+    L[0] = L[0] ^ ( dec & 1 );
   
     row = ( K10_29 ^ R[ET29] )
       + ( ( K10_24 ^ R[ET24] ) << 1 );
@@ -4077,10 +3238,10 @@ export function cipher() :void {
       + ( ( K10_26 ^ R[ET26] ) << 2 )
       + ( ( K10_25 ^ R[ET25] ) << 3 );
     dec = SB4[ (row<<4) + col ];
-    L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
-    L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
-    L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
-    L[IST19] = L[IST19] ^ ( dec & 1 );
+    L[7] = L[7] ^ ( (dec >> 3) & 1 );
+    L[13] = L[13] ^ ( (dec >> 2) & 1 );
+    L[24] = L[24] ^ ( (dec >> 1) & 1 );
+    L[2] = L[2] ^ ( dec & 1 );
 
     row = ( K10_35 ^ R[ET35] )
       + ( ( K10_30 ^ R[ET30] ) << 1 );
@@ -4089,10 +3250,10 @@ export function cipher() :void {
       + ( ( K10_32 ^ R[ET32] ) << 2 )
       + ( ( K10_31 ^ R[ET31] ) << 3 );
     dec = SB5[ (row<<4) + col ];
-    L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
-    L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
-    L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
-    L[IST23] = L[IST23] ^ ( dec & 1 );
+    L[3] = L[3] ^ ( (dec >> 3) & 1 );
+    L[28] = L[28] ^ ( (dec >> 2) & 1 );
+    L[10] = L[10] ^ ( (dec >> 1) & 1 );
+    L[18] = L[18] ^ ( dec & 1 );
 
     row = ( K10_41 ^ R[ET41] )
       + ( ( K10_36 ^ R[ET36] ) << 1 );
@@ -4101,10 +3262,10 @@ export function cipher() :void {
       + ( ( K10_38 ^ R[ET38] ) << 2 )
       + ( ( K10_37 ^ R[ET37] ) << 3 );
     dec = SB6[ (row<<4) + col ];
-    L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
-    L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
-    L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
-    L[IST27] = L[IST27] ^ ( dec & 1 );
+    L[31] = L[31] ^ ( (dec >> 3) & 1 );
+    L[11] = L[11] ^ ( (dec >> 2) & 1 );
+    L[21] = L[21] ^ ( (dec >> 1) & 1 );
+    L[6] = L[6] ^ ( dec & 1 );
   
     row = ( K10_47 ^ R[ET47] )
       + ( ( K10_42 ^ R[ET42] ) << 1 );
@@ -4113,10 +3274,10 @@ export function cipher() :void {
       + ( ( K10_44 ^ R[ET44] ) << 2 )
       + ( ( K10_43 ^ R[ET43] ) << 3 );
     dec = SB7[ (row<<4) + col ];
-    L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
-    L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
-    L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
-    L[IST31] = L[IST31] ^ ( dec & 1 );
+    L[4] = L[4] ^ ( (dec >> 3) & 1 );
+    L[26] = L[26] ^ ( (dec >> 2) & 1 );
+    L[14] = L[14] ^ ( (dec >> 1) & 1 );
+    L[20] = L[20] ^ ( dec & 1 );
 
     // 11
     row = ( K11_5 ^ L[ET5] )
@@ -4126,10 +3287,10 @@ export function cipher() :void {
       + ( ( K11_2 ^ L[ET2] ) << 2 )
       + ( ( K11_1 ^ L[ET1] ) << 3 );
     dec = SB0[ (row<<4) + col ];
-    R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
-    R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
-    R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
-    R[IST3] = R[IST3] ^ ( dec & 1 );
+    R[8] = R[8] ^ ( (dec >> 3) & 1 );
+    R[16] = R[16] ^ ( (dec >> 2) & 1 );
+    R[22] = R[22] ^ ( (dec >> 1) & 1 );
+    R[30] = R[30] ^ ( dec & 1 );
 
     row = ( K11_11 ^ L[ET11] )
       + ( ( K11_6  ^ L[ET6 ] ) << 1 );
@@ -4138,10 +3299,10 @@ export function cipher() :void {
       + ( ( K11_8  ^ L[ET8 ] ) << 2 )
       + ( ( K11_7  ^ L[ET7 ] ) << 3 );
     dec = SB1[ (row<<4) + col ];
-    R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
-    R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
-    R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
-    R[IST7] = R[IST7] ^ ( dec & 1 );
+    R[12] = R[12] ^ ( (dec >> 3) & 1 );
+    R[27] = R[27] ^ ( (dec >> 2) & 1 );
+    R[1] = R[1] ^ ( (dec >> 1) & 1 );
+    R[17] = R[17] ^ ( dec & 1 );
 
     row = ( K11_17 ^ L[ET17] )
       + ( ( K11_12 ^ L[ET12] ) << 1 );
@@ -4150,10 +3311,10 @@ export function cipher() :void {
       + ( ( K11_14 ^ L[ET14] ) << 2 )
       + ( ( K11_13 ^ L[ET13] ) << 3 );
     dec = SB2[ (row<<4) + col ];
-    R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
-    R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
-    R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
-    R[IST11] = R[IST11] ^ ( dec & 1 );     
+    R[23] = R[23] ^ ( (dec >> 3) & 1 );
+    R[15] = R[15] ^ ( (dec >> 2) & 1 );
+    R[29] = R[29] ^ ( (dec >> 1) & 1 );
+    R[5] = R[5] ^ ( dec & 1 );     
 
     row = ( K11_23 ^ L[ET23] )
       + ( ( K11_18 ^ L[ET18] ) << 1 );
@@ -4162,10 +3323,10 @@ export function cipher() :void {
       + ( ( K11_20 ^ L[ET20] ) << 2 )
       + ( ( K11_19 ^ L[ET19] ) << 3 );
     dec = SB3[ (row<<4) + col ];
-    R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
-    R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
-    R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
-    R[IST15] = R[IST15] ^ ( dec & 1 );
+    R[25] = R[25] ^ ( (dec >> 3) & 1 );
+    R[19] = R[19] ^ ( (dec >> 2) & 1 );
+    R[9] = R[9] ^ ( (dec >> 1) & 1 );
+    R[0] = R[0] ^ ( dec & 1 );
   
     row = ( K11_29 ^ L[ET29] )
       + ( ( K11_24 ^ L[ET24] ) << 1 );
@@ -4174,10 +3335,10 @@ export function cipher() :void {
       + ( ( K11_26 ^ L[ET26] ) << 2 )
       + ( ( K11_25 ^ L[ET25] ) << 3 );
     dec = SB4[ (row<<4) + col ];
-    R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
-    R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
-    R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
-    R[IST19] = R[IST19] ^ ( dec & 1 );
+    R[7] = R[7] ^ ( (dec >> 3) & 1 );
+    R[13] = R[13] ^ ( (dec >> 2) & 1 );
+    R[24] = R[24] ^ ( (dec >> 1) & 1 );
+    R[2] = R[2] ^ ( dec & 1 );
 
     row = ( K11_35 ^ L[ET35] )
       + ( ( K11_30 ^ L[ET30] ) << 1 );
@@ -4186,10 +3347,10 @@ export function cipher() :void {
       + ( ( K11_32 ^ L[ET32] ) << 2 )
       + ( ( K11_31 ^ L[ET31] ) << 3 );
     dec = SB5[ (row<<4) + col ];
-    R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
-    R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
-    R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
-    R[IST23] = R[IST23] ^ ( dec & 1 );
+    R[3] = R[3] ^ ( (dec >> 3) & 1 );
+    R[28] = R[28] ^ ( (dec >> 2) & 1 );
+    R[10] = R[10] ^ ( (dec >> 1) & 1 );
+    R[18] = R[18] ^ ( dec & 1 );
 
     row = ( K11_41 ^ L[ET41] )
       + ( ( K11_36 ^ L[ET36] ) << 1 );
@@ -4198,10 +3359,10 @@ export function cipher() :void {
       + ( ( K11_38 ^ L[ET38] ) << 2 )
       + ( ( K11_37 ^ L[ET37] ) << 3 );
     dec = SB6[ (row<<4) + col ];
-    R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
-    R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
-    R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
-    R[IST27] = R[IST27] ^ ( dec & 1 );
+    R[31] = R[31] ^ ( (dec >> 3) & 1 );
+    R[11] = R[11] ^ ( (dec >> 2) & 1 );
+    R[21] = R[21] ^ ( (dec >> 1) & 1 );
+    R[6] = R[6] ^ ( dec & 1 );
   
     row = ( K11_47 ^ L[ET47] )
       + ( ( K11_42 ^ L[ET42] ) << 1 );
@@ -4210,10 +3371,10 @@ export function cipher() :void {
       + ( ( K11_44 ^ L[ET44] ) << 2 )
       + ( ( K11_43 ^ L[ET43] ) << 3 );
     dec = SB7[ (row<<4) + col ];
-    R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
-    R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
-    R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
-    R[IST31] = R[IST31] ^ ( dec & 1 );
+    R[4] = R[4] ^ ( (dec >> 3) & 1 );
+    R[26] = R[26] ^ ( (dec >> 2) & 1 );
+    R[14] = R[14] ^ ( (dec >> 1) & 1 );
+    R[20] = R[20] ^ ( dec & 1 );
 
     // 12
     row = ( K12_5 ^ R[ET5] )
@@ -4223,10 +3384,10 @@ export function cipher() :void {
       + ( ( K12_2 ^ R[ET2] ) << 2 )
       + ( ( K12_1 ^ R[ET1] ) << 3 );
     dec = SB0[ (row<<4) + col ];
-    L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
-    L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
-    L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
-    L[IST3] = L[IST3] ^ ( dec & 1 );
+    L[8] = L[8] ^ ( (dec >> 3) & 1 );
+    L[16] = L[16] ^ ( (dec >> 2) & 1 );
+    L[22] = L[22] ^ ( (dec >> 1) & 1 );
+    L[30] = L[30] ^ ( dec & 1 );
 
     row = ( K12_11 ^ R[ET11] )
       + ( ( K12_6  ^ R[ET6 ] ) << 1 );
@@ -4235,10 +3396,10 @@ export function cipher() :void {
       + ( ( K12_8  ^ R[ET8 ] ) << 2 )
       + ( ( K12_7  ^ R[ET7 ] ) << 3 );
     dec = SB1[ (row<<4) + col ];
-    L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
-    L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
-    L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
-    L[IST7] = L[IST7] ^ ( dec & 1 );
+    L[12] = L[12] ^ ( (dec >> 3) & 1 );
+    L[27] = L[27] ^ ( (dec >> 2) & 1 );
+    L[1] = L[1] ^ ( (dec >> 1) & 1 );
+    L[17] = L[17] ^ ( dec & 1 );
 
     row = ( K12_17 ^ R[ET17] )
       + ( ( K12_12 ^ R[ET12] ) << 1 );
@@ -4247,10 +3408,10 @@ export function cipher() :void {
       + ( ( K12_14 ^ R[ET14] ) << 2 )
       + ( ( K12_13 ^ R[ET13] ) << 3 );
     dec = SB2[ (row<<4) + col ];
-    L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
-    L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
-    L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
-    L[IST11] = L[IST11] ^ ( dec & 1 );     
+    L[23] = L[23] ^ ( (dec >> 3) & 1 );
+    L[15] = L[15] ^ ( (dec >> 2) & 1 );
+    L[29] = L[29] ^ ( (dec >> 1) & 1 );
+    L[5] = L[5] ^ ( dec & 1 );     
 
     row = ( K12_23 ^ R[ET23] )
       + ( ( K12_18 ^ R[ET18] ) << 1 );
@@ -4259,10 +3420,10 @@ export function cipher() :void {
       + ( ( K12_20 ^ R[ET20] ) << 2 )
       + ( ( K12_19 ^ R[ET19] ) << 3 );
     dec = SB3[ (row<<4) + col ];
-    L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
-    L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
-    L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
-    L[IST15] = L[IST15] ^ ( dec & 1 );
+    L[25] = L[25] ^ ( (dec >> 3) & 1 );
+    L[19] = L[19] ^ ( (dec >> 2) & 1 );
+    L[9] = L[9] ^ ( (dec >> 1) & 1 );
+    L[0] = L[0] ^ ( dec & 1 );
   
     row = ( K12_29 ^ R[ET29] )
       + ( ( K12_24 ^ R[ET24] ) << 1 );
@@ -4271,10 +3432,10 @@ export function cipher() :void {
       + ( ( K12_26 ^ R[ET26] ) << 2 )
       + ( ( K12_25 ^ R[ET25] ) << 3 );
     dec = SB4[ (row<<4) + col ];
-    L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
-    L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
-    L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
-    L[IST19] = L[IST19] ^ ( dec & 1 );
+    L[7] = L[7] ^ ( (dec >> 3) & 1 );
+    L[13] = L[13] ^ ( (dec >> 2) & 1 );
+    L[24] = L[24] ^ ( (dec >> 1) & 1 );
+    L[2] = L[2] ^ ( dec & 1 );
 
     row = ( K12_35 ^ R[ET35] )
       + ( ( K12_30 ^ R[ET30] ) << 1 );
@@ -4283,10 +3444,10 @@ export function cipher() :void {
       + ( ( K12_32 ^ R[ET32] ) << 2 )
       + ( ( K12_31 ^ R[ET31] ) << 3 );
     dec = SB5[ (row<<4) + col ];
-    L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
-    L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
-    L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
-    L[IST23] = L[IST23] ^ ( dec & 1 );
+    L[3] = L[3] ^ ( (dec >> 3) & 1 );
+    L[28] = L[28] ^ ( (dec >> 2) & 1 );
+    L[10] = L[10] ^ ( (dec >> 1) & 1 );
+    L[18] = L[18] ^ ( dec & 1 );
 
     row = ( K12_41 ^ R[ET41] )
       + ( ( K12_36 ^ R[ET36] ) << 1 );
@@ -4295,10 +3456,10 @@ export function cipher() :void {
       + ( ( K12_38 ^ R[ET38] ) << 2 )
       + ( ( K12_37 ^ R[ET37] ) << 3 );
     dec = SB6[ (row<<4) + col ];
-    L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
-    L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
-    L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
-    L[IST27] = L[IST27] ^ ( dec & 1 );
+    L[31] = L[31] ^ ( (dec >> 3) & 1 );
+    L[11] = L[11] ^ ( (dec >> 2) & 1 );
+    L[21] = L[21] ^ ( (dec >> 1) & 1 );
+    L[6] = L[6] ^ ( dec & 1 );
   
     row = ( K12_47 ^ R[ET47] )
       + ( ( K12_42 ^ R[ET42] ) << 1 );
@@ -4307,10 +3468,10 @@ export function cipher() :void {
       + ( ( K12_44 ^ R[ET44] ) << 2 )
       + ( ( K12_43 ^ R[ET43] ) << 3 );
     dec = SB7[ (row<<4) + col ];
-    L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
-    L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
-    L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
-    L[IST31] = L[IST31] ^ ( dec & 1 );
+    L[4] = L[4] ^ ( (dec >> 3) & 1 );
+    L[26] = L[26] ^ ( (dec >> 2) & 1 );
+    L[14] = L[14] ^ ( (dec >> 1) & 1 );
+    L[20] = L[20] ^ ( dec & 1 );
 
     // 13
     row = ( K13_5 ^ L[ET5] )
@@ -4320,10 +3481,10 @@ export function cipher() :void {
       + ( ( K13_2 ^ L[ET2] ) << 2 )
       + ( ( K13_1 ^ L[ET1] ) << 3 );
     dec = SB0[ (row<<4) + col ];
-    R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
-    R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
-    R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
-    R[IST3] = R[IST3] ^ ( dec & 1 );
+    R[8] = R[8] ^ ( (dec >> 3) & 1 );
+    R[16] = R[16] ^ ( (dec >> 2) & 1 );
+    R[22] = R[22] ^ ( (dec >> 1) & 1 );
+    R[30] = R[30] ^ ( dec & 1 );
 
     row = ( K13_11 ^ L[ET11] )
       + ( ( K13_6  ^ L[ET6 ] ) << 1 );
@@ -4332,10 +3493,10 @@ export function cipher() :void {
       + ( ( K13_8  ^ L[ET8 ] ) << 2 )
       + ( ( K13_7  ^ L[ET7 ] ) << 3 );
     dec = SB1[ (row<<4) + col ];
-    R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
-    R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
-    R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
-    R[IST7] = R[IST7] ^ ( dec & 1 );
+    R[12] = R[12] ^ ( (dec >> 3) & 1 );
+    R[27] = R[27] ^ ( (dec >> 2) & 1 );
+    R[1] = R[1] ^ ( (dec >> 1) & 1 );
+    R[17] = R[17] ^ ( dec & 1 );
 
     row = ( K13_17 ^ L[ET17] )
       + ( ( K13_12 ^ L[ET12] ) << 1 );
@@ -4344,10 +3505,10 @@ export function cipher() :void {
       + ( ( K13_14 ^ L[ET14] ) << 2 )
       + ( ( K13_13 ^ L[ET13] ) << 3 );
     dec = SB2[ (row<<4) + col ];
-    R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
-    R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
-    R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
-    R[IST11] = R[IST11] ^ ( dec & 1 );     
+    R[23] = R[23] ^ ( (dec >> 3) & 1 );
+    R[15] = R[15] ^ ( (dec >> 2) & 1 );
+    R[29] = R[29] ^ ( (dec >> 1) & 1 );
+    R[5] = R[5] ^ ( dec & 1 );     
 
     row = ( K13_23 ^ L[ET23] )
       + ( ( K13_18 ^ L[ET18] ) << 1 );
@@ -4356,10 +3517,10 @@ export function cipher() :void {
       + ( ( K13_20 ^ L[ET20] ) << 2 )
       + ( ( K13_19 ^ L[ET19] ) << 3 );
     dec = SB3[ (row<<4) + col ];
-    R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
-    R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
-    R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
-    R[IST15] = R[IST15] ^ ( dec & 1 );
+    R[25] = R[25] ^ ( (dec >> 3) & 1 );
+    R[19] = R[19] ^ ( (dec >> 2) & 1 );
+    R[9] = R[9] ^ ( (dec >> 1) & 1 );
+    R[0] = R[0] ^ ( dec & 1 );
   
     row = ( K13_29 ^ L[ET29] )
       + ( ( K13_24 ^ L[ET24] ) << 1 );
@@ -4368,10 +3529,10 @@ export function cipher() :void {
       + ( ( K13_26 ^ L[ET26] ) << 2 )
       + ( ( K13_25 ^ L[ET25] ) << 3 );
     dec = SB4[ (row<<4) + col ];
-    R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
-    R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
-    R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
-    R[IST19] = R[IST19] ^ ( dec & 1 );
+    R[7] = R[7] ^ ( (dec >> 3) & 1 );
+    R[13] = R[13] ^ ( (dec >> 2) & 1 );
+    R[24] = R[24] ^ ( (dec >> 1) & 1 );
+    R[2] = R[2] ^ ( dec & 1 );
 
     row = ( K13_35 ^ L[ET35] )
       + ( ( K13_30 ^ L[ET30] ) << 1 );
@@ -4380,10 +3541,10 @@ export function cipher() :void {
       + ( ( K13_32 ^ L[ET32] ) << 2 )
       + ( ( K13_31 ^ L[ET31] ) << 3 );
     dec = SB5[ (row<<4) + col ];
-    R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
-    R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
-    R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
-    R[IST23] = R[IST23] ^ ( dec & 1 );
+    R[3] = R[3] ^ ( (dec >> 3) & 1 );
+    R[28] = R[28] ^ ( (dec >> 2) & 1 );
+    R[10] = R[10] ^ ( (dec >> 1) & 1 );
+    R[18] = R[18] ^ ( dec & 1 );
 
     row = ( K13_41 ^ L[ET41] )
       + ( ( K13_36 ^ L[ET36] ) << 1 );
@@ -4392,10 +3553,10 @@ export function cipher() :void {
       + ( ( K13_38 ^ L[ET38] ) << 2 )
       + ( ( K13_37 ^ L[ET37] ) << 3 );
     dec = SB6[ (row<<4) + col ];
-    R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
-    R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
-    R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
-    R[IST27] = R[IST27] ^ ( dec & 1 );
+    R[31] = R[31] ^ ( (dec >> 3) & 1 );
+    R[11] = R[11] ^ ( (dec >> 2) & 1 );
+    R[21] = R[21] ^ ( (dec >> 1) & 1 );
+    R[6] = R[6] ^ ( dec & 1 );
   
     row = ( K13_47 ^ L[ET47] )
       + ( ( K13_42 ^ L[ET42] ) << 1 );
@@ -4404,10 +3565,10 @@ export function cipher() :void {
       + ( ( K13_44 ^ L[ET44] ) << 2 )
       + ( ( K13_43 ^ L[ET43] ) << 3 );
     dec = SB7[ (row<<4) + col ];
-    R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
-    R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
-    R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
-    R[IST31] = R[IST31] ^ ( dec & 1 );
+    R[4] = R[4] ^ ( (dec >> 3) & 1 );
+    R[26] = R[26] ^ ( (dec >> 2) & 1 );
+    R[14] = R[14] ^ ( (dec >> 1) & 1 );
+    R[20] = R[20] ^ ( dec & 1 );
 
     // 14
     row = ( K14_5 ^ R[ET5] )
@@ -4417,10 +3578,10 @@ export function cipher() :void {
       + ( ( K14_2 ^ R[ET2] ) << 2 )
       + ( ( K14_1 ^ R[ET1] ) << 3 );
     dec = SB0[ (row<<4) + col ];
-    L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
-    L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
-    L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
-    L[IST3] = L[IST3] ^ ( dec & 1 );
+    L[8] = L[8] ^ ( (dec >> 3) & 1 );
+    L[16] = L[16] ^ ( (dec >> 2) & 1 );
+    L[22] = L[22] ^ ( (dec >> 1) & 1 );
+    L[30] = L[30] ^ ( dec & 1 );
 
     row = ( K14_11 ^ R[ET11] )
       + ( ( K14_6  ^ R[ET6 ] ) << 1 );
@@ -4429,10 +3590,10 @@ export function cipher() :void {
       + ( ( K14_8  ^ R[ET8 ] ) << 2 )
       + ( ( K14_7  ^ R[ET7 ] ) << 3 );
     dec = SB1[ (row<<4) + col ];
-    L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
-    L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
-    L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
-    L[IST7] = L[IST7] ^ ( dec & 1 );
+    L[12] = L[12] ^ ( (dec >> 3) & 1 );
+    L[27] = L[27] ^ ( (dec >> 2) & 1 );
+    L[1] = L[1] ^ ( (dec >> 1) & 1 );
+    L[17] = L[17] ^ ( dec & 1 );
 
     row = ( K14_17 ^ R[ET17] )
       + ( ( K14_12 ^ R[ET12] ) << 1 );
@@ -4441,10 +3602,10 @@ export function cipher() :void {
       + ( ( K14_14 ^ R[ET14] ) << 2 )
       + ( ( K14_13 ^ R[ET13] ) << 3 );
     dec = SB2[ (row<<4) + col ];
-    L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
-    L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
-    L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
-    L[IST11] = L[IST11] ^ ( dec & 1 );     
+    L[23] = L[23] ^ ( (dec >> 3) & 1 );
+    L[15] = L[15] ^ ( (dec >> 2) & 1 );
+    L[29] = L[29] ^ ( (dec >> 1) & 1 );
+    L[5] = L[5] ^ ( dec & 1 );     
 
     row = ( K14_23 ^ R[ET23] )
       + ( ( K14_18 ^ R[ET18] ) << 1 );
@@ -4453,10 +3614,10 @@ export function cipher() :void {
       + ( ( K14_20 ^ R[ET20] ) << 2 )
       + ( ( K14_19 ^ R[ET19] ) << 3 );
     dec = SB3[ (row<<4) + col ];
-    L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
-    L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
-    L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
-    L[IST15] = L[IST15] ^ ( dec & 1 );
+    L[25] = L[25] ^ ( (dec >> 3) & 1 );
+    L[19] = L[19] ^ ( (dec >> 2) & 1 );
+    L[9] = L[9] ^ ( (dec >> 1) & 1 );
+    L[0] = L[0] ^ ( dec & 1 );
   
     row = ( K14_29 ^ R[ET29] )
       + ( ( K14_24 ^ R[ET24] ) << 1 );
@@ -4465,10 +3626,10 @@ export function cipher() :void {
       + ( ( K14_26 ^ R[ET26] ) << 2 )
       + ( ( K14_25 ^ R[ET25] ) << 3 );
     dec = SB4[ (row<<4) + col ];
-    L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
-    L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
-    L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
-    L[IST19] = L[IST19] ^ ( dec & 1 );
+    L[7] = L[7] ^ ( (dec >> 3) & 1 );
+    L[13] = L[13] ^ ( (dec >> 2) & 1 );
+    L[24] = L[24] ^ ( (dec >> 1) & 1 );
+    L[2] = L[2] ^ ( dec & 1 );
 
     row = ( K14_35 ^ R[ET35] )
       + ( ( K14_30 ^ R[ET30] ) << 1 );
@@ -4477,10 +3638,10 @@ export function cipher() :void {
       + ( ( K14_32 ^ R[ET32] ) << 2 )
       + ( ( K14_31 ^ R[ET31] ) << 3 );
     dec = SB5[ (row<<4) + col ];
-    L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
-    L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
-    L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
-    L[IST23] = L[IST23] ^ ( dec & 1 );
+    L[3] = L[3] ^ ( (dec >> 3) & 1 );
+    L[28] = L[28] ^ ( (dec >> 2) & 1 );
+    L[10] = L[10] ^ ( (dec >> 1) & 1 );
+    L[18] = L[18] ^ ( dec & 1 );
 
     row = ( K14_41 ^ R[ET41] )
       + ( ( K14_36 ^ R[ET36] ) << 1 );
@@ -4489,10 +3650,10 @@ export function cipher() :void {
       + ( ( K14_38 ^ R[ET38] ) << 2 )
       + ( ( K14_37 ^ R[ET37] ) << 3 );
     dec = SB6[ (row<<4) + col ];
-    L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
-    L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
-    L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
-    L[IST27] = L[IST27] ^ ( dec & 1 );
+    L[31] = L[31] ^ ( (dec >> 3) & 1 );
+    L[11] = L[11] ^ ( (dec >> 2) & 1 );
+    L[21] = L[21] ^ ( (dec >> 1) & 1 );
+    L[6] = L[6] ^ ( dec & 1 );
   
     row = ( K14_47 ^ R[ET47] )
       + ( ( K14_42 ^ R[ET42] ) << 1 );
@@ -4501,10 +3662,10 @@ export function cipher() :void {
       + ( ( K14_44 ^ R[ET44] ) << 2 )
       + ( ( K14_43 ^ R[ET43] ) << 3 );
     dec = SB7[ (row<<4) + col ];
-    L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
-    L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
-    L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
-    L[IST31] = L[IST31] ^ ( dec & 1 );
+    L[4] = L[4] ^ ( (dec >> 3) & 1 );
+    L[26] = L[26] ^ ( (dec >> 2) & 1 );
+    L[14] = L[14] ^ ( (dec >> 1) & 1 );
+    L[20] = L[20] ^ ( dec & 1 );
 
     // 15
     row = ( K15_5 ^ L[ET5] )
@@ -4514,10 +3675,10 @@ export function cipher() :void {
       + ( ( K15_2 ^ L[ET2] ) << 2 )
       + ( ( K15_1 ^ L[ET1] ) << 3 );
     dec = SB0[ (row<<4) + col ];
-    R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
-    R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
-    R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
-    R[IST3] = R[IST3] ^ ( dec & 1 );
+    R[8] = R[8] ^ ( (dec >> 3) & 1 );
+    R[16] = R[16] ^ ( (dec >> 2) & 1 );
+    R[22] = R[22] ^ ( (dec >> 1) & 1 );
+    R[30] = R[30] ^ ( dec & 1 );
 
     row = ( K15_11 ^ L[ET11] )
       + ( ( K15_6  ^ L[ET6 ] ) << 1 );
@@ -4526,10 +3687,10 @@ export function cipher() :void {
       + ( ( K15_8  ^ L[ET8 ] ) << 2 )
       + ( ( K15_7  ^ L[ET7 ] ) << 3 );
     dec = SB1[ (row<<4) + col ];
-    R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
-    R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
-    R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
-    R[IST7] = R[IST7] ^ ( dec & 1 );
+    R[12] = R[12] ^ ( (dec >> 3) & 1 );
+    R[27] = R[27] ^ ( (dec >> 2) & 1 );
+    R[1] = R[1] ^ ( (dec >> 1) & 1 );
+    R[17] = R[17] ^ ( dec & 1 );
 
     row = ( K15_17 ^ L[ET17] )
       + ( ( K15_12 ^ L[ET12] ) << 1 );
@@ -4538,10 +3699,10 @@ export function cipher() :void {
       + ( ( K15_14 ^ L[ET14] ) << 2 )
       + ( ( K15_13 ^ L[ET13] ) << 3 );
     dec = SB2[ (row<<4) + col ];
-    R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
-    R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
-    R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
-    R[IST11] = R[IST11] ^ ( dec & 1 );     
+    R[23] = R[23] ^ ( (dec >> 3) & 1 );
+    R[15] = R[15] ^ ( (dec >> 2) & 1 );
+    R[29] = R[29] ^ ( (dec >> 1) & 1 );
+    R[5] = R[5] ^ ( dec & 1 );     
 
     row = ( K15_23 ^ L[ET23] )
       + ( ( K15_18 ^ L[ET18] ) << 1 );
@@ -4550,10 +3711,10 @@ export function cipher() :void {
       + ( ( K15_20 ^ L[ET20] ) << 2 )
       + ( ( K15_19 ^ L[ET19] ) << 3 );
     dec = SB3[ (row<<4) + col ];
-    R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
-    R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
-    R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
-    R[IST15] = R[IST15] ^ ( dec & 1 );
+    R[25] = R[25] ^ ( (dec >> 3) & 1 );
+    R[19] = R[19] ^ ( (dec >> 2) & 1 );
+    R[9] = R[9] ^ ( (dec >> 1) & 1 );
+    R[0] = R[0] ^ ( dec & 1 );
   
     row = ( K15_29 ^ L[ET29] )
       + ( ( K15_24 ^ L[ET24] ) << 1 );
@@ -4562,10 +3723,10 @@ export function cipher() :void {
       + ( ( K15_26 ^ L[ET26] ) << 2 )
       + ( ( K15_25 ^ L[ET25] ) << 3 );
     dec = SB4[ (row<<4) + col ];
-    R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
-    R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
-    R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
-    R[IST19] = R[IST19] ^ ( dec & 1 );
+    R[7] = R[7] ^ ( (dec >> 3) & 1 );
+    R[13] = R[13] ^ ( (dec >> 2) & 1 );
+    R[24] = R[24] ^ ( (dec >> 1) & 1 );
+    R[2] = R[2] ^ ( dec & 1 );
 
     row = ( K15_35 ^ L[ET35] )
       + ( ( K15_30 ^ L[ET30] ) << 1 );
@@ -4574,10 +3735,10 @@ export function cipher() :void {
       + ( ( K15_32 ^ L[ET32] ) << 2 )
       + ( ( K15_31 ^ L[ET31] ) << 3 );
     dec = SB5[ (row<<4) + col ];
-    R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
-    R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
-    R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
-    R[IST23] = R[IST23] ^ ( dec & 1 );
+    R[3] = R[3] ^ ( (dec >> 3) & 1 );
+    R[28] = R[28] ^ ( (dec >> 2) & 1 );
+    R[10] = R[10] ^ ( (dec >> 1) & 1 );
+    R[18] = R[18] ^ ( dec & 1 );
 
     row = ( K15_41 ^ L[ET41] )
       + ( ( K15_36 ^ L[ET36] ) << 1 );
@@ -4586,10 +3747,10 @@ export function cipher() :void {
       + ( ( K15_38 ^ L[ET38] ) << 2 )
       + ( ( K15_37 ^ L[ET37] ) << 3 );
     dec = SB6[ (row<<4) + col ];
-    R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
-    R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
-    R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
-    R[IST27] = R[IST27] ^ ( dec & 1 );
+    R[31] = R[31] ^ ( (dec >> 3) & 1 );
+    R[11] = R[11] ^ ( (dec >> 2) & 1 );
+    R[21] = R[21] ^ ( (dec >> 1) & 1 );
+    R[6] = R[6] ^ ( dec & 1 );
   
     row = ( K15_47 ^ L[ET47] )
       + ( ( K15_42 ^ L[ET42] ) << 1 );
@@ -4598,10 +3759,10 @@ export function cipher() :void {
       + ( ( K15_44 ^ L[ET44] ) << 2 )
       + ( ( K15_43 ^ L[ET43] ) << 3 );
     dec = SB7[ (row<<4) + col ];
-    R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
-    R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
-    R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
-    R[IST31] = R[IST31] ^ ( dec & 1 );
+    R[4] = R[4] ^ ( (dec >> 3) & 1 );
+    R[26] = R[26] ^ ( (dec >> 2) & 1 );
+    R[14] = R[14] ^ ( (dec >> 1) & 1 );
+    R[20] = R[20] ^ ( dec & 1 );
 
 
     /*********************************************************************
@@ -4619,10 +3780,10 @@ export function cipher() :void {
         + ( ( K0_2 ^ L[ET2] ) << 2 )
         + ( ( K0_1 ^ L[ET1] ) << 3 );
       dec = SB0[ (row<<4) + col ];
-      R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
-      R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
-      R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
-      R[IST3] = R[IST3] ^ ( dec & 1 );
+      R[8] = R[8] ^ ( (dec >> 3) & 1 );
+      R[16] = R[16] ^ ( (dec >> 2) & 1 );
+      R[22] = R[22] ^ ( (dec >> 1) & 1 );
+      R[30] = R[30] ^ ( dec & 1 );
 
       row = ( K0_11 ^ L[ET11] )
         + ( ( K0_6  ^ L[ET6 ] ) << 1 );
@@ -4631,10 +3792,10 @@ export function cipher() :void {
         + ( ( K0_8  ^ L[ET8 ] ) << 2 )
         + ( ( K0_7  ^ L[ET7 ] ) << 3 );
       dec = SB1[ (row<<4) + col ];
-      R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
-      R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
-      R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
-      R[IST7] = R[IST7] ^ ( dec & 1 );
+      R[12] = R[12] ^ ( (dec >> 3) & 1 );
+      R[27] = R[27] ^ ( (dec >> 2) & 1 );
+      R[1] = R[1] ^ ( (dec >> 1) & 1 );
+      R[17] = R[17] ^ ( dec & 1 );
 
       row = ( K0_17 ^ L[ET17] )
         + ( ( K0_12 ^ L[ET12] ) << 1 );
@@ -4643,10 +3804,10 @@ export function cipher() :void {
         + ( ( K0_14 ^ L[ET14] ) << 2 )
         + ( ( K0_13 ^ L[ET13] ) << 3 );
       dec = SB2[ (row<<4) + col ];
-      R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
-      R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
-      R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
-      R[IST11] = R[IST11] ^ ( dec & 1 );     
+      R[23] = R[23] ^ ( (dec >> 3) & 1 );
+      R[15] = R[15] ^ ( (dec >> 2) & 1 );
+      R[29] = R[29] ^ ( (dec >> 1) & 1 );
+      R[5] = R[5] ^ ( dec & 1 );     
 
       row = ( K0_23 ^ L[ET23] )
         + ( ( K0_18 ^ L[ET18] ) << 1 );
@@ -4655,10 +3816,10 @@ export function cipher() :void {
         + ( ( K0_20 ^ L[ET20] ) << 2 )
         + ( ( K0_19 ^ L[ET19] ) << 3 );
       dec = SB3[ (row<<4) + col ];
-      R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
-      R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
-      R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
-      R[IST15] = R[IST15] ^ ( dec & 1 );
+      R[25] = R[25] ^ ( (dec >> 3) & 1 );
+      R[19] = R[19] ^ ( (dec >> 2) & 1 );
+      R[9] = R[9] ^ ( (dec >> 1) & 1 );
+      R[0] = R[0] ^ ( dec & 1 );
     
       row = ( K0_29 ^ L[ET29] )
         + ( ( K0_24 ^ L[ET24] ) << 1 );
@@ -4667,10 +3828,10 @@ export function cipher() :void {
         + ( ( K0_26 ^ L[ET26] ) << 2 )
         + ( ( K0_25 ^ L[ET25] ) << 3 );
       dec = SB4[ (row<<4) + col ];
-      R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
-      R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
-      R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
-      R[IST19] = R[IST19] ^ ( dec & 1 );
+      R[7] = R[7] ^ ( (dec >> 3) & 1 );
+      R[13] = R[13] ^ ( (dec >> 2) & 1 );
+      R[24] = R[24] ^ ( (dec >> 1) & 1 );
+      R[2] = R[2] ^ ( dec & 1 );
 
       row = ( K0_35 ^ L[ET35] )
         + ( ( K0_30 ^ L[ET30] ) << 1 );
@@ -4679,10 +3840,10 @@ export function cipher() :void {
         + ( ( K0_32 ^ L[ET32] ) << 2 )
         + ( ( K0_31 ^ L[ET31] ) << 3 );
       dec = SB5[ (row<<4) + col ];
-      R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
-      R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
-      R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
-      R[IST23] = R[IST23] ^ ( dec & 1 );
+      R[3] = R[3] ^ ( (dec >> 3) & 1 );
+      R[28] = R[28] ^ ( (dec >> 2) & 1 );
+      R[10] = R[10] ^ ( (dec >> 1) & 1 );
+      R[18] = R[18] ^ ( dec & 1 );
 
       row = ( K0_41 ^ L[ET41] )
         + ( ( K0_36 ^ L[ET36] ) << 1 );
@@ -4691,10 +3852,10 @@ export function cipher() :void {
         + ( ( K0_38 ^ L[ET38] ) << 2 )
         + ( ( K0_37 ^ L[ET37] ) << 3 );
       dec = SB6[ (row<<4) + col ];
-      R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
-      R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
-      R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
-      R[IST27] = R[IST27] ^ ( dec & 1 );
+      R[31] = R[31] ^ ( (dec >> 3) & 1 );
+      R[11] = R[11] ^ ( (dec >> 2) & 1 );
+      R[21] = R[21] ^ ( (dec >> 1) & 1 );
+      R[6] = R[6] ^ ( dec & 1 );
     
       row = ( K0_47 ^ L[ET47] )
         + ( ( K0_42 ^ L[ET42] ) << 1 );
@@ -4703,10 +3864,10 @@ export function cipher() :void {
         + ( ( K0_44 ^ L[ET44] ) << 2 )
         + ( ( K0_43 ^ L[ET43] ) << 3 );
       dec = SB7[ (row<<4) + col ];
-      R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
-      R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
-      R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
-      R[IST31] = R[IST31] ^ ( dec & 1 );
+      R[4] = R[4] ^ ( (dec >> 3) & 1 );
+      R[26] = R[26] ^ ( (dec >> 2) & 1 );
+      R[14] = R[14] ^ ( (dec >> 1) & 1 );
+      R[20] = R[20] ^ ( dec & 1 );
 
       // 1
       row = ( K1_5 ^ R[ET5] )
@@ -4716,10 +3877,10 @@ export function cipher() :void {
         + ( ( K1_2 ^ R[ET2] ) << 2 )
         + ( ( K1_1 ^ R[ET1] ) << 3 );
       dec = SB0[ (row<<4) + col ];
-      L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
-      L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
-      L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
-      L[IST3] = L[IST3] ^ ( dec & 1 );
+      L[8] = L[8] ^ ( (dec >> 3) & 1 );
+      L[16] = L[16] ^ ( (dec >> 2) & 1 );
+      L[22] = L[22] ^ ( (dec >> 1) & 1 );
+      L[30] = L[30] ^ ( dec & 1 );
 
       row = ( K1_11 ^ R[ET11] )
         + ( ( K1_6  ^ R[ET6 ] ) << 1 );
@@ -4728,10 +3889,10 @@ export function cipher() :void {
         + ( ( K1_8  ^ R[ET8 ] ) << 2 )
         + ( ( K1_7  ^ R[ET7 ] ) << 3 );
       dec = SB1[ (row<<4) + col ];
-      L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
-      L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
-      L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
-      L[IST7] = L[IST7] ^ ( dec & 1 );
+      L[12] = L[12] ^ ( (dec >> 3) & 1 );
+      L[27] = L[27] ^ ( (dec >> 2) & 1 );
+      L[1] = L[1] ^ ( (dec >> 1) & 1 );
+      L[17] = L[17] ^ ( dec & 1 );
 
       row = ( K1_17 ^ R[ET17] )
         + ( ( K1_12 ^ R[ET12] ) << 1 );
@@ -4740,10 +3901,10 @@ export function cipher() :void {
         + ( ( K1_14 ^ R[ET14] ) << 2 )
         + ( ( K1_13 ^ R[ET13] ) << 3 );
       dec = SB2[ (row<<4) + col ];
-      L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
-      L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
-      L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
-      L[IST11] = L[IST11] ^ ( dec & 1 );     
+      L[23] = L[23] ^ ( (dec >> 3) & 1 );
+      L[15] = L[15] ^ ( (dec >> 2) & 1 );
+      L[29] = L[29] ^ ( (dec >> 1) & 1 );
+      L[5] = L[5] ^ ( dec & 1 );     
 
       row = ( K1_23 ^ R[ET23] )
         + ( ( K1_18 ^ R[ET18] ) << 1 );
@@ -4752,10 +3913,10 @@ export function cipher() :void {
         + ( ( K1_20 ^ R[ET20] ) << 2 )
         + ( ( K1_19 ^ R[ET19] ) << 3 );
       dec = SB3[ (row<<4) + col ];
-      L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
-      L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
-      L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
-      L[IST15] = L[IST15] ^ ( dec & 1 );
+      L[25] = L[25] ^ ( (dec >> 3) & 1 );
+      L[19] = L[19] ^ ( (dec >> 2) & 1 );
+      L[9] = L[9] ^ ( (dec >> 1) & 1 );
+      L[0] = L[0] ^ ( dec & 1 );
     
       row = ( K1_29 ^ R[ET29] )
         + ( ( K1_24 ^ R[ET24] ) << 1 );
@@ -4764,10 +3925,10 @@ export function cipher() :void {
         + ( ( K1_26 ^ R[ET26] ) << 2 )
         + ( ( K1_25 ^ R[ET25] ) << 3 );
       dec = SB4[ (row<<4) + col ];
-      L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
-      L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
-      L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
-      L[IST19] = L[IST19] ^ ( dec & 1 );
+      L[7] = L[7] ^ ( (dec >> 3) & 1 );
+      L[13] = L[13] ^ ( (dec >> 2) & 1 );
+      L[24] = L[24] ^ ( (dec >> 1) & 1 );
+      L[2] = L[2] ^ ( dec & 1 );
 
       row = ( K1_35 ^ R[ET35] )
         + ( ( K1_30 ^ R[ET30] ) << 1 );
@@ -4776,10 +3937,10 @@ export function cipher() :void {
         + ( ( K1_32 ^ R[ET32] ) << 2 )
         + ( ( K1_31 ^ R[ET31] ) << 3 );
       dec = SB5[ (row<<4) + col ];
-      L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
-      L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
-      L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
-      L[IST23] = L[IST23] ^ ( dec & 1 );
+      L[3] = L[3] ^ ( (dec >> 3) & 1 );
+      L[28] = L[28] ^ ( (dec >> 2) & 1 );
+      L[10] = L[10] ^ ( (dec >> 1) & 1 );
+      L[18] = L[18] ^ ( dec & 1 );
 
       row = ( K1_41 ^ R[ET41] )
         + ( ( K1_36 ^ R[ET36] ) << 1 );
@@ -4788,10 +3949,10 @@ export function cipher() :void {
         + ( ( K1_38 ^ R[ET38] ) << 2 )
         + ( ( K1_37 ^ R[ET37] ) << 3 );
       dec = SB6[ (row<<4) + col ];
-      L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
-      L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
-      L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
-      L[IST27] = L[IST27] ^ ( dec & 1 );
+      L[31] = L[31] ^ ( (dec >> 3) & 1 );
+      L[11] = L[11] ^ ( (dec >> 2) & 1 );
+      L[21] = L[21] ^ ( (dec >> 1) & 1 );
+      L[6] = L[6] ^ ( dec & 1 );
     
       row = ( K1_47 ^ R[ET47] )
         + ( ( K1_42 ^ R[ET42] ) << 1 );
@@ -4800,10 +3961,10 @@ export function cipher() :void {
         + ( ( K1_44 ^ R[ET44] ) << 2 )
         + ( ( K1_43 ^ R[ET43] ) << 3 );
       dec = SB7[ (row<<4) + col ];
-      L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
-      L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
-      L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
-      L[IST31] = L[IST31] ^ ( dec & 1 );
+      L[4] = L[4] ^ ( (dec >> 3) & 1 );
+      L[26] = L[26] ^ ( (dec >> 2) & 1 );
+      L[14] = L[14] ^ ( (dec >> 1) & 1 );
+      L[20] = L[20] ^ ( dec & 1 );
 
       // 2
       row = ( K2_5 ^ L[ET5] )
@@ -4813,10 +3974,10 @@ export function cipher() :void {
         + ( ( K2_2 ^ L[ET2] ) << 2 )
         + ( ( K2_1 ^ L[ET1] ) << 3 );
       dec = SB0[ (row<<4) + col ];
-      R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
-      R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
-      R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
-      R[IST3] = R[IST3] ^ ( dec & 1 );
+      R[8] = R[8] ^ ( (dec >> 3) & 1 );
+      R[16] = R[16] ^ ( (dec >> 2) & 1 );
+      R[22] = R[22] ^ ( (dec >> 1) & 1 );
+      R[30] = R[30] ^ ( dec & 1 );
 
       row = ( K2_11 ^ L[ET11] )
         + ( ( K2_6  ^ L[ET6 ] ) << 1 );
@@ -4825,10 +3986,10 @@ export function cipher() :void {
         + ( ( K2_8  ^ L[ET8 ] ) << 2 )
         + ( ( K2_7  ^ L[ET7 ] ) << 3 );
       dec = SB1[ (row<<4) + col ];
-      R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
-      R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
-      R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
-      R[IST7] = R[IST7] ^ ( dec & 1 );
+      R[12] = R[12] ^ ( (dec >> 3) & 1 );
+      R[27] = R[27] ^ ( (dec >> 2) & 1 );
+      R[1] = R[1] ^ ( (dec >> 1) & 1 );
+      R[17] = R[17] ^ ( dec & 1 );
 
       row = ( K2_17 ^ L[ET17] )
         + ( ( K2_12 ^ L[ET12] ) << 1 );
@@ -4837,10 +3998,10 @@ export function cipher() :void {
         + ( ( K2_14 ^ L[ET14] ) << 2 )
         + ( ( K2_13 ^ L[ET13] ) << 3 );
       dec = SB2[ (row<<4) + col ];
-      R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
-      R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
-      R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
-      R[IST11] = R[IST11] ^ ( dec & 1 );     
+      R[23] = R[23] ^ ( (dec >> 3) & 1 );
+      R[15] = R[15] ^ ( (dec >> 2) & 1 );
+      R[29] = R[29] ^ ( (dec >> 1) & 1 );
+      R[5] = R[5] ^ ( dec & 1 );     
 
       row = ( K2_23 ^ L[ET23] )
         + ( ( K2_18 ^ L[ET18] ) << 1 );
@@ -4849,10 +4010,10 @@ export function cipher() :void {
         + ( ( K2_20 ^ L[ET20] ) << 2 )
         + ( ( K2_19 ^ L[ET19] ) << 3 );
       dec = SB3[ (row<<4) + col ];
-      R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
-      R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
-      R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
-      R[IST15] = R[IST15] ^ ( dec & 1 );
+      R[25] = R[25] ^ ( (dec >> 3) & 1 );
+      R[19] = R[19] ^ ( (dec >> 2) & 1 );
+      R[9] = R[9] ^ ( (dec >> 1) & 1 );
+      R[0] = R[0] ^ ( dec & 1 );
     
       row = ( K2_29 ^ L[ET29] )
         + ( ( K2_24 ^ L[ET24] ) << 1 );
@@ -4861,10 +4022,10 @@ export function cipher() :void {
         + ( ( K2_26 ^ L[ET26] ) << 2 )
         + ( ( K2_25 ^ L[ET25] ) << 3 );
       dec = SB4[ (row<<4) + col ];
-      R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
-      R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
-      R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
-      R[IST19] = R[IST19] ^ ( dec & 1 );
+      R[7] = R[7] ^ ( (dec >> 3) & 1 );
+      R[13] = R[13] ^ ( (dec >> 2) & 1 );
+      R[24] = R[24] ^ ( (dec >> 1) & 1 );
+      R[2] = R[2] ^ ( dec & 1 );
 
       row = ( K2_35 ^ L[ET35] )
         + ( ( K2_30 ^ L[ET30] ) << 1 );
@@ -4873,10 +4034,10 @@ export function cipher() :void {
         + ( ( K2_32 ^ L[ET32] ) << 2 )
         + ( ( K2_31 ^ L[ET31] ) << 3 );
       dec = SB5[ (row<<4) + col ];
-      R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
-      R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
-      R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
-      R[IST23] = R[IST23] ^ ( dec & 1 );
+      R[3] = R[3] ^ ( (dec >> 3) & 1 );
+      R[28] = R[28] ^ ( (dec >> 2) & 1 );
+      R[10] = R[10] ^ ( (dec >> 1) & 1 );
+      R[18] = R[18] ^ ( dec & 1 );
 
       row = ( K2_41 ^ L[ET41] )
         + ( ( K2_36 ^ L[ET36] ) << 1 );
@@ -4885,10 +4046,10 @@ export function cipher() :void {
         + ( ( K2_38 ^ L[ET38] ) << 2 )
         + ( ( K2_37 ^ L[ET37] ) << 3 );
       dec = SB6[ (row<<4) + col ];
-      R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
-      R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
-      R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
-      R[IST27] = R[IST27] ^ ( dec & 1 );
+      R[31] = R[31] ^ ( (dec >> 3) & 1 );
+      R[11] = R[11] ^ ( (dec >> 2) & 1 );
+      R[21] = R[21] ^ ( (dec >> 1) & 1 );
+      R[6] = R[6] ^ ( dec & 1 );
     
       row = ( K2_47 ^ L[ET47] )
         + ( ( K2_42 ^ L[ET42] ) << 1 );
@@ -4897,10 +4058,10 @@ export function cipher() :void {
         + ( ( K2_44 ^ L[ET44] ) << 2 )
         + ( ( K2_43 ^ L[ET43] ) << 3 );
       dec = SB7[ (row<<4) + col ];
-      R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
-      R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
-      R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
-      R[IST31] = R[IST31] ^ ( dec & 1 );
+      R[4] = R[4] ^ ( (dec >> 3) & 1 );
+      R[26] = R[26] ^ ( (dec >> 2) & 1 );
+      R[14] = R[14] ^ ( (dec >> 1) & 1 );
+      R[20] = R[20] ^ ( dec & 1 );
 
       // 3
       row = ( K3_5 ^ R[ET5] )
@@ -4910,10 +4071,10 @@ export function cipher() :void {
         + ( ( K3_2 ^ R[ET2] ) << 2 )
         + ( ( K3_1 ^ R[ET1] ) << 3 );
       dec = SB0[ (row<<4) + col ];
-      L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
-      L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
-      L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
-      L[IST3] = L[IST3] ^ ( dec & 1 );
+      L[8] = L[8] ^ ( (dec >> 3) & 1 );
+      L[16] = L[16] ^ ( (dec >> 2) & 1 );
+      L[22] = L[22] ^ ( (dec >> 1) & 1 );
+      L[30] = L[30] ^ ( dec & 1 );
 
       row = ( K3_11 ^ R[ET11] )
         + ( ( K3_6  ^ R[ET6 ] ) << 1 );
@@ -4922,10 +4083,10 @@ export function cipher() :void {
         + ( ( K3_8  ^ R[ET8 ] ) << 2 )
         + ( ( K3_7  ^ R[ET7 ] ) << 3 );
       dec = SB1[ (row<<4) + col ];
-      L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
-      L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
-      L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
-      L[IST7] = L[IST7] ^ ( dec & 1 );
+      L[12] = L[12] ^ ( (dec >> 3) & 1 );
+      L[27] = L[27] ^ ( (dec >> 2) & 1 );
+      L[1] = L[1] ^ ( (dec >> 1) & 1 );
+      L[17] = L[17] ^ ( dec & 1 );
 
       row = ( K3_17 ^ R[ET17] )
         + ( ( K3_12 ^ R[ET12] ) << 1 );
@@ -4934,10 +4095,10 @@ export function cipher() :void {
         + ( ( K3_14 ^ R[ET14] ) << 2 )
         + ( ( K3_13 ^ R[ET13] ) << 3 );
       dec = SB2[ (row<<4) + col ];
-      L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
-      L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
-      L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
-      L[IST11] = L[IST11] ^ ( dec & 1 );     
+      L[23] = L[23] ^ ( (dec >> 3) & 1 );
+      L[15] = L[15] ^ ( (dec >> 2) & 1 );
+      L[29] = L[29] ^ ( (dec >> 1) & 1 );
+      L[5] = L[5] ^ ( dec & 1 );     
 
       row = ( K3_23 ^ R[ET23] )
         + ( ( K3_18 ^ R[ET18] ) << 1 );
@@ -4946,10 +4107,10 @@ export function cipher() :void {
         + ( ( K3_20 ^ R[ET20] ) << 2 )
         + ( ( K3_19 ^ R[ET19] ) << 3 );
       dec = SB3[ (row<<4) + col ];
-      L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
-      L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
-      L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
-      L[IST15] = L[IST15] ^ ( dec & 1 );
+      L[25] = L[25] ^ ( (dec >> 3) & 1 );
+      L[19] = L[19] ^ ( (dec >> 2) & 1 );
+      L[9] = L[9] ^ ( (dec >> 1) & 1 );
+      L[0] = L[0] ^ ( dec & 1 );
     
       row = ( K3_29 ^ R[ET29] )
         + ( ( K3_24 ^ R[ET24] ) << 1 );
@@ -4958,10 +4119,10 @@ export function cipher() :void {
         + ( ( K3_26 ^ R[ET26] ) << 2 )
         + ( ( K3_25 ^ R[ET25] ) << 3 );
       dec = SB4[ (row<<4) + col ];
-      L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
-      L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
-      L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
-      L[IST19] = L[IST19] ^ ( dec & 1 );
+      L[7] = L[7] ^ ( (dec >> 3) & 1 );
+      L[13] = L[13] ^ ( (dec >> 2) & 1 );
+      L[24] = L[24] ^ ( (dec >> 1) & 1 );
+      L[2] = L[2] ^ ( dec & 1 );
 
       row = ( K3_35 ^ R[ET35] )
         + ( ( K3_30 ^ R[ET30] ) << 1 );
@@ -4970,10 +4131,10 @@ export function cipher() :void {
         + ( ( K3_32 ^ R[ET32] ) << 2 )
         + ( ( K3_31 ^ R[ET31] ) << 3 );
       dec = SB5[ (row<<4) + col ];
-      L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
-      L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
-      L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
-      L[IST23] = L[IST23] ^ ( dec & 1 );
+      L[3] = L[3] ^ ( (dec >> 3) & 1 );
+      L[28] = L[28] ^ ( (dec >> 2) & 1 );
+      L[10] = L[10] ^ ( (dec >> 1) & 1 );
+      L[18] = L[18] ^ ( dec & 1 );
 
       row = ( K3_41 ^ R[ET41] )
         + ( ( K3_36 ^ R[ET36] ) << 1 );
@@ -4982,10 +4143,10 @@ export function cipher() :void {
         + ( ( K3_38 ^ R[ET38] ) << 2 )
         + ( ( K3_37 ^ R[ET37] ) << 3 );
       dec = SB6[ (row<<4) + col ];
-      L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
-      L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
-      L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
-      L[IST27] = L[IST27] ^ ( dec & 1 );
+      L[31] = L[31] ^ ( (dec >> 3) & 1 );
+      L[11] = L[11] ^ ( (dec >> 2) & 1 );
+      L[21] = L[21] ^ ( (dec >> 1) & 1 );
+      L[6] = L[6] ^ ( dec & 1 );
     
       row = ( K3_47 ^ R[ET47] )
         + ( ( K3_42 ^ R[ET42] ) << 1 );
@@ -4994,10 +4155,10 @@ export function cipher() :void {
         + ( ( K3_44 ^ R[ET44] ) << 2 )
         + ( ( K3_43 ^ R[ET43] ) << 3 );
       dec = SB7[ (row<<4) + col ];
-      L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
-      L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
-      L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
-      L[IST31] = L[IST31] ^ ( dec & 1 );
+      L[4] = L[4] ^ ( (dec >> 3) & 1 );
+      L[26] = L[26] ^ ( (dec >> 2) & 1 );
+      L[14] = L[14] ^ ( (dec >> 1) & 1 );
+      L[20] = L[20] ^ ( dec & 1 );
 
       // 4
       row = ( K4_5 ^ L[ET5] )
@@ -5007,10 +4168,10 @@ export function cipher() :void {
         + ( ( K4_2 ^ L[ET2] ) << 2 )
         + ( ( K4_1 ^ L[ET1] ) << 3 );
       dec = SB0[ (row<<4) + col ];
-      R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
-      R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
-      R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
-      R[IST3] = R[IST3] ^ ( dec & 1 );
+      R[8] = R[8] ^ ( (dec >> 3) & 1 );
+      R[16] = R[16] ^ ( (dec >> 2) & 1 );
+      R[22] = R[22] ^ ( (dec >> 1) & 1 );
+      R[30] = R[30] ^ ( dec & 1 );
 
       row = ( K4_11 ^ L[ET11] )
         + ( ( K4_6  ^ L[ET6 ] ) << 1 );
@@ -5019,10 +4180,10 @@ export function cipher() :void {
         + ( ( K4_8  ^ L[ET8 ] ) << 2 )
         + ( ( K4_7  ^ L[ET7 ] ) << 3 );
       dec = SB1[ (row<<4) + col ];
-      R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
-      R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
-      R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
-      R[IST7] = R[IST7] ^ ( dec & 1 );
+      R[12] = R[12] ^ ( (dec >> 3) & 1 );
+      R[27] = R[27] ^ ( (dec >> 2) & 1 );
+      R[1] = R[1] ^ ( (dec >> 1) & 1 );
+      R[17] = R[17] ^ ( dec & 1 );
 
       row = ( K4_17 ^ L[ET17] )
         + ( ( K4_12 ^ L[ET12] ) << 1 );
@@ -5031,10 +4192,10 @@ export function cipher() :void {
         + ( ( K4_14 ^ L[ET14] ) << 2 )
         + ( ( K4_13 ^ L[ET13] ) << 3 );
       dec = SB2[ (row<<4) + col ];
-      R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
-      R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
-      R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
-      R[IST11] = R[IST11] ^ ( dec & 1 );     
+      R[23] = R[23] ^ ( (dec >> 3) & 1 );
+      R[15] = R[15] ^ ( (dec >> 2) & 1 );
+      R[29] = R[29] ^ ( (dec >> 1) & 1 );
+      R[5] = R[5] ^ ( dec & 1 );     
 
       row = ( K4_23 ^ L[ET23] )
         + ( ( K4_18 ^ L[ET18] ) << 1 );
@@ -5043,10 +4204,10 @@ export function cipher() :void {
         + ( ( K4_20 ^ L[ET20] ) << 2 )
         + ( ( K4_19 ^ L[ET19] ) << 3 );
       dec = SB3[ (row<<4) + col ];
-      R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
-      R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
-      R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
-      R[IST15] = R[IST15] ^ ( dec & 1 );
+      R[25] = R[25] ^ ( (dec >> 3) & 1 );
+      R[19] = R[19] ^ ( (dec >> 2) & 1 );
+      R[9] = R[9] ^ ( (dec >> 1) & 1 );
+      R[0] = R[0] ^ ( dec & 1 );
     
       row = ( K4_29 ^ L[ET29] )
         + ( ( K4_24 ^ L[ET24] ) << 1 );
@@ -5055,10 +4216,10 @@ export function cipher() :void {
         + ( ( K4_26 ^ L[ET26] ) << 2 )
         + ( ( K4_25 ^ L[ET25] ) << 3 );
       dec = SB4[ (row<<4) + col ];
-      R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
-      R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
-      R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
-      R[IST19] = R[IST19] ^ ( dec & 1 );
+      R[7] = R[7] ^ ( (dec >> 3) & 1 );
+      R[13] = R[13] ^ ( (dec >> 2) & 1 );
+      R[24] = R[24] ^ ( (dec >> 1) & 1 );
+      R[2] = R[2] ^ ( dec & 1 );
 
       row = ( K4_35 ^ L[ET35] )
         + ( ( K4_30 ^ L[ET30] ) << 1 );
@@ -5067,10 +4228,10 @@ export function cipher() :void {
         + ( ( K4_32 ^ L[ET32] ) << 2 )
         + ( ( K4_31 ^ L[ET31] ) << 3 );
       dec = SB5[ (row<<4) + col ];
-      R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
-      R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
-      R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
-      R[IST23] = R[IST23] ^ ( dec & 1 );
+      R[3] = R[3] ^ ( (dec >> 3) & 1 );
+      R[28] = R[28] ^ ( (dec >> 2) & 1 );
+      R[10] = R[10] ^ ( (dec >> 1) & 1 );
+      R[18] = R[18] ^ ( dec & 1 );
 
       row = ( K4_41 ^ L[ET41] )
         + ( ( K4_36 ^ L[ET36] ) << 1 );
@@ -5079,10 +4240,10 @@ export function cipher() :void {
         + ( ( K4_38 ^ L[ET38] ) << 2 )
         + ( ( K4_37 ^ L[ET37] ) << 3 );
       dec = SB6[ (row<<4) + col ];
-      R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
-      R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
-      R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
-      R[IST27] = R[IST27] ^ ( dec & 1 );
+      R[31] = R[31] ^ ( (dec >> 3) & 1 );
+      R[11] = R[11] ^ ( (dec >> 2) & 1 );
+      R[21] = R[21] ^ ( (dec >> 1) & 1 );
+      R[6] = R[6] ^ ( dec & 1 );
     
       row = ( K4_47 ^ L[ET47] )
         + ( ( K4_42 ^ L[ET42] ) << 1 );
@@ -5091,10 +4252,10 @@ export function cipher() :void {
         + ( ( K4_44 ^ L[ET44] ) << 2 )
         + ( ( K4_43 ^ L[ET43] ) << 3 );
       dec = SB7[ (row<<4) + col ];
-      R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
-      R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
-      R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
-      R[IST31] = R[IST31] ^ ( dec & 1 );
+      R[4] = R[4] ^ ( (dec >> 3) & 1 );
+      R[26] = R[26] ^ ( (dec >> 2) & 1 );
+      R[14] = R[14] ^ ( (dec >> 1) & 1 );
+      R[20] = R[20] ^ ( dec & 1 );
 
       // 5
       row = ( K5_5 ^ R[ET5] )
@@ -5104,10 +4265,10 @@ export function cipher() :void {
         + ( ( K5_2 ^ R[ET2] ) << 2 )
         + ( ( K5_1 ^ R[ET1] ) << 3 );
       dec = SB0[ (row<<4) + col ];
-      L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
-      L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
-      L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
-      L[IST3] = L[IST3] ^ ( dec & 1 );
+      L[8] = L[8] ^ ( (dec >> 3) & 1 );
+      L[16] = L[16] ^ ( (dec >> 2) & 1 );
+      L[22] = L[22] ^ ( (dec >> 1) & 1 );
+      L[30] = L[30] ^ ( dec & 1 );
 
       row = ( K5_11 ^ R[ET11] )
         + ( ( K5_6  ^ R[ET6 ] ) << 1 );
@@ -5116,10 +4277,10 @@ export function cipher() :void {
         + ( ( K5_8  ^ R[ET8 ] ) << 2 )
         + ( ( K5_7  ^ R[ET7 ] ) << 3 );
       dec = SB1[ (row<<4) + col ];
-      L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
-      L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
-      L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
-      L[IST7] = L[IST7] ^ ( dec & 1 );
+      L[12] = L[12] ^ ( (dec >> 3) & 1 );
+      L[27] = L[27] ^ ( (dec >> 2) & 1 );
+      L[1] = L[1] ^ ( (dec >> 1) & 1 );
+      L[17] = L[17] ^ ( dec & 1 );
 
       row = ( K5_17 ^ R[ET17] )
         + ( ( K5_12 ^ R[ET12] ) << 1 );
@@ -5128,10 +4289,10 @@ export function cipher() :void {
         + ( ( K5_14 ^ R[ET14] ) << 2 )
         + ( ( K5_13 ^ R[ET13] ) << 3 );
       dec = SB2[ (row<<4) + col ];
-      L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
-      L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
-      L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
-      L[IST11] = L[IST11] ^ ( dec & 1 );     
+      L[23] = L[23] ^ ( (dec >> 3) & 1 );
+      L[15] = L[15] ^ ( (dec >> 2) & 1 );
+      L[29] = L[29] ^ ( (dec >> 1) & 1 );
+      L[5] = L[5] ^ ( dec & 1 );     
 
       row = ( K5_23 ^ R[ET23] )
         + ( ( K5_18 ^ R[ET18] ) << 1 );
@@ -5140,10 +4301,10 @@ export function cipher() :void {
         + ( ( K5_20 ^ R[ET20] ) << 2 )
         + ( ( K5_19 ^ R[ET19] ) << 3 );
       dec = SB3[ (row<<4) + col ];
-      L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
-      L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
-      L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
-      L[IST15] = L[IST15] ^ ( dec & 1 );
+      L[25] = L[25] ^ ( (dec >> 3) & 1 );
+      L[19] = L[19] ^ ( (dec >> 2) & 1 );
+      L[9] = L[9] ^ ( (dec >> 1) & 1 );
+      L[0] = L[0] ^ ( dec & 1 );
     
       row = ( K5_29 ^ R[ET29] )
         + ( ( K5_24 ^ R[ET24] ) << 1 );
@@ -5152,10 +4313,10 @@ export function cipher() :void {
         + ( ( K5_26 ^ R[ET26] ) << 2 )
         + ( ( K5_25 ^ R[ET25] ) << 3 );
       dec = SB4[ (row<<4) + col ];
-      L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
-      L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
-      L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
-      L[IST19] = L[IST19] ^ ( dec & 1 );
+      L[7] = L[7] ^ ( (dec >> 3) & 1 );
+      L[13] = L[13] ^ ( (dec >> 2) & 1 );
+      L[24] = L[24] ^ ( (dec >> 1) & 1 );
+      L[2] = L[2] ^ ( dec & 1 );
 
       row = ( K5_35 ^ R[ET35] )
         + ( ( K5_30 ^ R[ET30] ) << 1 );
@@ -5164,10 +4325,10 @@ export function cipher() :void {
         + ( ( K5_32 ^ R[ET32] ) << 2 )
         + ( ( K5_31 ^ R[ET31] ) << 3 );
       dec = SB5[ (row<<4) + col ];
-      L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
-      L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
-      L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
-      L[IST23] = L[IST23] ^ ( dec & 1 );
+      L[3] = L[3] ^ ( (dec >> 3) & 1 );
+      L[28] = L[28] ^ ( (dec >> 2) & 1 );
+      L[10] = L[10] ^ ( (dec >> 1) & 1 );
+      L[18] = L[18] ^ ( dec & 1 );
 
       row = ( K5_41 ^ R[ET41] )
         + ( ( K5_36 ^ R[ET36] ) << 1 );
@@ -5176,10 +4337,10 @@ export function cipher() :void {
         + ( ( K5_38 ^ R[ET38] ) << 2 )
         + ( ( K5_37 ^ R[ET37] ) << 3 );
       dec = SB6[ (row<<4) + col ];
-      L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
-      L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
-      L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
-      L[IST27] = L[IST27] ^ ( dec & 1 );
+      L[31] = L[31] ^ ( (dec >> 3) & 1 );
+      L[11] = L[11] ^ ( (dec >> 2) & 1 );
+      L[21] = L[21] ^ ( (dec >> 1) & 1 );
+      L[6] = L[6] ^ ( dec & 1 );
     
       row = ( K5_47 ^ R[ET47] )
         + ( ( K5_42 ^ R[ET42] ) << 1 );
@@ -5188,10 +4349,10 @@ export function cipher() :void {
         + ( ( K5_44 ^ R[ET44] ) << 2 )
         + ( ( K5_43 ^ R[ET43] ) << 3 );
       dec = SB7[ (row<<4) + col ];
-      L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
-      L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
-      L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
-      L[IST31] = L[IST31] ^ ( dec & 1 );
+      L[4] = L[4] ^ ( (dec >> 3) & 1 );
+      L[26] = L[26] ^ ( (dec >> 2) & 1 );
+      L[14] = L[14] ^ ( (dec >> 1) & 1 );
+      L[20] = L[20] ^ ( dec & 1 );
 
       // 6
       row = ( K6_5 ^ L[ET5] )
@@ -5201,10 +4362,10 @@ export function cipher() :void {
         + ( ( K6_2 ^ L[ET2] ) << 2 )
         + ( ( K6_1 ^ L[ET1] ) << 3 );
       dec = SB0[ (row<<4) + col ];
-      R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
-      R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
-      R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
-      R[IST3] = R[IST3] ^ ( dec & 1 );
+      R[8] = R[8] ^ ( (dec >> 3) & 1 );
+      R[16] = R[16] ^ ( (dec >> 2) & 1 );
+      R[22] = R[22] ^ ( (dec >> 1) & 1 );
+      R[30] = R[30] ^ ( dec & 1 );
 
       row = ( K6_11 ^ L[ET11] )
         + ( ( K6_6  ^ L[ET6 ] ) << 1 );
@@ -5213,10 +4374,10 @@ export function cipher() :void {
         + ( ( K6_8  ^ L[ET8 ] ) << 2 )
         + ( ( K6_7  ^ L[ET7 ] ) << 3 );
       dec = SB1[ (row<<4) + col ];
-      R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
-      R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
-      R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
-      R[IST7] = R[IST7] ^ ( dec & 1 );
+      R[12] = R[12] ^ ( (dec >> 3) & 1 );
+      R[27] = R[27] ^ ( (dec >> 2) & 1 );
+      R[1] = R[1] ^ ( (dec >> 1) & 1 );
+      R[17] = R[17] ^ ( dec & 1 );
 
       row = ( K6_17 ^ L[ET17] )
         + ( ( K6_12 ^ L[ET12] ) << 1 );
@@ -5225,10 +4386,10 @@ export function cipher() :void {
         + ( ( K6_14 ^ L[ET14] ) << 2 )
         + ( ( K6_13 ^ L[ET13] ) << 3 );
       dec = SB2[ (row<<4) + col ];
-      R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
-      R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
-      R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
-      R[IST11] = R[IST11] ^ ( dec & 1 );     
+      R[23] = R[23] ^ ( (dec >> 3) & 1 );
+      R[15] = R[15] ^ ( (dec >> 2) & 1 );
+      R[29] = R[29] ^ ( (dec >> 1) & 1 );
+      R[5] = R[5] ^ ( dec & 1 );     
 
       row = ( K6_23 ^ L[ET23] )
         + ( ( K6_18 ^ L[ET18] ) << 1 );
@@ -5237,10 +4398,10 @@ export function cipher() :void {
         + ( ( K6_20 ^ L[ET20] ) << 2 )
         + ( ( K6_19 ^ L[ET19] ) << 3 );
       dec = SB3[ (row<<4) + col ];
-      R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
-      R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
-      R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
-      R[IST15] = R[IST15] ^ ( dec & 1 );
+      R[25] = R[25] ^ ( (dec >> 3) & 1 );
+      R[19] = R[19] ^ ( (dec >> 2) & 1 );
+      R[9] = R[9] ^ ( (dec >> 1) & 1 );
+      R[0] = R[0] ^ ( dec & 1 );
     
       row = ( K6_29 ^ L[ET29] )
         + ( ( K6_24 ^ L[ET24] ) << 1 );
@@ -5249,10 +4410,10 @@ export function cipher() :void {
         + ( ( K6_26 ^ L[ET26] ) << 2 )
         + ( ( K6_25 ^ L[ET25] ) << 3 );
       dec = SB4[ (row<<4) + col ];
-      R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
-      R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
-      R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
-      R[IST19] = R[IST19] ^ ( dec & 1 );
+      R[7] = R[7] ^ ( (dec >> 3) & 1 );
+      R[13] = R[13] ^ ( (dec >> 2) & 1 );
+      R[24] = R[24] ^ ( (dec >> 1) & 1 );
+      R[2] = R[2] ^ ( dec & 1 );
 
       row = ( K6_35 ^ L[ET35] )
         + ( ( K6_30 ^ L[ET30] ) << 1 );
@@ -5261,10 +4422,10 @@ export function cipher() :void {
         + ( ( K6_32 ^ L[ET32] ) << 2 )
         + ( ( K6_31 ^ L[ET31] ) << 3 );
       dec = SB5[ (row<<4) + col ];
-      R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
-      R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
-      R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
-      R[IST23] = R[IST23] ^ ( dec & 1 );
+      R[3] = R[3] ^ ( (dec >> 3) & 1 );
+      R[28] = R[28] ^ ( (dec >> 2) & 1 );
+      R[10] = R[10] ^ ( (dec >> 1) & 1 );
+      R[18] = R[18] ^ ( dec & 1 );
 
       row = ( K6_41 ^ L[ET41] )
         + ( ( K6_36 ^ L[ET36] ) << 1 );
@@ -5273,10 +4434,10 @@ export function cipher() :void {
         + ( ( K6_38 ^ L[ET38] ) << 2 )
         + ( ( K6_37 ^ L[ET37] ) << 3 );
       dec = SB6[ (row<<4) + col ];
-      R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
-      R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
-      R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
-      R[IST27] = R[IST27] ^ ( dec & 1 );
+      R[31] = R[31] ^ ( (dec >> 3) & 1 );
+      R[11] = R[11] ^ ( (dec >> 2) & 1 );
+      R[21] = R[21] ^ ( (dec >> 1) & 1 );
+      R[6] = R[6] ^ ( dec & 1 );
     
       row = ( K6_47 ^ L[ET47] )
         + ( ( K6_42 ^ L[ET42] ) << 1 );
@@ -5285,10 +4446,10 @@ export function cipher() :void {
         + ( ( K6_44 ^ L[ET44] ) << 2 )
         + ( ( K6_43 ^ L[ET43] ) << 3 );
       dec = SB7[ (row<<4) + col ];
-      R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
-      R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
-      R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
-      R[IST31] = R[IST31] ^ ( dec & 1 );
+      R[4] = R[4] ^ ( (dec >> 3) & 1 );
+      R[26] = R[26] ^ ( (dec >> 2) & 1 );
+      R[14] = R[14] ^ ( (dec >> 1) & 1 );
+      R[20] = R[20] ^ ( dec & 1 );
 
       // 7
       row = ( K7_5 ^ R[ET5] )
@@ -5298,10 +4459,10 @@ export function cipher() :void {
         + ( ( K7_2 ^ R[ET2] ) << 2 )
         + ( ( K7_1 ^ R[ET1] ) << 3 );
       dec = SB0[ (row<<4) + col ];
-      L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
-      L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
-      L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
-      L[IST3] = L[IST3] ^ ( dec & 1 );
+      L[8] = L[8] ^ ( (dec >> 3) & 1 );
+      L[16] = L[16] ^ ( (dec >> 2) & 1 );
+      L[22] = L[22] ^ ( (dec >> 1) & 1 );
+      L[30] = L[30] ^ ( dec & 1 );
 
       row = ( K7_11 ^ R[ET11] )
         + ( ( K7_6  ^ R[ET6 ] ) << 1 );
@@ -5310,10 +4471,10 @@ export function cipher() :void {
         + ( ( K7_8  ^ R[ET8 ] ) << 2 )
         + ( ( K7_7  ^ R[ET7 ] ) << 3 );
       dec = SB1[ (row<<4) + col ];
-      L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
-      L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
-      L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
-      L[IST7] = L[IST7] ^ ( dec & 1 );
+      L[12] = L[12] ^ ( (dec >> 3) & 1 );
+      L[27] = L[27] ^ ( (dec >> 2) & 1 );
+      L[1] = L[1] ^ ( (dec >> 1) & 1 );
+      L[17] = L[17] ^ ( dec & 1 );
 
       row = ( K7_17 ^ R[ET17] )
         + ( ( K7_12 ^ R[ET12] ) << 1 );
@@ -5322,10 +4483,10 @@ export function cipher() :void {
         + ( ( K7_14 ^ R[ET14] ) << 2 )
         + ( ( K7_13 ^ R[ET13] ) << 3 );
       dec = SB2[ (row<<4) + col ];
-      L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
-      L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
-      L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
-      L[IST11] = L[IST11] ^ ( dec & 1 );     
+      L[23] = L[23] ^ ( (dec >> 3) & 1 );
+      L[15] = L[15] ^ ( (dec >> 2) & 1 );
+      L[29] = L[29] ^ ( (dec >> 1) & 1 );
+      L[5] = L[5] ^ ( dec & 1 );     
 
       row = ( K7_23 ^ R[ET23] )
         + ( ( K7_18 ^ R[ET18] ) << 1 );
@@ -5334,10 +4495,10 @@ export function cipher() :void {
         + ( ( K7_20 ^ R[ET20] ) << 2 )
         + ( ( K7_19 ^ R[ET19] ) << 3 );
       dec = SB3[ (row<<4) + col ];
-      L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
-      L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
-      L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
-      L[IST15] = L[IST15] ^ ( dec & 1 );
+      L[25] = L[25] ^ ( (dec >> 3) & 1 );
+      L[19] = L[19] ^ ( (dec >> 2) & 1 );
+      L[9] = L[9] ^ ( (dec >> 1) & 1 );
+      L[0] = L[0] ^ ( dec & 1 );
     
       row = ( K7_29 ^ R[ET29] )
         + ( ( K7_24 ^ R[ET24] ) << 1 );
@@ -5346,10 +4507,10 @@ export function cipher() :void {
         + ( ( K7_26 ^ R[ET26] ) << 2 )
         + ( ( K7_25 ^ R[ET25] ) << 3 );
       dec = SB4[ (row<<4) + col ];
-      L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
-      L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
-      L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
-      L[IST19] = L[IST19] ^ ( dec & 1 );
+      L[7] = L[7] ^ ( (dec >> 3) & 1 );
+      L[13] = L[13] ^ ( (dec >> 2) & 1 );
+      L[24] = L[24] ^ ( (dec >> 1) & 1 );
+      L[2] = L[2] ^ ( dec & 1 );
 
       row = ( K7_35 ^ R[ET35] )
         + ( ( K7_30 ^ R[ET30] ) << 1 );
@@ -5358,10 +4519,10 @@ export function cipher() :void {
         + ( ( K7_32 ^ R[ET32] ) << 2 )
         + ( ( K7_31 ^ R[ET31] ) << 3 );
       dec = SB5[ (row<<4) + col ];
-      L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
-      L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
-      L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
-      L[IST23] = L[IST23] ^ ( dec & 1 );
+      L[3] = L[3] ^ ( (dec >> 3) & 1 );
+      L[28] = L[28] ^ ( (dec >> 2) & 1 );
+      L[10] = L[10] ^ ( (dec >> 1) & 1 );
+      L[18] = L[18] ^ ( dec & 1 );
 
       row = ( K7_41 ^ R[ET41] )
         + ( ( K7_36 ^ R[ET36] ) << 1 );
@@ -5370,10 +4531,10 @@ export function cipher() :void {
         + ( ( K7_38 ^ R[ET38] ) << 2 )
         + ( ( K7_37 ^ R[ET37] ) << 3 );
       dec = SB6[ (row<<4) + col ];
-      L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
-      L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
-      L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
-      L[IST27] = L[IST27] ^ ( dec & 1 );
+      L[31] = L[31] ^ ( (dec >> 3) & 1 );
+      L[11] = L[11] ^ ( (dec >> 2) & 1 );
+      L[21] = L[21] ^ ( (dec >> 1) & 1 );
+      L[6] = L[6] ^ ( dec & 1 );
     
       row = ( K7_47 ^ R[ET47] )
         + ( ( K7_42 ^ R[ET42] ) << 1 );
@@ -5382,10 +4543,10 @@ export function cipher() :void {
         + ( ( K7_44 ^ R[ET44] ) << 2 )
         + ( ( K7_43 ^ R[ET43] ) << 3 );
       dec = SB7[ (row<<4) + col ];
-      L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
-      L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
-      L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
-      L[IST31] = L[IST31] ^ ( dec & 1 );
+      L[4] = L[4] ^ ( (dec >> 3) & 1 );
+      L[26] = L[26] ^ ( (dec >> 2) & 1 );
+      L[14] = L[14] ^ ( (dec >> 1) & 1 );
+      L[20] = L[20] ^ ( dec & 1 );
 
       // 8
       row = ( K8_5 ^ L[ET5] )
@@ -5395,10 +4556,10 @@ export function cipher() :void {
         + ( ( K8_2 ^ L[ET2] ) << 2 )
         + ( ( K8_1 ^ L[ET1] ) << 3 );
       dec = SB0[ (row<<4) + col ];
-      R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
-      R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
-      R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
-      R[IST3] = R[IST3] ^ ( dec & 1 );
+      R[8] = R[8] ^ ( (dec >> 3) & 1 );
+      R[16] = R[16] ^ ( (dec >> 2) & 1 );
+      R[22] = R[22] ^ ( (dec >> 1) & 1 );
+      R[30] = R[30] ^ ( dec & 1 );
 
       row = ( K8_11 ^ L[ET11] )
         + ( ( K8_6  ^ L[ET6 ] ) << 1 );
@@ -5407,10 +4568,10 @@ export function cipher() :void {
         + ( ( K8_8  ^ L[ET8 ] ) << 2 )
         + ( ( K8_7  ^ L[ET7 ] ) << 3 );
       dec = SB1[ (row<<4) + col ];
-      R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
-      R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
-      R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
-      R[IST7] = R[IST7] ^ ( dec & 1 );
+      R[12] = R[12] ^ ( (dec >> 3) & 1 );
+      R[27] = R[27] ^ ( (dec >> 2) & 1 );
+      R[1] = R[1] ^ ( (dec >> 1) & 1 );
+      R[17] = R[17] ^ ( dec & 1 );
 
       row = ( K8_17 ^ L[ET17] )
         + ( ( K8_12 ^ L[ET12] ) << 1 );
@@ -5419,10 +4580,10 @@ export function cipher() :void {
         + ( ( K8_14 ^ L[ET14] ) << 2 )
         + ( ( K8_13 ^ L[ET13] ) << 3 );
       dec = SB2[ (row<<4) + col ];
-      R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
-      R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
-      R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
-      R[IST11] = R[IST11] ^ ( dec & 1 );     
+      R[23] = R[23] ^ ( (dec >> 3) & 1 );
+      R[15] = R[15] ^ ( (dec >> 2) & 1 );
+      R[29] = R[29] ^ ( (dec >> 1) & 1 );
+      R[5] = R[5] ^ ( dec & 1 );     
 
       row = ( K8_23 ^ L[ET23] )
         + ( ( K8_18 ^ L[ET18] ) << 1 );
@@ -5431,10 +4592,10 @@ export function cipher() :void {
         + ( ( K8_20 ^ L[ET20] ) << 2 )
         + ( ( K8_19 ^ L[ET19] ) << 3 );
       dec = SB3[ (row<<4) + col ];
-      R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
-      R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
-      R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
-      R[IST15] = R[IST15] ^ ( dec & 1 );
+      R[25] = R[25] ^ ( (dec >> 3) & 1 );
+      R[19] = R[19] ^ ( (dec >> 2) & 1 );
+      R[9] = R[9] ^ ( (dec >> 1) & 1 );
+      R[0] = R[0] ^ ( dec & 1 );
     
       row = ( K8_29 ^ L[ET29] )
         + ( ( K8_24 ^ L[ET24] ) << 1 );
@@ -5443,10 +4604,10 @@ export function cipher() :void {
         + ( ( K8_26 ^ L[ET26] ) << 2 )
         + ( ( K8_25 ^ L[ET25] ) << 3 );
       dec = SB4[ (row<<4) + col ];
-      R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
-      R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
-      R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
-      R[IST19] = R[IST19] ^ ( dec & 1 );
+      R[7] = R[7] ^ ( (dec >> 3) & 1 );
+      R[13] = R[13] ^ ( (dec >> 2) & 1 );
+      R[24] = R[24] ^ ( (dec >> 1) & 1 );
+      R[2] = R[2] ^ ( dec & 1 );
 
       row = ( K8_35 ^ L[ET35] )
         + ( ( K8_30 ^ L[ET30] ) << 1 );
@@ -5455,10 +4616,10 @@ export function cipher() :void {
         + ( ( K8_32 ^ L[ET32] ) << 2 )
         + ( ( K8_31 ^ L[ET31] ) << 3 );
       dec = SB5[ (row<<4) + col ];
-      R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
-      R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
-      R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
-      R[IST23] = R[IST23] ^ ( dec & 1 );
+      R[3] = R[3] ^ ( (dec >> 3) & 1 );
+      R[28] = R[28] ^ ( (dec >> 2) & 1 );
+      R[10] = R[10] ^ ( (dec >> 1) & 1 );
+      R[18] = R[18] ^ ( dec & 1 );
 
       row = ( K8_41 ^ L[ET41] )
         + ( ( K8_36 ^ L[ET36] ) << 1 );
@@ -5467,10 +4628,10 @@ export function cipher() :void {
         + ( ( K8_38 ^ L[ET38] ) << 2 )
         + ( ( K8_37 ^ L[ET37] ) << 3 );
       dec = SB6[ (row<<4) + col ];
-      R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
-      R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
-      R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
-      R[IST27] = R[IST27] ^ ( dec & 1 );
+      R[31] = R[31] ^ ( (dec >> 3) & 1 );
+      R[11] = R[11] ^ ( (dec >> 2) & 1 );
+      R[21] = R[21] ^ ( (dec >> 1) & 1 );
+      R[6] = R[6] ^ ( dec & 1 );
     
       row = ( K8_47 ^ L[ET47] )
         + ( ( K8_42 ^ L[ET42] ) << 1 );
@@ -5479,10 +4640,10 @@ export function cipher() :void {
         + ( ( K8_44 ^ L[ET44] ) << 2 )
         + ( ( K8_43 ^ L[ET43] ) << 3 );
       dec = SB7[ (row<<4) + col ];
-      R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
-      R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
-      R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
-      R[IST31] = R[IST31] ^ ( dec & 1 );
+      R[4] = R[4] ^ ( (dec >> 3) & 1 );
+      R[26] = R[26] ^ ( (dec >> 2) & 1 );
+      R[14] = R[14] ^ ( (dec >> 1) & 1 );
+      R[20] = R[20] ^ ( dec & 1 );
 
       // 9
       row = ( K9_5 ^ R[ET5] )
@@ -5492,10 +4653,10 @@ export function cipher() :void {
         + ( ( K9_2 ^ R[ET2] ) << 2 )
         + ( ( K9_1 ^ R[ET1] ) << 3 );
       dec = SB0[ (row<<4) + col ];
-      L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
-      L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
-      L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
-      L[IST3] = L[IST3] ^ ( dec & 1 );
+      L[8] = L[8] ^ ( (dec >> 3) & 1 );
+      L[16] = L[16] ^ ( (dec >> 2) & 1 );
+      L[22] = L[22] ^ ( (dec >> 1) & 1 );
+      L[30] = L[30] ^ ( dec & 1 );
 
       row = ( K9_11 ^ R[ET11] )
         + ( ( K9_6  ^ R[ET6 ] ) << 1 );
@@ -5504,10 +4665,10 @@ export function cipher() :void {
         + ( ( K9_8  ^ R[ET8 ] ) << 2 )
         + ( ( K9_7  ^ R[ET7 ] ) << 3 );
       dec = SB1[ (row<<4) + col ];
-      L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
-      L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
-      L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
-      L[IST7] = L[IST7] ^ ( dec & 1 );
+      L[12] = L[12] ^ ( (dec >> 3) & 1 );
+      L[27] = L[27] ^ ( (dec >> 2) & 1 );
+      L[1] = L[1] ^ ( (dec >> 1) & 1 );
+      L[17] = L[17] ^ ( dec & 1 );
 
       row = ( K9_17 ^ R[ET17] )
         + ( ( K9_12 ^ R[ET12] ) << 1 );
@@ -5516,10 +4677,10 @@ export function cipher() :void {
         + ( ( K9_14 ^ R[ET14] ) << 2 )
         + ( ( K9_13 ^ R[ET13] ) << 3 );
       dec = SB2[ (row<<4) + col ];
-      L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
-      L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
-      L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
-      L[IST11] = L[IST11] ^ ( dec & 1 );     
+      L[23] = L[23] ^ ( (dec >> 3) & 1 );
+      L[15] = L[15] ^ ( (dec >> 2) & 1 );
+      L[29] = L[29] ^ ( (dec >> 1) & 1 );
+      L[5] = L[5] ^ ( dec & 1 );     
 
       row = ( K9_23 ^ R[ET23] )
         + ( ( K9_18 ^ R[ET18] ) << 1 );
@@ -5528,10 +4689,10 @@ export function cipher() :void {
         + ( ( K9_20 ^ R[ET20] ) << 2 )
         + ( ( K9_19 ^ R[ET19] ) << 3 );
       dec = SB3[ (row<<4) + col ];
-      L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
-      L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
-      L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
-      L[IST15] = L[IST15] ^ ( dec & 1 );
+      L[25] = L[25] ^ ( (dec >> 3) & 1 );
+      L[19] = L[19] ^ ( (dec >> 2) & 1 );
+      L[9] = L[9] ^ ( (dec >> 1) & 1 );
+      L[0] = L[0] ^ ( dec & 1 );
     
       row = ( K9_29 ^ R[ET29] )
         + ( ( K9_24 ^ R[ET24] ) << 1 );
@@ -5540,10 +4701,10 @@ export function cipher() :void {
         + ( ( K9_26 ^ R[ET26] ) << 2 )
         + ( ( K9_25 ^ R[ET25] ) << 3 );
       dec = SB4[ (row<<4) + col ];
-      L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
-      L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
-      L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
-      L[IST19] = L[IST19] ^ ( dec & 1 );
+      L[7] = L[7] ^ ( (dec >> 3) & 1 );
+      L[13] = L[13] ^ ( (dec >> 2) & 1 );
+      L[24] = L[24] ^ ( (dec >> 1) & 1 );
+      L[2] = L[2] ^ ( dec & 1 );
 
       row = ( K9_35 ^ R[ET35] )
         + ( ( K9_30 ^ R[ET30] ) << 1 );
@@ -5552,10 +4713,10 @@ export function cipher() :void {
         + ( ( K9_32 ^ R[ET32] ) << 2 )
         + ( ( K9_31 ^ R[ET31] ) << 3 );
       dec = SB5[ (row<<4) + col ];
-      L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
-      L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
-      L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
-      L[IST23] = L[IST23] ^ ( dec & 1 );
+      L[3] = L[3] ^ ( (dec >> 3) & 1 );
+      L[28] = L[28] ^ ( (dec >> 2) & 1 );
+      L[10] = L[10] ^ ( (dec >> 1) & 1 );
+      L[18] = L[18] ^ ( dec & 1 );
 
       row = ( K9_41 ^ R[ET41] )
         + ( ( K9_36 ^ R[ET36] ) << 1 );
@@ -5564,10 +4725,10 @@ export function cipher() :void {
         + ( ( K9_38 ^ R[ET38] ) << 2 )
         + ( ( K9_37 ^ R[ET37] ) << 3 );
       dec = SB6[ (row<<4) + col ];
-      L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
-      L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
-      L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
-      L[IST27] = L[IST27] ^ ( dec & 1 );
+      L[31] = L[31] ^ ( (dec >> 3) & 1 );
+      L[11] = L[11] ^ ( (dec >> 2) & 1 );
+      L[21] = L[21] ^ ( (dec >> 1) & 1 );
+      L[6] = L[6] ^ ( dec & 1 );
     
       row = ( K9_47 ^ R[ET47] )
         + ( ( K9_42 ^ R[ET42] ) << 1 );
@@ -5576,10 +4737,10 @@ export function cipher() :void {
         + ( ( K9_44 ^ R[ET44] ) << 2 )
         + ( ( K9_43 ^ R[ET43] ) << 3 );
       dec = SB7[ (row<<4) + col ];
-      L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
-      L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
-      L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
-      L[IST31] = L[IST31] ^ ( dec & 1 );
+      L[4] = L[4] ^ ( (dec >> 3) & 1 );
+      L[26] = L[26] ^ ( (dec >> 2) & 1 );
+      L[14] = L[14] ^ ( (dec >> 1) & 1 );
+      L[20] = L[20] ^ ( dec & 1 );
 
       // 10
       row = ( K10_5 ^ L[ET5] )
@@ -5589,10 +4750,10 @@ export function cipher() :void {
         + ( ( K10_2 ^ L[ET2] ) << 2 )
         + ( ( K10_1 ^ L[ET1] ) << 3 );
       dec = SB0[ (row<<4) + col ];
-      R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
-      R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
-      R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
-      R[IST3] = R[IST3] ^ ( dec & 1 );
+      R[8] = R[8] ^ ( (dec >> 3) & 1 );
+      R[16] = R[16] ^ ( (dec >> 2) & 1 );
+      R[22] = R[22] ^ ( (dec >> 1) & 1 );
+      R[30] = R[30] ^ ( dec & 1 );
 
       row = ( K10_11 ^ L[ET11] )
         + ( ( K10_6  ^ L[ET6 ] ) << 1 );
@@ -5601,10 +4762,10 @@ export function cipher() :void {
         + ( ( K10_8  ^ L[ET8 ] ) << 2 )
         + ( ( K10_7  ^ L[ET7 ] ) << 3 );
       dec = SB1[ (row<<4) + col ];
-      R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
-      R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
-      R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
-      R[IST7] = R[IST7] ^ ( dec & 1 );
+      R[12] = R[12] ^ ( (dec >> 3) & 1 );
+      R[27] = R[27] ^ ( (dec >> 2) & 1 );
+      R[1] = R[1] ^ ( (dec >> 1) & 1 );
+      R[17] = R[17] ^ ( dec & 1 );
 
       row = ( K10_17 ^ L[ET17] )
         + ( ( K10_12 ^ L[ET12] ) << 1 );
@@ -5613,10 +4774,10 @@ export function cipher() :void {
         + ( ( K10_14 ^ L[ET14] ) << 2 )
         + ( ( K10_13 ^ L[ET13] ) << 3 );
       dec = SB2[ (row<<4) + col ];
-      R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
-      R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
-      R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
-      R[IST11] = R[IST11] ^ ( dec & 1 );     
+      R[23] = R[23] ^ ( (dec >> 3) & 1 );
+      R[15] = R[15] ^ ( (dec >> 2) & 1 );
+      R[29] = R[29] ^ ( (dec >> 1) & 1 );
+      R[5] = R[5] ^ ( dec & 1 );     
 
       row = ( K10_23 ^ L[ET23] )
         + ( ( K10_18 ^ L[ET18] ) << 1 );
@@ -5625,10 +4786,10 @@ export function cipher() :void {
         + ( ( K10_20 ^ L[ET20] ) << 2 )
         + ( ( K10_19 ^ L[ET19] ) << 3 );
       dec = SB3[ (row<<4) + col ];
-      R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
-      R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
-      R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
-      R[IST15] = R[IST15] ^ ( dec & 1 );
+      R[25] = R[25] ^ ( (dec >> 3) & 1 );
+      R[19] = R[19] ^ ( (dec >> 2) & 1 );
+      R[9] = R[9] ^ ( (dec >> 1) & 1 );
+      R[0] = R[0] ^ ( dec & 1 );
     
       row = ( K10_29 ^ L[ET29] )
         + ( ( K10_24 ^ L[ET24] ) << 1 );
@@ -5637,10 +4798,10 @@ export function cipher() :void {
         + ( ( K10_26 ^ L[ET26] ) << 2 )
         + ( ( K10_25 ^ L[ET25] ) << 3 );
       dec = SB4[ (row<<4) + col ];
-      R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
-      R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
-      R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
-      R[IST19] = R[IST19] ^ ( dec & 1 );
+      R[7] = R[7] ^ ( (dec >> 3) & 1 );
+      R[13] = R[13] ^ ( (dec >> 2) & 1 );
+      R[24] = R[24] ^ ( (dec >> 1) & 1 );
+      R[2] = R[2] ^ ( dec & 1 );
 
       row = ( K10_35 ^ L[ET35] )
         + ( ( K10_30 ^ L[ET30] ) << 1 );
@@ -5649,10 +4810,10 @@ export function cipher() :void {
         + ( ( K10_32 ^ L[ET32] ) << 2 )
         + ( ( K10_31 ^ L[ET31] ) << 3 );
       dec = SB5[ (row<<4) + col ];
-      R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
-      R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
-      R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
-      R[IST23] = R[IST23] ^ ( dec & 1 );
+      R[3] = R[3] ^ ( (dec >> 3) & 1 );
+      R[28] = R[28] ^ ( (dec >> 2) & 1 );
+      R[10] = R[10] ^ ( (dec >> 1) & 1 );
+      R[18] = R[18] ^ ( dec & 1 );
 
       row = ( K10_41 ^ L[ET41] )
         + ( ( K10_36 ^ L[ET36] ) << 1 );
@@ -5661,10 +4822,10 @@ export function cipher() :void {
         + ( ( K10_38 ^ L[ET38] ) << 2 )
         + ( ( K10_37 ^ L[ET37] ) << 3 );
       dec = SB6[ (row<<4) + col ];
-      R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
-      R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
-      R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
-      R[IST27] = R[IST27] ^ ( dec & 1 );
+      R[31] = R[31] ^ ( (dec >> 3) & 1 );
+      R[11] = R[11] ^ ( (dec >> 2) & 1 );
+      R[21] = R[21] ^ ( (dec >> 1) & 1 );
+      R[6] = R[6] ^ ( dec & 1 );
     
       row = ( K10_47 ^ L[ET47] )
         + ( ( K10_42 ^ L[ET42] ) << 1 );
@@ -5673,10 +4834,10 @@ export function cipher() :void {
         + ( ( K10_44 ^ L[ET44] ) << 2 )
         + ( ( K10_43 ^ L[ET43] ) << 3 );
       dec = SB7[ (row<<4) + col ];
-      R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
-      R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
-      R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
-      R[IST31] = R[IST31] ^ ( dec & 1 );
+      R[4] = R[4] ^ ( (dec >> 3) & 1 );
+      R[26] = R[26] ^ ( (dec >> 2) & 1 );
+      R[14] = R[14] ^ ( (dec >> 1) & 1 );
+      R[20] = R[20] ^ ( dec & 1 );
 
       // 11
       row = ( K11_5 ^ R[ET5] )
@@ -5686,10 +4847,10 @@ export function cipher() :void {
         + ( ( K11_2 ^ R[ET2] ) << 2 )
         + ( ( K11_1 ^ R[ET1] ) << 3 );
       dec = SB0[ (row<<4) + col ];
-      L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
-      L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
-      L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
-      L[IST3] = L[IST3] ^ ( dec & 1 );
+      L[8] = L[8] ^ ( (dec >> 3) & 1 );
+      L[16] = L[16] ^ ( (dec >> 2) & 1 );
+      L[22] = L[22] ^ ( (dec >> 1) & 1 );
+      L[30] = L[30] ^ ( dec & 1 );
 
       row = ( K11_11 ^ R[ET11] )
         + ( ( K11_6  ^ R[ET6 ] ) << 1 );
@@ -5698,10 +4859,10 @@ export function cipher() :void {
         + ( ( K11_8  ^ R[ET8 ] ) << 2 )
         + ( ( K11_7  ^ R[ET7 ] ) << 3 );
       dec = SB1[ (row<<4) + col ];
-      L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
-      L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
-      L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
-      L[IST7] = L[IST7] ^ ( dec & 1 );
+      L[12] = L[12] ^ ( (dec >> 3) & 1 );
+      L[27] = L[27] ^ ( (dec >> 2) & 1 );
+      L[1] = L[1] ^ ( (dec >> 1) & 1 );
+      L[17] = L[17] ^ ( dec & 1 );
 
       row = ( K11_17 ^ R[ET17] )
         + ( ( K11_12 ^ R[ET12] ) << 1 );
@@ -5710,10 +4871,10 @@ export function cipher() :void {
         + ( ( K11_14 ^ R[ET14] ) << 2 )
         + ( ( K11_13 ^ R[ET13] ) << 3 );
       dec = SB2[ (row<<4) + col ];
-      L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
-      L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
-      L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
-      L[IST11] = L[IST11] ^ ( dec & 1 );     
+      L[23] = L[23] ^ ( (dec >> 3) & 1 );
+      L[15] = L[15] ^ ( (dec >> 2) & 1 );
+      L[29] = L[29] ^ ( (dec >> 1) & 1 );
+      L[5] = L[5] ^ ( dec & 1 );     
 
       row = ( K11_23 ^ R[ET23] )
         + ( ( K11_18 ^ R[ET18] ) << 1 );
@@ -5722,10 +4883,10 @@ export function cipher() :void {
         + ( ( K11_20 ^ R[ET20] ) << 2 )
         + ( ( K11_19 ^ R[ET19] ) << 3 );
       dec = SB3[ (row<<4) + col ];
-      L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
-      L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
-      L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
-      L[IST15] = L[IST15] ^ ( dec & 1 );
+      L[25] = L[25] ^ ( (dec >> 3) & 1 );
+      L[19] = L[19] ^ ( (dec >> 2) & 1 );
+      L[9] = L[9] ^ ( (dec >> 1) & 1 );
+      L[0] = L[0] ^ ( dec & 1 );
     
       row = ( K11_29 ^ R[ET29] )
         + ( ( K11_24 ^ R[ET24] ) << 1 );
@@ -5734,10 +4895,10 @@ export function cipher() :void {
         + ( ( K11_26 ^ R[ET26] ) << 2 )
         + ( ( K11_25 ^ R[ET25] ) << 3 );
       dec = SB4[ (row<<4) + col ];
-      L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
-      L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
-      L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
-      L[IST19] = L[IST19] ^ ( dec & 1 );
+      L[7] = L[7] ^ ( (dec >> 3) & 1 );
+      L[13] = L[13] ^ ( (dec >> 2) & 1 );
+      L[24] = L[24] ^ ( (dec >> 1) & 1 );
+      L[2] = L[2] ^ ( dec & 1 );
 
       row = ( K11_35 ^ R[ET35] )
         + ( ( K11_30 ^ R[ET30] ) << 1 );
@@ -5746,10 +4907,10 @@ export function cipher() :void {
         + ( ( K11_32 ^ R[ET32] ) << 2 )
         + ( ( K11_31 ^ R[ET31] ) << 3 );
       dec = SB5[ (row<<4) + col ];
-      L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
-      L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
-      L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
-      L[IST23] = L[IST23] ^ ( dec & 1 );
+      L[3] = L[3] ^ ( (dec >> 3) & 1 );
+      L[28] = L[28] ^ ( (dec >> 2) & 1 );
+      L[10] = L[10] ^ ( (dec >> 1) & 1 );
+      L[18] = L[18] ^ ( dec & 1 );
 
       row = ( K11_41 ^ R[ET41] )
         + ( ( K11_36 ^ R[ET36] ) << 1 );
@@ -5758,10 +4919,10 @@ export function cipher() :void {
         + ( ( K11_38 ^ R[ET38] ) << 2 )
         + ( ( K11_37 ^ R[ET37] ) << 3 );
       dec = SB6[ (row<<4) + col ];
-      L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
-      L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
-      L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
-      L[IST27] = L[IST27] ^ ( dec & 1 );
+      L[31] = L[31] ^ ( (dec >> 3) & 1 );
+      L[11] = L[11] ^ ( (dec >> 2) & 1 );
+      L[21] = L[21] ^ ( (dec >> 1) & 1 );
+      L[6] = L[6] ^ ( dec & 1 );
     
       row = ( K11_47 ^ R[ET47] )
         + ( ( K11_42 ^ R[ET42] ) << 1 );
@@ -5770,10 +4931,10 @@ export function cipher() :void {
         + ( ( K11_44 ^ R[ET44] ) << 2 )
         + ( ( K11_43 ^ R[ET43] ) << 3 );
       dec = SB7[ (row<<4) + col ];
-      L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
-      L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
-      L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
-      L[IST31] = L[IST31] ^ ( dec & 1 );
+      L[4] = L[4] ^ ( (dec >> 3) & 1 );
+      L[26] = L[26] ^ ( (dec >> 2) & 1 );
+      L[14] = L[14] ^ ( (dec >> 1) & 1 );
+      L[20] = L[20] ^ ( dec & 1 );
 
       // 12
       row = ( K12_5 ^ L[ET5] )
@@ -5783,10 +4944,10 @@ export function cipher() :void {
         + ( ( K12_2 ^ L[ET2] ) << 2 )
         + ( ( K12_1 ^ L[ET1] ) << 3 );
       dec = SB0[ (row<<4) + col ];
-      R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
-      R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
-      R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
-      R[IST3] = R[IST3] ^ ( dec & 1 );
+      R[8] = R[8] ^ ( (dec >> 3) & 1 );
+      R[16] = R[16] ^ ( (dec >> 2) & 1 );
+      R[22] = R[22] ^ ( (dec >> 1) & 1 );
+      R[30] = R[30] ^ ( dec & 1 );
 
       row = ( K12_11 ^ L[ET11] )
         + ( ( K12_6  ^ L[ET6 ] ) << 1 );
@@ -5795,10 +4956,10 @@ export function cipher() :void {
         + ( ( K12_8  ^ L[ET8 ] ) << 2 )
         + ( ( K12_7  ^ L[ET7 ] ) << 3 );
       dec = SB1[ (row<<4) + col ];
-      R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
-      R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
-      R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
-      R[IST7] = R[IST7] ^ ( dec & 1 );
+      R[12] = R[12] ^ ( (dec >> 3) & 1 );
+      R[27] = R[27] ^ ( (dec >> 2) & 1 );
+      R[1] = R[1] ^ ( (dec >> 1) & 1 );
+      R[17] = R[17] ^ ( dec & 1 );
 
       row = ( K12_17 ^ L[ET17] )
         + ( ( K12_12 ^ L[ET12] ) << 1 );
@@ -5807,10 +4968,10 @@ export function cipher() :void {
         + ( ( K12_14 ^ L[ET14] ) << 2 )
         + ( ( K12_13 ^ L[ET13] ) << 3 );
       dec = SB2[ (row<<4) + col ];
-      R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
-      R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
-      R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
-      R[IST11] = R[IST11] ^ ( dec & 1 );     
+      R[23] = R[23] ^ ( (dec >> 3) & 1 );
+      R[15] = R[15] ^ ( (dec >> 2) & 1 );
+      R[29] = R[29] ^ ( (dec >> 1) & 1 );
+      R[5] = R[5] ^ ( dec & 1 );     
 
       row = ( K12_23 ^ L[ET23] )
         + ( ( K12_18 ^ L[ET18] ) << 1 );
@@ -5819,10 +4980,10 @@ export function cipher() :void {
         + ( ( K12_20 ^ L[ET20] ) << 2 )
         + ( ( K12_19 ^ L[ET19] ) << 3 );
       dec = SB3[ (row<<4) + col ];
-      R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
-      R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
-      R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
-      R[IST15] = R[IST15] ^ ( dec & 1 );
+      R[25] = R[25] ^ ( (dec >> 3) & 1 );
+      R[19] = R[19] ^ ( (dec >> 2) & 1 );
+      R[9] = R[9] ^ ( (dec >> 1) & 1 );
+      R[0] = R[0] ^ ( dec & 1 );
     
       row = ( K12_29 ^ L[ET29] )
         + ( ( K12_24 ^ L[ET24] ) << 1 );
@@ -5831,10 +4992,10 @@ export function cipher() :void {
         + ( ( K12_26 ^ L[ET26] ) << 2 )
         + ( ( K12_25 ^ L[ET25] ) << 3 );
       dec = SB4[ (row<<4) + col ];
-      R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
-      R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
-      R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
-      R[IST19] = R[IST19] ^ ( dec & 1 );
+      R[7] = R[7] ^ ( (dec >> 3) & 1 );
+      R[13] = R[13] ^ ( (dec >> 2) & 1 );
+      R[24] = R[24] ^ ( (dec >> 1) & 1 );
+      R[2] = R[2] ^ ( dec & 1 );
 
       row = ( K12_35 ^ L[ET35] )
         + ( ( K12_30 ^ L[ET30] ) << 1 );
@@ -5843,10 +5004,10 @@ export function cipher() :void {
         + ( ( K12_32 ^ L[ET32] ) << 2 )
         + ( ( K12_31 ^ L[ET31] ) << 3 );
       dec = SB5[ (row<<4) + col ];
-      R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
-      R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
-      R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
-      R[IST23] = R[IST23] ^ ( dec & 1 );
+      R[3] = R[3] ^ ( (dec >> 3) & 1 );
+      R[28] = R[28] ^ ( (dec >> 2) & 1 );
+      R[10] = R[10] ^ ( (dec >> 1) & 1 );
+      R[18] = R[18] ^ ( dec & 1 );
 
       row = ( K12_41 ^ L[ET41] )
         + ( ( K12_36 ^ L[ET36] ) << 1 );
@@ -5855,10 +5016,10 @@ export function cipher() :void {
         + ( ( K12_38 ^ L[ET38] ) << 2 )
         + ( ( K12_37 ^ L[ET37] ) << 3 );
       dec = SB6[ (row<<4) + col ];
-      R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
-      R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
-      R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
-      R[IST27] = R[IST27] ^ ( dec & 1 );
+      R[31] = R[31] ^ ( (dec >> 3) & 1 );
+      R[11] = R[11] ^ ( (dec >> 2) & 1 );
+      R[21] = R[21] ^ ( (dec >> 1) & 1 );
+      R[6] = R[6] ^ ( dec & 1 );
     
       row = ( K12_47 ^ L[ET47] )
         + ( ( K12_42 ^ L[ET42] ) << 1 );
@@ -5867,10 +5028,10 @@ export function cipher() :void {
         + ( ( K12_44 ^ L[ET44] ) << 2 )
         + ( ( K12_43 ^ L[ET43] ) << 3 );
       dec = SB7[ (row<<4) + col ];
-      R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
-      R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
-      R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
-      R[IST31] = R[IST31] ^ ( dec & 1 );
+      R[4] = R[4] ^ ( (dec >> 3) & 1 );
+      R[26] = R[26] ^ ( (dec >> 2) & 1 );
+      R[14] = R[14] ^ ( (dec >> 1) & 1 );
+      R[20] = R[20] ^ ( dec & 1 );
 
       // 13
       row = ( K13_5 ^ R[ET5] )
@@ -5880,10 +5041,10 @@ export function cipher() :void {
         + ( ( K13_2 ^ R[ET2] ) << 2 )
         + ( ( K13_1 ^ R[ET1] ) << 3 );
       dec = SB0[ (row<<4) + col ];
-      L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
-      L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
-      L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
-      L[IST3] = L[IST3] ^ ( dec & 1 );
+      L[8] = L[8] ^ ( (dec >> 3) & 1 );
+      L[16] = L[16] ^ ( (dec >> 2) & 1 );
+      L[22] = L[22] ^ ( (dec >> 1) & 1 );
+      L[30] = L[30] ^ ( dec & 1 );
 
       row = ( K13_11 ^ R[ET11] )
         + ( ( K13_6  ^ R[ET6 ] ) << 1 );
@@ -5892,10 +5053,10 @@ export function cipher() :void {
         + ( ( K13_8  ^ R[ET8 ] ) << 2 )
         + ( ( K13_7  ^ R[ET7 ] ) << 3 );
       dec = SB1[ (row<<4) + col ];
-      L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
-      L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
-      L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
-      L[IST7] = L[IST7] ^ ( dec & 1 );
+      L[12] = L[12] ^ ( (dec >> 3) & 1 );
+      L[27] = L[27] ^ ( (dec >> 2) & 1 );
+      L[1] = L[1] ^ ( (dec >> 1) & 1 );
+      L[17] = L[17] ^ ( dec & 1 );
 
       row = ( K13_17 ^ R[ET17] )
         + ( ( K13_12 ^ R[ET12] ) << 1 );
@@ -5904,10 +5065,10 @@ export function cipher() :void {
         + ( ( K13_14 ^ R[ET14] ) << 2 )
         + ( ( K13_13 ^ R[ET13] ) << 3 );
       dec = SB2[ (row<<4) + col ];
-      L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
-      L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
-      L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
-      L[IST11] = L[IST11] ^ ( dec & 1 );     
+      L[23] = L[23] ^ ( (dec >> 3) & 1 );
+      L[15] = L[15] ^ ( (dec >> 2) & 1 );
+      L[29] = L[29] ^ ( (dec >> 1) & 1 );
+      L[5] = L[5] ^ ( dec & 1 );     
 
       row = ( K13_23 ^ R[ET23] )
         + ( ( K13_18 ^ R[ET18] ) << 1 );
@@ -5916,10 +5077,10 @@ export function cipher() :void {
         + ( ( K13_20 ^ R[ET20] ) << 2 )
         + ( ( K13_19 ^ R[ET19] ) << 3 );
       dec = SB3[ (row<<4) + col ];
-      L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
-      L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
-      L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
-      L[IST15] = L[IST15] ^ ( dec & 1 );
+      L[25] = L[25] ^ ( (dec >> 3) & 1 );
+      L[19] = L[19] ^ ( (dec >> 2) & 1 );
+      L[9] = L[9] ^ ( (dec >> 1) & 1 );
+      L[0] = L[0] ^ ( dec & 1 );
     
       row = ( K13_29 ^ R[ET29] )
         + ( ( K13_24 ^ R[ET24] ) << 1 );
@@ -5928,10 +5089,10 @@ export function cipher() :void {
         + ( ( K13_26 ^ R[ET26] ) << 2 )
         + ( ( K13_25 ^ R[ET25] ) << 3 );
       dec = SB4[ (row<<4) + col ];
-      L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
-      L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
-      L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
-      L[IST19] = L[IST19] ^ ( dec & 1 );
+      L[7] = L[7] ^ ( (dec >> 3) & 1 );
+      L[13] = L[13] ^ ( (dec >> 2) & 1 );
+      L[24] = L[24] ^ ( (dec >> 1) & 1 );
+      L[2] = L[2] ^ ( dec & 1 );
 
       row = ( K13_35 ^ R[ET35] )
         + ( ( K13_30 ^ R[ET30] ) << 1 );
@@ -5940,10 +5101,10 @@ export function cipher() :void {
         + ( ( K13_32 ^ R[ET32] ) << 2 )
         + ( ( K13_31 ^ R[ET31] ) << 3 );
       dec = SB5[ (row<<4) + col ];
-      L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
-      L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
-      L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
-      L[IST23] = L[IST23] ^ ( dec & 1 );
+      L[3] = L[3] ^ ( (dec >> 3) & 1 );
+      L[28] = L[28] ^ ( (dec >> 2) & 1 );
+      L[10] = L[10] ^ ( (dec >> 1) & 1 );
+      L[18] = L[18] ^ ( dec & 1 );
 
       row = ( K13_41 ^ R[ET41] )
         + ( ( K13_36 ^ R[ET36] ) << 1 );
@@ -5952,10 +5113,10 @@ export function cipher() :void {
         + ( ( K13_38 ^ R[ET38] ) << 2 )
         + ( ( K13_37 ^ R[ET37] ) << 3 );
       dec = SB6[ (row<<4) + col ];
-      L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
-      L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
-      L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
-      L[IST27] = L[IST27] ^ ( dec & 1 );
+      L[31] = L[31] ^ ( (dec >> 3) & 1 );
+      L[11] = L[11] ^ ( (dec >> 2) & 1 );
+      L[21] = L[21] ^ ( (dec >> 1) & 1 );
+      L[6] = L[6] ^ ( dec & 1 );
     
       row = ( K13_47 ^ R[ET47] )
         + ( ( K13_42 ^ R[ET42] ) << 1 );
@@ -5964,10 +5125,10 @@ export function cipher() :void {
         + ( ( K13_44 ^ R[ET44] ) << 2 )
         + ( ( K13_43 ^ R[ET43] ) << 3 );
       dec = SB7[ (row<<4) + col ];
-      L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
-      L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
-      L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
-      L[IST31] = L[IST31] ^ ( dec & 1 );
+      L[4] = L[4] ^ ( (dec >> 3) & 1 );
+      L[26] = L[26] ^ ( (dec >> 2) & 1 );
+      L[14] = L[14] ^ ( (dec >> 1) & 1 );
+      L[20] = L[20] ^ ( dec & 1 );
 
       // 14
       row = ( K14_5 ^ L[ET5] )
@@ -5977,10 +5138,10 @@ export function cipher() :void {
         + ( ( K14_2 ^ L[ET2] ) << 2 )
         + ( ( K14_1 ^ L[ET1] ) << 3 );
       dec = SB0[ (row<<4) + col ];
-      R[IST0] = R[IST0] ^ ( (dec >> 3) & 1 );
-      R[IST1] = R[IST1] ^ ( (dec >> 2) & 1 );
-      R[IST2] = R[IST2] ^ ( (dec >> 1) & 1 );
-      R[IST3] = R[IST3] ^ ( dec & 1 );
+      R[8] = R[8] ^ ( (dec >> 3) & 1 );
+      R[16] = R[16] ^ ( (dec >> 2) & 1 );
+      R[22] = R[22] ^ ( (dec >> 1) & 1 );
+      R[30] = R[30] ^ ( dec & 1 );
 
       row = ( K14_11 ^ L[ET11] )
         + ( ( K14_6  ^ L[ET6 ] ) << 1 );
@@ -5989,10 +5150,10 @@ export function cipher() :void {
         + ( ( K14_8  ^ L[ET8 ] ) << 2 )
         + ( ( K14_7  ^ L[ET7 ] ) << 3 );
       dec = SB1[ (row<<4) + col ];
-      R[IST4] = R[IST4] ^ ( (dec >> 3) & 1 );
-      R[IST5] = R[IST5] ^ ( (dec >> 2) & 1 );
-      R[IST6] = R[IST6] ^ ( (dec >> 1) & 1 );
-      R[IST7] = R[IST7] ^ ( dec & 1 );
+      R[12] = R[12] ^ ( (dec >> 3) & 1 );
+      R[27] = R[27] ^ ( (dec >> 2) & 1 );
+      R[1] = R[1] ^ ( (dec >> 1) & 1 );
+      R[17] = R[17] ^ ( dec & 1 );
 
       row = ( K14_17 ^ L[ET17] )
         + ( ( K14_12 ^ L[ET12] ) << 1 );
@@ -6001,10 +5162,10 @@ export function cipher() :void {
         + ( ( K14_14 ^ L[ET14] ) << 2 )
         + ( ( K14_13 ^ L[ET13] ) << 3 );
       dec = SB2[ (row<<4) + col ];
-      R[IST8 ] = R[IST8 ] ^ ( (dec >> 3) & 1 );
-      R[IST9 ] = R[IST9 ] ^ ( (dec >> 2) & 1 );
-      R[IST10] = R[IST10] ^ ( (dec >> 1) & 1 );
-      R[IST11] = R[IST11] ^ ( dec & 1 );     
+      R[23] = R[23] ^ ( (dec >> 3) & 1 );
+      R[15] = R[15] ^ ( (dec >> 2) & 1 );
+      R[29] = R[29] ^ ( (dec >> 1) & 1 );
+      R[5] = R[5] ^ ( dec & 1 );     
 
       row = ( K14_23 ^ L[ET23] )
         + ( ( K14_18 ^ L[ET18] ) << 1 );
@@ -6013,10 +5174,10 @@ export function cipher() :void {
         + ( ( K14_20 ^ L[ET20] ) << 2 )
         + ( ( K14_19 ^ L[ET19] ) << 3 );
       dec = SB3[ (row<<4) + col ];
-      R[IST12] = R[IST12] ^ ( (dec >> 3) & 1 );
-      R[IST13] = R[IST13] ^ ( (dec >> 2) & 1 );
-      R[IST14] = R[IST14] ^ ( (dec >> 1) & 1 );
-      R[IST15] = R[IST15] ^ ( dec & 1 );
+      R[25] = R[25] ^ ( (dec >> 3) & 1 );
+      R[19] = R[19] ^ ( (dec >> 2) & 1 );
+      R[9] = R[9] ^ ( (dec >> 1) & 1 );
+      R[0] = R[0] ^ ( dec & 1 );
     
       row = ( K14_29 ^ L[ET29] )
         + ( ( K14_24 ^ L[ET24] ) << 1 );
@@ -6025,10 +5186,10 @@ export function cipher() :void {
         + ( ( K14_26 ^ L[ET26] ) << 2 )
         + ( ( K14_25 ^ L[ET25] ) << 3 );
       dec = SB4[ (row<<4) + col ];
-      R[IST16] = R[IST16] ^ ( (dec >> 3) & 1 );
-      R[IST17] = R[IST17] ^ ( (dec >> 2) & 1 );
-      R[IST18] = R[IST18] ^ ( (dec >> 1) & 1 );
-      R[IST19] = R[IST19] ^ ( dec & 1 );
+      R[7] = R[7] ^ ( (dec >> 3) & 1 );
+      R[13] = R[13] ^ ( (dec >> 2) & 1 );
+      R[24] = R[24] ^ ( (dec >> 1) & 1 );
+      R[2] = R[2] ^ ( dec & 1 );
 
       row = ( K14_35 ^ L[ET35] )
         + ( ( K14_30 ^ L[ET30] ) << 1 );
@@ -6037,10 +5198,10 @@ export function cipher() :void {
         + ( ( K14_32 ^ L[ET32] ) << 2 )
         + ( ( K14_31 ^ L[ET31] ) << 3 );
       dec = SB5[ (row<<4) + col ];
-      R[IST20] = R[IST20] ^ ( (dec >> 3) & 1 );
-      R[IST21] = R[IST21] ^ ( (dec >> 2) & 1 );
-      R[IST22] = R[IST22] ^ ( (dec >> 1) & 1 );
-      R[IST23] = R[IST23] ^ ( dec & 1 );
+      R[3] = R[3] ^ ( (dec >> 3) & 1 );
+      R[28] = R[28] ^ ( (dec >> 2) & 1 );
+      R[10] = R[10] ^ ( (dec >> 1) & 1 );
+      R[18] = R[18] ^ ( dec & 1 );
 
       row = ( K14_41 ^ L[ET41] )
         + ( ( K14_36 ^ L[ET36] ) << 1 );
@@ -6049,10 +5210,10 @@ export function cipher() :void {
         + ( ( K14_38 ^ L[ET38] ) << 2 )
         + ( ( K14_37 ^ L[ET37] ) << 3 );
       dec = SB6[ (row<<4) + col ];
-      R[IST24] = R[IST24] ^ ( (dec >> 3) & 1 );
-      R[IST25] = R[IST25] ^ ( (dec >> 2) & 1 );
-      R[IST26] = R[IST26] ^ ( (dec >> 1) & 1 );
-      R[IST27] = R[IST27] ^ ( dec & 1 );
+      R[31] = R[31] ^ ( (dec >> 3) & 1 );
+      R[11] = R[11] ^ ( (dec >> 2) & 1 );
+      R[21] = R[21] ^ ( (dec >> 1) & 1 );
+      R[6] = R[6] ^ ( dec & 1 );
     
       row = ( K14_47 ^ L[ET47] )
         + ( ( K14_42 ^ L[ET42] ) << 1 );
@@ -6061,10 +5222,10 @@ export function cipher() :void {
         + ( ( K14_44 ^ L[ET44] ) << 2 )
         + ( ( K14_43 ^ L[ET43] ) << 3 );
       dec = SB7[ (row<<4) + col ];
-      R[IST28] = R[IST28] ^ ( (dec >> 3) & 1 );
-      R[IST29] = R[IST29] ^ ( (dec >> 2) & 1 );
-      R[IST30] = R[IST30] ^ ( (dec >> 1) & 1 );
-      R[IST31] = R[IST31] ^ ( dec & 1 );
+      R[4] = R[4] ^ ( (dec >> 3) & 1 );
+      R[26] = R[26] ^ ( (dec >> 2) & 1 );
+      R[14] = R[14] ^ ( (dec >> 1) & 1 );
+      R[20] = R[20] ^ ( dec & 1 );
 
       // 15
       row = ( K15_5 ^ R[ET5] )
@@ -6074,10 +5235,10 @@ export function cipher() :void {
         + ( ( K15_2 ^ R[ET2] ) << 2 )
         + ( ( K15_1 ^ R[ET1] ) << 3 );
       dec = SB0[ (row<<4) + col ];
-      L[IST0] = L[IST0] ^ ( (dec >> 3) & 1 );
-      L[IST1] = L[IST1] ^ ( (dec >> 2) & 1 );
-      L[IST2] = L[IST2] ^ ( (dec >> 1) & 1 );
-      L[IST3] = L[IST3] ^ ( dec & 1 );
+      L[8] = L[8] ^ ( (dec >> 3) & 1 );
+      L[16] = L[16] ^ ( (dec >> 2) & 1 );
+      L[22] = L[22] ^ ( (dec >> 1) & 1 );
+      L[30] = L[30] ^ ( dec & 1 );
 
       row = ( K15_11 ^ R[ET11] )
         + ( ( K15_6  ^ R[ET6 ] ) << 1 );
@@ -6086,10 +5247,10 @@ export function cipher() :void {
         + ( ( K15_8  ^ R[ET8 ] ) << 2 )
         + ( ( K15_7  ^ R[ET7 ] ) << 3 );
       dec = SB1[ (row<<4) + col ];
-      L[IST4] = L[IST4] ^ ( (dec >> 3) & 1 );
-      L[IST5] = L[IST5] ^ ( (dec >> 2) & 1 );
-      L[IST6] = L[IST6] ^ ( (dec >> 1) & 1 );
-      L[IST7] = L[IST7] ^ ( dec & 1 );
+      L[12] = L[12] ^ ( (dec >> 3) & 1 );
+      L[27] = L[27] ^ ( (dec >> 2) & 1 );
+      L[1] = L[1] ^ ( (dec >> 1) & 1 );
+      L[17] = L[17] ^ ( dec & 1 );
 
       row = ( K15_17 ^ R[ET17] )
         + ( ( K15_12 ^ R[ET12] ) << 1 );
@@ -6098,10 +5259,10 @@ export function cipher() :void {
         + ( ( K15_14 ^ R[ET14] ) << 2 )
         + ( ( K15_13 ^ R[ET13] ) << 3 );
       dec = SB2[ (row<<4) + col ];
-      L[IST8 ] = L[IST8 ] ^ ( (dec >> 3) & 1 );
-      L[IST9 ] = L[IST9 ] ^ ( (dec >> 2) & 1 );
-      L[IST10] = L[IST10] ^ ( (dec >> 1) & 1 );
-      L[IST11] = L[IST11] ^ ( dec & 1 );     
+      L[23] = L[23] ^ ( (dec >> 3) & 1 );
+      L[15] = L[15] ^ ( (dec >> 2) & 1 );
+      L[29] = L[29] ^ ( (dec >> 1) & 1 );
+      L[5] = L[5] ^ ( dec & 1 );     
 
       row = ( K15_23 ^ R[ET23] )
         + ( ( K15_18 ^ R[ET18] ) << 1 );
@@ -6110,10 +5271,10 @@ export function cipher() :void {
         + ( ( K15_20 ^ R[ET20] ) << 2 )
         + ( ( K15_19 ^ R[ET19] ) << 3 );
       dec = SB3[ (row<<4) + col ];
-      L[IST12] = L[IST12] ^ ( (dec >> 3) & 1 );
-      L[IST13] = L[IST13] ^ ( (dec >> 2) & 1 );
-      L[IST14] = L[IST14] ^ ( (dec >> 1) & 1 );
-      L[IST15] = L[IST15] ^ ( dec & 1 );
+      L[25] = L[25] ^ ( (dec >> 3) & 1 );
+      L[19] = L[19] ^ ( (dec >> 2) & 1 );
+      L[9] = L[9] ^ ( (dec >> 1) & 1 );
+      L[0] = L[0] ^ ( dec & 1 );
     
       row = ( K15_29 ^ R[ET29] )
         + ( ( K15_24 ^ R[ET24] ) << 1 );
@@ -6122,10 +5283,10 @@ export function cipher() :void {
         + ( ( K15_26 ^ R[ET26] ) << 2 )
         + ( ( K15_25 ^ R[ET25] ) << 3 );
       dec = SB4[ (row<<4) + col ];
-      L[IST16] = L[IST16] ^ ( (dec >> 3) & 1 );
-      L[IST17] = L[IST17] ^ ( (dec >> 2) & 1 );
-      L[IST18] = L[IST18] ^ ( (dec >> 1) & 1 );
-      L[IST19] = L[IST19] ^ ( dec & 1 );
+      L[7] = L[7] ^ ( (dec >> 3) & 1 );
+      L[13] = L[13] ^ ( (dec >> 2) & 1 );
+      L[24] = L[24] ^ ( (dec >> 1) & 1 );
+      L[2] = L[2] ^ ( dec & 1 );
 
       row = ( K15_35 ^ R[ET35] )
         + ( ( K15_30 ^ R[ET30] ) << 1 );
@@ -6134,10 +5295,10 @@ export function cipher() :void {
         + ( ( K15_32 ^ R[ET32] ) << 2 )
         + ( ( K15_31 ^ R[ET31] ) << 3 );
       dec = SB5[ (row<<4) + col ];
-      L[IST20] = L[IST20] ^ ( (dec >> 3) & 1 );
-      L[IST21] = L[IST21] ^ ( (dec >> 2) & 1 );
-      L[IST22] = L[IST22] ^ ( (dec >> 1) & 1 );
-      L[IST23] = L[IST23] ^ ( dec & 1 );
+      L[3] = L[3] ^ ( (dec >> 3) & 1 );
+      L[28] = L[28] ^ ( (dec >> 2) & 1 );
+      L[10] = L[10] ^ ( (dec >> 1) & 1 );
+      L[18] = L[18] ^ ( dec & 1 );
 
       row = ( K15_41 ^ R[ET41] )
         + ( ( K15_36 ^ R[ET36] ) << 1 );
@@ -6146,10 +5307,10 @@ export function cipher() :void {
         + ( ( K15_38 ^ R[ET38] ) << 2 )
         + ( ( K15_37 ^ R[ET37] ) << 3 );
       dec = SB6[ (row<<4) + col ];
-      L[IST24] = L[IST24] ^ ( (dec >> 3) & 1 );
-      L[IST25] = L[IST25] ^ ( (dec >> 2) & 1 );
-      L[IST26] = L[IST26] ^ ( (dec >> 1) & 1 );
-      L[IST27] = L[IST27] ^ ( dec & 1 );
+      L[31] = L[31] ^ ( (dec >> 3) & 1 );
+      L[11] = L[11] ^ ( (dec >> 2) & 1 );
+      L[21] = L[21] ^ ( (dec >> 1) & 1 );
+      L[6] = L[6] ^ ( dec & 1 );
     
       row = ( K15_47 ^ R[ET47] )
         + ( ( K15_42 ^ R[ET42] ) << 1 );
@@ -6158,10 +5319,10 @@ export function cipher() :void {
         + ( ( K15_44 ^ R[ET44] ) << 2 )
         + ( ( K15_43 ^ R[ET43] ) << 3 );
       dec = SB7[ (row<<4) + col ];
-      L[IST28] = L[IST28] ^ ( (dec >> 3) & 1 );
-      L[IST29] = L[IST29] ^ ( (dec >> 2) & 1 );
-      L[IST30] = L[IST30] ^ ( (dec >> 1) & 1 );
-      L[IST31] = L[IST31] ^ ( dec & 1 );
+      L[4] = L[4] ^ ( (dec >> 3) & 1 );
+      L[26] = L[26] ^ ( (dec >> 2) & 1 );
+      L[14] = L[14] ^ ( (dec >> 1) & 1 );
+      L[20] = L[20] ^ ( dec & 1 );
     }
   }
 
