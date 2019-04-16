@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/nishinishi9999/tripperjs#readme",
   "devDependencies": {
+    "assemblyscript": "^0.3.0",
     "mocha": "^5.2.0"
   }
 }

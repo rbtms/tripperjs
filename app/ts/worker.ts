@@ -1,5 +1,4 @@
 
-
 // Some helpers
 function store_i32(index :i32, n :i32, mem_offset :i32) :void {
   store<i8>( 20000 + (mem_offset)*13 + index, <i8>n);
