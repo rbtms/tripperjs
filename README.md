@@ -2,7 +2,7 @@
 
 ## Description
 Javascript implementation of 2ch/4chan tripcode generation algorithm.<br>
-Try it at https://robotoms.github.io/tripperjs/!
+Try it at https://rbtms.github.io/tripperjs/!
 
 ## What is this?
 It's a crypt3() based tripper, used to generate tripcodes in pages like 2ch or 4chan.
