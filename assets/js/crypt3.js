@@ -8,7 +8,6 @@
 * Contact mail : nishinishi9999@gmail.com
 *********************************************************************************************/
 
-
 /****************************************************************************
 * Tables
 *
@@ -17,22 +16,23 @@
 *
 ****************************************************************************/
 
-/***************************
-* Initial permutation (IP)
-***************************/
-// var initial_table = [
-//     57, 49, 41, 33, 25, 17,  9, 1,
-//     59, 51, 43, 35, 27, 19, 11, 3,
-//     61, 53, 45, 37, 29, 21, 13, 5,
-//     63, 55, 47, 39, 31, 23, 15, 7,
-//     56, 48, 40, 32, 24, 16,  8, 0,
-//     58, 50, 42, 34, 26, 18, 10, 2,
-//     60, 52, 44, 36, 28, 20, 12, 4,
-//     62, 54, 46, 38, 30, 22, 14, 6
-// ];
-
 /*************************************
-* Left side Initial permutation (IP)
+* Left side Initial permutation (IP) and
+* Right side of Initial permutation
+* Derived from:
+*
+* Initial permutation (IP):
+*
+* var initial_table = [
+*     57, 49, 41, 33, 25, 17,  9, 1,
+*     59, 51, 43, 35, 27, 19, 11, 3,
+*     61, 53, 45, 37, 29, 21, 13, 5,
+*     63, 55, 47, 39, 31, 23, 15, 7,
+*     56, 48, 40, 32, 24, 16,  8, 0,
+*     58, 50, 42, 34, 26, 18, 10, 2,
+*     60, 52, 44, 36, 28, 20, 12, 4,
+*     62, 54, 46, 38, 30, 22, 14, 6
+* ];
 *************************************/
 var initial_table_L = [
     57, 49, 41, 33, 25, 17,  9, 1,
@@ -40,10 +40,6 @@ var initial_table_L = [
     61, 53, 45, 37, 29, 21, 13, 5,
     63, 55, 47, 39, 31, 23, 15, 7,
 ];
-
-/*****************************************
-* Right side of Initial permutation (IP)
-*****************************************/
 var initial_table_R = [
     56, 48, 40, 32, 24, 16,  8, 0,
     58, 50, 42, 34, 26, 18, 10, 2,
@@ -110,20 +106,18 @@ var compression_table = [
     33, 52, 45, 41, 49, 35, 28, 31
 ];
 
-
-/*********************************************
-* Permutation table applied to s_box results
-*********************************************/
-// var straight_table = [
-//     15,  6, 19, 20, 28, 11, 27, 16,
-//      0, 14, 22, 25,  4, 17, 30,  9,
-//      1,  7, 23, 13, 31, 26,  2,  8,
-//     18, 12, 29,  5, 21, 10,  3, 24
-// ];
-
-
 /****************************************************
 * Inverse table of straight_table for speed reasons
+* Derived from:
+*
+* Permutation table applied to s_box results:
+*
+* straight_table = [
+*   15,  6, 19, 20, 28, 11, 27, 16,
+*    0, 14, 22, 25,  4, 17, 30,  9,
+*    1,  7, 23, 13, 31, 26,  2,  8,
+*   18, 12, 29,  5, 21, 10,  3, 24
+* ];
 ****************************************************/
 var inverse_straight_table = [
      8, 16, 22, 30, 12, 27,  1, 17,
@@ -256,6 +250,7 @@ function generate_round_keys(key) {
 ********************************************************************/
 function cipher(data) {
     var n, m;
+    var round_n;
     var k;
     var temp;
     var pos, row, col, dec;
@@ -265,15 +260,18 @@ function cipher(data) {
     
     /*******************************************************************
     * Apply initial permutation and separate into left and right parts
+    * (both 32 bits long)
     *******************************************************************/
-    for(n = 0; n < 32; n++) { L[n] = data[initial_table_L[n]]; }
-    for(n = 0; n < 32; n++) { R[n] = data[initial_table_R[n]]; }
+    for(n = 0; n < 32; n++) {
+        L[n] = data[initial_table_L[n]];
+        R[n] = data[initial_table_R[n]];
+    }
     
     /*********************
     * Round 0 through 16
     *********************/
-    for(n = 0; n < 16; n++) {
-        k = K[n];
+    for(round_n = 0; round_n < 16; round_n++) {
+        k = K[round_n];
 
         /***************************
         * Apply S-Box permutations
@@ -295,18 +293,25 @@ function cipher(data) {
             *      row/pos = (des_R[pos]) << (n + des_R[pos+m])...
             *
             ******************************************************************************/
+           // R (4 bit) -> 6 bit
+           // k (6 bit) ^ R (6 bit) -> 6 bit
             pos = m*6;
-            row =   (k[pos+5]^R[expansion_table[pos+5]])
-                + ( (k[pos]  ^R[expansion_table[pos]])   << 1 );
-            col =    k[pos+4]^R[expansion_table[pos+4]]
-                + ( (k[pos+3]^R[expansion_table[pos+3]]) << 1 )
-                + ( (k[pos+2]^R[expansion_table[pos+2]]) << 2 )
-                + ( (k[pos+1]^R[expansion_table[pos+1]]) << 3 );
+            row =   (k[pos+5] ^ R[expansion_table[pos+5]])
+                | ( (k[pos]   ^ R[expansion_table[pos]])   << 1 );
+            col =    k[pos+4] ^ R[expansion_table[pos+4]]
+                | ( (k[pos+3] ^ R[expansion_table[pos+3]]) << 1 )
+                | ( (k[pos+2] ^ R[expansion_table[pos+2]]) << 2 )
+                | ( (k[pos+1] ^ R[expansion_table[pos+1]]) << 3 );
+
+                    
+            // const x = k_6^r_6;
+            // row = (x>>5) | ((x&1)<<1);
+            // col = (x>>2);
+            // col = ((x>>4)&1) | (((x>>3)&1)<<1) | (((x>>2)&1)<<2) | (((x>>1)&1)<<3);
     
-            /*******************************
-            * Get decimal value from s-box
-            *******************************/
-            dec = s_box_table[m*64 + row*16 + col];
+            // Get decimal value from s-box
+            // 6 bit -> dec (4 bit)
+            dec = s_box_table[m*64 + row*16 + col]; // 32 bit
     
             /***************************************************************
             * Convert dec to bin,
@@ -317,16 +322,14 @@ function cipher(data) {
             *
             ****************************************************************/
             pos = m*4;
-            L[inverse_straight_table[pos]]   ^= (dec >> 3) & 1;
+            L[inverse_straight_table[pos]]   ^= (dec >> 3) & 1; // 4 bit
             L[inverse_straight_table[pos+1]] ^= (dec >> 2) & 1;
             L[inverse_straight_table[pos+2]] ^= (dec >> 1) & 1;
             L[inverse_straight_table[pos+3]] ^=  dec & 1;
         }        
         
-        /****************************************************
-        * Swap L and R (skip last round to allow reversing)
-        *****************************************************/
-        if(n != 15) {
+        // Swap L and R (skip last round to allow reversing)
+        if(round_n != 15) {
             temp = L;
             L    = R;
             R    = temp;
