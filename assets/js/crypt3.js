@@ -193,15 +193,14 @@ var s_box_table = [
 //var shift_table  = [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1];
 var shift_offset = [1, 2, 4, 6, 8, 10, 12, 14, 15, 17, 19, 21, 23, 25, 27, 28];
 
+// Round keys
+var K = new Array(16).fill();
+for(var n = 0; n < 16; n++) { K[n] = new Array(48).fill(0); }
 
-
-/************
-* Functions
-************/
-
-/*********
-* DES.js
-*********/
+// Magic numbers
+const CHAR_CODE_Z   = 90;
+const CHAR_CODE_9   = 57;
+const CHAR_CODE_DOT = 46;
 
 /************************************************************************************
 * Description : gen_round_keys(): Generate 16 48-bit round keys from one 64-bit key
@@ -211,25 +210,20 @@ var shift_offset = [1, 2, 4, 6, 8, 10, 12, 14, 15, 17, 19, 21, 23, 25, 27, 28];
 * Notes       : Nothing
 * TODO        : Nothing
 ************************************************************************************/
-var K = new Array(16);
-for(var n = 0; n < 16; n++) { K[n] = new Array(48).fill(0); }
-
-var parity_drop = new Array(56).fill(0);
-
-function gen_round_keys(key) {
-    var n, m;
-    var value;
-    var offset;
+function generate_round_keys(key) {
+    let parity_drop = new Array(56).fill(0);
 
     /***********************************************************************
     * Apply parity drop permutation and separate into left and right parts
     ***********************************************************************/
-    for(n = 0; n < 56; n++) { parity_drop[n] = key[parity_drop_table[n]]; }
+    for(let n = 0; n < 56; n++) {
+        parity_drop[n] = key[parity_drop_table[n]];
+    }
     
     /**********************
     * Generate round keys
     **********************/
-    for(n = 0; n < 16; n++) {
+    for(let n = 0; n < 16; n++) {
         /****************************************************
         * Circular left shift (1, 2, 9, 16: 1; rest: 2)
         *
@@ -238,13 +232,13 @@ function gen_round_keys(key) {
         * offset representing the 0 index of the left and
         * right arrays.
         ****************************************************/
-        offset = shift_offset[n] ;
+        const offset = shift_offset[n] ;
         
         /********************************
         * Apply compression permutation
         ********************************/
-        for(m = 0; m < 48; m++) {
-            value = compression_table[m];
+        for(let m = 0; m < 48; m++) {
+            const value = compression_table[m];
             
             K[n][m] = value < 28 ?
                 parity_drop[(offset + value)%28] :
@@ -260,7 +254,7 @@ function gen_round_keys(key) {
 * Returns     : Nothing
 * Sets global : data (array) - The same array as the input
 ********************************************************************/
-function cipher() {
+function cipher(data) {
     var n, m;
     var k;
     var temp;
@@ -327,8 +321,7 @@ function cipher() {
             L[inverse_straight_table[pos+1]] ^= (dec >> 2) & 1;
             L[inverse_straight_table[pos+2]] ^= (dec >> 1) & 1;
             L[inverse_straight_table[pos+3]] ^=  dec & 1;
-        }
-        
+        }        
         
         /****************************************************
         * Swap L and R (skip last round to allow reversing)
@@ -352,10 +345,6 @@ function cipher() {
 }
 
 
-/************
-* crypt3.js
-************/
-
 /************************************************************
 * Name        : perturb_expansion
 * Description : Perturbs expansion table with provided salt
@@ -365,41 +354,69 @@ function cipher() {
 * Notes       : It is reversible, so if it's called twice
 *               it returns to its original state
 ************************************************************/
-var CHAR_CODE_Z   = 90;
-var CHAR_CODE_9   = 57;
-var CHAR_CODE_DOT = 46;
-
 function perturb_expansion(salt) {
-        var n, m;
-        var a, b;
-        var c;
-        var temp;
-        var row;
-        
-        for(n = 0; n < 2; n++) {
-            c = salt[n].charCodeAt();
+    for(let n = 0; n < 2; n++) {
+        let c = salt[n].charCodeAt();
 
-            if(c > CHAR_CODE_Z) { c -= 6; }
-            if(c > CHAR_CODE_9) { c -= 7; }
-            c   -= CHAR_CODE_DOT;
-            
-            row = 6*n;
-            for(m = 0; m < 6; m++) {
-                /********************************************
-                * Right shift through the first 6 bits of c
-                * and perturb the expansion_table if it's 1
-                ********************************************/
-                if((c >> m) & 1) {
-                    a = row + m;
-                    b = row + m + 24;
-                    
-                    temp               = expansion_table[a];
-                    expansion_table[a] = expansion_table[b];
-                    expansion_table[b] = temp;
-                }
+        if(c > CHAR_CODE_Z) { c -= 6; }
+        if(c > CHAR_CODE_9) { c -= 7; }
+        c   -= CHAR_CODE_DOT;
+        
+        const row = 6*n;
+        for(let m = 0; m < 6; m++) {
+            /********************************************
+            * Right shift through the first 6 bits of c
+            * and perturb the expansion_table if it's 1
+            ********************************************/
+            if((c >> m) & 1) {
+                const a = row + m;
+                const b = row + m + 24;
+                
+                const temp         = expansion_table[a];
+                expansion_table[a] = expansion_table[b];
+                expansion_table[b] = temp;
             }
         }
     }
+}
+
+function to_binary_array(pwd) {
+    let pwd_bin = new Uint8Array(64);
+
+    for(n = 0; n < 8; n++) {
+        const c   = pwd[n].charCodeAt();
+        const row = n*8;                
+                
+        for(let m = 0; m < 7; m++) {
+            pwd_bin[row + m] = ( c >> (6-m) ) & 1;
+        }
+    }
+
+    return pwd_bin;
+}
+
+function format_digest(data, salt) {
+    // Set the two first characters of the digest to the salt
+    let digest = salt;
+
+    for(let n = 0; n < 11; n++) {
+        const row = 6*n;
+        let c = 0;
+        
+        for(let m = 0; m < 6; m++) {
+            c <<= 1;
+            c |= data[row + m];
+        }
+
+        c   += CHAR_CODE_DOT;
+        if(c > CHAR_CODE_9) { c += 7; }
+        if(c > CHAR_CODE_Z) { c += 6; }
+
+        digest += String.fromCharCode(c);
+    }
+        
+    return digest;
+}
 
 /******************************************************************
 * Name        : crypt3
@@ -410,73 +427,21 @@ function perturb_expansion(salt) {
 *
 * Returns     : digest (string) - Ascii string with the digest
 ******************************************************************/
-var data    = new Uint8Array(64);
-var pwd_bin = new Uint8Array(64);
-
 export function crypt3(pwd, salt) {
-    var digest = '';
-    var n, m;
-    var c;
-    var row;
-    var pad;
-    
-    /*********************************************************
-    * Set the two first characters of the digest to the salt
-    *********************************************************/
-    digest = salt;        
-    
-    /******************************************
-    * Use salt to perturb the expansion table
-    ******************************************/
+    let data = new Uint8Array(64).fill(0);
+    const pwd_bin = to_binary_array(pwd);
+
+    // Use salt to perturb the expansion table
     perturb_expansion(salt);        
+    generate_round_keys(pwd_bin);
     
-    /******************************
-    * Convert pwd to binary array
-    ******************************/
-    for(n = 0; n < 8; n++) {
-        c   = pwd[n].charCodeAt();
-        row = n*8;                
-                
-        for(m = 0; m < 7; m++) {
-            pwd_bin[row + m] = ( c >> (6-m) ) & 1;
-        }
+    // Crypt(3) calls DES3 25 times
+    for(let n = 0; n < 25; n++) {
+        cipher(data);
     }
-        
-    /**********************
-    * Generate round keys
-    **********************/
-    gen_round_keys(pwd_bin);
     
-    /***********************
-    * Call cipher 25 times
-    ***********************/
-    data.fill(0);
-    for(n = 0; n < 25; n++) { cipher(); }
-    
-    /****************************************************
-    * Return expansion table to normal (might be buggy)
-    ****************************************************/
+    // Return expansion table to normal (might be buggy)
     perturb_expansion(salt);
-    
-    /****************
-    * Format digest
-    ****************/
-    for(n = 0; n < 11; n++) {
-        row = 6*n;
-        c   = 0;
-        
-        for(m = 0; m < 6; m++)
-            {
-                c <<= 1;
-                c |= data[row + m];
-            }
 
-        c   += CHAR_CODE_DOT;
-        if(c > CHAR_CODE_9) { c += 7; }
-        if(c > CHAR_CODE_Z) { c += 6; }
-
-        digest += String.fromCharCode(c);
-    }
-        
-    return digest;
+    return format_digest(data, salt);
 }
