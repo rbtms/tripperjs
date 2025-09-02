@@ -186,6 +186,7 @@ static S_VAL: [usize; 64*8] = {
                 | ((dec>>1)&1) << (INVERSE_STRAIGHT_TABLE[pos+2] as u32)
                 | (dec&1)      << (INVERSE_STRAIGHT_TABLE[pos+3] as u32);
 
+
             s_val[m*64+i] = mod_val;
             i += 1;
         }
@@ -253,7 +254,7 @@ fn generate_round_keys(key: &[u8;64]) -> [u64; 16]{
     K
 }
 
-fn cipher(data: &mut [u8; 64], K: &[u64; 16], expansion_table: &[usize; 48]) {
+fn cipher(data: &mut [u8; 64], K: &[u64; 16], r_expanded_precomputed: &[[u64; 256]; 4]) {
     /*******************************************************************
     * Apply initial permutation and separate into left and right parts
     * (both 32 bits long)
@@ -272,10 +273,10 @@ fn cipher(data: &mut [u8; 64], K: &[u64; 16], expansion_table: &[usize; 48]) {
     for round_n in 0..16 {
         let k = K[round_n];
 
-        let mut r_expanded = 0u64;
-        for i in 0..48 {
-            r_expanded |= (((R>>expansion_table[i]) as u64)&1) << i;
-        }
+        let r_expanded = r_expanded_precomputed[0][(R&0xFF) as usize]
+            | r_expanded_precomputed[1][((R>>8)&0xFF) as usize]
+            | r_expanded_precomputed[2][((R>>16)&0xFF) as usize]
+            | r_expanded_precomputed[3][((R>>24)&0xFF) as usize];
         
         /***************************
         * Apply S-Box permutations
@@ -399,21 +400,52 @@ fn format_digest(data: [u8; 64], salt: &str) -> String {
     digest
 }
 
+fn generate_r_expanded_tables(salt: &str) -> [[u64; 256]; 4] {
+    // Use salt to perturb the expansion table
+    let expansion_table = perturb_expansion(salt);
+
+    let mut table0_8   = [0u64; 256];
+    let mut table8_16  = [0u64; 256];
+    let mut table16_24 = [0u64; 256];
+    let mut table24_32 = [0u64; 256];
+
+    for (i, &n) in expansion_table.iter().enumerate() {            
+        let local_bit = n%8;
+        let mask = 1u64 << i;
+
+        match n/8 {
+            0 => for r in 0..256 {
+                // if (((r as u64) >> local_bit) & 1) { apply mask }
+                table0_8[r] |= mask & (((r as u64) >> local_bit) & 1)<<i;
+            },
+            1 => for r in 0..256 {
+                table8_16[r] |= mask & (((r as u64) >> local_bit) & 1)<<i;
+            },
+            2 => for r in 0..256 {
+                table16_24[r] |= mask & (((r as u64) >> local_bit) & 1)<<i;
+            },
+            3 => for r in 0..256 {
+                table24_32[r] |= mask & (((r as u64) >> local_bit) & 1)<<i;
+            },
+            _ => {}
+        }
+    }
+
+    [ table0_8, table8_16, table16_24, table24_32 ]
+}
+
 #[allow(static_mut_refs)]
 #[wasm_bindgen]
 pub fn crypt3(pwd: &str, salt: &str) -> String {
     let mut data = [0u8; 64];
     let pwd_bin = to_binary_array(pwd);
-
-    // Use salt to perturb the expansion table
-    let expansion_table = perturb_expansion(salt);
     let K = generate_round_keys(&pwd_bin);
+    let r_expanded_precomputed = generate_r_expanded_tables(salt);
 
     // Crypt(3) calls DES3 25 times
     for _ in 0..25 {
-        cipher(&mut data, &K, &expansion_table);
+        cipher(&mut data, &K, &r_expanded_precomputed);
     }
-
     
     format_digest(data, salt)
 }
