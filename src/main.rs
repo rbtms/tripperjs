@@ -362,12 +362,10 @@ fn to_binary_array(pwd: &str) -> [u8; 64] {
     let mut pwd_bin  = [0u8; 64];
     let bytes = pwd.as_bytes();
 
-    for n in 0..8 {
-        let c   = bytes[n];
+    for (n, &c) in bytes.iter().enumerate() {
         let row = n*8;
-
-        for m in 0..7 {     
-            pwd_bin[row + m] = ( c >> (6-m) ) & 1;
+        for m in 0..7 {
+            pwd_bin[row as usize + m as usize] = ( c >> (6-m) ) & 1;
         }
     }
 
@@ -411,18 +409,18 @@ fn generate_r_expanded_tables(salt: &str) -> [[u64; 256]; 4] {
         let mask = 1u64 << i;
 
         match n/8 {
-            0 => for r in 0..256 {
-                // if (((r as u64) >> local_bit) & 1) { apply mask }
-                table0_8[r] |= mask & (((r as u64) >> local_bit) & 1)<<i;
+            0 => for r in 0..256u64 {
+                // if ((r >> local_bit) & 1) { apply mask }
+                table0_8[r as usize] |= mask & ((r >> local_bit) & 1)<<i;
             },
-            1 => for r in 0..256 {
-                table8_16[r] |= mask & (((r as u64) >> local_bit) & 1)<<i;
+            1 => for r in 0..256u64 {
+                table8_16[r as usize] |= mask & ((r >> local_bit) & 1)<<i;
             },
-            2 => for r in 0..256 {
-                table16_24[r] |= mask & (((r as u64) >> local_bit) & 1)<<i;
+            2 => for r in 0..256u64 {
+                table16_24[r as usize] |= mask & ((r >> local_bit) & 1)<<i;
             },
-            3 => for r in 0..256 {
-                table24_32[r] |= mask & (((r as u64) >> local_bit) & 1)<<i;
+            3 => for r in 0..256u64 {
+                table24_32[r as usize] |= mask & ((r >> local_bit) & 1)<<i;
             },
             _ => {}
         }
@@ -465,7 +463,7 @@ pub fn crypt3(pwd: &str, salt: &str) -> String {
     let K = generate_round_keys(&pwd_bin);
     let r_expanded_precomputed = generate_r_expanded_tables_cached(salt);
 
-    // Crypt(3) calls DES3 25 times
+    // Crypt(3) calls 3DES 25 times
     for _ in 0..25 {
         cipher(&mut data, &K, &r_expanded_precomputed);
     }
@@ -533,7 +531,4 @@ pub fn run_1000_iterations() {
     }
 }
 
-fn main() {
-    println!("Hello, world!");
-    println!("crypt password password: {}", crypt3("password", "password"));
-}
+fn main() {}
