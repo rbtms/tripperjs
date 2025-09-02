@@ -41,7 +41,7 @@ fn test_correctness() {
 fn test_performance() {
     println!("Running performance test...");
 
-    let target_duration = std::time::Duration::from_secs(10);
+    let target_duration = std::time::Duration::from_secs(4);
     let start = Instant::now();
     let mut iterations = 0;
 

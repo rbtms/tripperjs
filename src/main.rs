@@ -1,5 +1,7 @@
 use wasm_bindgen::prelude::*;
 use rand::{distributions::Alphanumeric, Rng};
+use std::sync::OnceLock;
+use std::collections::HashMap;
 
 /*************************************
 * Left side Initial permutation (IP) and
@@ -377,7 +379,7 @@ fn to_binary_array(pwd: &str) -> [u8; 64] {
     pwd_bin
 }
 
-fn format_digest(data: [u8; 64], salt: &str) -> String {
+fn format_digest(data: &[u8; 64], salt: &str) -> String {
     // Set the two first characters of the digest to the salt
     let mut digest = String::from(&salt[0..2]);
 
@@ -434,20 +436,46 @@ fn generate_r_expanded_tables(salt: &str) -> [[u64; 256]; 4] {
     [ table0_8, table8_16, table16_24, table24_32 ]
 }
 
+static R_EXPANDED_CACHE: OnceLock<std::sync::Mutex<HashMap<[u8; 2], [[u64; 256]; 4]>>> = OnceLock::new();
+fn generate_r_expanded_tables_cached(salt: &str) -> [[u64; 256]; 4] {
+    let key = [salt.as_bytes()[0], salt.as_bytes()[1]];
+    // Initialize the global cache once
+    let cache = R_EXPANDED_CACHE.get_or_init(|| std::sync::Mutex::new(HashMap::new()));
+    
+    // Check the cache
+    { let map = cache.lock().unwrap();
+      if let Some(tables) = map.get(&key) {
+          return *tables; // [[u64;256];4] is Copy, so cheap
+      }
+    }
+
+    // Not in cache
+    let tables = generate_r_expanded_tables(salt);
+
+    // Insert into cache
+    { let mut map = cache.lock().unwrap();
+      map.insert(key, tables);
+    }
+
+    tables
+}
+
 #[allow(static_mut_refs)]
 #[wasm_bindgen]
 pub fn crypt3(pwd: &str, salt: &str) -> String {
+    // Keep only the first 2 characters
+    let salt = &salt[0..2];
     let mut data = [0u8; 64];
     let pwd_bin = to_binary_array(pwd);
     let K = generate_round_keys(&pwd_bin);
-    let r_expanded_precomputed = generate_r_expanded_tables(salt);
+    let r_expanded_precomputed = generate_r_expanded_tables_cached(salt);
 
     // Crypt(3) calls DES3 25 times
     for _ in 0..25 {
         cipher(&mut data, &K, &r_expanded_precomputed);
     }
     
-    format_digest(data, salt)
+    format_digest(&data, salt)
 }
 
 /*
