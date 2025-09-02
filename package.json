@@ -4,7 +4,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "node test/test.js"
+    "test": "node tests/test.js",
+    "test_wasm": "node tests/test_wasm.js",
+    "build_wasm": "wasm-pack build --target nodejs",
+    "build_wasm_web": "wasm-pack build --target web"
   },
   "repository": {
     "type": "git",

@@ -1,20 +1,5 @@
-/*********************************************************************************************
-* Name         : tripper.js
-* Description  : Javascript implementation of 2ch/4chan tripcode generation algorithm
-*
-* Version      : 1.0
-* License      : GPL 3.0
-* Author       : Alvaro Fernandez (nishinishi)
-* Contact mail : nishinishi9999@gmail.com
-*********************************************************************************************/
-
-/****************************************************************************
-* Tables
-*
-* Note: All tables except s_box_table have all their entries reduced by one
-*       to avoid constant substracting operations
-*
-****************************************************************************/
+use wasm_bindgen::prelude::*;
+use rand::{distributions::Alphanumeric, Rng};
 
 /*************************************
 * Left side Initial permutation (IP) and
@@ -34,13 +19,13 @@
 *     62, 54, 46, 38, 30, 22, 14, 6
 * ];
 *************************************/
-var initial_table_L = [
+const INITIAL_TABLE_L: [usize; 32] = [
     57, 49, 41, 33, 25, 17,  9, 1,
     59, 51, 43, 35, 27, 19, 11, 3,
     61, 53, 45, 37, 29, 21, 13, 5,
     63, 55, 47, 39, 31, 23, 15, 7,
 ];
-var initial_table_R = [
+const INITIAL_TABLE_R: [usize; 32] = [
     56, 48, 40, 32, 24, 16,  8, 0,
     58, 50, 42, 34, 26, 18, 10, 2,
     60, 52, 44, 36, 28, 20, 12, 4,
@@ -50,7 +35,7 @@ var initial_table_R = [
 /***************************
 * Final permutation (IP-1)
 ***************************/
-// var final_table = [
+// static FINAL_TABLE: [u8; 64] = [
 //     39, 7, 47, 15, 55, 23, 63, 31,
 //     38, 6, 46, 14, 54, 22, 62, 30,
 //     37, 5, 45, 13, 53, 21, 61, 29,
@@ -66,7 +51,7 @@ var initial_table_R = [
 * Expansion table (E) used in the DES function
 * to expand R from 32 bits to 48
 ***********************************************/
-var expansion_table =  [
+static mut EXPANSION_TABLE: [usize; 48] =  [
     31,  0,  1,  2,  3,  4,
     3,   4,  5,  6,  7,  8,
     7,   8,  9, 10, 11, 12,
@@ -82,7 +67,7 @@ var expansion_table =  [
 * Parity drop table used to contract the key
 * from 64 bits to 56 and to permutate the result
 *************************************************/
-var parity_drop_table = [
+static PARITY_DROP_TABLE: [usize; 56] = [
     56, 48, 40, 32, 24, 16,  8,  0,
     57, 49, 41, 33, 25, 17,  9,  1,
     58, 50, 42, 34, 26, 18, 10,  2,
@@ -97,7 +82,7 @@ var parity_drop_table = [
 * Compression table used to contract round keys
 * from 56 bits to 48 bits
 ************************************************/
-var compression_table = [
+static COMPRESSION_TABLE: [usize; 48] = [
     13, 16, 10, 23,  0,  4,  2, 27,
     14,  5, 20,  9, 22, 18, 11,  3,
     25,  7, 15,  6, 26, 19, 12,  1,
@@ -119,7 +104,7 @@ var compression_table = [
 *   18, 12, 29,  5, 21, 10,  3, 24
 * ];
 ****************************************************/
-var inverse_straight_table = [
+static INVERSE_STRAIGHT_TABLE: [usize; 32] = [
      8, 16, 22, 30, 12, 27,  1, 17,
     23, 15, 29,  5, 25, 19,  9,  0,
      7, 13, 24,  2,  3, 28, 10, 18,
@@ -130,7 +115,7 @@ var inverse_straight_table = [
 /******************************************
 * S-Box tables, the core of the algorithm
 ******************************************/
-var s_box_table = [
+static S_BOX_TABLE: [usize; 512] = [
     /**** s-box 0 ****/
     14,  4, 13,  1,  2, 15, 11,  8,  3, 10,  6, 12,  5,  9,  0,  7,
      0, 15,  7,  4, 14,  2, 13,  1, 10,  6, 12, 11,  9,  5,  3,  8,
@@ -184,40 +169,31 @@ var s_box_table = [
 * Number of left shifts to apply in each round key generation round
 * and precalculated offset for speed reasons
 ********************************************************************/
-//var shift_table  = [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1];
-var shift_offset = [1, 2, 4, 6, 8, 10, 12, 14, 15, 17, 19, 21, 23, 25, 27, 28];
+//static SHIFT_TABLE: [usize; 16] = [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1];
+static SHIFT_OFFSET: [usize; 16] = [1, 2, 4, 6, 8, 10, 12, 14, 15, 17, 19, 21, 23, 25, 27, 28];
 
 // Round keys
-var K = new Array(16).fill();
-for(var n = 0; n < 16; n++) { K[n] = new Array(48).fill(0); }
+static mut K: [[u8; 48]; 16] = [[0u8; 48]; 16];
 
 // Magic numbers
-const CHAR_CODE_Z   = 90;
-const CHAR_CODE_9   = 57;
-const CHAR_CODE_DOT = 46;
+const CHAR_CODE_Z: u8   = 90;
+const CHAR_CODE_9: u8   = 57;
+const CHAR_CODE_DOT: u8 = 46;
 
-/************************************************************************************
-* Description : gen_round_keys(): Generate 16 48-bit round keys from one 64-bit key
-* Takes       : key (arrayref) - 48 bit binary array
-* Returns     : nothing
-* Sets global : K[0-15]
-* Notes       : Nothing
-* TODO        : Nothing
-************************************************************************************/
-function generate_round_keys(key) {
-    let parity_drop = new Array(56).fill(0);
+unsafe fn generate_round_keys(key: &[u8;64]) {
+    let mut parity_drop = [0u8;56];
 
     /***********************************************************************
     * Apply parity drop permutation and separate into left and right parts
     ***********************************************************************/
-    for(let n = 0; n < 56; n++) {
-        parity_drop[n] = key[parity_drop_table[n]];
+    for n in 0..56 {
+        parity_drop[n] = key[PARITY_DROP_TABLE[n]];
     }
     
     /**********************
     * Generate round keys
     **********************/
-    for(let n = 0; n < 16; n++) {
+    for n in 0..16 {
         /****************************************************
         * Circular left shift (1, 2, 9, 16: 1; rest: 2)
         *
@@ -226,57 +202,48 @@ function generate_round_keys(key) {
         * offset representing the 0 index of the left and
         * right arrays.
         ****************************************************/
-        const offset = shift_offset[n] ;
+        let offset = SHIFT_OFFSET[n] ;
         
         /********************************
         * Apply compression permutation
         ********************************/
-        for(let m = 0; m < 48; m++) {
-            const value = compression_table[m];
+        for m in 0..48 {
+            let value = COMPRESSION_TABLE[m];
             
-            K[n][m] = value < 28 ?
-                parity_drop[(offset + value)%28] :
-                parity_drop[(offset + value%28)%28 + 28];
+             // Modification of static mut
+            K[n][m] = if value < 28 {
+                parity_drop[(offset + value)%28]
+            } else  {
+                parity_drop[(offset + value%28)%28 + 28]
             }
+        
         }
+    }
 }
 
-/********************************************************************
-* Name        : cipher
-* Description : Encrypt and decrypt data with the DES algorithm
-* Takes       : data (array) - 64 bit binary array containing input
-* Returns     : Nothing
-* Sets global : data (array) - The same array as the input
-********************************************************************/
-function cipher(data) {
-    var n, m;
-    var round_n;
-    var k;
-    var temp;
-    var pos, row, col, dec;
-
-    let L = new Uint8Array(32).fill(0);
-    let R = new Uint8Array(32).fill(0);
+unsafe fn cipher(data: &mut [u8; 64]) {
+    let mut L = [0u8; 32];
+    let mut R = [0u8; 32];
     
     /*******************************************************************
     * Apply initial permutation and separate into left and right parts
     * (both 32 bits long)
     *******************************************************************/
-    for(n = 0; n < 32; n++) {
-        L[n] = data[initial_table_L[n]];
-        R[n] = data[initial_table_R[n]];
+    for n in 0..32 {
+        L[n] = data[INITIAL_TABLE_L[n]];
+        R[n] = data[INITIAL_TABLE_R[n]];
     }
     
     /*********************
     * Round 0 through 16
     *********************/
-    for(round_n = 0; round_n < 16; round_n++) {
-        k = K[round_n];
+    for round_n in 0..16 {
+        let k = K[round_n];
 
         /***************************
         * Apply S-Box permutations
         ***************************/
-        for(m = 0; m < 8; m++) {
+        for m in 0..8 {
             /*****************************************************************************
             * Convert from binary to decimal every six bits
             *
@@ -295,13 +262,13 @@ function cipher(data) {
             ******************************************************************************/
            // R (4 bit) -> 6 bit
            // k (6 bit) ^ R (6 bit) -> 6 bit
-            pos = m*6;
-            row =   (k[pos+5] ^ R[expansion_table[pos+5]])
-                | ( (k[pos]   ^ R[expansion_table[pos]])   << 1 );
-            col =    k[pos+4] ^ R[expansion_table[pos+4]]
-                | ( (k[pos+3] ^ R[expansion_table[pos+3]]) << 1 )
-                | ( (k[pos+2] ^ R[expansion_table[pos+2]]) << 2 )
-                | ( (k[pos+1] ^ R[expansion_table[pos+1]]) << 3 );
+            let pos = m*6;
+            let row = (k[pos+5] ^ R[EXPANSION_TABLE[pos+5]])
+                | ( (k[pos] ^ R[EXPANSION_TABLE[pos]])   << 1 );
+            let col = k[pos+4] ^ R[EXPANSION_TABLE[pos+4]]
+                | ( (k[pos+3] ^ R[EXPANSION_TABLE[pos+3]]) << 1 )
+                | ( (k[pos+2] ^ R[EXPANSION_TABLE[pos+2]]) << 2 )
+                | ( (k[pos+1] ^ R[EXPANSION_TABLE[pos+1]]) << 3 );
 
                     
             // const x = k_6^r_6;
@@ -311,7 +278,7 @@ function cipher(data) {
     
             // Get decimal value from s-box
             // 6 bit -> dec (4 bit)
-            dec = s_box_table[m*64 + row*16 + col]; // 32 bit
+            let dec = S_BOX_TABLE[m*64 + row as usize*16 + col as usize] as u8; // 32 bit
     
             /***************************************************************
             * Convert dec to bin,
@@ -321,18 +288,18 @@ function cipher(data) {
             * for(n = 0; n < 32; n++) { L ^= S_output[straight_table[n]]; }
             *
             ****************************************************************/
-            pos = m*4;
-            L[inverse_straight_table[pos]]   ^= (dec >> 3) & 1; // 4 bit
-            L[inverse_straight_table[pos+1]] ^= (dec >> 2) & 1;
-            L[inverse_straight_table[pos+2]] ^= (dec >> 1) & 1;
-            L[inverse_straight_table[pos+3]] ^=  dec & 1;
+            let pos = m*4;
+            L[INVERSE_STRAIGHT_TABLE[pos]]   ^= (dec >> 3) & 1; // 4 bit
+            L[INVERSE_STRAIGHT_TABLE[pos+1]] ^= (dec >> 2) & 1;
+            L[INVERSE_STRAIGHT_TABLE[pos+2]] ^= (dec >> 1) & 1;
+            L[INVERSE_STRAIGHT_TABLE[pos+3]] ^=  dec & 1;
         }        
         
         // Swap L and R (skip last round to allow reversing)
-        if(round_n != 15) {
-            temp = L;
-            L    = R;
-            R    = temp;
+        if round_n != 15 {
+            let temp = L;
+            L = R;
+            R = temp;
         }
     }
 
@@ -343,111 +310,164 @@ function cipher(data) {
     * as the number of rounds is even, L and R return to
     * their original place
     *****************************************************/
-    for(n = 0; n < 32; n++) { data[initial_table_L[n]] = L[n]; }
-    for(n = 0; n < 32; n++) { data[initial_table_R[n]] = R[n]; }
+    for n in 0..32 {
+        data[INITIAL_TABLE_L[n]] = L[n];
+        data[INITIAL_TABLE_R[n]] = R[n];
+    }
 }
 
+unsafe fn perturb_expansion(salt: &str) {
+    let salt_bytes = salt.as_bytes();
 
-/************************************************************
-* Name        : perturb_expansion
-* Description : Perturbs expansion table with provided salt
-* Takes       : salt (string) - Two character string
-* Returns     : Nothing
-* Sets global : perturb_expansion(salt)
-* Notes       : It is reversible, so if it's called twice
-*               it returns to its original state
-************************************************************/
-function perturb_expansion(salt) {
-    for(let n = 0; n < 2; n++) {
-        let c = salt[n].charCodeAt();
+    for n in 0..2 {
+        let mut c = salt_bytes[n];
 
-        if(c > CHAR_CODE_Z) { c -= 6; }
-        if(c > CHAR_CODE_9) { c -= 7; }
-        c   -= CHAR_CODE_DOT;
+        if c > CHAR_CODE_Z { c -= 6; }
+        if c > CHAR_CODE_9 { c -= 7; }
+        c -= CHAR_CODE_DOT;
         
-        const row = 6*n;
-        for(let m = 0; m < 6; m++) {
+        let row = 6*n;
+        for m in 0..6 {
             /********************************************
             * Right shift through the first 6 bits of c
             * and perturb the expansion_table if it's 1
             ********************************************/
-            if((c >> m) & 1) {
-                const a = row + m;
-                const b = row + m + 24;
+            if ((c >> m) & 1) == 1 {
+                let a = row + m;
+                let b = row + m + 24;
                 
-                const temp         = expansion_table[a];
-                expansion_table[a] = expansion_table[b];
-                expansion_table[b] = temp;
+                let temp    = EXPANSION_TABLE[a];
+                EXPANSION_TABLE[a] = EXPANSION_TABLE[b];
+                EXPANSION_TABLE[b] = temp;
             }
         }
     }
 }
 
-function to_binary_array(pwd) {
-    let pwd_bin = new Uint8Array(64);
+fn to_binary_array(pwd: &str) -> [u8; 64] {
+    let mut pwd_bin  = [0u8; 64];
+    let bytes = pwd.as_bytes();
 
-    for(n = 0; n < 8; n++) {
-        const c   = pwd[n].charCodeAt();
-        const row = n*8;                
-                
-        for(let m = 0; m < 7; m++) {
+    for n in 0..8 {
+        let c   = bytes[n];
+        let row = n*8;
+
+        for m in 0..7 {     
             pwd_bin[row + m] = ( c >> (6-m) ) & 1;
         }
     }
 
-    return pwd_bin;
+    pwd_bin
 }
 
-function format_digest(data, salt) {
+fn format_digest(data: [u8; 64], salt: &str) -> String {
     // Set the two first characters of the digest to the salt
-    let digest = salt.slice(0, 2);//salt[0], salt[1];
+    let mut digest = String::from(&salt[0..2]);
 
-    for(let n = 0; n < 11; n++) {
-        const row = 6*n;
-        let c = 0;
+    for n in 0..11 {
+        let row = 6*n;
+        let mut c = 0;
         
-        // TODO: It's 2 bytes off.
-        for(let m = 0; m < 6; m++) {
+        for m in 0..6 {
             c <<= 1;
-            c |= data[row + m];
+            c |= if row + m >= 64 {0} else {data[row + m]};
         }
 
-        c   += CHAR_CODE_DOT;
-        if(c > CHAR_CODE_9) { c += 7; }
-        if(c > CHAR_CODE_Z) { c += 6; }
+        c += CHAR_CODE_DOT;
+        if c > CHAR_CODE_9 { c += 7; }
+        if c > CHAR_CODE_Z { c += 6; }
 
-        digest += String.fromCharCode(c);
+        digest.push(c as char);
     }
         
-    return digest;
+    digest
 }
 
-/******************************************************************
-* Name        : crypt3
-* Description : DES-based UNIX crypt(3) javascript implementation
-*
-* Takes       : pwd (string)  - 8 byte ascii string
-*               salt (string) - 1 or 2 byte ascii string
-*
-* Returns     : digest (string) - Ascii string with the digest
-******************************************************************/
-export function crypt3(pwd, salt) {
-    let data = new Uint8Array(64).fill(0);
-    const pwd_bin = to_binary_array(pwd);
+#[allow(static_mut_refs)]
+#[wasm_bindgen]
+pub fn crypt3(pwd: &str, salt: &str) -> String {
+    let mut data = [0u8; 64];
+    let pwd_bin = to_binary_array(pwd);
 
     // Use salt to perturb the expansion table
-    perturb_expansion(salt);        
-    generate_round_keys(pwd_bin);
+    unsafe {
+        perturb_expansion(salt);
+        generate_round_keys(&pwd_bin);
     
-    // Crypt(3) calls DES3 25 times
-    for(let n = 0; n < 25; n++) {
-        cipher(data);
+        // Crypt(3) calls DES3 25 times
+        for n in 0..25 {
+            cipher(&mut data);
+        }
+
+        // Return expansion table to normal (might be buggy)
+        perturb_expansion(salt);
     }
     
-    // Return expansion table to normal (might be buggy)
-    perturb_expansion(salt);
-
-    return format_digest(data, salt);
+    format_digest(data, salt)
 }
 
-console.log(crypt3('password', 'password'));
+/*
+    TODO
+    Adding here because I'm not sure if wasm modules can import
+    other wasm modules.
+*/
+#[wasm_bindgen]
+pub fn rand_pwd() -> String {
+    rand::thread_rng()
+        .sample_iter(&Alphanumeric)
+        .take(8)
+        .map(char::from)
+        .collect()
+}
+
+#[wasm_bindgen]
+pub fn get_salt(key: &str) -> String {
+    // Step 1: append "H."
+    let extended = format!("{}H.", key);
+
+    // Step 2: take substring from index 1, length 2 (in bytes, safe for ASCII tripcode inputs)
+    let slice: String = extended.chars().skip(1).take(2).collect();
+
+    // Step 3: apply replacements
+    let mut result = String::new();
+    for c in slice.chars() {
+        let mapped = match c {
+            // enforce valid range
+            ch if !(('.'..='z').contains(&ch)) => '.',
+
+            ':' => 'A',
+            ';' => 'B',
+            '<' => 'C',
+            '=' => 'D',
+            '>' => 'E',
+            '?' => 'F',
+            '@' => 'a',
+            '[' => 'b',
+            '\\' => 'c',
+            ']' => 'd',
+            '^' => 'e',
+            '_' => 'f',
+            '`' => 'g',
+
+            ch => ch,
+        };
+        result.push(mapped);
+    }
+
+    result
+}
+
+#[wasm_bindgen]
+pub fn run_1000_iterations() {
+    for _ in 0..1000 {
+        let pwd = rand_pwd();
+        let salt = get_salt(&pwd);
+        crypt3(&pwd, &salt);
+    }
+}
+
+fn main() {
+    println!("Hello, world!");
+    println!("crypt password password: {}", crypt3("password", "password"));
+}
+

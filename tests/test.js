@@ -5,6 +5,8 @@ import { performance } from "perf_hooks";
 import { crypt3 } from "../assets/js/crypt3.js";
 import * as Tripper from '../assets/js/_tripper.js';
 
+const TEST_TRIPCODE_FILE = 'tests/test_password_tripcode.txt';
+
 function generate_tripcode(pwd) {
     // Generate a tripcode given a password
     const salt = Tripper.get_salt(pwd);
@@ -20,7 +22,7 @@ function test_correctness() {
 
     // --- Read test cases from file ---
     const testCases = fs
-        .readFileSync("test/test_password_tripcode.txt", "utf-8")
+        .readFileSync(TEST_TRIPCODE_FILE, "utf-8")
         .split("\n")
         .filter((line) => line.trim() !== "")
         .map((line) => {
