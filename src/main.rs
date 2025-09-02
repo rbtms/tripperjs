@@ -208,15 +208,15 @@ const CHAR_CODE_Z: u8   = 90;
 const CHAR_CODE_9: u8   = 57;
 const CHAR_CODE_DOT: u8 = 46;
 
-fn generate_round_keys(key: &[u8;64]) -> [u64; 16]{
+fn generate_round_keys(key: u64) -> [u64; 16]{
     let mut parity_drop = [0u8;56];
     let mut K = [0u64; 16];
 
-    /***********************************************************************
-    * Apply parity drop permutation and separate into left and right parts
-    ***********************************************************************/
+    /*******************************
+    * Apply parity drop permutation
+    ********************************/
     for n in 0..56 {
-        parity_drop[n] = key[PARITY_DROP_TABLE[n]];
+        parity_drop[n] = ((key >> PARITY_DROP_TABLE[n])&1) as u8;
     }
     
     /**********************
@@ -231,20 +231,23 @@ fn generate_round_keys(key: &[u8;64]) -> [u64; 16]{
         * offset representing the 0 index of the left and
         * right arrays.
         ****************************************************/
-        let offset = SHIFT_OFFSET[n] ;
+        let offset = SHIFT_OFFSET[n];
         
-        /********************************
+        /************************************************
         * Apply compression permutation
-        ********************************/
-        for m in 0..48 {
+        * Originally this loop checked if the value
+        * in the compression table was lower than 28.
+        * Since they turn >=28 after a given index (23),
+        * I decided to optimize it by chunks.
+        ************************************************/
+        for m in 0..24 { // value < 28
             let value = COMPRESSION_TABLE[m];
-            
-             // Modification of static mut
-            K[n] |= (if value < 28 {
-                parity_drop[(offset + value)%28]
-            } else  {
-                parity_drop[(offset + value%28)%28 + 28]
-            } as u64) << m;
+            K[n] |= (parity_drop[(offset + value)%28] as u64) << m;
+        }
+
+        for m in 24..48 { // value >= 28
+            let value = COMPRESSION_TABLE[m];
+            K[n] |= (parity_drop[(offset + value%28)%28 + 28] as u64) << m;
         }
     }
 
@@ -333,12 +336,12 @@ fn perturb_expansion(salt: &str) -> [usize; 48] {
 
     for n in 0..2 {
         let mut c = salt_bytes[n];
+        let row = 6*n;
 
         if c > CHAR_CODE_Z { c -= 6; }
         if c > CHAR_CODE_9 { c -= 7; }
         c -= CHAR_CODE_DOT;
         
-        let row = 6*n;
         for m in 0..6 {
             /********************************************
             * Right shift through the first 6 bits of c
@@ -348,9 +351,8 @@ fn perturb_expansion(salt: &str) -> [usize; 48] {
                 let a = row + m;
                 let b = row + m + 24;
                 
-                let temp    = expansion_table[a];
-                expansion_table[a] = expansion_table[b];
-                expansion_table[b] = temp;
+                (expansion_table[a], expansion_table[b]) =
+                (expansion_table[b], expansion_table[a]);
             }
         }
     }
@@ -358,14 +360,13 @@ fn perturb_expansion(salt: &str) -> [usize; 48] {
     expansion_table
 }
 
-fn to_binary_array(pwd: &str) -> [u8; 64] {
-    let mut pwd_bin  = [0u8; 64];
-    let bytes = pwd.as_bytes();
+fn to_binary_array(pwd: &str) -> u64 {
+    let mut pwd_bin = 0u64;
 
-    for (n, &c) in bytes.iter().enumerate() {
+    for (n, &c) in pwd.as_bytes().iter().enumerate() {
         let row = n*8;
         for m in 0..7 {
-            pwd_bin[row as usize + m as usize] = ( c >> (6-m) ) & 1;
+            pwd_bin |= (( (c as u64) >> (6-m) ) & 1) << (row + m);
         }
     }
 
@@ -460,7 +461,7 @@ pub fn crypt3(pwd: &str, salt: &str) -> String {
     let salt = &salt[0..2];
     let mut data = [0u8; 64];
     let pwd_bin = to_binary_array(pwd);
-    let K = generate_round_keys(&pwd_bin);
+    let K = generate_round_keys(pwd_bin);
     let r_expanded_precomputed = generate_r_expanded_tables_cached(salt);
 
     // Crypt(3) calls 3DES 25 times
