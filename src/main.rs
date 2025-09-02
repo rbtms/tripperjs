@@ -164,6 +164,11 @@ static S_BOX_TABLE: [usize; 512] = [
      2,  1, 14,  7,  4, 10,  8, 13, 15, 12,  9,  0,  3,  5,  6, 11
 ];
 
+// L ^= ((dec>>3)&1) << (INVERSE_STRAIGHT_TABLE[pos] as u32);
+// L ^= ((dec>>2)&1) << (INVERSE_STRAIGHT_TABLE[pos+1] as u32);
+// L ^= ((dec>>1)&1) << (INVERSE_STRAIGHT_TABLE[pos+2] as u32);
+// L ^= (dec&1)      << (INVERSE_STRAIGHT_TABLE[pos+3] as u32);
+
 static S_VAL: [usize; 64*8] = {
     let mut s_val = [0usize; 64*8];
     let mut m = 0;
@@ -174,7 +179,14 @@ static S_VAL: [usize; 64*8] = {
             let row = ((x>>5)&1) | ((x&1)<<1);
             let col = ((x>>4)&1) | (((x>>3)&1)<<1) | (x&0b100) | (((x>>1)&1)<<3);
 
-            s_val[m*64+i] = S_BOX_TABLE[m*64 + (row as usize)*16 + col as usize];
+            let dec = S_BOX_TABLE[m*64 + (row as usize)*16 + col as usize];
+            let pos = m*4;
+            let mod_val = ((dec>>3)&1) << (INVERSE_STRAIGHT_TABLE[pos] as u32)
+                | ((dec>>2)&1) << (INVERSE_STRAIGHT_TABLE[pos+1] as u32)
+                | ((dec>>1)&1) << (INVERSE_STRAIGHT_TABLE[pos+2] as u32)
+                | (dec&1)      << (INVERSE_STRAIGHT_TABLE[pos+3] as u32);
+
+            s_val[m*64+i] = mod_val;
             i += 1;
         }
         m += 1;
@@ -182,7 +194,6 @@ static S_VAL: [usize; 64*8] = {
 
     s_val
 };
-
 
 /********************************************************************
 * Number of left shifts to apply in each round key generation round
@@ -286,14 +297,9 @@ fn cipher(data: &mut [u8; 64], K: &[u64; 16], expansion_table: &[usize; 48]) {
             *      row/pos = (des_R[pos]) << (n + des_R[pos+m])...
             *
             ******************************************************************************/
-           // R (4 bit) -> 6 bit
-           // k (6 bit) ^ R (6 bit) -> 6 bit
             let pos = m*6;
             let s_offset = ((k^r_expanded)>>pos)&0b111111;
 
-            // Get decimal value from s-box
-            let dec = S_VAL[m*64 + s_offset as usize] as u32;
-    
             /***************************************************************
             * Convert dec to bin,
             * apply straight inverse permutation and then xor to L with it
@@ -302,12 +308,7 @@ fn cipher(data: &mut [u8; 64], K: &[u64; 16], expansion_table: &[usize; 48]) {
             * for(n = 0; n < 32; n++) { L ^= S_output[straight_table[n]]; }
             *
             ****************************************************************/
-            let pos = m*4;
-
-            L ^= ((dec>>3)&1) << (INVERSE_STRAIGHT_TABLE[pos] as u32);
-            L ^= ((dec>>2)&1) << (INVERSE_STRAIGHT_TABLE[pos+1] as u32);
-            L ^= ((dec>>1)&1) << (INVERSE_STRAIGHT_TABLE[pos+2] as u32);
-            L ^= (dec&1)      << (INVERSE_STRAIGHT_TABLE[pos+3] as u32);
+            L ^= S_VAL[m*64 + s_offset as usize] as u32;
         }        
         
         // Swap L and R (skip last round to allow reversing)
