@@ -1,6 +1,6 @@
 use wasm_bindgen::prelude::*;
 use rand::{distributions::Alphanumeric, Rng};
-use std::sync::OnceLock;
+use std::sync::{Mutex, OnceLock};
 use std::collections::HashMap;
 
 /*************************************
@@ -166,13 +166,8 @@ static S_BOX_TABLE: [usize; 512] = [
      2,  1, 14,  7,  4, 10,  8, 13, 15, 12,  9,  0,  3,  5,  6, 11
 ];
 
-// L ^= ((dec>>3)&1) << (INVERSE_STRAIGHT_TABLE[pos] as u32);
-// L ^= ((dec>>2)&1) << (INVERSE_STRAIGHT_TABLE[pos+1] as u32);
-// L ^= ((dec>>1)&1) << (INVERSE_STRAIGHT_TABLE[pos+2] as u32);
-// L ^= (dec&1)      << (INVERSE_STRAIGHT_TABLE[pos+3] as u32);
-
-static S_VAL: [usize; 64*8] = {
-    let mut s_val = [0usize; 64*8];
+static S_VAL: [u32; 64*8] = {
+    let mut s_val = [0u32; 64*8];
     let mut m = 0;
     while m < 8 {
         let mut i = 0;
@@ -189,7 +184,7 @@ static S_VAL: [usize; 64*8] = {
                 | (dec&1)      << (INVERSE_STRAIGHT_TABLE[pos+3] as u32);
 
 
-            s_val[m*64+i] = mod_val;
+            s_val[m*64+i] = mod_val as u32;
             i += 1;
         }
         m += 1;
@@ -311,7 +306,7 @@ fn cipher(data: &mut [u8; 64], K: &[u64; 16], r_expanded_precomputed: &[[u64; 25
             * for(n = 0; n < 32; n++) { L ^= S_output[straight_table[n]]; }
             *
             ****************************************************************/
-            L ^= S_VAL[m*64 + s_offset as usize] as u32;
+            L ^= S_VAL[m*64 + s_offset as usize];
         }        
         
         // Swap L and R (skip last round to allow reversing)
@@ -445,7 +440,7 @@ fn generate_r_expanded_tables_cached(salt: &str) -> [[u64; 256]; 4] {
     // Check the cache
     { let map = cache.lock().unwrap();
       if let Some(tables) = map.get(&key) {
-          return *tables; // [[u64;256];4] is Copy, so cheap
+          return *tables;
       }
     }
 
