@@ -62,7 +62,6 @@ static EXPANSION_TABLE: [usize; 48] =  [
     27, 28, 29, 30, 31,  0
 ];
 
-
 /*************************************************
 * Parity drop table used to contract the key
 * from 64 bits to 56 and to permutate the result
@@ -165,11 +164,34 @@ static S_BOX_TABLE: [usize; 512] = [
      2,  1, 14,  7,  4, 10,  8, 13, 15, 12,  9,  0,  3,  5,  6, 11
 ];
 
+static S_VAL: [usize; 64*8] = {
+    let mut s_val = [0usize; 64*8];
+    let mut m = 0;
+    while m < 8 {
+        let mut i = 0;
+        while i < 64 {
+            let x = i as u64;
+            let row = ((x>>5)&1) | ((x&1)<<1);
+            let col = ((x>>4)&1) | (((x>>3)&1)<<1) | (x&0b100) | (((x>>1)&1)<<3);
+
+            s_val[m*64+i] = S_BOX_TABLE[m*64 + (row as usize)*16 + col as usize];
+            i += 1;
+        }
+        m += 1;
+    }
+
+    s_val
+};
+
+
 /********************************************************************
 * Number of left shifts to apply in each round key generation round
 * and precalculated offset for speed reasons
+*
+* From
+*   static SHIFT_TABLE: [usize; 16] = [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1];
+*
 ********************************************************************/
-//static SHIFT_TABLE: [usize; 16] = [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1];
 static SHIFT_OFFSET: [usize; 16] = [1, 2, 4, 6, 8, 10, 12, 14, 15, 17, 19, 21, 23, 25, 27, 28];
 
 // Magic numbers
@@ -177,10 +199,9 @@ const CHAR_CODE_Z: u8   = 90;
 const CHAR_CODE_9: u8   = 57;
 const CHAR_CODE_DOT: u8 = 46;
 
-fn generate_round_keys(key: &[u8;64]) -> [[u8; 48]; 16]{
+fn generate_round_keys(key: &[u8;64]) -> [u64; 16]{
     let mut parity_drop = [0u8;56];
-    let mut K = [[0u8; 48]; 16];
-
+    let mut K = [0u64; 16];
 
     /***********************************************************************
     * Apply parity drop permutation and separate into left and right parts
@@ -210,36 +231,41 @@ fn generate_round_keys(key: &[u8;64]) -> [[u8; 48]; 16]{
             let value = COMPRESSION_TABLE[m];
             
              // Modification of static mut
-            K[n][m] = if value < 28 {
+            K[n] |= (if value < 28 {
                 parity_drop[(offset + value)%28]
             } else  {
                 parity_drop[(offset + value%28)%28 + 28]
-            }
+            } as u64) << m;
         }
     }
 
     K
 }
 
-fn cipher(data: &mut [u8; 64], K: &[[u8; 48]; 16], expansion_table: &[usize; 48]) {
-    let mut L = [0u8; 32];
-    let mut R = [0u8; 32];
-    
+fn cipher(data: &mut [u8; 64], K: &[u64; 16], expansion_table: &[usize; 48]) {
     /*******************************************************************
     * Apply initial permutation and separate into left and right parts
     * (both 32 bits long)
     *******************************************************************/
-    for n in 0..32 {
-        L[n] = data[INITIAL_TABLE_L[n]];
-        R[n] = data[INITIAL_TABLE_R[n]];
-    }
+    let mut L = 0u32;
+    let mut R = 0u32;
     
+    for i in 0..32 {
+        L |= (data[INITIAL_TABLE_L[i]] as u32) << i;
+        R |= (data[INITIAL_TABLE_R[i]] as u32) << i;
+    }
+
     /*********************
     * Round 0 through 16
     *********************/
     for round_n in 0..16 {
         let k = K[round_n];
 
+        let mut r_expanded = 0u64;
+        for i in 0..48 {
+            r_expanded |= (((R>>expansion_table[i]) as u64)&1) << i;
+        }
+        
         /***************************
         * Apply S-Box permutations
         ***************************/
@@ -263,22 +289,10 @@ fn cipher(data: &mut [u8; 64], K: &[[u8; 48]; 16], expansion_table: &[usize; 48]
            // R (4 bit) -> 6 bit
            // k (6 bit) ^ R (6 bit) -> 6 bit
             let pos = m*6;
-            let row = (k[pos+5] ^ R[expansion_table[pos+5]])
-                | ( (k[pos] ^ R[expansion_table[pos]])   << 1 );
-            let col = k[pos+4] ^ R[expansion_table[pos+4]]
-                | ( (k[pos+3] ^ R[expansion_table[pos+3]]) << 1 )
-                | ( (k[pos+2] ^ R[expansion_table[pos+2]]) << 2 )
-                | ( (k[pos+1] ^ R[expansion_table[pos+1]]) << 3 );
+            let s_offset = ((k^r_expanded)>>pos)&0b111111;
 
-                    
-            // const x = k_6^r_6;
-            // row = (x>>5) | ((x&1)<<1);
-            // col = (x>>2);
-            // col = ((x>>4)&1) | (((x>>3)&1)<<1) | (((x>>2)&1)<<2) | (((x>>1)&1)<<3);
-    
             // Get decimal value from s-box
-            // 6 bit -> dec (4 bit)
-            let dec = S_BOX_TABLE[m*64 + row as usize*16 + col as usize] as u8; // 32 bit
+            let dec = S_VAL[m*64 + s_offset as usize] as u32;
     
             /***************************************************************
             * Convert dec to bin,
@@ -289,17 +303,16 @@ fn cipher(data: &mut [u8; 64], K: &[[u8; 48]; 16], expansion_table: &[usize; 48]
             *
             ****************************************************************/
             let pos = m*4;
-            L[INVERSE_STRAIGHT_TABLE[pos]]   ^= (dec >> 3) & 1; // 4 bit
-            L[INVERSE_STRAIGHT_TABLE[pos+1]] ^= (dec >> 2) & 1;
-            L[INVERSE_STRAIGHT_TABLE[pos+2]] ^= (dec >> 1) & 1;
-            L[INVERSE_STRAIGHT_TABLE[pos+3]] ^=  dec & 1;
+
+            L ^= ((dec>>3)&1) << (INVERSE_STRAIGHT_TABLE[pos] as u32);
+            L ^= ((dec>>2)&1) << (INVERSE_STRAIGHT_TABLE[pos+1] as u32);
+            L ^= ((dec>>1)&1) << (INVERSE_STRAIGHT_TABLE[pos+2] as u32);
+            L ^= (dec&1)      << (INVERSE_STRAIGHT_TABLE[pos+3] as u32);
         }        
         
         // Swap L and R (skip last round to allow reversing)
         if round_n != 15 {
-            let temp = L;
-            L = R;
-            R = temp;
+            std::mem::swap(&mut L, &mut R);
         }
     }
 
@@ -310,8 +323,8 @@ fn cipher(data: &mut [u8; 64], K: &[[u8; 48]; 16], expansion_table: &[usize; 48]
     * their original place
     *****************************************************/
     for n in 0..32 {
-        data[INITIAL_TABLE_L[n]] = L[n];
-        data[INITIAL_TABLE_R[n]] = R[n];
+        data[INITIAL_TABLE_L[n]] = ((L>>n) as u8)&1;
+        data[INITIAL_TABLE_R[n]] = ((R>>n) as u8)&1;
     }
 }
 
