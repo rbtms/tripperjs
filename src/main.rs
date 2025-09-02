@@ -51,7 +51,7 @@ const INITIAL_TABLE_R: [usize; 32] = [
 * Expansion table (E) used in the DES function
 * to expand R from 32 bits to 48
 ***********************************************/
-static mut EXPANSION_TABLE: [usize; 48] =  [
+static EXPANSION_TABLE: [usize; 48] =  [
     31,  0,  1,  2,  3,  4,
     3,   4,  5,  6,  7,  8,
     7,   8,  9, 10, 11, 12,
@@ -172,16 +172,15 @@ static S_BOX_TABLE: [usize; 512] = [
 //static SHIFT_TABLE: [usize; 16] = [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1];
 static SHIFT_OFFSET: [usize; 16] = [1, 2, 4, 6, 8, 10, 12, 14, 15, 17, 19, 21, 23, 25, 27, 28];
 
-// Round keys
-static mut K: [[u8; 48]; 16] = [[0u8; 48]; 16];
-
 // Magic numbers
 const CHAR_CODE_Z: u8   = 90;
 const CHAR_CODE_9: u8   = 57;
 const CHAR_CODE_DOT: u8 = 46;
 
-unsafe fn generate_round_keys(key: &[u8;64]) {
+fn generate_round_keys(key: &[u8;64]) -> [[u8; 48]; 16]{
     let mut parity_drop = [0u8;56];
+    let mut K = [[0u8; 48]; 16];
+
 
     /***********************************************************************
     * Apply parity drop permutation and separate into left and right parts
@@ -216,12 +215,13 @@ unsafe fn generate_round_keys(key: &[u8;64]) {
             } else  {
                 parity_drop[(offset + value%28)%28 + 28]
             }
-        
         }
     }
+
+    K
 }
 
-unsafe fn cipher(data: &mut [u8; 64]) {
+fn cipher(data: &mut [u8; 64], K: &[[u8; 48]; 16], expansion_table: &[usize; 48]) {
     let mut L = [0u8; 32];
     let mut R = [0u8; 32];
     
@@ -263,12 +263,12 @@ unsafe fn cipher(data: &mut [u8; 64]) {
            // R (4 bit) -> 6 bit
            // k (6 bit) ^ R (6 bit) -> 6 bit
             let pos = m*6;
-            let row = (k[pos+5] ^ R[EXPANSION_TABLE[pos+5]])
-                | ( (k[pos] ^ R[EXPANSION_TABLE[pos]])   << 1 );
-            let col = k[pos+4] ^ R[EXPANSION_TABLE[pos+4]]
-                | ( (k[pos+3] ^ R[EXPANSION_TABLE[pos+3]]) << 1 )
-                | ( (k[pos+2] ^ R[EXPANSION_TABLE[pos+2]]) << 2 )
-                | ( (k[pos+1] ^ R[EXPANSION_TABLE[pos+1]]) << 3 );
+            let row = (k[pos+5] ^ R[expansion_table[pos+5]])
+                | ( (k[pos] ^ R[expansion_table[pos]])   << 1 );
+            let col = k[pos+4] ^ R[expansion_table[pos+4]]
+                | ( (k[pos+3] ^ R[expansion_table[pos+3]]) << 1 )
+                | ( (k[pos+2] ^ R[expansion_table[pos+2]]) << 2 )
+                | ( (k[pos+1] ^ R[expansion_table[pos+1]]) << 3 );
 
                     
             // const x = k_6^r_6;
@@ -303,7 +303,6 @@ unsafe fn cipher(data: &mut [u8; 64]) {
         }
     }
 
-    
     /*****************************************************
     * Apply final through the initial permutation table
     * from the left side to data and return,
@@ -316,8 +315,9 @@ unsafe fn cipher(data: &mut [u8; 64]) {
     }
 }
 
-unsafe fn perturb_expansion(salt: &str) {
+fn perturb_expansion(salt: &str) -> [usize; 48] {
     let salt_bytes = salt.as_bytes();
+    let mut expansion_table = EXPANSION_TABLE.clone();
 
     for n in 0..2 {
         let mut c = salt_bytes[n];
@@ -336,12 +336,14 @@ unsafe fn perturb_expansion(salt: &str) {
                 let a = row + m;
                 let b = row + m + 24;
                 
-                let temp    = EXPANSION_TABLE[a];
-                EXPANSION_TABLE[a] = EXPANSION_TABLE[b];
-                EXPANSION_TABLE[b] = temp;
+                let temp    = expansion_table[a];
+                expansion_table[a] = expansion_table[b];
+                expansion_table[b] = temp;
             }
         }
     }
+
+    expansion_table
 }
 
 fn to_binary_array(pwd: &str) -> [u8; 64] {
@@ -390,18 +392,14 @@ pub fn crypt3(pwd: &str, salt: &str) -> String {
     let pwd_bin = to_binary_array(pwd);
 
     // Use salt to perturb the expansion table
-    unsafe {
-        perturb_expansion(salt);
-        generate_round_keys(&pwd_bin);
-    
-        // Crypt(3) calls DES3 25 times
-        for n in 0..25 {
-            cipher(&mut data);
-        }
+    let expansion_table = perturb_expansion(salt);
+    let K = generate_round_keys(&pwd_bin);
 
-        // Return expansion table to normal (might be buggy)
-        perturb_expansion(salt);
+    // Crypt(3) calls DES3 25 times
+    for _ in 0..25 {
+        cipher(&mut data, &K, &expansion_table);
     }
+
     
     format_digest(data, salt)
 }
@@ -470,4 +468,3 @@ fn main() {
     println!("Hello, world!");
     println!("crypt password password: {}", crypt3("password", "password"));
 }
-
