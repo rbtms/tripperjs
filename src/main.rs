@@ -328,7 +328,7 @@ fn cipher(data: &mut [u8; 64], K: &[u64; 16], r_expanded_precomputed: &[[u64; 25
             *
             ******************************************************************************/
             let pos = m*6;
-            let s_offset = ((k^r_expanded)>>pos)&0b111111;
+            let s_offset = ((k^r_expanded)>>pos)&0x3F;
 
             /***************************************************************
             * Convert dec to bin,
@@ -341,18 +341,16 @@ fn cipher(data: &mut [u8; 64], K: &[u64; 16], r_expanded_precomputed: &[[u64; 25
             L ^= S_VAL[m*64 + s_offset as usize];
         }        
         
-        // Swap L and R (skip last round to allow reversing)
-        if round_n != 15 {
-            std::mem::swap(&mut L, &mut R);
-        }
+        // Swap L and R
+        std::mem::swap(&mut L, &mut R);
     }
 
-    /*****************************************************
-    * Apply final through the initial permutation table
-    * from the left side to data and return,
-    * as the number of rounds is even, L and R return to
-    * their original place
-    *****************************************************/
+    // Swap L and R at the end to allow reversing
+    std::mem::swap(&mut L, &mut R);
+
+    /**************************************************
+    * Apply final permutation using the initial tables
+    ***************************************************/
     for n in 0..32 {
         data[INITIAL_TABLE_L[n]] = ((L>>n) as u8)&1;
         data[INITIAL_TABLE_R[n]] = ((R>>n) as u8)&1;
