@@ -45,12 +45,12 @@ function test_correctness() {
 }
 
 function test_performance() {
-    // Test the tripcodes generated per second in a period of 10 seconds
+    // Test the tripcodes generated per second in a period of 4 seconds
     console.log("Running performance test");
 
     const start = performance.now();
     let iterations = 0;
-    const targetTime = 10_000; // 10 seconds
+    const targetTime = 4_000; // 4 seconds
 
     while (performance.now() - start < targetTime) {
         init.run_1000_iterations();

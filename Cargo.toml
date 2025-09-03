@@ -12,3 +12,7 @@ crate-type = ["cdylib", "rlib"]
 wasm-bindgen = "0.2"
 rand = "0.8"
 getrandom = { version = "0.2", features = ["js"] }
+
+[profile.release]
+opt-level = 3         # default
+codegen-units = 1     # better optimization at the cost of compile time
