@@ -208,46 +208,75 @@ const CHAR_CODE_Z: u8   = 90;
 const CHAR_CODE_9: u8   = 57;
 const CHAR_CODE_DOT: u8 = 46;
 
+/******************************************************************************
+*   Precomputation of the indexes used for round keys calculation.
+*
+*        /****************************************************
+*        * Circular left shift (1, 2, 9, 16: 1; rest: 2)
+*        *
+*        * As it is very costly to shift arrays physically,
+*        * a logical left shift is done in it place, with an
+*        * offset representing the 0 index of the left and
+*        * right arrays.
+*        ****************************************************/
+*        let offset = SHIFT_OFFSET[n];
+*        
+*        /************************************************
+*        * Apply compression permutation
+*        * Originally this loop checked if the value
+*        * in the compression table was lower than 28.   
+*        * Since they turn >=28 after a given index (23),
+*        * I decided to optimize it by chunks.
+*        ************************************************/
+*        for m in 0..24 { // value < 28
+*            let value = COMPRESSION_TABLE[m];
+*            let index = (offset+value%28);
+*        }
+*
+*        for m in 24..48 { // value >= 28
+*            let value = COMPRESSION_TABLE[m];
+*            let index = (offset+value%28) + 28;
+*        }
+*******************************************************************************/
+static PARITY_DROP_INDEXES: [usize; 16*48] = {
+    let mut indexes = [0usize; 16*48];
+    let mut n = 0;
+    while n < 16 {
+        let mut m = 0;
+        while m < 24 { // value < 28
+            indexes[48*n+m] = (SHIFT_OFFSET[n] + COMPRESSION_TABLE[m])%28;
+            m += 1;
+        }
+
+        while m < 48 { // value < 28
+            indexes[48*n+m] = (SHIFT_OFFSET[n] + COMPRESSION_TABLE[m])%28 + 28;
+            m += 1;
+        }
+        n += 1;
+    }
+    indexes
+};
+
 fn generate_round_keys(key: u64) -> [u64; 16]{
-    let mut parity_drop = [0u8;56];
+    let mut parity_drop_key = [0u64;56];
     let mut K = [0u64; 16];
 
     /*******************************
     * Apply parity drop permutation
     ********************************/
     for n in 0..56 {
-        parity_drop[n] = ((key >> PARITY_DROP_TABLE[n])&1) as u8;
+        parity_drop_key[n] = ((key >> PARITY_DROP_TABLE[n])&1) as u64;
     }
-    
+
     /**********************
     * Generate round keys
     **********************/
     for n in 0..16 {
-        /****************************************************
-        * Circular left shift (1, 2, 9, 16: 1; rest: 2)
-        *
-        * As it is very costly to shift arrays physically,
-        * a logical left shift is done in it place, with an
-        * offset representing the 0 index of the left and
-        * right arrays.
-        ****************************************************/
-        let offset = SHIFT_OFFSET[n];
-        
-        /************************************************
-        * Apply compression permutation
-        * Originally this loop checked if the value
-        * in the compression table was lower than 28.
-        * Since they turn >=28 after a given index (23),
-        * I decided to optimize it by chunks.
-        ************************************************/
-        for m in 0..24 { // value < 28
-            let value = COMPRESSION_TABLE[m];
-            K[n] |= (parity_drop[(offset + value)%28] as u64) << m;
-        }
-
-        for m in 24..48 { // value >= 28
-            let value = COMPRESSION_TABLE[m];
-            K[n] |= (parity_drop[(offset + value%28)%28 + 28] as u64) << m;
+        /*******************************************************
+        * Apply circular left shift and compression permutation
+        *******************************************************/
+        for m in 0..48 {
+            K[n] |= parity_drop_key[PARITY_DROP_INDEXES[48*n+m]] << m;
         }
     }
 
