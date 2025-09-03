@@ -1,6 +1,6 @@
 use wasm_bindgen::prelude::*;
 use rand::{distributions::Alphanumeric, Rng};
-use std::sync::{Mutex, OnceLock};
+use std::sync::{OnceLock};
 use std::collections::HashMap;
 
 /*************************************
@@ -442,7 +442,7 @@ fn generate_r_expanded_tables(salt: &str) -> [[u64; 256]; 4] {
                 table0_8[r as usize] |= mask & ((r >> local_bit) & 1)<<i;
             },
             1 => for r in 0..256u64 {
-                table8_16[r as usize] |= mask & ((r >> local_bit) & 1)<<i;
+                table8_16[r as usize]  |= mask & ((r >> local_bit) & 1)<<i;
             },
             2 => for r in 0..256u64 {
                 table16_24[r as usize] |= mask & ((r >> local_bit) & 1)<<i;
@@ -459,9 +459,9 @@ fn generate_r_expanded_tables(salt: &str) -> [[u64; 256]; 4] {
 
 static R_EXPANDED_CACHE: OnceLock<std::sync::Mutex<HashMap<[u8; 2], [[u64; 256]; 4]>>> = OnceLock::new();
 fn generate_r_expanded_tables_cached(salt: &str) -> [[u64; 256]; 4] {
-    let key = [salt.as_bytes()[0], salt.as_bytes()[1]];
     // Initialize the global cache once
     let cache = R_EXPANDED_CACHE.get_or_init(|| std::sync::Mutex::new(HashMap::new()));
+    let key = [salt.as_bytes()[0], salt.as_bytes()[1]];
     
     // Check the cache
     { let map = cache.lock().unwrap();
