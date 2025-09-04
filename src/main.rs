@@ -166,8 +166,9 @@ static S_BOX_TABLE: [usize; 512] = [
      2,  1, 14,  7,  4, 10,  8, 13, 15, 12,  9,  0,  3,  5,  6, 11
 ];
 
-static S_VAL: [u32; 64*8] = {
-    let mut s_val = [0u32; 64*8];
+// 280k
+static S_VAL: [[u32; 64]; 8] = {
+    let mut s_val = [[0u32; 64]; 8];
     let mut m = 0;
     while m < 8 {
         let mut i = 0;
@@ -184,7 +185,7 @@ static S_VAL: [u32; 64*8] = {
                 | (dec&1)      << (INVERSE_STRAIGHT_TABLE[pos+3] as u32);
 
 
-            s_val[m*64+i] = mod_val as u32;
+            s_val[m][i] = mod_val as u32;
             i += 1;
         }
         m += 1;
@@ -312,6 +313,8 @@ static PARITY_DROP_INDEXES: [usize; 16*48] = {
     indexes
 };
 
+/* --------------------------------------------------------- Constants end ------------------------------------------------------ */
+
 fn generate_round_keys(key: u64) -> [u64; 16] {
     let mut parity_drop_key = [0u64;56];
     let mut k = [0u64; 16];
@@ -365,47 +368,21 @@ fn cipher(data: u64, k: &[u64; 16], r_expanded_precomputed: &[[u64; 256]; 4]) ->
     * Round 0 through 16
     *********************/
     for round_n in 0..16 {
-        let k_round = k[round_n];
-
-        let r_expanded = r_expanded_precomputed[0][(r&0xFF) as usize]
-            | r_expanded_precomputed[1][((r>>8)&0xFF) as usize]
-            | r_expanded_precomputed[2][((r>>16)&0xFF) as usize]
-            | r_expanded_precomputed[3][((r>>24)&0xFF) as usize];
+        let k_xor_r_expanded = k[round_n] ^ (
+          r_expanded_precomputed[0][(r&0xFF) as usize]
+        | r_expanded_precomputed[1][((r>>8)&0xFF) as usize]
+        | r_expanded_precomputed[2][((r>>16)&0xFF) as usize]
+        | r_expanded_precomputed[3][((r>>24)&0xFF) as usize]);
         
-        /***************************
-        * Apply S-Box permutations
-        ***************************/
-        for m in 0..8 {
-            /*****************************************************************************
-            * Convert from binary to decimal every six bits
-            *
-            * shortcut for:
-            *
-            *   Get the result of xor k with expanded R:
-            *       for(m = 0; m < 48; m++) { des_R[m] ^ R[expansion_table[m]] }
-            *
-            *       shortcut for:
-            *           for(n = 0; n < 48; n++) { des_R[n]  = R[expansion_table[n]-1]; }
-            *           for(n = 0; n < 48; n++) { des_R[n] ^= k[n]; }
-            *
-            *   Convert binary to dec in order to search inside s_box_table:
-            *      row/pos = (des_R[pos]) << (n + des_R[pos+m])...
-            *
-            ******************************************************************************/
-            let pos = m*6;
-            let s_offset = ((k_round^r_expanded)>>pos)&0x3F;
+        l ^= S_VAL[0][((k_xor_r_expanded      ) & 0x3F) as usize]
+           ^ S_VAL[1][((k_xor_r_expanded >>  6) & 0x3F) as usize]
+           ^ S_VAL[2][((k_xor_r_expanded >> 12) & 0x3F) as usize]
+           ^ S_VAL[3][((k_xor_r_expanded >> 18) & 0x3F) as usize]
+           ^ S_VAL[4][((k_xor_r_expanded >> 24) & 0x3F) as usize]
+           ^ S_VAL[5][((k_xor_r_expanded >> 30) & 0x3F) as usize]
+           ^ S_VAL[6][((k_xor_r_expanded >> 36) & 0x3F) as usize]
+           ^ S_VAL[7][((k_xor_r_expanded >> 42) & 0x3F) as usize];
 
-            /***************************************************************
-            * Convert dec to bin,
-            * apply straight inverse permutation and then xor to L with it
-            *
-            * shortcut for:
-            * for(n = 0; n < 32; n++) { L ^= S_output[straight_table[n]]; }
-            *
-            ****************************************************************/
-            l ^= S_VAL[m*64 + s_offset as usize];
-        }        
-        
         // Swap L and R
         std::mem::swap(&mut l, &mut r);
     }
