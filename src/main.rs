@@ -219,6 +219,35 @@ const fn precompute_initial_l_r(l_r: [usize; 32]) -> [[u32; 256]; 8] {
 static INITIAL_L_PRECOMPUTED: [[u32; 256]; 8] = precompute_initial_l_r(INITIAL_TABLE_L);
 static INITIAL_R_PRECOMPUTED: [[u32; 256]; 8] = precompute_initial_l_r(INITIAL_TABLE_R);
 
+const fn precompute_final_l_r(l_r: [usize; 32]) -> [[u64; 256]; 4] {
+    let mut tables = [[0u64; 256]; 4];
+
+    let mut byte_index = 0;
+    while byte_index < 4 {
+        let mut b = 0;
+        while b < 256 {
+            let mut val = 0u64;
+            let mut bit = 0;
+            while bit < 8 {
+                let bit_pos = byte_index * 8 + bit;
+                let out_pos = l_r[bit_pos];
+                if (b >> bit) & 1 == 1 {
+                    val |= 1u64 << out_pos;
+                }
+                bit += 1;
+            }
+            tables[byte_index][b as usize] = val;
+            b += 1;
+        }
+        byte_index += 1;
+    }
+
+    tables
+}
+
+static FINAL_L_PRECOMPUTED: [[u64; 256]; 4] = precompute_final_l_r(INITIAL_TABLE_L);
+static FINAL_R_PRECOMPUTED: [[u64; 256]; 4] = precompute_final_l_r(INITIAL_TABLE_R);
+
 /********************************************************************
 * Number of left shifts to apply in each round key generation round
 * and precalculated offset for speed reasons
@@ -309,36 +338,28 @@ fn generate_round_keys(key: u64) -> [u64; 16]{
     K
 }
 
-fn cipher(data: &mut [u8; 64], K: &[u64; 16], r_expanded_precomputed: &[[u64; 256]; 4]) {
+fn cipher(data: u64, K: &[u64; 16], r_expanded_precomputed: &[[u64; 256]; 4]) -> u64 {
     /*******************************************************************
     * Apply initial permutation and separate into left and right parts
     * (both 32 bits long)
     *******************************************************************/
-    let mut L = 0u32;
-    let mut R = 0u32;
+    let mut L = INITIAL_L_PRECOMPUTED[0][(data&0xFF) as usize]
+      | INITIAL_L_PRECOMPUTED[1][((data>>8)&0xFF) as usize]
+      | INITIAL_L_PRECOMPUTED[2][((data>>16)&0xFF) as usize]
+      | INITIAL_L_PRECOMPUTED[3][((data>>24)&0xFF) as usize]
+      | INITIAL_L_PRECOMPUTED[4][((data>>32)&0xFF) as usize]
+      | INITIAL_L_PRECOMPUTED[5][((data>>40)&0xFF) as usize]
+      | INITIAL_L_PRECOMPUTED[6][((data>>48)&0xFF) as usize]
+      | INITIAL_L_PRECOMPUTED[7][((data>>56)&0xFF) as usize];
 
-    let mut _data = 0u64;
-    for i in 0..64 {
-        _data |= (data[i] as u64) << i;
-    }
-
-    L = INITIAL_L_PRECOMPUTED[0][(_data&0xFF) as usize]
-      | INITIAL_L_PRECOMPUTED[1][((_data>>8)&0xFF) as usize]
-      | INITIAL_L_PRECOMPUTED[2][((_data>>16)&0xFF) as usize]
-      | INITIAL_L_PRECOMPUTED[3][((_data>>24)&0xFF) as usize]
-      | INITIAL_L_PRECOMPUTED[4][((_data>>32)&0xFF) as usize]
-      | INITIAL_L_PRECOMPUTED[5][((_data>>40)&0xFF) as usize]
-      | INITIAL_L_PRECOMPUTED[6][((_data>>48)&0xFF) as usize]
-      | INITIAL_L_PRECOMPUTED[7][((_data>>56)&0xFF) as usize];
-
-    R = INITIAL_R_PRECOMPUTED[0][(_data&0xFF) as usize]
-      | INITIAL_R_PRECOMPUTED[1][((_data>>8)&0xFF) as usize]
-      | INITIAL_R_PRECOMPUTED[2][((_data>>16)&0xFF) as usize]
-      | INITIAL_R_PRECOMPUTED[3][((_data>>24)&0xFF) as usize]
-      | INITIAL_R_PRECOMPUTED[4][((_data>>32)&0xFF) as usize]
-      | INITIAL_R_PRECOMPUTED[5][((_data>>40)&0xFF) as usize]
-      | INITIAL_R_PRECOMPUTED[6][((_data>>48)&0xFF) as usize]
-      | INITIAL_R_PRECOMPUTED[7][((_data>>56)&0xFF) as usize];
+    let mut R = INITIAL_R_PRECOMPUTED[0][(data&0xFF) as usize]
+      | INITIAL_R_PRECOMPUTED[1][((data>>8)&0xFF) as usize]
+      | INITIAL_R_PRECOMPUTED[2][((data>>16)&0xFF) as usize]
+      | INITIAL_R_PRECOMPUTED[3][((data>>24)&0xFF) as usize]
+      | INITIAL_R_PRECOMPUTED[4][((data>>32)&0xFF) as usize]
+      | INITIAL_R_PRECOMPUTED[5][((data>>40)&0xFF) as usize]
+      | INITIAL_R_PRECOMPUTED[6][((data>>48)&0xFF) as usize]
+      | INITIAL_R_PRECOMPUTED[7][((data>>56)&0xFF) as usize];
 
     /*********************
     * Round 0 through 16
@@ -392,13 +413,17 @@ fn cipher(data: &mut [u8; 64], K: &[u64; 16], r_expanded_precomputed: &[[u64; 25
     // Swap L and R at the end to allow reversing
     std::mem::swap(&mut L, &mut R);
 
-    /**************************************************
-    * Apply final permutation using the initial tables
-    ***************************************************/
-    for n in 0..32 {
-        data[INITIAL_TABLE_L[n]] = ((L>>n) as u8)&1;
-        data[INITIAL_TABLE_R[n]] = ((R>>n) as u8)&1;
-    }
+    /**************************
+    * Apply final permutation
+    **************************/
+    return FINAL_L_PRECOMPUTED[0][ (L        & 0xFF) as usize]
+         | FINAL_L_PRECOMPUTED[1][((L >>  8) & 0xFF) as usize]
+         | FINAL_L_PRECOMPUTED[2][((L >> 16) & 0xFF) as usize]
+         | FINAL_L_PRECOMPUTED[3][((L >> 24) & 0xFF) as usize]
+         | FINAL_R_PRECOMPUTED[0][ (R        & 0xFF) as usize]
+         | FINAL_R_PRECOMPUTED[1][((R >>  8) & 0xFF) as usize]
+         | FINAL_R_PRECOMPUTED[2][((R >> 16) & 0xFF) as usize]
+         | FINAL_R_PRECOMPUTED[3][((R >> 24) & 0xFF) as usize];
 }
 
 fn perturb_expansion(salt: &str) -> [usize; 48] {
@@ -444,9 +469,10 @@ fn to_binary_array(pwd: &str) -> u64 {
     pwd_bin
 }
 
-fn format_digest(data: &[u8; 64], salt: &str) -> String {
+fn format_digest(data: u64, salt: &str) -> String {
     // Set the two first characters of the digest to the salt
     let mut digest = String::from(&salt[0..2]);
+    
 
     for n in 0..11 {
         let row = 6*n;
@@ -454,7 +480,7 @@ fn format_digest(data: &[u8; 64], salt: &str) -> String {
         
         for m in 0..6 {
             c <<= 1;
-            c |= if row + m >= 64 {0} else {data[row + m]};
+            c |= if row + m >= 64 {0} else {(data >> (row + m)) as u8&1};
         }
 
         c += CHAR_CODE_DOT;
@@ -530,17 +556,17 @@ fn generate_r_expanded_tables_cached(salt: &str) -> [[u64; 256]; 4] {
 pub fn crypt3(pwd: &str, salt: &str) -> String {
     // Keep only the first 2 characters
     let salt = &salt[0..2];
-    let mut data = [0u8; 64];
+    let mut data = 0u64;
     let pwd_bin = to_binary_array(pwd);
     let K = generate_round_keys(pwd_bin);
     let r_expanded_precomputed = generate_r_expanded_tables_cached(salt);
 
     // Crypt(3) calls 3DES 25 times
     for _ in 0..25 {
-        cipher(&mut data, &K, &r_expanded_precomputed);
+        data = cipher(data, &K, &r_expanded_precomputed);
     }
     
-    format_digest(&data, salt)
+    format_digest(data, salt)
 }
 
 /*
