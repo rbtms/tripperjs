@@ -2,6 +2,7 @@ use wasm_bindgen::prelude::*;
 use rand::{distributions::Alphanumeric, Rng};
 use std::sync::{OnceLock};
 use std::collections::HashMap;
+mod generate_round_keys;
 
 /*************************************
 * Left side Initial permutation (IP) and
@@ -48,7 +49,6 @@ const INITIAL_TABLE_R: [usize; 32] = [
 //     32, 0, 40,  8, 48, 16, 56, 24
 // ];
 
-
 /***********************************************
 * Expansion table (E) used in the DES function
 * to expand R from 32 bits to 48
@@ -62,34 +62,6 @@ static EXPANSION_TABLE: [usize; 48] =  [
     19, 20, 21, 22, 23, 24,
     23, 24, 25, 26, 27, 28,
     27, 28, 29, 30, 31,  0
-];
-
-/*************************************************
-* Parity drop table used to contract the key
-* from 64 bits to 56 and to permutate the result
-*************************************************/
-static PARITY_DROP_TABLE: [usize; 56] = [
-    56, 48, 40, 32, 24, 16,  8,  0,
-    57, 49, 41, 33, 25, 17,  9,  1,
-    58, 50, 42, 34, 26, 18, 10,  2,
-    59, 51, 43, 35, 62, 54, 46, 38,
-    30, 22, 14,  6, 61, 53, 45, 37,
-    29, 21, 13,  5, 60, 52, 44, 36,
-    28, 20, 12,  4, 27, 19, 11,  3
-];
-
-
-/************************************************
-* Compression table used to contract round keys
-* from 56 bits to 48 bits
-************************************************/
-static COMPRESSION_TABLE: [usize; 48] = [
-    13, 16, 10, 23,  0,  4,  2, 27,
-    14,  5, 20,  9, 22, 18, 11,  3,
-    25,  7, 15,  6, 26, 19, 12,  1,
-    40, 51, 30, 36, 46, 54, 29, 39,
-    50, 44, 32, 47, 43, 48, 38, 55,
-    33, 52, 45, 41, 49, 35, 28, 31
 ];
 
 /****************************************************
@@ -111,7 +83,6 @@ static INVERSE_STRAIGHT_TABLE: [usize; 32] = [
      7, 13, 24,  2,  3, 28, 10, 18,
     31, 11, 21,  6,  4, 26, 14, 20
 ];
-
 
 /******************************************
 * S-Box tables, the core of the algorithm
@@ -166,7 +137,6 @@ static S_BOX_TABLE: [usize; 512] = [
      2,  1, 14,  7,  4, 10,  8, 13, 15, 12,  9,  0,  3,  5,  6, 11
 ];
 
-// 280k
 static S_VAL: [[u32; 64]; 8] = {
     let mut s_val = [[0u32; 64]; 8];
     let mut m = 0;
@@ -184,7 +154,6 @@ static S_VAL: [[u32; 64]; 8] = {
                 | ((dec>>1)&1) << (INVERSE_STRAIGHT_TABLE[pos+2] as u32)
                 | (dec&1)      << (INVERSE_STRAIGHT_TABLE[pos+3] as u32);
 
-
             s_val[m][i] = mod_val as u32;
             i += 1;
         }
@@ -193,7 +162,6 @@ static S_VAL: [[u32; 64]; 8] = {
 
     s_val
 };
-
 
 const fn precompute_initial_l_r(l_r: [usize; 32]) -> [[u32; 256]; 8] {
     let mut tables = [[0u32; 256]; 8];
@@ -249,69 +217,10 @@ const fn precompute_final_l_r(l_r: [usize; 32]) -> [[u64; 256]; 4] {
 static FINAL_L_PRECOMPUTED: [[u64; 256]; 4] = precompute_final_l_r(INITIAL_TABLE_L);
 static FINAL_R_PRECOMPUTED: [[u64; 256]; 4] = precompute_final_l_r(INITIAL_TABLE_R);
 
-/********************************************************************
-* Number of left shifts to apply in each round key generation round
-* and precalculated offset for speed reasons
-*
-* From
-*   static SHIFT_TABLE: [usize; 16] = [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1];
-*
-********************************************************************/
-static SHIFT_OFFSET: [usize; 16] = [1, 2, 4, 6, 8, 10, 12, 14, 15, 17, 19, 21, 23, 25, 27, 28];
-
 // Magic numbers
 const CHAR_CODE_Z: u8   = 90;
 const CHAR_CODE_9: u8   = 57;
 const CHAR_CODE_DOT: u8 = 46;
-
-/******************************************************************************
-*   Precomputation of the indexes used for round keys calculation.
-*
-*        /****************************************************
-*        * Circular left shift (1, 2, 9, 16: 1; rest: 2)
-*        *
-*        * As it is very costly to shift arrays physically,
-*        * a logical left shift is done in it place, with an
-*        * offset representing the 0 index of the left and
-*        * right arrays.
-*        ****************************************************/
-*        let offset = SHIFT_OFFSET[n];
-*        
-*        /************************************************
-*        * Apply compression permutation
-*        * Originally this loop checked if the value
-*        * in the compression table was lower than 28.   
-*        * Since they turn >=28 after a given index (23),
-*        * I decided to optimize it by chunks.
-*        ************************************************/
-*        for m in 0..24 { // value < 28
-*            let value = COMPRESSION_TABLE[m];
-*            let index = (offset+value%28);
-*        }
-*
-*        for m in 24..48 { // value >= 28
-*            let value = COMPRESSION_TABLE[m];
-*            let index = (offset+value%28) + 28;
-*        }
-*******************************************************************************/
-static PARITY_DROP_INDEXES: [usize; 16*48] = {
-    let mut indexes = [0usize; 16*48];
-    let mut n = 0;
-    while n < 16 {
-        let mut m = 0;
-        while m < 24 { // value < 28
-            indexes[48*n+m] = (SHIFT_OFFSET[n] + COMPRESSION_TABLE[m])%28;
-            m += 1;
-        }
-
-        while m < 48 { // value < 28
-            indexes[48*n+m] = (SHIFT_OFFSET[n] + COMPRESSION_TABLE[m])%28 + 28;
-            m += 1;
-        }
-        n += 1;
-    }
-    indexes
-};
 
 /* --------------------------------------------------------- Constants end ------------------------------------------------------ */
 
@@ -375,32 +284,6 @@ fn cipher(data: u64, k: &[u64; 16], r_expanded_precomputed: &[[u64; 256]; 4]) ->
          | FINAL_R_PRECOMPUTED[1][((r >>  8) & 0xFF) as usize]
          | FINAL_R_PRECOMPUTED[2][((r >> 16) & 0xFF) as usize]
          | FINAL_R_PRECOMPUTED[3][((r >> 24) & 0xFF) as usize];
-}
-
-fn generate_round_keys(key: u64) -> [u64; 16] {
-    let mut parity_drop_key = [0u64;56];
-    let mut k = [0u64; 16];
-
-    /*******************************
-    * Apply parity drop permutation
-    ********************************/
-    for n in 0..56 {
-        parity_drop_key[n] = ((key >> PARITY_DROP_TABLE[n])&1) as u64;
-    }
-
-    /**********************
-    * Generate round keys
-    **********************/
-    for n in 0..16 {
-        /*******************************************************
-        * Apply circular left shift and compression permutation
-        *******************************************************/
-        for m in 0..48 {
-            k[n] |= parity_drop_key[PARITY_DROP_INDEXES[48*n+m]] << m;
-        }
-    }
-
-    k
 }
 
 fn perturb_expansion(salt: &str) -> [usize; 48] {
@@ -535,7 +418,7 @@ pub fn crypt3(pwd: &str, salt: &str) -> String {
     let salt = &salt[0..2];
     let mut data = 0u64;
     let pwd_bin = to_binary_array(pwd);
-    let k = generate_round_keys(pwd_bin);
+    let k = generate_round_keys::generate_round_keys(pwd_bin);
     let r_expanded_precomputed = generate_r_expanded_tables_cached(salt);
 
     // Crypt(3) calls 3DES 25 times
