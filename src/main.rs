@@ -312,9 +312,9 @@ static PARITY_DROP_INDEXES: [usize; 16*48] = {
     indexes
 };
 
-fn generate_round_keys(key: u64) -> [u64; 16]{
+fn generate_round_keys(key: u64) -> [u64; 16] {
     let mut parity_drop_key = [0u64;56];
-    let mut K = [0u64; 16];
+    let mut k = [0u64; 16];
 
     /*******************************
     * Apply parity drop permutation
@@ -331,19 +331,19 @@ fn generate_round_keys(key: u64) -> [u64; 16]{
         * Apply circular left shift and compression permutation
         *******************************************************/
         for m in 0..48 {
-            K[n] |= parity_drop_key[PARITY_DROP_INDEXES[48*n+m]] << m;
+            k[n] |= parity_drop_key[PARITY_DROP_INDEXES[48*n+m]] << m;
         }
     }
 
-    K
+    k
 }
 
-fn cipher(data: u64, K: &[u64; 16], r_expanded_precomputed: &[[u64; 256]; 4]) -> u64 {
+fn cipher(data: u64, k: &[u64; 16], r_expanded_precomputed: &[[u64; 256]; 4]) -> u64 {
     /*******************************************************************
     * Apply initial permutation and separate into left and right parts
     * (both 32 bits long)
     *******************************************************************/
-    let mut L = INITIAL_L_PRECOMPUTED[0][(data&0xFF) as usize]
+    let mut l = INITIAL_L_PRECOMPUTED[0][(data&0xFF) as usize]
       | INITIAL_L_PRECOMPUTED[1][((data>>8)&0xFF) as usize]
       | INITIAL_L_PRECOMPUTED[2][((data>>16)&0xFF) as usize]
       | INITIAL_L_PRECOMPUTED[3][((data>>24)&0xFF) as usize]
@@ -352,7 +352,7 @@ fn cipher(data: u64, K: &[u64; 16], r_expanded_precomputed: &[[u64; 256]; 4]) ->
       | INITIAL_L_PRECOMPUTED[6][((data>>48)&0xFF) as usize]
       | INITIAL_L_PRECOMPUTED[7][((data>>56)&0xFF) as usize];
 
-    let mut R = INITIAL_R_PRECOMPUTED[0][(data&0xFF) as usize]
+    let mut r = INITIAL_R_PRECOMPUTED[0][(data&0xFF) as usize]
       | INITIAL_R_PRECOMPUTED[1][((data>>8)&0xFF) as usize]
       | INITIAL_R_PRECOMPUTED[2][((data>>16)&0xFF) as usize]
       | INITIAL_R_PRECOMPUTED[3][((data>>24)&0xFF) as usize]
@@ -365,12 +365,12 @@ fn cipher(data: u64, K: &[u64; 16], r_expanded_precomputed: &[[u64; 256]; 4]) ->
     * Round 0 through 16
     *********************/
     for round_n in 0..16 {
-        let k = K[round_n];
+        let k_round = k[round_n];
 
-        let r_expanded = r_expanded_precomputed[0][(R&0xFF) as usize]
-            | r_expanded_precomputed[1][((R>>8)&0xFF) as usize]
-            | r_expanded_precomputed[2][((R>>16)&0xFF) as usize]
-            | r_expanded_precomputed[3][((R>>24)&0xFF) as usize];
+        let r_expanded = r_expanded_precomputed[0][(r&0xFF) as usize]
+            | r_expanded_precomputed[1][((r>>8)&0xFF) as usize]
+            | r_expanded_precomputed[2][((r>>16)&0xFF) as usize]
+            | r_expanded_precomputed[3][((r>>24)&0xFF) as usize];
         
         /***************************
         * Apply S-Box permutations
@@ -393,7 +393,7 @@ fn cipher(data: u64, K: &[u64; 16], r_expanded_precomputed: &[[u64; 256]; 4]) ->
             *
             ******************************************************************************/
             let pos = m*6;
-            let s_offset = ((k^r_expanded)>>pos)&0x3F;
+            let s_offset = ((k_round^r_expanded)>>pos)&0x3F;
 
             /***************************************************************
             * Convert dec to bin,
@@ -403,27 +403,27 @@ fn cipher(data: u64, K: &[u64; 16], r_expanded_precomputed: &[[u64; 256]; 4]) ->
             * for(n = 0; n < 32; n++) { L ^= S_output[straight_table[n]]; }
             *
             ****************************************************************/
-            L ^= S_VAL[m*64 + s_offset as usize];
+            l ^= S_VAL[m*64 + s_offset as usize];
         }        
         
         // Swap L and R
-        std::mem::swap(&mut L, &mut R);
+        std::mem::swap(&mut l, &mut r);
     }
 
     // Swap L and R at the end to allow reversing
-    std::mem::swap(&mut L, &mut R);
+    std::mem::swap(&mut l, &mut r);
 
     /**************************
     * Apply final permutation
     **************************/
-    return FINAL_L_PRECOMPUTED[0][ (L        & 0xFF) as usize]
-         | FINAL_L_PRECOMPUTED[1][((L >>  8) & 0xFF) as usize]
-         | FINAL_L_PRECOMPUTED[2][((L >> 16) & 0xFF) as usize]
-         | FINAL_L_PRECOMPUTED[3][((L >> 24) & 0xFF) as usize]
-         | FINAL_R_PRECOMPUTED[0][ (R        & 0xFF) as usize]
-         | FINAL_R_PRECOMPUTED[1][((R >>  8) & 0xFF) as usize]
-         | FINAL_R_PRECOMPUTED[2][((R >> 16) & 0xFF) as usize]
-         | FINAL_R_PRECOMPUTED[3][((R >> 24) & 0xFF) as usize];
+    return FINAL_L_PRECOMPUTED[0][ (l        & 0xFF) as usize]
+         | FINAL_L_PRECOMPUTED[1][((l >>  8) & 0xFF) as usize]
+         | FINAL_L_PRECOMPUTED[2][((l >> 16) & 0xFF) as usize]
+         | FINAL_L_PRECOMPUTED[3][((l >> 24) & 0xFF) as usize]
+         | FINAL_R_PRECOMPUTED[0][ (r        & 0xFF) as usize]
+         | FINAL_R_PRECOMPUTED[1][((r >>  8) & 0xFF) as usize]
+         | FINAL_R_PRECOMPUTED[2][((r >> 16) & 0xFF) as usize]
+         | FINAL_R_PRECOMPUTED[3][((r >> 24) & 0xFF) as usize];
 }
 
 fn perturb_expansion(salt: &str) -> [usize; 48] {
@@ -558,12 +558,12 @@ pub fn crypt3(pwd: &str, salt: &str) -> String {
     let salt = &salt[0..2];
     let mut data = 0u64;
     let pwd_bin = to_binary_array(pwd);
-    let K = generate_round_keys(pwd_bin);
+    let k = generate_round_keys(pwd_bin);
     let r_expanded_precomputed = generate_r_expanded_tables_cached(salt);
 
     // Crypt(3) calls 3DES 25 times
     for _ in 0..25 {
-        data = cipher(data, &K, &r_expanded_precomputed);
+        data = cipher(data, &k, &r_expanded_precomputed);
     }
     
     format_digest(data, salt)
