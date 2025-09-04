@@ -193,6 +193,32 @@ static S_VAL: [u32; 64*8] = {
     s_val
 };
 
+
+const fn precompute_initial_l_r(l_r: [usize; 32]) -> [[u32; 256]; 8] {
+    let mut tables = [[0u32; 256]; 8];
+
+    let mut i = 0;
+    while i < 32 {
+        let initial_val = l_r[i];
+        let byte_index = initial_val / 8;
+        let bit_index  = (initial_val % 8) as u64;
+
+        let mut b = 0;
+        while b < 256u64 {
+            let mask = (((b >> bit_index) & 1) << i) as u32;
+            tables[byte_index as usize][b as usize] |= mask;
+            b += 1;
+        }
+
+        i += 1;
+    }
+
+    tables
+}
+
+static INITIAL_L_PRECOMPUTED: [[u32; 256]; 8] = precompute_initial_l_r(INITIAL_TABLE_L);
+static INITIAL_R_PRECOMPUTED: [[u32; 256]; 8] = precompute_initial_l_r(INITIAL_TABLE_R);
+
 /********************************************************************
 * Number of left shifts to apply in each round key generation round
 * and precalculated offset for speed reasons
@@ -290,11 +316,29 @@ fn cipher(data: &mut [u8; 64], K: &[u64; 16], r_expanded_precomputed: &[[u64; 25
     *******************************************************************/
     let mut L = 0u32;
     let mut R = 0u32;
-    
-    for i in 0..32 {
-        L |= (data[INITIAL_TABLE_L[i]] as u32) << i;
-        R |= (data[INITIAL_TABLE_R[i]] as u32) << i;
+
+    let mut _data = 0u64;
+    for i in 0..64 {
+        _data |= (data[i] as u64) << i;
     }
+
+    L = INITIAL_L_PRECOMPUTED[0][(_data&0xFF) as usize]
+      | INITIAL_L_PRECOMPUTED[1][((_data>>8)&0xFF) as usize]
+      | INITIAL_L_PRECOMPUTED[2][((_data>>16)&0xFF) as usize]
+      | INITIAL_L_PRECOMPUTED[3][((_data>>24)&0xFF) as usize]
+      | INITIAL_L_PRECOMPUTED[4][((_data>>32)&0xFF) as usize]
+      | INITIAL_L_PRECOMPUTED[5][((_data>>40)&0xFF) as usize]
+      | INITIAL_L_PRECOMPUTED[6][((_data>>48)&0xFF) as usize]
+      | INITIAL_L_PRECOMPUTED[7][((_data>>56)&0xFF) as usize];
+
+    R = INITIAL_R_PRECOMPUTED[0][(_data&0xFF) as usize]
+      | INITIAL_R_PRECOMPUTED[1][((_data>>8)&0xFF) as usize]
+      | INITIAL_R_PRECOMPUTED[2][((_data>>16)&0xFF) as usize]
+      | INITIAL_R_PRECOMPUTED[3][((_data>>24)&0xFF) as usize]
+      | INITIAL_R_PRECOMPUTED[4][((_data>>32)&0xFF) as usize]
+      | INITIAL_R_PRECOMPUTED[5][((_data>>40)&0xFF) as usize]
+      | INITIAL_R_PRECOMPUTED[6][((_data>>48)&0xFF) as usize]
+      | INITIAL_R_PRECOMPUTED[7][((_data>>56)&0xFF) as usize];
 
     /*********************
     * Round 0 through 16
