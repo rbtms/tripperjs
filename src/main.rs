@@ -315,32 +315,6 @@ static PARITY_DROP_INDEXES: [usize; 16*48] = {
 
 /* --------------------------------------------------------- Constants end ------------------------------------------------------ */
 
-fn generate_round_keys(key: u64) -> [u64; 16] {
-    let mut parity_drop_key = [0u64;56];
-    let mut k = [0u64; 16];
-
-    /*******************************
-    * Apply parity drop permutation
-    ********************************/
-    for n in 0..56 {
-        parity_drop_key[n] = ((key >> PARITY_DROP_TABLE[n])&1) as u64;
-    }
-
-    /**********************
-    * Generate round keys
-    **********************/
-    for n in 0..16 {
-        /*******************************************************
-        * Apply circular left shift and compression permutation
-        *******************************************************/
-        for m in 0..48 {
-            k[n] |= parity_drop_key[PARITY_DROP_INDEXES[48*n+m]] << m;
-        }
-    }
-
-    k
-}
-
 fn cipher(data: u64, k: &[u64; 16], r_expanded_precomputed: &[[u64; 256]; 4]) -> u64 {
     /*******************************************************************
     * Apply initial permutation and separate into left and right parts
@@ -401,6 +375,32 @@ fn cipher(data: u64, k: &[u64; 16], r_expanded_precomputed: &[[u64; 256]; 4]) ->
          | FINAL_R_PRECOMPUTED[1][((r >>  8) & 0xFF) as usize]
          | FINAL_R_PRECOMPUTED[2][((r >> 16) & 0xFF) as usize]
          | FINAL_R_PRECOMPUTED[3][((r >> 24) & 0xFF) as usize];
+}
+
+fn generate_round_keys(key: u64) -> [u64; 16] {
+    let mut parity_drop_key = [0u64;56];
+    let mut k = [0u64; 16];
+
+    /*******************************
+    * Apply parity drop permutation
+    ********************************/
+    for n in 0..56 {
+        parity_drop_key[n] = ((key >> PARITY_DROP_TABLE[n])&1) as u64;
+    }
+
+    /**********************
+    * Generate round keys
+    **********************/
+    for n in 0..16 {
+        /*******************************************************
+        * Apply circular left shift and compression permutation
+        *******************************************************/
+        for m in 0..48 {
+            k[n] |= parity_drop_key[PARITY_DROP_INDEXES[48*n+m]] << m;
+        }
+    }
+
+    k
 }
 
 fn perturb_expansion(salt: &str) -> [usize; 48] {
