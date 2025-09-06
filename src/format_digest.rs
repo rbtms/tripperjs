@@ -1,8 +1,4 @@
-// Precompute 11 tables of 6-bit chunks
-// Magic numbers
-const CHAR_CODE_Z: u8   = 90;
-const CHAR_CODE_9: u8   = 57;
-const CHAR_CODE_DOT: u8 = 46;
+use crate::constants::*;
 
 static FORMAT_TABLES: [[char; 64]; 11] = {
     let mut tables = [['.'; 64]; 11];

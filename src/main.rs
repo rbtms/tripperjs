@@ -2,8 +2,11 @@ use wasm_bindgen::prelude::*;
 use rand::{distributions::Alphanumeric, Rng};
 use std::sync::{OnceLock};
 use std::collections::HashMap;
+mod constants;
+use constants::*;
 mod generate_round_keys;
 mod format_digest;
+
 
 /*************************************
 * Left side Initial permutation (IP) and
@@ -218,10 +221,7 @@ const fn precompute_final_l_r(l_r: [usize; 32]) -> [[u64; 256]; 4] {
 static FINAL_L_PRECOMPUTED: [[u64; 256]; 4] = precompute_final_l_r(INITIAL_TABLE_L);
 static FINAL_R_PRECOMPUTED: [[u64; 256]; 4] = precompute_final_l_r(INITIAL_TABLE_R);
 
-// Magic numbers
-const CHAR_CODE_Z: u8   = 90;
-const CHAR_CODE_9: u8   = 57;
-const CHAR_CODE_DOT: u8 = 46;
+
 
 /* --------------------------------------------------------- Constants end ------------------------------------------------------ */
 
