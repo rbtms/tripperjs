@@ -144,11 +144,9 @@ static CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED: [[[u64; 256]; 7]; 16] = precomput
 
 
 pub fn generate_round_keys(key: u64) -> [u64; 16] {
-    //let mut parity_drop_key = [0u64;56];
-    let mut parity_drop_key = 0u64; // 56 bits
     let mut k = [0u64; 16];
 
-    parity_drop_key = PARITY_DROP_PRECOMPUTED[0][(key&0xFF) as usize]
+    let parity_drop_key = PARITY_DROP_PRECOMPUTED[0][(key&0xFF) as usize]
         | PARITY_DROP_PRECOMPUTED[1][((key>>8) &0xFF) as usize]
         | PARITY_DROP_PRECOMPUTED[2][((key>>16)&0xFF) as usize]
         | PARITY_DROP_PRECOMPUTED[3][((key>>24)&0xFF) as usize]

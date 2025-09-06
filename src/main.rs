@@ -3,6 +3,7 @@ use rand::{distributions::Alphanumeric, Rng};
 use std::sync::{OnceLock};
 use std::collections::HashMap;
 mod generate_round_keys;
+mod format_digest;
 
 /*************************************
 * Left side Initial permutation (IP) and
@@ -226,21 +227,22 @@ const CHAR_CODE_DOT: u8 = 46;
 
 #[inline(always)]
 fn des_round(l: u32, r: u32, r_expanded_precomputed: &[[u64; 256]; 4], k_round: u64) -> (u32, u32) {
-        let k_xor_r_expanded = (k_round ^ (
+        let k_xor_r_expanded = k_round ^ (
           r_expanded_precomputed[0][ (r     &0xFF) as usize]
         | r_expanded_precomputed[1][((r>> 8)&0xFF) as usize]
         | r_expanded_precomputed[2][((r>>16)&0xFF) as usize]
-        | r_expanded_precomputed[3][((r>>24)&0xFF) as usize])) as usize;
+        | r_expanded_precomputed[3][((r>>24)&0xFF) as usize]);
         
         // Idea: pack in 8 bit groups to remove 2 xor operations.
-        let _l = l ^ S_VAL[0][k_xor_r_expanded & 0x3F]
-           ^ S_VAL[1][(k_xor_r_expanded >>  6) & 0x3F]
-           ^ S_VAL[2][(k_xor_r_expanded >> 12) & 0x3F]
-           ^ S_VAL[3][(k_xor_r_expanded >> 18) & 0x3F]
-           ^ S_VAL[4][(k_xor_r_expanded >> 24) & 0x3F]
-           ^ S_VAL[5][(k_xor_r_expanded >> 30) & 0x3F]
-           ^ S_VAL[6][(k_xor_r_expanded >> 36) & 0x3F]
-           ^ S_VAL[7][(k_xor_r_expanded >> 42) & 0x3F];
+        let _l = l
+           ^ S_VAL[0][( k_xor_r_expanded        & 0x3F) as usize]
+           ^ S_VAL[1][((k_xor_r_expanded >>  6) & 0x3F) as usize]
+           ^ S_VAL[2][((k_xor_r_expanded >> 12) & 0x3F) as usize]
+           ^ S_VAL[3][((k_xor_r_expanded >> 18) & 0x3F) as usize]
+           ^ S_VAL[4][((k_xor_r_expanded >> 24) & 0x3F) as usize]
+           ^ S_VAL[5][((k_xor_r_expanded >> 30) & 0x3F) as usize]
+           ^ S_VAL[6][((k_xor_r_expanded >> 36) & 0x3F) as usize]
+           ^ S_VAL[7][((k_xor_r_expanded >> 42) & 0x3F) as usize];
 
         // Swap L and R
         (r, _l)
@@ -335,28 +337,7 @@ fn to_binary_array(pwd: &str) -> u64 {
     pwd_bin
 }
 
-fn format_digest(data: u64, salt: &str) -> String {
-    // Set the two first characters of the digest to the salt
-    let mut digest = String::from(&salt[0..2]);
 
-    for n in 0..11 {
-        let row = 6*n;
-        let mut c = 0;
-        
-        for m in 0..6 {
-            c <<= 1;
-            c |= if row + m >= 64 {0} else {(data >> (row + m)) as u8&1};
-        }
-
-        c += CHAR_CODE_DOT;
-        if c > CHAR_CODE_9 { c += 7; }
-        if c > CHAR_CODE_Z { c += 6; }
-
-        digest.push(c as char);
-    }
-        
-    digest
-}
 
 fn generate_r_expanded_tables(salt: &str) -> [[u64; 256]; 4] {
     // Use salt to perturb the expansion table
@@ -431,7 +412,7 @@ pub fn crypt3(pwd: &str, salt: &str) -> String {
         data = cipher(data, &k, &r_expanded_precomputed);
     }
     
-    format_digest(data, salt)
+    format_digest::format_digest(data, salt)
 }
 
 /*
