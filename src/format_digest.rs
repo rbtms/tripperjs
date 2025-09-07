@@ -27,11 +27,8 @@ static FORMAT_TABLES: [[char; 64]; 11] = {
     tables
 };
 
-pub fn format_digest(data: u64, salt: &str) -> String {
-    [ salt.as_bytes()[0] as char,
-      salt.as_bytes()[1] as char,
-      FORMAT_TABLES[0][ ((data >> 0 ) & 0x3F) as usize ],
-      FORMAT_TABLES[1][ ((data >> 6 ) & 0x3F) as usize ],
+pub fn format_digest(data: u64) -> String {
+    [ FORMAT_TABLES[1][ ((data >> 6 ) & 0x3F) as usize ],
       FORMAT_TABLES[2][ ((data >> 12) & 0x3F) as usize ],
       FORMAT_TABLES[3][ ((data >> 18) & 0x3F) as usize ],
       FORMAT_TABLES[4][ ((data >> 24) & 0x3F) as usize ],

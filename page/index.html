@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tripcode Regex Search</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/index.css">
+  <script defer src="assets/tripperjs_wasm.js"></script> <!-- wasm loader -->
+  <script type="module" src="./assets/index.js"></script>
+</head>
+<body>
+  <div id="left">
+    <h2>Tripcode Regex Search</h2>
+    <form id="search-form">
+      <input type="text" id="regex-input" placeholder="Enter regex (e.g. abc.*)" required>
+      <button type="submit">Add Search</button>
+    </form>
+    <h3>Active Searches</h3>
+    <div id="active-searches"></div>
+  </div>
+
+  <div id="right">
+    <h2>Results</h2>
+    <div id="results"></div>
+  </div>
+</body>
+</html>

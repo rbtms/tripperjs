@@ -1,2 +1,0 @@
-[alias]
-t = "test --release -- --nocapture"

@@ -1,0 +1,137 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  display: flex;
+  height: 100vh;
+  color: #111;
+  background: #fafafa;
+  flex-direction: row; /* desktop layout */
+}
+
+/* Left and right columns */
+#left, #right {
+  flex: 1;
+  padding: 1.25rem;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+#left {
+  border-right: 1px solid #e6e6e6;
+  background: linear-gradient(90deg, #ffffff 0%, #fbfbfd 100%);
+}
+
+h2 { margin-top: 0; }
+
+#search-form { 
+  display: flex; 
+  gap: .5rem; 
+  margin-bottom: 1rem; 
+  flex-wrap: wrap;
+}
+
+#regex-input { 
+  flex: 1; 
+  padding: .5rem; 
+  border-radius: 6px; 
+  border: 1px solid #d0d0d0; 
+  min-width: 0;
+}
+
+button { 
+  padding: .45rem .75rem; 
+  border-radius: 6px; 
+  border: 1px solid #cfcfe0; 
+  background: #fff; 
+  cursor: pointer; 
+}
+
+.search-entry {
+  margin: .5rem 0;
+  padding: .6rem;
+  padding-bottom: 1.3rem !important;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #fff;
+
+}
+
+.search-entry button {
+  align-self: flex-end; /* keep remove button visible on small screens */
+}
+
+.results {
+  margin-bottom: 1rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: .75rem;
+  background: #fff;
+}
+
+.results-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* spacing between the text and buttons */
+}
+
+.results-header button {
+  margin-left: auto;
+}
+
+.search-title {
+  display: flex;
+  justify-content: space-between; /* title left, buttons right */
+  align-items: center;
+}
+
+.search-buttons {
+  display: flex;
+  gap: 0.4rem; /* spacing between buttons */
+}
+
+.search-buttons button {
+  flex-shrink: 0; /* don't shrink */
+}
+
+.results h3 {
+  margin: 0 0 .5rem;
+}
+
+.tripcode {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+  font-size: .95rem;
+  padding: .15rem 0;
+  word-break: break-all; /* prevent horizontal scroll on small screens */
+}
+
+.add-worker, .remove-worker {
+  width: 2rem;
+}
+
+/* RESPONSIVE FOR PHONES / SMALL SCREENS */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+    height: auto;
+  }
+
+  #left, #right {
+    flex: unset;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  #left {
+    border-right: none;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .results-header {
+    flex-direction: row; /* keep horizontal if possible */
+    justify-content: space-between;
+  }
+
+  .results-header button {
+    margin-left: auto; /* push button to the right on small screens */
+  }
+}
