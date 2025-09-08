@@ -216,7 +216,6 @@ class TripcodeSearch {
     for (const w of this.workers) w.terminate();
     this.workers = [];
     this.ui.remove();
-    this.results.container.remove();
     TripcodeSearch.searches.delete(this.regexStr);
   }
 
