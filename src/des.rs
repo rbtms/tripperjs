@@ -324,24 +324,22 @@ pub fn to_binary_array(pwd: &str) -> u64 {
     pwd_bin
 }
 
-#[inline(always)]
 fn des_round(l: u32, r: u32, r_expanded_precomputed: &[[u64; 256]; 4], k_round: u64) -> (u32, u32) {
         let k_xor_r_expanded = k_round ^ (
-          r_expanded_precomputed[0][ (r     &0xFF) as usize]
-        | r_expanded_precomputed[1][((r>> 8)&0xFF) as usize]
-        | r_expanded_precomputed[2][((r>>16)&0xFF) as usize]
-        | r_expanded_precomputed[3][((r>>24)&0xFF) as usize]);
+              r_expanded_precomputed[0][ (r     &0xFF) as usize]
+            | r_expanded_precomputed[1][((r>> 8)&0xFF) as usize]
+            | r_expanded_precomputed[2][((r>>16)&0xFF) as usize]
+            | r_expanded_precomputed[3][((r>>24)&0xFF) as usize]);
         
-        // Idea: pack in 8 bit groups to remove 2 xor operations.
         let _l = l
-           ^ S_VAL[0][( k_xor_r_expanded        & 0x3F) as usize]
-           ^ S_VAL[1][((k_xor_r_expanded >>  6) & 0x3F) as usize]
-           ^ S_VAL[2][((k_xor_r_expanded >> 12) & 0x3F) as usize]
-           ^ S_VAL[3][((k_xor_r_expanded >> 18) & 0x3F) as usize]
-           ^ S_VAL[4][((k_xor_r_expanded >> 24) & 0x3F) as usize]
-           ^ S_VAL[5][((k_xor_r_expanded >> 30) & 0x3F) as usize]
-           ^ S_VAL[6][((k_xor_r_expanded >> 36) & 0x3F) as usize]
-           ^ S_VAL[7][((k_xor_r_expanded >> 42) & 0x3F) as usize];
+            ^ S_VAL[0][( k_xor_r_expanded        & 0x3F) as usize]
+            ^ S_VAL[1][((k_xor_r_expanded >>  6) & 0x3F) as usize]
+            ^ S_VAL[2][((k_xor_r_expanded >> 12) & 0x3F) as usize]
+            ^ S_VAL[3][((k_xor_r_expanded >> 18) & 0x3F) as usize]
+            ^ S_VAL[4][((k_xor_r_expanded >> 24) & 0x3F) as usize]
+            ^ S_VAL[5][((k_xor_r_expanded >> 30) & 0x3F) as usize]
+            ^ S_VAL[6][((k_xor_r_expanded >> 36) & 0x3F) as usize]
+            ^ S_VAL[7][((k_xor_r_expanded >> 42) & 0x3F) as usize];
 
         // Swap L and R
         (r, _l)
@@ -376,7 +374,7 @@ pub fn des(data: u64, k: &[u64; 16], r_expanded_precomputed: &[[u64; 256]; 4]) -
     for round_n in 0..16 {
         (l, r) = des_round(l, r, r_expanded_precomputed, k[round_n]);
     }
-
+    
     // Swap L and R at the end to allow reversing
     (l, r) = (r, l);
 

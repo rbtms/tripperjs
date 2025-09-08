@@ -2,6 +2,7 @@ use wasm_bindgen::prelude::*;
 use rand::prelude::{thread_rng, RngCore};
 use std::collections::HashMap;
 use regex::Regex;
+#[cfg(target_arch = "wasm32")]
 use serde_wasm_bindgen::to_value;
 mod constants;
 mod des;
@@ -137,15 +138,13 @@ pub fn run_1000_iterations(regex_pattern: &str) {
     }
 }
 
-fn generate_tripcode(pwd: &str) -> String {
-    let salt = get_salt(pwd);
-    let hash = crypt3(pwd, &salt);
-    hash.chars().rev().collect::<String>().chars().rev().collect()
-}
-
 // laK4j2SD.w
 fn main() {
     let pwd = ">@1=O$R1";
-    println!("{}", generate_tripcode(pwd));
+    let salt = get_salt(pwd);
+    let hash = crypt3(pwd, &salt);
+    let tripcode: String = hash.chars().rev().collect::<String>().chars().rev().collect();
+
+    println!("{}", tripcode);
 }
 

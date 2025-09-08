@@ -36,3 +36,14 @@ profile:
 		perf report && \
 		rm -f perf.data perf.data.old out.folded \
 	'
+profile_release:
+	sudo sh -c 'echo 1 > /proc/sys/kernel/perf_event_paranoid'
+	@bash -c '\
+		test_bin=$$(cargo test --release --all-targets --no-run --message-format=json \
+			| grep -oP '"'"'"executable":"\K[^"]+'"'"' \
+			| grep test-) && \
+		perf record -e cycles,instructions,cache-references,cache-misses "$$test_bin" && \
+		perf script -i perf.data > out.folded && \
+		perf report && \
+		rm -f perf.data perf.data.old out.folded \
+	'
