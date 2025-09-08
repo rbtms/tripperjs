@@ -109,7 +109,7 @@ class TripcodeSearchUI {
       <button class="remove-worker">-</button><button class="remove-search">Remove</button></div></div>
       <span class="speed">0</span> tripcodes / s
       <br>
-      Workers: <span class="worker-count">0</span>
+      Threads: <span class="worker-count">0</span>
     `;
 
     document.getElementById('active-searches').appendChild(this.entryEl);
