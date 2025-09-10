@@ -109,7 +109,7 @@ class TripcodeSearchUI {
       <button class="remove-worker">-</button><button class="remove-search">Remove</button></div></div>
       <span class="speed">0</span> tripcodes / s
       <br>
-      Workers: <span class="worker-count">0</span>
+      Threads: <span class="worker-count">0</span>
     `;
 
     document.getElementById('active-searches').appendChild(this.entryEl);
@@ -216,7 +216,6 @@ class TripcodeSearch {
     for (const w of this.workers) w.terminate();
     this.workers = [];
     this.ui.remove();
-    this.results.container.remove();
     TripcodeSearch.searches.delete(this.regexStr);
   }
 
