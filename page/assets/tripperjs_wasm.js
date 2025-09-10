@@ -189,13 +189,14 @@ export function crypt3(pwd, salt) {
 }
 
 /**
+ * @param {number} pwd_len
  * @returns {string}
  */
-export function rand_pwd() {
+export function rand_pwd(pwd_len) {
     let deferred1_0;
     let deferred1_1;
     try {
-        const ret = wasm.rand_pwd();
+        const ret = wasm.rand_pwd(pwd_len);
         deferred1_0 = ret[0];
         deferred1_1 = ret[1];
         return getStringFromWasm0(ret[0], ret[1]);
@@ -221,17 +222,6 @@ export function get_salt(key) {
     } finally {
         wasm.__wbindgen_free(deferred2_0, deferred2_1, 1);
     }
-}
-
-/**
- * @param {string} regex_pattern
- * @returns {any}
- */
-export function run_1000_iterations(regex_pattern) {
-    const ptr0 = passStringToWasm0(regex_pattern, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.run_1000_iterations(ptr0, len0);
-    return ret;
 }
 
 /**

@@ -9,7 +9,6 @@ mod des;
 mod generate_round_keys;
 mod format_digest;
 
-
 #[allow(static_mut_refs)]
 #[wasm_bindgen]
 pub fn crypt3(pwd: &str, salt: &str) -> String {
@@ -29,19 +28,18 @@ pub fn crypt3(pwd: &str, salt: &str) -> String {
 }
 
 #[wasm_bindgen]
-pub fn rand_pwd() -> String {
+pub fn rand_pwd(pwd_len: usize) -> String {
     const ALLOWED: &[u8] = b"#$%()*+,-./0123456789:;=?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz{|}";
-    const PWD_LEN: usize = 8;
-
+    
     let mut rng = thread_rng();
-    let mut pwd = [0u8; PWD_LEN];
+    let mut pwd  = Vec::with_capacity(pwd_len);
 
-    for byte in pwd.iter_mut() {
-        let idx = rng.next_u32() % (ALLOWED.len() as u32);
-        *byte = ALLOWED[idx as usize];
+    for _ in 0..pwd_len {
+        let index = rng.next_u32() % (ALLOWED.len() as u32);
+        pwd.push(ALLOWED[index as usize]);
     }
 
-    String::from_utf8(pwd.to_vec()).unwrap()
+    String::from_utf8(pwd).unwrap()
 }
 
 #[wasm_bindgen]
@@ -83,15 +81,21 @@ pub fn get_salt(key: &str) -> String {
     result
 }
 
-#[cfg(target_arch = "wasm32")]
-#[wasm_bindgen]
-pub fn run_1000_iterations(regex_pattern: &str) -> JsValue {
+pub fn run_x_iterations_common(iter_n: u32, regex_pattern: &str) -> HashMap<String,String> {
     let re = Regex::new(regex_pattern).unwrap();
     let mut results = HashMap::new();
+    
+    // Only calculate the salt (first part of the password)
+    // once every x iterations to reduce the cache misses
+    // from the hash table lookup. Also increases speed in 50k
+    // or so since it reduces the number of times the expansion
+    // table has to be perturbed.
+    let first_3_chars = &rand_pwd(3);
+    let salt = get_salt(&first_3_chars);
 
-    for _ in 0..1000 {
-        let pwd = rand_pwd();
-        let salt = get_salt(&pwd);
+    for _ in 0..iter_n {
+        let last_5_chars = rand_pwd(6);
+        let pwd = format!("{}{}", first_3_chars, last_5_chars);
         let tripcode = crypt3(&pwd, &salt);
 
         if re.is_match(&tripcode) {
@@ -99,43 +103,18 @@ pub fn run_1000_iterations(regex_pattern: &str) -> JsValue {
         }
     }
 
-    to_value(&results).unwrap()
+    results
 }
 
 #[cfg(target_arch = "wasm32")]
 #[wasm_bindgen]
 pub fn run_x_iterations(iter_n: i32, regex_pattern: &str) -> JsValue {
-    let re = Regex::new(regex_pattern).unwrap();
-    let mut results = HashMap::new();
-
-    for _ in 0..iter_n {
-        let pwd = rand_pwd();
-        let salt = get_salt(&pwd);
-        let tripcode = crypt3(&pwd, &salt);
-
-        if re.is_match(&tripcode) {
-            results.insert(pwd, tripcode);
-        }
-    }
-
+    let results = run_x_iterations_common(iter_n as u32, regex_pattern);
     to_value(&results).unwrap()
 }
-
 #[cfg(not(target_arch = "wasm32"))]
-#[wasm_bindgen]
-pub fn run_1000_iterations(regex_pattern: &str) {
-    let re = Regex::new(regex_pattern).unwrap();
-    let mut results = HashMap::new();
-
-    for _ in 0..1000 {
-        let pwd = rand_pwd();
-        let salt = get_salt(&pwd);
-        let tripcode = crypt3(&pwd, &salt);
-
-        if re.is_match(&tripcode) {
-            results.insert(pwd, tripcode);
-        }
-    }
+pub fn run_x_iterations(iter_n: u32, regex_pattern: &str) -> HashMap<String,String> {
+    run_x_iterations_common(iter_n, regex_pattern)
 }
 
 // laK4j2SD.w

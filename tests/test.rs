@@ -1,7 +1,7 @@
 use std::fs;
 use std::time::Instant;
 use tripperjs_wasm::crypt3; // your Rust crypt3 implementation
-use tripperjs_wasm::run_1000_iterations;
+use tripperjs_wasm::run_x_iterations;
 use tripperjs_wasm::get_salt;
 
 fn generate_tripcode(pwd: &str) -> String {
@@ -51,14 +51,15 @@ fn test_correctness() {
 fn test_performance() {
     println!("Running performance test...");
 
+    let iter_per_batch = 1000;
+    let mut iterations = 0;
     let target_duration = std::time::Duration::from_secs(4);
     let start = Instant::now();
-    let mut iterations = 0;
 
     while Instant::now() - start < target_duration {
         // Run 1000 iterations
-        let a = run_1000_iterations("aaaaaaaaaaaaaaaaaa");
-        iterations += 1000;
+        run_x_iterations(iter_per_batch,"random_regex");
+        iterations += iter_per_batch;
     }
 
     let duration_secs = (Instant::now() - start).as_secs_f64();
