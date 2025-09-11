@@ -1,4 +1,3 @@
-# Makefile
 GECKODRIVER_VERSION := v0.34.0
 GECKODRIVER_URL := https://github.com/mozilla/geckodriver/releases/download/$(GECKODRIVER_VERSION)/geckodriver-$(GECKODRIVER_VERSION)-linux64.tar.gz
 GECKODRIVER_FOLDER := /tmp
@@ -15,6 +14,9 @@ test_avx512:
 	RUSTFLAGS="-C target-feature=+avx512f" make _test
 
 _test_wasm:
+	# Remove previous builds
+	#rm -r ./target/wasm*
+
 	# Download geckodriver if not already in /tmp
 	@test -f /tmp/geckodriver || ( \
 		wget -O /tmp/geckodriver.tar.gz ${GECKODRIVER_URL} && \
@@ -45,7 +47,7 @@ _build_wasm:
 	cp ./pkg/tripperjs_wasm.js      ./page/assets/
 	rm -r ./pkg
 build_wasm:
-	RUSTFLAGS="-C target-cpu=native" make _build_wasm
+	make _build_wasm
 build_wasm_simd128:
 	RUSTFLAGS="-C target-feature=+simd128" make _build_wasm
 
@@ -73,4 +75,3 @@ profile_release:
 		perf report && \
 		rm -f perf.data perf.data.old out.folded \
 	'
-	

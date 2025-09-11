@@ -1,4 +1,24 @@
-pub fn s1 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u64, u64) {
+/****************************************************
+* Inverse table of straight_table for speed reasons
+* Derived from:
+*
+* Permutation table applied to s_box results:
+*
+* straight_table = [
+*   15,  6, 19, 20, 28, 11, 27, 16,
+*    0, 14, 22, 25,  4, 17, 30,  9,
+*    1,  7, 23, 13, 31, 26,  2,  8,
+*   18, 12, 29,  5, 21, 10,  3, 24
+* ];
+****************************************************/
+const INVERSE_STRAIGHT_TABLE: [usize; 32] = [
+     8, 16, 22, 30, 12, 27,  1, 17,
+    23, 15, 29,  5, 25, 19,  9,  0,
+     7, 13, 24,  2,  3, 28, 10, 18,
+    31, 11, 21,  6,  4, 26, 14, 20
+];
+
+pub fn s1 (a1: u128, a2: u128, a3: u128, a4: u128, a5: u128, a6: u128, l: &mut[u128; 32])  {
     let x1 = !a4;
     let x2 = !a1;
     let x3 = a4 ^ a3;
@@ -21,7 +41,7 @@ pub fn s1 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x20 = x16 ^ x19;
     let x21 = a5 | x20;
     let x22 = x13 ^ x21;
-    let out4 = x22;
+    l[INVERSE_STRAIGHT_TABLE[3]] ^= x22;
 
     let x23 = a3 | x4;
     let x24 = !x23;
@@ -38,7 +58,7 @@ pub fn s1 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x35 = x31 ^ x34;
     let x36 = a5 | x35;
     let x37 = x29 ^ x36;
-    let out1 = x37;
+    l[INVERSE_STRAIGHT_TABLE[0]] ^= x37;
 
     let x38 = a3 & x10;
     let x39 = x38 | x4;
@@ -54,7 +74,7 @@ pub fn s1 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x49 = x45 ^ x48;
     let x50 = a5 & x49;
     let x51 = x43 ^ x50;
-    let out2 = x51;
+    l[INVERSE_STRAIGHT_TABLE[1]] ^= x51;
 
     let x52 = x8 ^ x40;
     let x53 = a3 ^ x11;
@@ -68,12 +88,10 @@ pub fn s1 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x61 = x58 ^ x60;
     let x62 = a5 & x61;
     let x63 = x56 ^ x62;
-    let out3 = x63;
-
-    (out1, out2, out3, out4)
+    l[INVERSE_STRAIGHT_TABLE[2]] ^= x63;
 }
 
-pub fn s2 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u64, u64) {
+pub fn s2 (a1: u128, a2: u128, a3: u128, a4: u128, a5: u128, a6: u128, l: &mut[u128; 32])  {
     let x1 = !a5;
     let x2 = !a1;
     let x3 = a5 ^ a6;
@@ -91,7 +109,7 @@ pub fn s2 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x15 = x12 ^ x14;
     let x16 = a4 & x15;
     let x17 = x11 ^ x16;
-    let out2 = x17;
+    l[INVERSE_STRAIGHT_TABLE[5]] ^= x17;
 
     let x18 = a5 | a1;
     let x19 = a6 | x18;
@@ -113,7 +131,7 @@ pub fn s2 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x35 = x29 ^ x34;
     let x36 = a4 | x35;
     let x37 = x25 ^ x36;
-    let out3 = x37;
+    l[INVERSE_STRAIGHT_TABLE[6]] ^= x37;
 
     let x38 = x21 & x32;
     let x39 = x38 ^ x5;
@@ -124,7 +142,7 @@ pub fn s2 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x44 = x28 | x41;
     let x45 = a4 & x44;
     let x46 = x43 ^ x45;
-    let out1 = x46;
+    l[INVERSE_STRAIGHT_TABLE[4]] ^= x46;
 
     let x47 = x19 & x21;
     let x48 = x47 ^ x26;
@@ -136,12 +154,10 @@ pub fn s2 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x54 = x53 & x50;
     let x55 = a4 | x54;
     let x56 = x52 ^ x55;
-    let out4 = x56;
-
-    (out1, out2, out3, out4)
+    l[INVERSE_STRAIGHT_TABLE[7]] ^= x56;
 }
 
-pub fn s3 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u64, u64) {
+pub fn s3 (a1: u128, a2: u128, a3: u128, a4: u128, a5: u128, a6: u128, l: &mut[u128; 32])  {
     let x1 = !a5;
     let x2 = !a6;
     let x3 = a5 & a3;
@@ -162,7 +178,7 @@ pub fn s3 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x18 = x11 ^ x17;
     let x19 = a1 & x18;
     let x20 = x7 ^ x19;
-    let out4 = x20;
+    l[INVERSE_STRAIGHT_TABLE[11]] ^= x20;
 
     let x21 = a3 ^ a4;
     let x22 = x21 ^ x9;
@@ -178,7 +194,7 @@ pub fn s3 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x32 = x28 ^ x31;
     let x33 = a1 | x32;
     let x34 = x26 ^ x33;
-    let out1 = x34;
+    l[INVERSE_STRAIGHT_TABLE[8]] ^= x34;
 
     let x35 = a3 ^ x9;
     let x36 = x35 | x5;
@@ -194,7 +210,7 @@ pub fn s3 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x46 = x42 ^ x45;
     let x47 = a1 | x46;
     let x48 = x40 ^ x47;
-    let out3 = x48;
+    l[INVERSE_STRAIGHT_TABLE[10]] ^= x48;
 
     let x49 = x2 | x38;
     let x50 = x49 ^ x13;
@@ -205,12 +221,10 @@ pub fn s3 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x55 = x54 & x52;
     let x56 = a1 | x55;
     let x57 = x53 ^ x56;
-    let out2 = x57;
-
-    (out1, out2, out3, out4)
+    l[INVERSE_STRAIGHT_TABLE[9]] ^= x57;
 }
 
-pub fn s4 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u64, u64) {
+pub fn s4 (a1: u128, a2: u128, a3: u128, a4: u128, a5: u128, a6: u128, l: &mut[u128; 32])  {
     let x1 = !a1;
     let x2 = !a3;
     let x3 = a1 | a3;
@@ -235,12 +249,12 @@ pub fn s4 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x22 = x16 ^ x21;
     let x23 = a6 & x22;
     let x24 = x13 ^ x23;
-    let out2 = x24;
+    l[INVERSE_STRAIGHT_TABLE[13]] ^= x24;
 
     let x25 = !x13;
     let x26 = a6 | x22;
     let x27 = x25 ^ x26;
-    let out1 = x27;
+    l[INVERSE_STRAIGHT_TABLE[12]] ^= x27;
 
     let x28 = a2 & x11;
     let x29 = x28 ^ x17;
@@ -255,16 +269,14 @@ pub fn s4 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x38 = x36 ^ x37;
     let x39 = a6 & x38;
     let x40 = x33 ^ x39;
-    let out4 = x40;
+    l[INVERSE_STRAIGHT_TABLE[15]] ^= x40;
 
     let x41 = x26 ^ x38;
     let x42 = x41 ^ x40;
-    let out3 = x42;
-
-    (out1, out2, out3, out4)
+    l[INVERSE_STRAIGHT_TABLE[14]] ^= x42;
 }
 
-pub fn s5 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u64, u64) {
+pub fn s5 (a1: u128, a2: u128, a3: u128, a4: u128, a5: u128, a6: u128, l: &mut[u128; 32])  {
     let x1 = !a6;
     let x2 = !a3;
     let x3 = x1 | x2;
@@ -286,7 +298,7 @@ pub fn s5 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x19 = x10 ^ x18;
     let x20 = a2 | x19;
     let x21 = x13 ^ x20;
-    let out3 = x21;
+    l[INVERSE_STRAIGHT_TABLE[18]] ^= x21;
 
     let x22 = x2 | x15;
     let x23 = x22 ^ a6;
@@ -301,7 +313,7 @@ pub fn s5 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x32 = !x31;
     let x33 = a2 | x32;
     let x34 = x30 ^ x33;
-    let out2 = x34;
+    l[INVERSE_STRAIGHT_TABLE[17]] ^= x34;
 
     let x35 = x2 ^ x15;
     let x36 = a1 & x35;
@@ -317,7 +329,7 @@ pub fn s5 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x46 = x43 ^ x45;
     let x47 = a2 | x46;
     let x48 = x41 ^ x47;
-    let out1 =  x48;
+    l[INVERSE_STRAIGHT_TABLE[16]] ^= x48;
 
     let x49 = x24 & x48;
     let x50 = x49 ^ x5;
@@ -333,12 +345,10 @@ pub fn s5 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x60 = x56 ^ x59;
     let x61 = a2 | x60;
     let x62 = x54 ^ x61;
-    let out4 = x62;
-
-    (out1, out2, out3, out4)
+    l[INVERSE_STRAIGHT_TABLE[19]] ^= x62;
 }
 
-pub fn s6 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u64, u64) {
+pub fn s6 (a1: u128, a2: u128, a3: u128, a4: u128, a5: u128, a6: u128, l: &mut[u128; 32])  {
     let x1 = !a2;
     let x2 = !a5;
     let x3 = a2 ^ a6;
@@ -361,7 +371,7 @@ pub fn s6 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x20 = x14 ^ x19;
     let x21 = a3 & x20;
     let x22 = x12 ^ x21;
-    let out2 = x22;
+    l[INVERSE_STRAIGHT_TABLE[21]] ^= x22;
 
     let x23 = a6 ^ x18;
     let x24 = a1 & x23;
@@ -377,7 +387,7 @@ pub fn s6 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x34 = x30 ^ x33;
     let x35 = a3 & x34;
     let x36 = x29 ^ x35;
-    let out4 = x36;
+    l[INVERSE_STRAIGHT_TABLE[23]] ^= x36;
 
     let x37 = x6 ^ x34;
     let x38 = a5 & x23;
@@ -392,7 +402,7 @@ pub fn s6 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x47 = x43 ^ x46;
     let x48 = a3 | x47;
     let x49 = x41 ^ x48;
-    let out1 = x49;
+    l[INVERSE_STRAIGHT_TABLE[20]] ^= x49;
 
     let x50 = x5 | x38;
     let x51 = x50 ^ x6;
@@ -402,12 +412,10 @@ pub fn s6 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x55 = x30 & x43;
     let x56 = a3 | x55;
     let x57 = x54 ^ x56;
-    let out3 = x57;
-
-    (out1, out2, out3, out4)
+    l[INVERSE_STRAIGHT_TABLE[22]] ^= x57;
 }
 
-pub fn s7 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u64, u64) {
+pub fn s7 (a1: u128, a2: u128, a3: u128, a4: u128, a5: u128, a6: u128, l: &mut[u128; 32])  {
     let x1 = !a2;
     let x2 = !a5;
     let x3 = a2 & a4;
@@ -429,7 +437,7 @@ pub fn s7 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x19 = x16 ^ x18;
     let x20 = a1 & x19;
     let x21 = x11 ^ x20;
-    let out1 = x21;
+    l[INVERSE_STRAIGHT_TABLE[24]] ^= x21;
 
     let x22 = a2 | x21;
     let x23 = x22 ^ x6;
@@ -444,7 +452,7 @@ pub fn s7 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x32 = x29 ^ x31;
     let x33 = a1 | x32;
     let x34 = x28 ^ x33;
-    let out4 = x34;
+    l[INVERSE_STRAIGHT_TABLE[27]] ^= x34;
 
     let x35 = a4 & x16;
     let x36 = x35 | x1;
@@ -458,7 +466,7 @@ pub fn s7 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x44 = x41 ^ x43;
     let x45 = a1 | x44;
     let x46 = x38 ^ x45;
-    let out2 = x46;
+    l[INVERSE_STRAIGHT_TABLE[25]] ^= x46;
 
     let x47 = x8 ^ x44;
     let x48 = x6 ^ x15;
@@ -471,12 +479,10 @@ pub fn s7 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x55 = x51 ^ x54;
     let x56 = a1 | x55;
     let x57 = x50 ^ x56;
-    let out3 = x57;
-
-    (out1, out2, out3, out4)
+    l[INVERSE_STRAIGHT_TABLE[26]] ^= x57;
 }
 
-pub fn s8 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u64, u64) {
+pub fn s8 (a1: u128, a2: u128, a3: u128, a4: u128, a5: u128, a6: u128, l: &mut[u128; 32])  {
     let x1 = !a1;
     let x2 = !a4;
     let x3 = a3 ^ x1;
@@ -498,7 +504,7 @@ pub fn s8 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x19 = x14 ^ x18;
     let x20 = a6 | x19;
     let x21 = x13 ^ x20;
-    let out1 = x21;
+    l[INVERSE_STRAIGHT_TABLE[28]] ^= x21;
 
     let x22 = a5 | x3;
     let x23 = x22 & x2;
@@ -510,7 +516,7 @@ pub fn s8 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x29 = x23 ^ x28;
     let x30 = a6 & x29;
     let x31 = x13 ^ x30;
-    let out4 = x31;
+    l[INVERSE_STRAIGHT_TABLE[31]] ^= x31;
 
     let x32 = x5 ^ x6;
     let x33 = x32 ^ x22;
@@ -525,7 +531,7 @@ pub fn s8 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x42 = x38 ^ x41;
     let x43 = a6 | x42;
     let x44 = x36 ^ x43;
-    let out3 = x44;
+    l[INVERSE_STRAIGHT_TABLE[30]] ^= x44;
 
     let x45 = a1 ^ x10;
     let x46 = x45 ^ x22;
@@ -537,7 +543,5 @@ pub fn s8 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64) -> (u64, u64, u
     let x52 = x51 | x38;
     let x53 = a6 & x52;
     let x54 = x50 ^ x53;
-    let out2 = x54;
-
-    (out1, out2, out3, out4)
+    l[INVERSE_STRAIGHT_TABLE[29]] ^= x54;
 }
