@@ -36,7 +36,7 @@ fn generate_tripcode_128(pwd: &str) -> String {
 }
 
 
-//#[test]
+#[test]
 fn test_correctness() {
     //println!("Running correctness tests...");
 
@@ -147,7 +147,7 @@ fn test_correctness_128() {
     //println!("    All correctness tests passed.\n");
 }
 
-#[test]
+//#[test]
 fn test_performance() {
     //println!("Running performance test...");
 
@@ -189,7 +189,7 @@ fn test_performance_64() {
     println!("    run_x_iterations_64: {} tripcodes/s", tripcodes_per_second);
 }
 
-#[test]
+//#[test]
 fn test_performance_128() {
     //println!("Running performance test...");
 

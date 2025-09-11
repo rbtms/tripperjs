@@ -109,11 +109,13 @@ fn des_round(l: &mut [u64; 32], r: [u64; 32], k_round: &[u64; 64], e: &[usize; 4
     (r, l.clone())
 }
 
- fn get_matrix_column<const ROWS: usize>(m: &[u64; ROWS], col_i: usize) -> u64 {
+#[inline(always)]
+fn get_matrix_column(m: &[u64; 32], col_i: usize) -> u64 {
     let mut col = 0u64;
+    let matrix_len = 32;
 
     let mut i = 0;
-    while i < m.len() {
+    while i < matrix_len {
         col |= ((m[i]>>col_i)&1) << i;
         i +=1;
     }
@@ -193,7 +195,7 @@ fn final_permutation(l: [u64; 32], r: [u64; 32]) -> [u64; 64] {
     blocks
 }
 
-pub fn des(data: &[u64; 64], k: &[[u64; 64]; 16], r_expanded_precomputed: &[[u64; 256]; 4], expansion_table: &[usize; 48]) -> [u64; 64] {
+pub fn des(data: &[u64; 64], k: &[[u64; 64]; 16], expansion_table: &[usize; 48]) -> [u64; 64] {
     /*******************************************************************
     * Apply initial permutation and separate into left and right parts
     * (both 32 bits long)

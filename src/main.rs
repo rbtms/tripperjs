@@ -112,14 +112,13 @@ pub fn crypt3_64(pwds: &Vec<String>, salt: &str) -> Vec<String> {
 
     let mut data = [0u64; 64];
     let pwd_bins = to_binary_arrays(pwds);
-    let keys = generate_round_keys::generate_transposed_round_keys(&pwd_bins);
+    let keys = generate_round_keys::generate_transposed_round_keys_64(&pwd_bins);
  
-    let r_expanded_precomputed = des::generate_r_expanded_tables_cached(salt);
     let expansion_table = des::perturb_expansion(&salt);
 
     // Crypt(3) calls DES 25 times
     for _ in 0..25 {
-        data = bitslice_des_64::des(&data, &keys, &r_expanded_precomputed, &expansion_table);
+        data = bitslice_des_64::des(&data, &keys, &expansion_table);
     }
 
     //format_digest::format_digest(data)
@@ -186,23 +185,11 @@ pub fn run_x_iterations_common(iter_n: u32, regex_pattern: &str) -> HashMap<Stri
 // from the hash table lookup. Also increases speed in 50k
 // or so since it reduces the number of times the expansion
 // table has to be perturbed.
-fn make_passwords_batch() -> (String, Vec<String>) {
-    let mut pwds =Vec::with_capacity(64);
+fn make_passwords_batch(batch_size: usize) -> (String, Vec<String>) {
+    let mut pwds =Vec::with_capacity(batch_size);
     let first_3_chars = &rand_pwd(3);
 
-    for _ in 0..64 {
-        let last_5_chars = rand_pwd(5);
-        pwds.push(format!("{}{}", first_3_chars, last_5_chars));
-    }
-
-    (get_salt(&first_3_chars), pwds)
-}
-
-fn make_passwords_batch_128() -> (String, Vec<String>) {
-    let mut pwds =Vec::with_capacity(128);
-    let first_3_chars = &rand_pwd(3);
-
-    for _ in 0..128 {
+    for _ in 0..batch_size {
         let last_5_chars = rand_pwd(5);
         pwds.push(format!("{}{}", first_3_chars, last_5_chars));
     }
@@ -215,7 +202,7 @@ pub fn run_x_iterations_common_64(iter_n: u32, regex_pattern: &str) -> HashMap<S
     let mut results = HashMap::new();
     
     for _ in 0..iter_n {
-        let (salt, pwds) = make_passwords_batch();
+        let (salt, pwds) = make_passwords_batch(64);
         let tripcodes = crypt3_64(&pwds, &salt);
 
         for i in 0..64 {
@@ -233,9 +220,9 @@ pub fn run_x_iterations_common_128(iter_n: u32, regex_pattern: &str) -> HashMap<
     let mut results = HashMap::new();
     
     for _ in 0..iter_n {
-        let (salt, pwds) = make_passwords_batch_128();
-        let tripcodes = crypt3_128(&pwds, &salt);
-        
+        let (salt, pwds) = make_passwords_batch(128);
+        let tripcodes = crypt3_128(&pwds, &salt);    
+    
         for i in 0..128 {
             if re.is_match(&tripcodes[i]) {
                 results.insert(pwds[i].clone(), tripcodes[i].clone());

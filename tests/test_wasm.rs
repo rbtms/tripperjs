@@ -106,7 +106,7 @@ fn test_correctness_64() {
 fn now_secs() -> f64 {
     Date::now() / 1000.0
 }
-#[wasm_bindgen_test]
+//#[wasm_bindgen_test]
 #[cfg(target_arch = "wasm32")]
 fn test_performance() {
     let iter_per_batch = 1000;
@@ -148,7 +148,7 @@ fn test_performance_64() {
     );
 }
 
-#[wasm_bindgen_test]
+//#[wasm_bindgen_test]
 #[cfg(target_arch = "wasm32")]
 fn test_performance_128() {
     let iter_per_batch = 1000;
