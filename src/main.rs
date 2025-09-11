@@ -14,24 +14,6 @@ mod bitslice_sboxes_128;
 mod generate_round_keys;
 mod format_digest;
 
-#[allow(static_mut_refs)]
-#[wasm_bindgen]
-pub fn crypt3(pwd: &str, salt: &str) -> String {
-    // Keep only the first 2 characters
-    let salt = &salt[0..2];
-    let mut data = 0u64;
-    let pwd_bin = des::to_binary_array(pwd);
-    let k = generate_round_keys::generate_round_keys(pwd_bin);
-    let r_expanded_precomputed = des::generate_r_expanded_tables_cached(salt);
-
-    // Crypt(3) calls DES 25 times
-    for _ in 0..25 {
-        data = des::des(data, &k, &r_expanded_precomputed);
-    }
-    
-    format_digest::format_digest(data)
-}
-
 fn to_binary_arrays(pwds: &Vec<String>) -> [u64; 64] {
     let mut pwd_bins = [0u64; 64];
 
@@ -50,96 +32,6 @@ fn to_binary_arrays_128(pwds: &Vec<String>) -> [u64; 128] {
     }
 
     pwd_bins
-}
-
-pub fn generate_transposed_round_keys(pwd_bins: &[u64; 64]) -> [[u64; 64]; 16] {
-    let mut keys = [[0u64; 64]; 16]; // [round][bit index across 64 passwords]
-
-    for pwd_idx in 0..64 {
-        let round_keys = generate_round_keys::generate_round_keys(pwd_bins[pwd_idx]);
-
-        for round in 0..16 {
-            let rk = round_keys[round];
-
-            // Pack each bit of rk into keys[round][bit]
-            for bit in 0..64 {
-                let bit_val = (rk >> bit) & 1;
-                keys[round][bit] |= bit_val << pwd_idx;
-            }
-        }
-    }
-
-    keys
-}
-
-pub fn crypt3_64(pwds: &Vec<String>, salt: &str) -> Vec<String> {
-    // Keep only the first 2 characters
-    let salt = &salt[0..2];
-
-    let mut data = [0u64; 64];
-    let pwd_bins = to_binary_arrays(pwds);
-    let keys = generate_transposed_round_keys(&pwd_bins);
- 
-    let r_expanded_precomputed = des::generate_r_expanded_tables_cached(salt);
-    let expansion_table = des::perturb_expansion(&salt);
-
-    // Crypt(3) calls DES 25 times
-    for _ in 0..25 {
-        data = bitslice_des_64::des(&data, &keys, &r_expanded_precomputed, &expansion_table);
-    }
-
-    //format_digest::format_digest(data)
-    let mut ret = vec![String::new(); 64];
-    for i in 0..64 {
-        ret[i] = format_digest::format_digest(data[i]);
-    }
-
-    ret
-}
-
-pub fn generate_transposed_round_keys_128(pwd_bins: &[u64; 128]) -> [[u128; 64]; 16] {
-    let mut keys = [[0u128; 64]; 16]; // [round][bit index across 64 passwords]
-
-    for pwd_idx in 0..64 {
-        let round_keys = generate_round_keys::generate_round_keys(pwd_bins[pwd_idx]);
-
-        for round in 0..16 {
-            let rk = round_keys[round];
-
-            // Pack each bit of rk into keys[round][bit]
-            for bit in 0..64 {
-                let bit_val = (rk >> bit) & 1;
-                keys[round][bit] |= (bit_val as u128) << pwd_idx;
-            }
-        }
-    }
-
-    keys
-}
-
-pub fn crypt3_128(pwds: &Vec<String>, salt: &str) -> Vec<String> {
-    // Keep only the first 2 characters
-    let salt = &salt[0..2];
-
-    let mut data = [0u64; 128];
-    let pwd_bins = to_binary_arrays_128(pwds);
-    let keys = generate_transposed_round_keys_128(&pwd_bins);
- 
-    let r_expanded_precomputed = des::generate_r_expanded_tables_cached(salt);
-    let expansion_table = des::perturb_expansion(&salt);
-
-    // Crypt(3) calls DES 25 times
-    for _ in 0..25 {
-        data = bitslice_des_128::des(&data, &keys, &r_expanded_precomputed, &expansion_table);
-    }
-
-    //format_digest::format_digest(data)
-    let mut ret = vec![String::new(); 128];
-    for i in 0..128 {
-        ret[i] = format_digest::format_digest(data[i]);
-    }
-
-    ret
 }
 
 #[wasm_bindgen]
@@ -194,6 +86,74 @@ pub fn get_salt(key: &str) -> String {
     //println!("key: {}, salt: {}", key, result);
 
     result
+}
+
+#[allow(static_mut_refs)]
+#[wasm_bindgen]
+pub fn crypt3(pwd: &str, salt: &str) -> String {
+    // Keep only the first 2 characters
+    let salt = &salt[0..2];
+    let mut data = 0u64;
+    let pwd_bin = des::to_binary_array(pwd);
+    let k = generate_round_keys::generate_round_keys(pwd_bin);
+    let r_expanded_precomputed = des::generate_r_expanded_tables_cached(salt);
+
+    // Crypt(3) calls DES 25 times
+    for _ in 0..25 {
+        data = des::des(data, &k, &r_expanded_precomputed);
+    }
+    
+    format_digest::format_digest(data)
+}
+
+pub fn crypt3_64(pwds: &Vec<String>, salt: &str) -> Vec<String> {
+    // Keep only the first 2 characters
+    let salt = &salt[0..2];
+
+    let mut data = [0u64; 64];
+    let pwd_bins = to_binary_arrays(pwds);
+    let keys = generate_round_keys::generate_transposed_round_keys(&pwd_bins);
+ 
+    let r_expanded_precomputed = des::generate_r_expanded_tables_cached(salt);
+    let expansion_table = des::perturb_expansion(&salt);
+
+    // Crypt(3) calls DES 25 times
+    for _ in 0..25 {
+        data = bitslice_des_64::des(&data, &keys, &r_expanded_precomputed, &expansion_table);
+    }
+
+    //format_digest::format_digest(data)
+    let mut ret = vec![String::new(); 64];
+    for i in 0..64 {
+        ret[i] = format_digest::format_digest(data[i]);
+    }
+
+    ret
+}
+
+pub fn crypt3_128(pwds: &Vec<String>, salt: &str) -> Vec<String> {
+    // Keep only the first 2 characters
+    let salt = &salt[0..2];
+
+    let mut data = [0u64; 128];
+    let pwd_bins = to_binary_arrays_128(pwds);
+    let keys = generate_round_keys::generate_transposed_round_keys_128(&pwd_bins);
+ 
+    let r_expanded_precomputed = des::generate_r_expanded_tables_cached(salt);
+    let expansion_table = des::perturb_expansion(&salt);
+
+    // Crypt(3) calls DES 25 times
+    for _ in 0..25 {
+        data = bitslice_des_128::des(&data, &keys, &r_expanded_precomputed, &expansion_table);
+    }
+
+    //format_digest::format_digest(data)
+    let mut ret = vec![String::new(); 128];
+    for i in 0..128 {
+        ret[i] = format_digest::format_digest(data[i]);
+    }
+
+    ret
 }
 
 pub fn run_x_iterations_common(iter_n: u32, regex_pattern: &str) -> HashMap<String,String> {
@@ -319,13 +279,5 @@ pub fn run_x_iterations_128(iter_n: u32, regex_pattern: &str) -> HashMap<String,
     run_x_iterations_common_128(iter_n, regex_pattern)
 }
 
-// laK4j2SD.w
 fn main() {
-    let pwd = ">@1=O$R1";
-    let salt = get_salt(pwd);
-    let hash = crypt3(pwd, &salt);
-    let tripcode: String = hash.chars().rev().collect::<String>().chars().rev().collect();
-
-    println!("{}", tripcode);
 }
-

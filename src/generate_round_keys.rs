@@ -162,7 +162,6 @@ pub fn generate_round_keys(key: u64) -> [u64; 16] {
         /*******************************************************
         * Apply circular left shift and compression permutation
         *******************************************************/
-
         k[n] |= CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED[n][0][((parity_drop_key >> 0)  & 0xFF) as usize]
               | CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED[n][1][((parity_drop_key >> 8)  & 0xFF) as usize]
               | CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED[n][2][((parity_drop_key >> 16) & 0xFF) as usize]
@@ -173,4 +172,44 @@ pub fn generate_round_keys(key: u64) -> [u64; 16] {
     }
 
     k
+}
+
+pub fn generate_transposed_round_keys(pwds_bin: &[u64; 64]) -> [[u64; 64]; 16] {
+    let mut keys = [[0u64; 64]; 16]; // [round][bit index across 64 passwords]
+
+    for pwd_i in 0..64 {
+        let round_keys = generate_round_keys(pwds_bin[pwd_i]);
+
+        for round in 0..16 {
+            let round_key = round_keys[round];
+
+            // Pack each bit of rk into keys[round][bit]
+            for bit in 0..64 {
+                let bit_val = (round_key >> bit) & 1;
+                keys[round][bit] |= bit_val << pwd_i;
+            }
+        }
+    }
+
+    keys
+}
+
+pub fn generate_transposed_round_keys_128(pwds_bin: &[u64; 128]) -> [[u128; 64]; 16] {
+    let mut keys = [[0u128; 64]; 16]; // [round][bit index across 64 passwords]
+
+    for pwd_idx in 0..64 {
+        let round_keys = generate_round_keys(pwds_bin[pwd_idx]);
+
+        for round in 0..16 {
+            let round_key = round_keys[round];
+
+            // Pack each bit of rk into keys[round][bit]
+            for bit in 0..64 {
+                let bit_val = (round_key >> bit) & 1;
+                keys[round][bit] |= (bit_val as u128) << pwd_idx;
+            }
+        }
+    }
+
+    keys
 }
