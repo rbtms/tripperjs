@@ -1,91 +1,5 @@
 use crate::bitslice_sboxes_64;
-
-/*************************************
-* Left side Initial permutation (IP) and
-* Right side of Initial permutation
-* Derived from:
-*
-* Initial permutation (IP):
-*
-* var initial_table = [
-*     57, 49, 41, 33, 25, 17,  9, 1,
-*     59, 51, 43, 35, 27, 19, 11, 3,
-*     61, 53, 45, 37, 29, 21, 13, 5,
-*     63, 55, 47, 39, 31, 23, 15, 7,
-*     56, 48, 40, 32, 24, 16,  8, 0,
-*     58, 50, 42, 34, 26, 18, 10, 2,
-*     60, 52, 44, 36, 28, 20, 12, 4,
-*     62, 54, 46, 38, 30, 22, 14, 6
-* ];
-*************************************/
-const INITIAL_TABLE_L: [usize; 32] = [
-    57, 49, 41, 33, 25, 17,  9, 1,
-    59, 51, 43, 35, 27, 19, 11, 3,
-    61, 53, 45, 37, 29, 21, 13, 5,
-    63, 55, 47, 39, 31, 23, 15, 7,
-];
-const INITIAL_TABLE_R: [usize; 32] = [
-    56, 48, 40, 32, 24, 16,  8, 0,
-    58, 50, 42, 34, 26, 18, 10, 2,
-    60, 52, 44, 36, 28, 20, 12, 4,
-    62, 54, 46, 38, 30, 22, 14, 6
-];
-
-const fn precompute_initial_l_r(l_r: [usize; 32]) -> [[u32; 256]; 8] {
-    let mut tables = [[0u32; 256]; 8];
-
-    let mut i = 0;
-    while i < 32 {
-        let initial_val = l_r[i];
-        let byte_index = initial_val / 8;
-        let bit_index  = (initial_val % 8) as u64;
-
-        let mut b = 0;
-        while b < 256u64 {
-            let mask = (((b >> bit_index) & 1) << i) as u32;
-            tables[byte_index as usize][b as usize] |= mask;
-            b += 1;
-        }
-
-        i += 1;
-    }
-
-    tables
-}
-
-static INITIAL_L_PRECOMPUTED: [[u32; 256]; 8] = precompute_initial_l_r(INITIAL_TABLE_L);
-static INITIAL_R_PRECOMPUTED: [[u32; 256]; 8] = precompute_initial_l_r(INITIAL_TABLE_R);
-
-const fn precompute_final_l_r(l_r: [usize; 32]) -> [[u64; 256]; 4] {
-    let mut tables = [[0u64; 256]; 4];
-
-    let mut byte_index = 0;
-    while byte_index < 4 {
-        let mut b = 0;
-        while b < 256 {
-            let mut val = 0u64;
-            let mut bit = 0;
-            while bit < 8 {
-                let bit_pos = byte_index * 8 + bit;
-                let out_pos = l_r[bit_pos];
-                if (b >> bit) & 1 == 1 {
-                    val |= 1u64 << out_pos;
-                }
-                bit += 1;
-            }
-            tables[byte_index][b as usize] = val;
-            b += 1;
-        }
-        byte_index += 1;
-    }
-
-    tables
-}
-
-static FINAL_L_PRECOMPUTED: [[u64; 256]; 4] = precompute_final_l_r(INITIAL_TABLE_L);
-static FINAL_R_PRECOMPUTED: [[u64; 256]; 4] = precompute_final_l_r(INITIAL_TABLE_R);
-
-/* --------------------------------------------------------- Constants end ------------------------------------------------------ */
+use crate::constants::*;
 
 // e: expansion_table
 fn des_round(l: &mut [u64; 32], r: [u64; 32], k_round: &[u64; 64], e: &[usize; 48]) -> ([u64; 32], [u64; 32]) {
@@ -131,39 +45,17 @@ pub fn init_lr(data: &[u64; 64]) -> ([u64; 32], [u64; 32]) {
 
     for block_i in 0..64 {
         let block = data[block_i];
-        let block0  = ( block      &0xFF) as usize;
-        let block8  = ((block>> 8) &0xFF) as usize;
-        let block16 = ((block>> 16)&0xFF) as usize;
-        let block24 = ((block>> 24)&0xFF) as usize;
-        let block32 = ((block>> 32)&0xFF) as usize;
-        let block40 = ((block>> 40)&0xFF) as usize;
-        let block48 = ((block>> 48)&0xFF) as usize;
-        let block56 = ((block>> 56)&0xFF) as usize;
 
-        let l_block =
-              INITIAL_L_PRECOMPUTED[0][block0]
-            | INITIAL_L_PRECOMPUTED[1][block8]
-            | INITIAL_L_PRECOMPUTED[2][block16]
-            | INITIAL_L_PRECOMPUTED[3][block24]
-            | INITIAL_L_PRECOMPUTED[4][block32]
-            | INITIAL_L_PRECOMPUTED[5][block40]
-            | INITIAL_L_PRECOMPUTED[6][block48]
-            | INITIAL_L_PRECOMPUTED[7][block56];
+        // Process left half
+        for (bit_i, &src_bit) in INITIAL_PERMUTATION_L.iter().enumerate() {
+            let bit_val = (block >> src_bit) & 1;
+            l[bit_i] |= bit_val << block_i;
+        }
 
-        let r_block =
-              INITIAL_R_PRECOMPUTED[0][block0]
-            | INITIAL_R_PRECOMPUTED[1][block8]
-            | INITIAL_R_PRECOMPUTED[2][block16]
-            | INITIAL_R_PRECOMPUTED[3][block24]
-            | INITIAL_R_PRECOMPUTED[4][block32]
-            | INITIAL_R_PRECOMPUTED[5][block40]
-            | INITIAL_R_PRECOMPUTED[6][block48]
-            | INITIAL_R_PRECOMPUTED[7][block56];
-
-        for bit_i in 0..32 {
-            let bit_mask = 1u64 << bit_i;
-            l[bit_i] |= (l_block as u64 & bit_mask) >> bit_i << block_i;
-            r[bit_i] |= (r_block as u64 & bit_mask) >> bit_i << block_i;
+        // Process right half
+        for (bit_i, &src_bit) in INITIAL_PERMUTATION_R.iter().enumerate() {
+            let bit_val = (block >> src_bit) & 1;
+            r[bit_i] |= bit_val << block_i;
         }
     }
 
@@ -196,15 +88,10 @@ fn final_permutation(l: [u64; 32], r: [u64; 32]) -> [u64; 64] {
 }
 
 pub fn des(data: &[u64; 64], k: &[[u64; 64]; 16], expansion_table: &[usize; 48]) -> [u64; 64] {
-    /*******************************************************************
-    * Apply initial permutation and separate into left and right parts
-    * (both 32 bits long)
-    *******************************************************************/
+    // Apply initial permutation and separate into left and right parts
     let (mut l, mut r) = init_lr(&data);
 
-    /*********************
-    * Round 0 through 16
-    *********************/
+    // Round 0 through 16
     for round_n in 0..16 {
         (l, r) = des_round(&mut l, r, &k[round_n], expansion_table);
     }

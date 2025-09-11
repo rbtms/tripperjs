@@ -1,23 +1,4 @@
-/****************************************************
-* Inverse table of straight_table for speed reasons
-* Derived from:
-*
-* Permutation table applied to s_box results:
-*
-* straight_table = [
-*   15,  6, 19, 20, 28, 11, 27, 16,
-*    0, 14, 22, 25,  4, 17, 30,  9,
-*    1,  7, 23, 13, 31, 26,  2,  8,
-*   18, 12, 29,  5, 21, 10,  3, 24
-* ];
-****************************************************/
-const INVERSE_STRAIGHT_TABLE: [usize; 32] = [
-     8, 16, 22, 30, 12, 27,  1, 17,
-    23, 15, 29,  5, 25, 19,  9,  0,
-     7, 13, 24,  2,  3, 28, 10, 18,
-    31, 11, 21,  6,  4, 26, 14, 20
-];
-
+use crate::constants::INVERSE_STRAIGHT_TABLE;
 
 pub fn s1 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64, l: &mut[u64; 32])  {
     let x1 = !a4;
