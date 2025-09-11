@@ -1,24 +1,28 @@
 # Makefile
 GECKODRIVER_VERSION := v0.34.0
 GECKODRIVER_URL := https://github.com/mozilla/geckodriver/releases/download/$(GECKODRIVER_VERSION)/geckodriver-$(GECKODRIVER_VERSION)-linux64.tar.gz
-GECKODRIVER_TMP := /tmp/geckodriver
+GECKODRIVER_FOLDER := /tmp
+GECKODRIVER_PATH := ${GECKODRIVER_FOLDER}/geckodriver
+
+#---- Testing -------------------------------------------------------------------------------------
 
 # Run Rust tests in release mode with output shown
+_test:
+	cargo test --release -- --nocapture
 test:
-	RUSTFLAGS="-C target-cpu=native" cargo test --release -- --nocapture
-
+	RUSTFLAGS="-C target-cpu=native" make _test
 test_avx512:
-	RUSTFLAGS="-C target-feature=+avx512f" make test
+	RUSTFLAGS="-C target-feature=+avx512f" make _test
 
-test_wasm:
+_test_wasm:
 	# Download geckodriver if not already in /tmp
 	@test -f /tmp/geckodriver || ( \
-		wget -O /tmp/geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.34.0/geckodriver-v0.34.0-linux64.tar.gz && \
-		tar -xzf /tmp/geckodriver.tar.gz -C /tmp && \
-		chmod +x /tmp/geckodriver \
+		wget -O /tmp/geckodriver.tar.gz ${GECKODRIVER_URL} && \
+		tar -xzf /tmp/geckodriver.tar.gz -C ${GECKODRIVER_FOLDER} && \
+		chmod +x ${GECKODRIVER_PATH} \
 	)
 
-	# Build wasm tests (without running)
+	# Build wasm tests
 	cargo test build --release --target wasm32-unknown-unknown --no-run
 
 	@WASM_FILE=$$(find target/wasm32-unknown-unknown/release -name 'test*.wasm' | head -n 1); \
@@ -28,26 +32,24 @@ test_wasm:
 	fi; \
 	echo "Found wasm file: $$WASM_FILE"; \
 	GECKODRIVER=/tmp/geckodriver wasm-bindgen-test-runner $$WASM_FILE --nocapture
-
+test_wasm:
+	make _test_wasm
 test_wasm_simd128:
-	RUSTFLAGS="-C target-cpu=native -C target-feature=+simd128" make test_wasm
+	RUSTFLAGS="-C target-feature=+simd128" make _test_wasm
 
-# Build wasm for web
-build_wasm:
+#---- Building -------------------------------------------------------------------------------------
+
+_build_wasm:
 	wasm-pack build --target web
 	cp ./pkg/tripperjs_wasm_bg.wasm ./page/assets/
 	cp ./pkg/tripperjs_wasm.js      ./page/assets/
 	rm -r ./pkg
-
+build_wasm:
+	RUSTFLAGS="-C target-cpu=native" make _build_wasm
 build_wasm_simd128:
-	RUSTFLAGS="-C target-cpu=native -C target-feature=+simd128" make build_wasm
+	RUSTFLAGS="-C target-feature=+simd128" make _build_wasm
 
-# Build wasm for Node.js and copy the .wasm file
-build_wasm_node:
-	wasm-pack build --target nodejs
-	mv ./pkg/tripperjs_wasm_bg.wasm ./page/assets/
-	mv ./pkg/tripperjs_wasm.js      ./page/assets/
-	rm -r ./pkg
+#---- Profiling -----------------------------------------------------------------------------------
 
 profile:
 	sudo sh -c 'echo 1 > /proc/sys/kernel/perf_event_paranoid'
@@ -71,3 +73,4 @@ profile_release:
 		perf report && \
 		rm -f perf.data perf.data.old out.folded \
 	'
+	

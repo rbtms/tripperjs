@@ -172,7 +172,7 @@ fn make_passwords_batch() -> (String, Vec<String>) {
     let mut pwds =Vec::with_capacity(64);
     let first_3_chars = &rand_pwd(3);
 
-    for i in 0..64 {
+    for _ in 0..64 {
         let last_5_chars = rand_pwd(5);
         pwds.push(format!("{}{}", first_3_chars, last_5_chars));
     }

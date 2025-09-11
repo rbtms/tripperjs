@@ -123,7 +123,7 @@ fn test_performance_64() {
     let start = now_secs();
 
     while now_secs() - start < target_duration {
-        let a = run_x_iterations_64(iter_per_batch, "random_regex");
+        run_x_iterations_64(iter_per_batch, "random_regex");
         iterations += iter_per_batch * 64;
     }
 
