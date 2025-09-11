@@ -1,6 +1,7 @@
 use std::sync::{OnceLock};
 use std::collections::HashMap;
 use crate::constants::*;
+use crate::bitslice_sboxes;
 
 /*************************************
 * Left side Initial permutation (IP) and
@@ -135,32 +136,6 @@ static S_BOX_TABLE: [usize; 512] = [
      2,  1, 14,  7,  4, 10,  8, 13, 15, 12,  9,  0,  3,  5,  6, 11
 ];
 
-static S_VAL: [[u32; 64]; 8] = {
-    let mut s_val = [[0u32; 64]; 8];
-    let mut m = 0;
-    while m < 8 {
-        let mut i = 0;
-        while i < 64 {
-            let x = i as u64;
-            let row = ((x>>5)&1) | ((x&1)<<1);
-            let col = ((x>>4)&1) | (((x>>3)&1)<<1) | (x&0b100) | (((x>>1)&1)<<3);
-
-            let dec = S_BOX_TABLE[m*64 + (row as usize)*16 + col as usize];
-            let pos = m*4;
-            let mod_val = ((dec>>3)&1) << (INVERSE_STRAIGHT_TABLE[pos] as u32)
-                | ((dec>>2)&1) << (INVERSE_STRAIGHT_TABLE[pos+1] as u32)
-                | ((dec>>1)&1) << (INVERSE_STRAIGHT_TABLE[pos+2] as u32)
-                | (dec&1)      << (INVERSE_STRAIGHT_TABLE[pos+3] as u32);
-
-            s_val[m][i] = mod_val as u32;
-            i += 1;
-        }
-        m += 1;
-    }
-
-    s_val
-};
-
 const fn precompute_initial_l_r(l_r: [usize; 32]) -> [[u32; 256]; 8] {
     let mut tables = [[0u32; 256]; 8];
 
@@ -214,6 +189,11 @@ const fn precompute_final_l_r(l_r: [usize; 32]) -> [[u64; 256]; 4] {
 
 static FINAL_L_PRECOMPUTED: [[u64; 256]; 4] = precompute_final_l_r(INITIAL_TABLE_L);
 static FINAL_R_PRECOMPUTED: [[u64; 256]; 4] = precompute_final_l_r(INITIAL_TABLE_R);
+
+static S_FUNCTIONS: [fn(u64, u64, u64, u64, u64, u64) -> (u64, u64, u64, u64); 8]  = [
+    bitslice_sboxes::s1, bitslice_sboxes::s2, bitslice_sboxes::s3, bitslice_sboxes::s4,
+    bitslice_sboxes::s5, bitslice_sboxes::s6, bitslice_sboxes::s7, bitslice_sboxes::s8,
+];
 
 /* --------------------------------------------------------- Constants end ------------------------------------------------------ */
 
@@ -323,69 +303,146 @@ pub fn to_binary_array(pwd: &str) -> u64 {
     pwd_bin
 }
 
-fn des_round(l: u32, r: u32, r_expanded_precomputed: &[[u64; 256]; 4], k_round: u64) -> (u32, u32) {
-        let k_xor_r_expanded = k_round ^ (
-              r_expanded_precomputed[0][ (r     &0xFF) as usize]
-            | r_expanded_precomputed[1][((r>> 8)&0xFF) as usize]
-            | r_expanded_precomputed[2][((r>>16)&0xFF) as usize]
-            | r_expanded_precomputed[3][((r>>24)&0xFF) as usize]);
-        
-        let _l = l
-            ^ S_VAL[0][( k_xor_r_expanded        & 0x3F) as usize]
-            ^ S_VAL[1][((k_xor_r_expanded >>  6) & 0x3F) as usize]
-            ^ S_VAL[2][((k_xor_r_expanded >> 12) & 0x3F) as usize]
-            ^ S_VAL[3][((k_xor_r_expanded >> 18) & 0x3F) as usize]
-            ^ S_VAL[4][((k_xor_r_expanded >> 24) & 0x3F) as usize]
-            ^ S_VAL[5][((k_xor_r_expanded >> 30) & 0x3F) as usize]
-            ^ S_VAL[6][((k_xor_r_expanded >> 36) & 0x3F) as usize]
-            ^ S_VAL[7][((k_xor_r_expanded >> 42) & 0x3F) as usize];
+fn des_round(l: [u64; 32], r: [u64; 32], k_round: &[u64; 64], expansion_table: &[usize; 48]) -> ([u64; 32], [u64; 32]) {
+    let mut r_expanded = [0u64; 48];
+    let mut k_xor_r = [0u64; 48];
+    
+    for i in 0..48 {
+        let src_bit = expansion_table[i]; // 0..31
+        r_expanded[i] = r[src_bit];
+        k_xor_r[i] = k_round[i] ^ r_expanded[i];
+    }
 
-        // Swap L and R
-        (r, _l)
+    let mut f = [0u64; 32];
+    for sbox_n in 0..8 {
+        let shift = sbox_n * 6;
+
+        let a1 = k_xor_r[shift + 0];
+        let a2 = k_xor_r[shift + 1];
+        let a3 = k_xor_r[shift + 2];
+        let a4 = k_xor_r[shift + 3];
+        let a5 = k_xor_r[shift + 4];
+        let a6 = k_xor_r[shift + 5];
+
+        let (o1, o2, o3, o4) = S_FUNCTIONS[sbox_n](a1, a2, a3, a4, a5, a6);
+
+        // Map S-box outputs through straight permutation (indices are 0..31)
+        f[INVERSE_STRAIGHT_TABLE[sbox_n*4 + 0]] = o1;
+        f[INVERSE_STRAIGHT_TABLE[sbox_n*4 + 1]] = o2;
+        f[INVERSE_STRAIGHT_TABLE[sbox_n*4 + 2]] = o3;
+        f[INVERSE_STRAIGHT_TABLE[sbox_n*4 + 3]] = o4;
+    }
+
+    let mut new_r = [0u64; 32];
+    for i in 0..32 {
+        new_r[i] = l[i] ^ f[i];
+    }
+
+    (r, new_r)
 }
 
-pub fn des(data: u64, k: &[u64; 16], r_expanded_precomputed: &[[u64; 256]; 4]) -> u64 {
+ fn get_matrix_column<const ROWS: usize>(m: &[u64; ROWS], col_i: usize) -> u64 {
+    let mut col = 0u64;
+
+    let mut i = 0;
+    while i < m.len() {
+        col |= ((m[i]>>col_i)&1) << i;
+        i +=1;
+    }
+
+    col
+}
+
+// the input has one block per entry
+// l and r have transposed (bitsliced) values
+pub fn init_lr(data: &[u64; 64]) -> ([u64; 32], [u64; 32]) {
+    let mut l = [0u64; 32];
+    let mut r = [0u64; 32];
+
+    for block_i in 0..64 {
+        let block = data[block_i];
+        let block0  = ( block      &0xFF) as usize;
+        let block8  = ((block>> 8) &0xFF) as usize;
+        let block16 = ((block>> 16)&0xFF) as usize;
+        let block24 = ((block>> 24)&0xFF) as usize;
+        let block32 = ((block>> 32)&0xFF) as usize;
+        let block40 = ((block>> 40)&0xFF) as usize;
+        let block48 = ((block>> 48)&0xFF) as usize;
+        let block56 = ((block>> 56)&0xFF) as usize;
+
+        let l_block =
+              INITIAL_L_PRECOMPUTED[0][block0]
+            | INITIAL_L_PRECOMPUTED[1][block8]
+            | INITIAL_L_PRECOMPUTED[2][block16]
+            | INITIAL_L_PRECOMPUTED[3][block24]
+            | INITIAL_L_PRECOMPUTED[4][block32]
+            | INITIAL_L_PRECOMPUTED[5][block40]
+            | INITIAL_L_PRECOMPUTED[6][block48]
+            | INITIAL_L_PRECOMPUTED[7][block56];
+
+        let r_block =
+              INITIAL_R_PRECOMPUTED[0][block0]
+            | INITIAL_R_PRECOMPUTED[1][block8]
+            | INITIAL_R_PRECOMPUTED[2][block16]
+            | INITIAL_R_PRECOMPUTED[3][block24]
+            | INITIAL_R_PRECOMPUTED[4][block32]
+            | INITIAL_R_PRECOMPUTED[5][block40]
+            | INITIAL_R_PRECOMPUTED[6][block48]
+            | INITIAL_R_PRECOMPUTED[7][block56];
+
+        for bit_i in 0..32 {
+            let bit_mask = 1u64 << bit_i;
+            l[bit_i] |= (l_block as u64 & bit_mask) >> bit_i << block_i;
+            r[bit_i] |= (r_block as u64 & bit_mask) >> bit_i << block_i;
+        }
+    }
+
+    (l, r)
+}
+
+// l and r have transposed values
+// the output has one block per entry
+fn final_permutation(l: [u64; 32], r: [u64; 32]) -> [u64; 64] {
+    let mut blocks = [0u64; 64];
+
+    for block_i in 0..64 {
+        let l_col = get_matrix_column(&l, block_i);
+        let r_col = get_matrix_column(&r, block_i);
+
+        let block =
+           FINAL_L_PRECOMPUTED[0][ (l_col        & 0xFF) as usize]
+         | FINAL_L_PRECOMPUTED[1][((l_col >>  8) & 0xFF) as usize]
+         | FINAL_L_PRECOMPUTED[2][((l_col >> 16) & 0xFF) as usize]
+         | FINAL_L_PRECOMPUTED[3][((l_col >> 24) & 0xFF) as usize]
+         | FINAL_R_PRECOMPUTED[0][ (r_col        & 0xFF) as usize]
+         | FINAL_R_PRECOMPUTED[1][((r_col >>  8) & 0xFF) as usize]
+         | FINAL_R_PRECOMPUTED[2][((r_col >> 16) & 0xFF) as usize]
+         | FINAL_R_PRECOMPUTED[3][((r_col >> 24) & 0xFF) as usize];
+
+        blocks[block_i] = block;
+    }
+
+    blocks
+}
+
+pub fn des(data: [u64; 64], k: &[[u64; 64]; 16], r_expanded_precomputed: &[[u64; 256]; 4], expansion_table: &[usize; 48]) -> [u64; 64] {
     /*******************************************************************
     * Apply initial permutation and separate into left and right parts
     * (both 32 bits long)
     *******************************************************************/
-    let mut l = INITIAL_L_PRECOMPUTED[0][(data&0xFF) as usize]
-      | INITIAL_L_PRECOMPUTED[1][((data>> 8)&0xFF) as usize]
-      | INITIAL_L_PRECOMPUTED[2][((data>>16)&0xFF) as usize]
-      | INITIAL_L_PRECOMPUTED[3][((data>>24)&0xFF) as usize]
-      | INITIAL_L_PRECOMPUTED[4][((data>>32)&0xFF) as usize]
-      | INITIAL_L_PRECOMPUTED[5][((data>>40)&0xFF) as usize]
-      | INITIAL_L_PRECOMPUTED[6][((data>>48)&0xFF) as usize]
-      | INITIAL_L_PRECOMPUTED[7][((data>>56)&0xFF) as usize];
-
-    let mut r = INITIAL_R_PRECOMPUTED[0][(data&0xFF) as usize]
-      | INITIAL_R_PRECOMPUTED[1][((data>> 8)&0xFF) as usize]
-      | INITIAL_R_PRECOMPUTED[2][((data>>16)&0xFF) as usize]
-      | INITIAL_R_PRECOMPUTED[3][((data>>24)&0xFF) as usize]
-      | INITIAL_R_PRECOMPUTED[4][((data>>32)&0xFF) as usize]
-      | INITIAL_R_PRECOMPUTED[5][((data>>40)&0xFF) as usize]
-      | INITIAL_R_PRECOMPUTED[6][((data>>48)&0xFF) as usize]
-      | INITIAL_R_PRECOMPUTED[7][((data>>56)&0xFF) as usize];
+    let (mut l, mut r) = init_lr(&data);
 
     /*********************
     * Round 0 through 16
     *********************/
     for round_n in 0..16 {
-        (l, r) = des_round(l, r, r_expanded_precomputed, k[round_n]);
+        (l, r) = des_round(l, r, &k[round_n], expansion_table);
     }
     
     // Swap L and R at the end to allow reversing
     (l, r) = (r, l);
 
-    /**************************
-    * Apply final permutation
-    **************************/
-    return FINAL_L_PRECOMPUTED[0][ (l        & 0xFF) as usize]
-         | FINAL_L_PRECOMPUTED[1][((l >>  8) & 0xFF) as usize]
-         | FINAL_L_PRECOMPUTED[2][((l >> 16) & 0xFF) as usize]
-         | FINAL_L_PRECOMPUTED[3][((l >> 24) & 0xFF) as usize]
-         | FINAL_R_PRECOMPUTED[0][ (r        & 0xFF) as usize]
-         | FINAL_R_PRECOMPUTED[1][((r >>  8) & 0xFF) as usize]
-         | FINAL_R_PRECOMPUTED[2][((r >> 16) & 0xFF) as usize]
-         | FINAL_R_PRECOMPUTED[3][((r >> 24) & 0xFF) as usize];
+    // Apply final permutation
+    final_permutation(l, r)
 }
+ 

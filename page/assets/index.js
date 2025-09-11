@@ -1,4 +1,4 @@
-import wasmInit, { run_x_iterations } from './tripperjs_wasm.js';
+import wasmInit from './tripperjs_wasm.js';
 
 class TripcodeResultList {
   /**
@@ -14,7 +14,6 @@ class TripcodeResultList {
     this.parentEl = parentEl;
     this.createUI();
   }
-
 
   /**
    * Builds the HTML structure for the results container and appends it to the parent.
@@ -157,6 +156,8 @@ class TripcodeSearch {
    * @param {string} regexStr - Regex for this search
    */
   constructor(regexStr) {
+    this.ITER_PER_BATCH = 1_000;
+
     this.regexStr = regexStr;
     this.totalIterations = 0;
     this.lastUpdate = performance.now();
@@ -180,7 +181,8 @@ class TripcodeSearch {
       this.results.addMatches(batch);
       this.updateSpeed();
     };
-    worker.postMessage({ regex: this.regexStr, iterPerBatch: 50_000 });
+    
+    worker.postMessage({ regex: this.regexStr, iterPerBatch: this.ITER_PER_BATCH });
     this.workers.push(worker);
     this.ui.updateWorkerCount(this.workers.length);
   }
@@ -190,6 +192,7 @@ class TripcodeSearch {
    */
   removeWorker() {
     if (this.workers.length === 0) return;
+    
     const worker = this.workers.pop();
     worker.terminate();
     this.ui.updateWorkerCount(this.workers.length);
@@ -200,6 +203,7 @@ class TripcodeSearch {
    */
   updateSpeed() {
     const now = performance.now();
+
     if (now - this.lastUpdate >= 1000) {
       const seconds = (now - this.lastUpdate) / 1000;
       const speed = Math.round(this.totalIterations / seconds) || 0;

@@ -9,7 +9,7 @@ path = "src/main.rs"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-wasm-bindgen = { version = "0.2", features = ["serde-serialize"] }
+wasm-bindgen = { version = "0.2.101", features = ["serde-serialize"] }
 wasm-bindgen-test = "0.3"
 wasm-logger = "0.2"
 web-sys = "*"
@@ -21,8 +21,7 @@ console_error_panic_hook = "0.1"
 regex = "1.0"
 rand = "0.8"
 getrandom = { version = "0.2", features = ["js"] }
-wide = "*"
+js-sys = "*"
 
 [profile.release]
 opt-level = 3
-codegen-units = 1

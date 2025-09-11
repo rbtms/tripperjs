@@ -6,6 +6,8 @@ use regex::Regex;
 use serde_wasm_bindgen::to_value;
 mod constants;
 mod des;
+mod bitslice_des;
+mod bitslice_sboxes;
 mod generate_round_keys;
 mod format_digest;
 
@@ -25,6 +27,61 @@ pub fn crypt3(pwd: &str, salt: &str) -> String {
     }
     
     format_digest::format_digest(data)
+}
+
+fn to_binary_arrays(pwds: &Vec<String>) -> [u64; 64] {
+    let mut pwd_bins = [0u64; 64];
+
+    for i in 0..64 {
+        pwd_bins[i] = des::to_binary_array(&pwds[i]);
+    }
+
+    pwd_bins
+}
+
+pub fn generate_transposed_round_keys(pwd_bins: &[u64; 64]) -> [[u64; 64]; 16] {
+    let mut keys = [[0u64; 64]; 16]; // [round][bit index across 64 passwords]
+
+    for pwd_idx in 0..64 {
+        let round_keys = generate_round_keys::generate_round_keys(pwd_bins[pwd_idx]);
+
+        for round in 0..16 {
+            let rk = round_keys[round];
+
+            // Pack each bit of rk into keys[round][bit]
+            for bit in 0..64 {
+                let bit_val = (rk >> bit) & 1;
+                keys[round][bit] |= bit_val << pwd_idx;
+            }
+        }
+    }
+
+    keys
+}
+
+pub fn crypt3_64(pwds: &Vec<String>, salt: &str) -> Vec<String> {
+    // Keep only the first 2 characters
+    let salt = &salt[0..2];
+
+    let mut data = [0u64; 64];
+    let pwd_bins = to_binary_arrays(pwds);
+    let keys = generate_transposed_round_keys(&pwd_bins);
+ 
+    let r_expanded_precomputed = des::generate_r_expanded_tables_cached(salt);
+    let expansion_table = des::perturb_expansion(&salt);
+
+    // Crypt(3) calls DES 25 times
+    for _ in 0..25 {
+        data = bitslice_des::des(data, &keys, &r_expanded_precomputed, &expansion_table);
+    }
+
+    //format_digest::format_digest(data)
+    let mut ret = vec![String::new(); 64];
+    for i in 0..64 {
+        ret[i] = format_digest::format_digest(data[i]);
+    }
+
+    ret
 }
 
 #[wasm_bindgen]
@@ -106,15 +163,60 @@ pub fn run_x_iterations_common(iter_n: u32, regex_pattern: &str) -> HashMap<Stri
     results
 }
 
+// Only calculate the salt (first part of the password)
+// once every x iterations to reduce the cache misses
+// from the hash table lookup. Also increases speed in 50k
+// or so since it reduces the number of times the expansion
+// table has to be perturbed.
+fn make_passwords_batch() -> (String, Vec<String>) {
+    let mut pwds =Vec::with_capacity(64);
+    let first_3_chars = &rand_pwd(3);
+
+    for i in 0..64 {
+        let last_5_chars = rand_pwd(5);
+        pwds.push(format!("{}{}", first_3_chars, last_5_chars));
+    }
+
+    (get_salt(&first_3_chars), pwds)
+}
+
+pub fn run_x_iterations_common_64(iter_n: u32, regex_pattern: &str) -> HashMap<String,String> {
+    let re = Regex::new(regex_pattern).unwrap();
+    let mut results = HashMap::new();
+    
+    for _ in 0..iter_n {
+        let (salt, pwds) = make_passwords_batch();
+        let tripcodes = crypt3_64(&pwds, &salt);
+
+        for i in 0..64 {
+            if re.is_match(&tripcodes[i]) {
+                results.insert(pwds[i].clone(), tripcodes[i].clone());
+            }
+        }
+    }
+
+    results
+}
+
 #[cfg(target_arch = "wasm32")]
 #[wasm_bindgen]
 pub fn run_x_iterations(iter_n: i32, regex_pattern: &str) -> JsValue {
     let results = run_x_iterations_common(iter_n as u32, regex_pattern);
     to_value(&results).unwrap()
 }
+#[cfg(target_arch = "wasm32")]
+#[wasm_bindgen]
+pub fn run_x_iterations_64(iter_n: i32, regex_pattern: &str) -> JsValue {
+    let results = run_x_iterations_common_64(iter_n as u32, regex_pattern);
+    to_value(&results).unwrap()
+}
 #[cfg(not(target_arch = "wasm32"))]
 pub fn run_x_iterations(iter_n: u32, regex_pattern: &str) -> HashMap<String,String> {
     run_x_iterations_common(iter_n, regex_pattern)
+}
+#[cfg(not(target_arch = "wasm32"))]
+pub fn run_x_iterations_64(iter_n: u32, regex_pattern: &str) -> HashMap<String,String> {
+    run_x_iterations_common_64(iter_n, regex_pattern)
 }
 
 // laK4j2SD.w
