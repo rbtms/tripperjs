@@ -1,3 +1,5 @@
+use crate::utils;
+
 /*************************************************
 * Parity drop table used to contract the key
 * from 64 bits to 56 and to permutate the result
@@ -186,22 +188,24 @@ pub fn generate_round_keys(key: u64) -> [u64; 16] {
 pub fn generate_transposed_round_keys_64(pwds_bin: &[u64; 64]) -> [[u64; 64]; 16] {
     let mut keys = [[0u64; 64]; 16]; // [round][bit index across 64 passwords]
 
-    for pwd_i in 0..64 {
-        let round_keys = generate_round_keys(pwds_bin[pwd_i]);
-
-        for round in 0..16 {
-            let round_key = round_keys[round];
-
-            // Pack each bit of round_key into keys[round][bit]
-            for bit in 0..64 {
-                let bit_val = (round_key >> bit) & 1;
-                keys[round][bit] |= bit_val << pwd_i;
-            }
+    // Add all the entries for every round
+    for (pwd_i, &pwd_bin) in pwds_bin.iter().enumerate() {
+        let round_keys = generate_round_keys(pwd_bin);
+        for i in 0..16 {
+            keys[i][pwd_i] = round_keys[i];
         }
+    }
+
+    // Transpose the entries
+    //std::array::from_fn(|i| transpose_64x64(&&mut keys[i]))
+    
+    for i in 0..16 {
+        utils::transpose_64x64(&mut keys[i]);
     }
 
     keys
 }
+
 
 pub fn generate_transposed_round_keys_128(pwds_bin: &[u64; 128]) -> [[u128; 64]; 16] {
     let mut keys = [[0u128; 64]; 16]; // [round][bit index across 64 passwords]
@@ -209,9 +213,7 @@ pub fn generate_transposed_round_keys_128(pwds_bin: &[u64; 128]) -> [[u128; 64];
     for pwd_idx in 0..64 {
         let round_keys = generate_round_keys(pwds_bin[pwd_idx]);
 
-        for round in 0..16 {
-            let round_key = round_keys[round];
-
+        for (round, &round_key) in round_keys.iter().enumerate() {
             // Pack each bit of rk into keys[round][bit]
             for bit in 0..64 {
                 let bit_val = (round_key >> bit) & 1;

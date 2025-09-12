@@ -27,7 +27,7 @@ _test_wasm:
 	# Build wasm tests
 	cargo test build --release --target wasm32-unknown-unknown --no-run
 
-	@WASM_FILE=$$(find target/wasm32-unknown-unknown/release -name 'test*.wasm' | head -n 1); \
+	@WASM_FILE=$$(find target/wasm32-unknown-unknown/release -name 'test_*.wasm' | head -n 1); \
 	if [ -z "$$WASM_FILE" ]; then \
 		echo "No wasm test file found!"; \
 		exit 1; \
@@ -35,21 +35,27 @@ _test_wasm:
 	echo "Found wasm file: $$WASM_FILE"; \
 	GECKODRIVER=/tmp/geckodriver wasm-bindgen-test-runner $$WASM_FILE --nocapture
 test_wasm:
-	make _test_wasm
-test_wasm_simd128:
-	RUSTFLAGS="-C target-feature=+simd128" make _test_wasm
+	RUSTFLAGS="-C target-feature=+simd128,+bulk-memory" make _test_wasm
 
 #---- Building -------------------------------------------------------------------------------------
 
 _build_wasm:
-	wasm-pack build --target web
+	wasm-pack build --target web --release
 	cp ./pkg/tripperjs_wasm_bg.wasm ./page/assets/
 	cp ./pkg/tripperjs_wasm.js      ./page/assets/
 	rm -r ./pkg
 build_wasm:
-	make _build_wasm
+	RUSTFLAGS="-C target-feature=+simd128,+bulk-memory" make _build_wasm
 build_wasm_simd128:
 	RUSTFLAGS="-C target-feature=+simd128" make _build_wasm
+
+_build_wasm_debug:
+	wasm-pack build --target web --debug
+	cp ./pkg/tripperjs_wasm_bg.wasm ./page/assets/
+	cp ./pkg/tripperjs_wasm.js      ./page/assets/
+	rm -r ./pkg
+build_wasm_debug:
+	RUSTFLAGS="-C target-feature=+simd128,+bulk-memory" make _build_wasm_debug
 
 #---- Profiling -----------------------------------------------------------------------------------
 

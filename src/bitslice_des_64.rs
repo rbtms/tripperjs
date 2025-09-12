@@ -1,8 +1,9 @@
 use crate::bitslice_sboxes_64;
+use crate::utils;
 use crate::constants::*;
 
 // e: expansion_table
-fn des_round(l: &mut [u64; 32], r: [u64; 32], k_round: &[u64; 64], e: &[usize; 48]) -> ([u64; 32], [u64; 32]) {
+fn des_round(l: &mut [u64; 32], r: [u64; 32], k_round: &[u64; 64], e: &[usize; 48]) {
     bitslice_sboxes_64::s1(k_round[0] ^ r[e[0]], k_round[1] ^ r[e[1]], k_round[2] ^ r[e[2]], 
          k_round[3] ^ r[e[3]], k_round[4] ^ r[e[4]], k_round[5] ^ r[e[5]], l);
     bitslice_sboxes_64::s2(k_round[6] ^ r[e[6]], k_round[7] ^ r[e[7]], k_round[8] ^ r[e[8]],
@@ -19,22 +20,6 @@ fn des_round(l: &mut [u64; 32], r: [u64; 32], k_round: &[u64; 64], e: &[usize; 4
          k_round[39] ^ r[e[39]], k_round[40] ^ r[e[40]], k_round[41] ^ r[e[41]], l);
     bitslice_sboxes_64::s8(k_round[42] ^ r[e[42]], k_round[43] ^ r[e[43]], k_round[44] ^ r[e[44]],
          k_round[45] ^ r[e[45]], k_round[46] ^ r[e[46]], k_round[47] ^ r[e[47]], l);
-
-    (r, l.clone())
-}
-
-#[inline(always)]
-fn get_matrix_column(m: &[u64; 32], col_i: usize) -> u64 {
-    let mut col = 0u64;
-    let matrix_len = 32;
-
-    let mut i = 0;
-    while i < matrix_len {
-        col |= ((m[i]>>col_i)&1) << i;
-        i +=1;
-    }
-
-    col
 }
 
 // the input has one block per entry
@@ -68,8 +53,8 @@ fn final_permutation(l: [u64; 32], r: [u64; 32]) -> [u64; 64] {
     let mut blocks = [0u64; 64];
 
     for block_i in 0..64 {
-        let l_col = get_matrix_column(&l, block_i);
-        let r_col = get_matrix_column(&r, block_i);
+        let l_col = utils::get_matrix_column(&l, block_i);
+        let r_col = utils::get_matrix_column(&r, block_i);
 
         let block =
            FINAL_L_PRECOMPUTED[0][ (l_col        & 0xFF) as usize]
@@ -93,7 +78,8 @@ pub fn des(data: &[u64; 64], k: &[[u64; 64]; 16], expansion_table: &[usize; 48])
 
     // Round 0 through 16
     for round_n in 0..16 {
-        (l, r) = des_round(&mut l, r, &k[round_n], expansion_table);
+        des_round(&mut l, r, &k[round_n], expansion_table);
+        (l, r) = (r, l);
     }
     
     // Swap L and R at the end to allow reversing

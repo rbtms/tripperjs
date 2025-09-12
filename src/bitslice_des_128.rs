@@ -108,7 +108,7 @@ fn final_permutation(l: [u128; 32], r: [u128; 32]) -> [u64; 128] {
     blocks
 }
 
-pub fn des(data: &[u64; 128], k: &[[u128; 64]; 16], r_expanded_precomputed: &[[u64; 256]; 4], expansion_table: &[usize; 48]) -> [u64; 128] {
+pub fn des(data: &[u64; 128], k: &[[u128; 64]; 16], expansion_table: &[usize; 48]) -> [u64; 128] {
     /*******************************************************************
     * Apply initial permutation and separate into left and right parts
     * (both 32 bits long)

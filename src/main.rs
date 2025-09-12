@@ -93,8 +93,7 @@ pub fn crypt3_64(pwds: &Vec<String>, salt: &str) -> Vec<String> {
 
     let mut data = [0u64; 64];
     let pwd_bins = utils::to_binary_arrays(pwds);
-    let keys = generate_round_keys::generate_transposed_round_keys_64(&pwd_bins);
- 
+    let keys = generate_round_keys::generate_transposed_round_keys_64(&pwd_bins); 
     let expansion_table = des::perturb_expansion(&salt);
 
     // Crypt(3) calls DES 25 times
@@ -102,13 +101,9 @@ pub fn crypt3_64(pwds: &Vec<String>, salt: &str) -> Vec<String> {
         data = bitslice_des_64::des(&data, &keys, &expansion_table);
     }
 
-    //format_digest::format_digest(data)
-    let mut ret = vec![String::new(); 64];
-    for i in 0..64 {
-        ret[i] = format_digest::format_digest(data[i]);
-    }
-
-    ret
+    data.iter().map(
+        |&tripcode_u64| format_digest::format_digest(tripcode_u64)
+    ).collect()
 }
 
 pub fn crypt3_128(pwds: &Vec<String>, salt: &str) -> Vec<String> {
@@ -118,22 +113,16 @@ pub fn crypt3_128(pwds: &Vec<String>, salt: &str) -> Vec<String> {
     let mut data = [0u64; 128];
     let pwd_bins = utils::to_binary_arrays_128(pwds);
     let keys = generate_round_keys::generate_transposed_round_keys_128(&pwd_bins);
- 
-    let r_expanded_precomputed = des::generate_r_expanded_tables_cached(salt);
-    let expansion_table = des::perturb_expansion(&salt);
+     let expansion_table = des::perturb_expansion(&salt);
 
     // Crypt(3) calls DES 25 times
     for _ in 0..25 {
-        data = bitslice_des_128::des(&data, &keys, &r_expanded_precomputed, &expansion_table);
+        data = bitslice_des_128::des(&data, &keys, &expansion_table);
     }
 
-    //format_digest::format_digest(data)
-    let mut ret = vec![String::new(); 128];
-    for i in 0..128 {
-        ret[i] = format_digest::format_digest(data[i]);
-    }
-
-    ret
+    data.iter().map(
+        |&tripcode_u64| format_digest::format_digest(tripcode_u64)
+    ).collect()
 }
 
 pub fn run_x_iterations_common(iter_n: u32, regex_pattern: &str) -> HashMap<String,String> {
@@ -248,4 +237,21 @@ pub fn run_x_iterations_128(iter_n: u32, regex_pattern: &str) -> HashMap<String,
 }
 
 fn main() {
+    let mut m = [0xFF00FF00FF00FF00u64; 64];
+    for i in 0..64 {
+        if i&2 == 0 {
+            m[i] = 0x00FF00FF00FF00FFu64;
+        }
+    }
+
+    for row in m {
+        println!("{:064b}", row);
+    }
+
+    utils::transpose_64x64(&mut m);
+    println!("\n\n");
+
+    for row in m {
+        println!("{:064b}", row);
+    }
 }
