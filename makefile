@@ -15,7 +15,7 @@ test_avx512:
 
 _test_wasm:
 	# Remove previous builds
-	#rm -r ./target/wasm*
+	rm -r ./target/wasm* || true
 
 	# Download geckodriver if not already in /tmp
 	@test -f /tmp/geckodriver || ( \
