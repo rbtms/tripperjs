@@ -1,4 +1,4 @@
-use crate::utils;
+use crate::matrix_utils;
 
 /*************************************************
 * Parity drop table used to contract the key
@@ -200,7 +200,7 @@ pub fn generate_transposed_round_keys_64(pwds_bin: &[u64; 64]) -> [[u64; 64]; 16
     //std::array::from_fn(|i| transpose_64x64(&&mut keys[i]))
     
     for i in 0..16 {
-        utils::transpose_64x64(&mut keys[i]);
+        matrix_utils::transpose_64x64(&mut keys[i]);
     }
 
     keys

@@ -1,5 +1,5 @@
 use crate::bitslice_sboxes_64;
-use crate::utils;
+use crate::matrix_utils;
 use crate::constants::*;
 
 // e: expansion_table
@@ -21,7 +21,7 @@ fn des_round(l: &mut [u64; 32], r: [u64; 32], k_round: &[u64; 64], e: &[usize; 4
     bitslice_sboxes_64::s8(k_round[42] ^ r[e[42]], k_round[43] ^ r[e[43]], k_round[44] ^ r[e[44]],
          k_round[45] ^ r[e[45]], k_round[46] ^ r[e[46]], k_round[47] ^ r[e[47]], l);
 }
-
+ 
 // the input has one block per entry
 // l and r have transposed (bitsliced) values
 pub fn init_lr(data: &[u64; 64]) -> ([u64; 32], [u64; 32]) {
@@ -53,8 +53,8 @@ fn final_permutation(l: [u64; 32], r: [u64; 32]) -> [u64; 64] {
     let mut blocks = [0u64; 64];
 
     for block_i in 0..64 {
-        let l_col = utils::get_matrix_column(&l, block_i);
-        let r_col = utils::get_matrix_column(&r, block_i);
+        let l_col = matrix_utils::get_matrix_column(&l, block_i);
+        let r_col = matrix_utils::get_matrix_column(&r, block_i);
 
         let block =
            FINAL_L_PRECOMPUTED[0][ (l_col        & 0xFF) as usize]

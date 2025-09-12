@@ -11,7 +11,7 @@ mod bitslice_des_64;
 mod bitslice_des_128;
 mod bitslice_sboxes_64;
 mod bitslice_sboxes_128;
-mod utils;
+pub mod matrix_utils; // For testing
 mod generate_round_keys;
 mod format_digest;
 
@@ -75,7 +75,7 @@ pub fn crypt3(pwd: &str, salt: &str) -> String {
     // Keep only the first 2 characters
     let salt = &salt[0..2];
     let mut data = 0u64;
-    let pwd_bin = utils::to_binary_array(pwd);
+    let pwd_bin = matrix_utils::to_binary_array(pwd);
     let k = generate_round_keys::generate_round_keys(pwd_bin);
     let r_expanded_precomputed = des::generate_r_expanded_tables_cached(salt);
 
@@ -92,7 +92,7 @@ pub fn crypt3_64(pwds: &Vec<String>, salt: &str) -> Vec<String> {
     let salt = &salt[0..2];
 
     let mut data = [0u64; 64];
-    let pwd_bins = utils::to_binary_arrays(pwds);
+    let pwd_bins = matrix_utils::to_binary_arrays(pwds);
     let keys = generate_round_keys::generate_transposed_round_keys_64(&pwd_bins); 
     let expansion_table = des::perturb_expansion(&salt);
 
@@ -111,7 +111,7 @@ pub fn crypt3_128(pwds: &Vec<String>, salt: &str) -> Vec<String> {
     let salt = &salt[0..2];
 
     let mut data = [0u64; 128];
-    let pwd_bins = utils::to_binary_arrays_128(pwds);
+    let pwd_bins = matrix_utils::to_binary_arrays_128(pwds);
     let keys = generate_round_keys::generate_transposed_round_keys_128(&pwd_bins);
      let expansion_table = des::perturb_expansion(&salt);
 
@@ -237,21 +237,4 @@ pub fn run_x_iterations_128(iter_n: u32, regex_pattern: &str) -> HashMap<String,
 }
 
 fn main() {
-    let mut m = [0xFF00FF00FF00FF00u64; 64];
-    for i in 0..64 {
-        if i&2 == 0 {
-            m[i] = 0x00FF00FF00FF00FFu64;
-        }
-    }
-
-    for row in m {
-        println!("{:064b}", row);
-    }
-
-    utils::transpose_64x64(&mut m);
-    println!("\n\n");
-
-    for row in m {
-        println!("{:064b}", row);
-    }
 }
