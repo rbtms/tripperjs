@@ -27,6 +27,8 @@ pub fn get_matrix_column(m: &[u64; 32], col_i: usize) -> u64 {
     col
 }
 
+/* -- From here below, matrix transposition -- */
+
 pub fn transpose_64x64(matrix: &mut [u64; 64]) {
     const MATRIX_SIZE: usize = 64;
     const BLOCK_SIZE: usize = 8;
@@ -91,13 +93,30 @@ fn transpose_and_swap_blocks(
 }
 
 /// Transposes an 8×8 block stored in 8 bytes
+#[inline(always)]
 fn transpose_8x8_bytes(input: &[u8; 8]) -> [u8; 8] {
+    let mut x: u64 = 0;
+    for i in 0..8 {
+        x |= (input[i] as u64) << (i * 8);
+    }
+
+    let mut t: u64;
+
+    // Swap bit 1 with bit 8
+    t = (x ^ (x >> 7)) & 0x00AA00AA00AA00AA;
+    x = x ^ t ^ (t << 7);
+
+    // Swap bit 2 with bit 4
+    t = (x ^ (x >> 14)) & 0x0000CCCC0000CCCC;
+    x = x ^ t ^ (t << 14);
+
+    // Swap bit 4 with bit 8
+    t = (x ^ (x >> 28)) & 0x00000000F0F0F0F0;
+    x = x ^ t ^ (t << 28);
+
     let mut out = [0u8; 8];
     for i in 0..8 {
-        for j in 0..8 {
-            let bit = (input[i] >> j) & 1;
-            out[j] |= bit << i;
-        }
+        out[i] = ((x >> (i * 8)) & 0xFF) as u8;
     }
     out
 }

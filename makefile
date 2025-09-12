@@ -27,7 +27,7 @@ _test_wasm:
 	# Build wasm tests
 	cargo test build --release --target wasm32-unknown-unknown --no-run
 
-	@WASM_FILE=$$(find target/wasm32-unknown-unknown/release -name 'test_*.wasm' | head -n 1); \
+	@WASM_FILE=$$(find target/wasm32-unknown-unknown/release -name 'test_wasm*.wasm' | head -n 1); \
 	if [ -z "$$WASM_FILE" ]; then \
 		echo "No wasm test file found!"; \
 		exit 1; \

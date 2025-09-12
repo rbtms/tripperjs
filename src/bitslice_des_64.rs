@@ -56,7 +56,7 @@ fn final_permutation(l: [u64; 32], r: [u64; 32]) -> [u64; 64] {
         let l_col = matrix_utils::get_matrix_column(&l, block_i);
         let r_col = matrix_utils::get_matrix_column(&r, block_i);
 
-        let block =
+        blocks[block_i] =
            FINAL_L_PRECOMPUTED[0][ (l_col        & 0xFF) as usize]
          | FINAL_L_PRECOMPUTED[1][((l_col >>  8) & 0xFF) as usize]
          | FINAL_L_PRECOMPUTED[2][((l_col >> 16) & 0xFF) as usize]
@@ -65,8 +65,6 @@ fn final_permutation(l: [u64; 32], r: [u64; 32]) -> [u64; 64] {
          | FINAL_R_PRECOMPUTED[1][((r_col >>  8) & 0xFF) as usize]
          | FINAL_R_PRECOMPUTED[2][((r_col >> 16) & 0xFF) as usize]
          | FINAL_R_PRECOMPUTED[3][((r_col >> 24) & 0xFF) as usize];
-
-        blocks[block_i] = block;
     }
 
     blocks
