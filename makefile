@@ -37,6 +37,9 @@ _test_wasm:
 test_wasm:
 	RUSTFLAGS="-C target-feature=+simd128,+bulk-memory" make _test_wasm
 
+test_matrix:
+	cargo test test_matrix --release -- --nocapture
+
 #---- Building -------------------------------------------------------------------------------------
 
 _build_wasm:
@@ -77,6 +80,40 @@ profile_release:
 			| grep -oP '"'"'"executable":"\K[^"]+'"'"' \
 			| grep test-) && \
 		perf record -e cycles,instructions,cache-references,cache-misses "$$test_bin" test_performance_64 && \
+		perf script -i perf.data > out.folded && \
+		perf report && \
+		rm -f perf.data perf.data.old out.folded \
+	'
+
+profile_matrix:
+	sudo sh -c 'echo 1 > /proc/sys/kernel/perf_event_paranoid'
+	@bash -e -o pipefail -c '\
+		# Find the test binary for test_matrix_transposition \
+		test_bin=$$(cargo test --no-run --message-format=json \
+			| jq -r "select(.profile.test == true) | select(.target.name == \"test_matrix_transposition\") | .executable" \
+		) && \
+		if [ -z "$$test_bin" ]; then \
+			echo "Error: no test_matrix_transposition executable found" >&2; exit 1; \
+		fi; \
+		echo "Using test binary: $$test_bin" && \
+		perf record -e cycles,instructions,cache-references,cache-misses "$$test_bin" -- test_matrix_transposition_performance && \
+		perf script -i perf.data > out.folded && \
+		perf report && \
+		rm -f perf.data perf.data.old out.folded \
+	'
+
+profile_matrix_release:
+	sudo sh -c 'echo 1 > /proc/sys/kernel/perf_event_paranoid'
+	@bash -e -o pipefail -c '\
+		# Find the test binary for test_matrix_transposition \
+		test_bin=$$(cargo test --release --no-run --message-format=json \
+			| jq -r "select(.profile.test == true) | select(.target.name == \"test_matrix_transposition\") | .executable" \
+		) && \
+		if [ -z "$$test_bin" ]; then \
+			echo "Error: no test_matrix_transposition executable found" >&2; exit 1; \
+		fi; \
+		echo "Using test binary: $$test_bin" && \
+		perf record -e cycles,instructions,cache-references,cache-misses "$$test_bin" -- test_matrix_transposition_performance && \
 		perf script -i perf.data > out.folded && \
 		perf report && \
 		rm -f perf.data perf.data.old out.folded \
