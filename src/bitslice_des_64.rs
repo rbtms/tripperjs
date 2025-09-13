@@ -1,6 +1,6 @@
-use crate::bitslice_sboxes_64;
 use crate::constants::*;
 use crate::matrix_utils::transpose_64x64;
+use crate::bitslice_sboxes_64::*;
 
 const fn _precompute_initial_lr_64() -> [[u64; 256]; 8] {
     let mut tables = [[0u64; 256]; 8];
@@ -42,23 +42,25 @@ const fn _precompute_initial_lr_64() -> [[u64; 256]; 8] {
 
 static INITIAL_LR_PRECOMPUTED_64: [[u64; 256]; 8] = _precompute_initial_lr_64();
 
-// e: expansion_table
+
+// ------------------------------------------------------------------------------------------------
+
 fn des_round(l: &mut [u64; 32], r: [u64; 32], k_round: &[u64; 64], exp: &[usize; 48]) {
-    bitslice_sboxes_64::s1(k_round[0] ^ r[exp[0]], k_round[1] ^ r[exp[1]], k_round[2] ^ r[exp[2]], 
+    s1(k_round[0] ^ r[exp[0]], k_round[1] ^ r[exp[1]], k_round[2] ^ r[exp[2]], 
          k_round[3] ^ r[exp[3]], k_round[4] ^ r[exp[4]], k_round[5] ^ r[exp[5]], l);
-    bitslice_sboxes_64::s2(k_round[6] ^ r[exp[6]], k_round[7] ^ r[exp[7]], k_round[8] ^ r[exp[8]],
+    s2(k_round[6] ^ r[exp[6]], k_round[7] ^ r[exp[7]], k_round[8] ^ r[exp[8]],
          k_round[9] ^ r[exp[9]], k_round[10] ^ r[exp[10]], k_round[11] ^ r[exp[11]], l);
-    bitslice_sboxes_64::s3(k_round[12] ^ r[exp[12]], k_round[13] ^ r[exp[13]], k_round[14] ^ r[exp[14]],
+    s3(k_round[12] ^ r[exp[12]], k_round[13] ^ r[exp[13]], k_round[14] ^ r[exp[14]],
          k_round[15] ^ r[exp[15]], k_round[16] ^ r[exp[16]], k_round[17] ^ r[exp[17]], l);
-    bitslice_sboxes_64::s4(k_round[18] ^ r[exp[18]], k_round[19] ^ r[exp[19]], k_round[20] ^ r[exp[20]],
+    s4(k_round[18] ^ r[exp[18]], k_round[19] ^ r[exp[19]], k_round[20] ^ r[exp[20]],
          k_round[21] ^ r[exp[21]], k_round[22] ^ r[exp[22]], k_round[23] ^ r[exp[23]], l);
-    bitslice_sboxes_64::s5(k_round[24] ^ r[exp[24]], k_round[25] ^ r[exp[25]], k_round[26] ^ r[exp[26]],
+    s5(k_round[24] ^ r[exp[24]], k_round[25] ^ r[exp[25]], k_round[26] ^ r[exp[26]],
          k_round[27] ^ r[exp[27]], k_round[28] ^ r[exp[28]], k_round[29] ^ r[exp[29]], l);
-    bitslice_sboxes_64::s6(k_round[30] ^ r[exp[30]], k_round[31] ^ r[exp[31]], k_round[32] ^ r[exp[32]],
+    s6(k_round[30] ^ r[exp[30]], k_round[31] ^ r[exp[31]], k_round[32] ^ r[exp[32]],
          k_round[33] ^ r[exp[33]], k_round[34] ^ r[exp[34]], k_round[35] ^ r[exp[35]], l);
-    bitslice_sboxes_64::s7(k_round[36] ^ r[exp[36]], k_round[37] ^ r[exp[37]], k_round[38] ^ r[exp[38]],
+    s7(k_round[36] ^ r[exp[36]], k_round[37] ^ r[exp[37]], k_round[38] ^ r[exp[38]],
          k_round[39] ^ r[exp[39]], k_round[40] ^ r[exp[40]], k_round[41] ^ r[exp[41]], l);
-    bitslice_sboxes_64::s8(k_round[42] ^ r[exp[42]], k_round[43] ^ r[exp[43]], k_round[44] ^ r[exp[44]],
+    s8(k_round[42] ^ r[exp[42]], k_round[43] ^ r[exp[43]], k_round[44] ^ r[exp[44]],
          k_round[45] ^ r[exp[45]], k_round[46] ^ r[exp[46]], k_round[47] ^ r[exp[47]], l);
 }
  

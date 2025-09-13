@@ -1,3 +1,4 @@
+#![cfg(target_arch = "wasm32")]
 use tripperjs_wasm::{crypt3, crypt3_64, get_salt, crypt3_128, run_x_iterations, run_x_iterations_64, run_x_iterations_128};
 use wasm_bindgen_test::*;
 use web_sys::console;
@@ -16,7 +17,7 @@ fn generate_tripcode_64(pwd: &str) -> String {
     let salt = get_salt(pwd);
 
     let mut pwds = Vec::new();
-    for _ in 0..64 {
+    for _ in 0..128 {
         pwds.push(pwd.to_string())
     }
     
@@ -107,7 +108,6 @@ fn now_secs() -> f64 {
     Date::now() / 1000.0
 }
 //#[wasm_bindgen_test]
-#[cfg(target_arch = "wasm32")]
 fn test_performance() {
     let iter_per_batch = 1000;
     let mut iterations = 0;
@@ -128,7 +128,6 @@ fn test_performance() {
 }
 
 #[wasm_bindgen_test]
-#[cfg(target_arch = "wasm32")]
 fn test_performance_64() {
     let iter_per_batch = 1000;
     let mut iterations = 0;
@@ -137,7 +136,7 @@ fn test_performance_64() {
 
     while now_secs() - start < target_duration {
         run_x_iterations_64(iter_per_batch, "random_regex");
-        iterations += iter_per_batch * 64;
+        iterations += iter_per_batch * 128;
     }
 
     let duration_secs = now_secs() - start;
@@ -149,7 +148,6 @@ fn test_performance_64() {
 }
 
 //#[wasm_bindgen_test]
-#[cfg(target_arch = "wasm32")]
 fn test_performance_128() {
     let iter_per_batch = 1000;
     let mut iterations = 0;

@@ -144,6 +144,9 @@ const fn precompute_compress_tables() -> [[[u64; 256]; 7]; 16] {
 
 static CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED: [[[u64; 256]; 7]; 16] = precompute_compress_tables();
 
+
+// ------------------------------------------------------------------------------------------------
+
 #[inline(always)]
 pub fn generate_round_keys(key: u64) -> [u64; 16] {
     let mut k = [0u64; 16];
@@ -205,7 +208,6 @@ pub fn generate_transposed_round_keys_64(pwds_bin: &[u64; 64]) -> [[u64; 64]; 16
 
     keys
 }
-
 
 pub fn generate_transposed_round_keys_128(pwds_bin: &[u64; 128]) -> [[u128; 64]; 16] {
     let mut keys = [[0u128; 64]; 16]; // [round][bit index across 64 passwords]

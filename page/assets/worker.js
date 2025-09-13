@@ -70,7 +70,7 @@ onmessage = async (e) => {
      */
     while (active) {
       const batchMap = run_x_iterations_64(iterPerBatch, regex);
-      iterationCounter += iterPerBatch*64;
+      iterationCounter += iterPerBatch*128;
 
       if (batchMap.size > 0) {
         batchBuffer.push(...batchMap.entries());
