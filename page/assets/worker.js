@@ -17,6 +17,16 @@ async function initWasm() {
     }
 }
 
+function createMessage(iterationCounter, batchBuffer) {
+    let batch = [];
+
+    if (batchBuffer.length > 0) {
+      batch = Array.from(batchBuffer.splice(0)); // send & clear buffer
+    }
+
+    return { batch, iterations: iterationCounter };
+}
+
 /**
  * Main message handler for the worker.
  * Listens for start requests with regex + iteration count, initializes WASM, 
@@ -29,7 +39,11 @@ async function initWasm() {
 onmessage = async (e) => {
     const { regex, iterPerBatch } = e.data;
     await initWasm();
+    
     let active = true;
+    let iterationCounter = 0;
+    let batchBuffer = [];
+    let lastSent = performance.now();
 
     /**
      * Inner message handler for stop requests.
@@ -38,7 +52,10 @@ onmessage = async (e) => {
      * @param {MessageEvent} msg - Message containing 'stop' command
      */
     self.onmessage = (msg) => {
-      if (msg.data === 'stop') active = false;
+      if (msg.data === 'stop') {
+        active = false;
+        postMessage(createMessage(iterationCounter, batchBuffer));
+      }
     };
 
     /**
@@ -52,8 +69,22 @@ onmessage = async (e) => {
      * }
      */
     while (active) {
-      const batch = await run_x_iterations_64(iterPerBatch, regex);
-      postMessage({ batch: Array.from(batch.entries()), iterations: iterPerBatch*64 });
+      const batchMap = run_x_iterations_64(iterPerBatch, regex);
+      iterationCounter += iterPerBatch*64;
+
+      if (batchMap.size > 0) {
+        batchBuffer.push(...batchMap.entries());
+      }
+
+      let now = performance.now();
+      if (!lastSent || now - lastSent > 200) { // 5 messages/s
+        postMessage(createMessage(iterationCounter, batchBuffer));
+
+        iterationCounter = 0;
+        lastSent = now;
+      }
+      
+      //
       //await new Promise(r => setTimeout(r, 10));
     }
 };

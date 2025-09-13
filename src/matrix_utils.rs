@@ -49,14 +49,17 @@ pub fn transpose_64x64(matrix: &mut [u64; 64]) {
 }
 
 #[inline(always)]
-fn pack_block_to_u64(matrix: &[u64; 64], col: usize, row: usize) -> u64 {
-    let mut block = 0u64;
+fn pack_block_to_u64(m: &[u64; 64], col: usize, row: usize) -> u64 {
+    let shift = col*8;
 
-    for i in 0..8 {
-        block |= ((matrix[row * 8 + i] >> (col * 8)) & 0xFF) << (i * 8);
-    }
-
-    block
+      ((m[row*8]    >> shift) &0xFF)
+    | (((m[row*8+1] >> shift) &0xFF)<< 8)
+    | (((m[row*8+2] >> shift) &0xFF)<< 16)
+    | (((m[row*8+3] >> shift) &0xFF)<< 24)
+    | (((m[row*8+4] >> shift) &0xFF)<< 32)
+    | (((m[row*8+5] >> shift) &0xFF)<< 40)
+    | (((m[row*8+6] >> shift) &0xFF)<< 48)
+    | (((m[row*8+7] >> shift) &0xFF)<< 56)
 }
 
 #[inline(always)]

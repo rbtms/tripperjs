@@ -49,8 +49,6 @@ _build_wasm:
 	rm -r ./pkg
 build_wasm:
 	RUSTFLAGS="-C target-feature=+simd128,+bulk-memory" make _build_wasm
-build_wasm_simd128:
-	RUSTFLAGS="-C target-feature=+simd128" make _build_wasm
 
 _build_wasm_debug:
 	wasm-pack build --target web --debug

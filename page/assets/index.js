@@ -156,7 +156,7 @@ class TripcodeSearch {
    * @param {string} regexStr - Regex for this search
    */
   constructor(regexStr) {
-    this.ITER_PER_BATCH = 1_000;
+    this.ITER_PER_BATCH = 10_000;
 
     this.regexStr = regexStr;
     this.totalIterations = 0;
