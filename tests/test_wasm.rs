@@ -126,5 +126,5 @@ fn test_performance_64() {
 
 #[wasm_bindgen_test]
 fn test_performance_v128() {
-    run_performance_test("run_x_iterations_64", &run_x_iterations_v128, 128);
+    run_performance_test("run_x_iterations_v128", &run_x_iterations_v128, 128);
 }

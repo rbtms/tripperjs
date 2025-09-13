@@ -179,6 +179,28 @@ function getDataViewMemory0() {
     return cachedDataViewMemory0;
 }
 /**
+ * @param {string} pwd
+ * @param {string} salt
+ * @returns {string}
+ */
+export function crypt3(pwd, salt) {
+    let deferred3_0;
+    let deferred3_1;
+    try {
+        const ptr0 = passStringToWasm0(pwd, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        const ptr1 = passStringToWasm0(salt, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len1 = WASM_VECTOR_LEN;
+        const ret = wasm.crypt3(ptr0, len0, ptr1, len1);
+        deferred3_0 = ret[0];
+        deferred3_1 = ret[1];
+        return getStringFromWasm0(ret[0], ret[1]);
+    } finally {
+        wasm.__wbindgen_free(deferred3_0, deferred3_1, 1);
+    }
+}
+
+/**
  * @param {number} pwd_len
  * @returns {string}
  */
@@ -215,28 +237,6 @@ export function get_salt(key) {
 }
 
 /**
- * @param {string} pwd
- * @param {string} salt
- * @returns {string}
- */
-export function crypt3(pwd, salt) {
-    let deferred3_0;
-    let deferred3_1;
-    try {
-        const ptr0 = passStringToWasm0(pwd, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-        const len0 = WASM_VECTOR_LEN;
-        const ptr1 = passStringToWasm0(salt, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-        const len1 = WASM_VECTOR_LEN;
-        const ret = wasm.crypt3(ptr0, len0, ptr1, len1);
-        deferred3_0 = ret[0];
-        deferred3_1 = ret[1];
-        return getStringFromWasm0(ret[0], ret[1]);
-    } finally {
-        wasm.__wbindgen_free(deferred3_0, deferred3_1, 1);
-    }
-}
-
-/**
  * @param {number} iter_n
  * @param {string} regex_pattern
  * @returns {any}
@@ -265,10 +265,10 @@ export function run_x_iterations_64(iter_n, regex_pattern) {
  * @param {string} regex_pattern
  * @returns {any}
  */
-export function run_x_iterations_128(iter_n, regex_pattern) {
+export function run_x_iterations_v128(iter_n, regex_pattern) {
     const ptr0 = passStringToWasm0(regex_pattern, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.run_x_iterations_128(iter_n, ptr0, len0);
+    const ret = wasm.run_x_iterations_v128(iter_n, ptr0, len0);
     return ret;
 }
 
