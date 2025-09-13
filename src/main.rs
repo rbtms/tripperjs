@@ -6,21 +6,14 @@ use regex::Regex;
 use serde_wasm_bindgen::to_value;
 
 mod constants;
-mod des;
-mod bitslice_sboxes_64;
-mod bitslice_sboxes_64_wasm;
-mod bitslice_des_64;
-mod bitslice_des_64_wasm;
-mod bitslice_des_128;
-mod bitslice_sboxes_128;
-pub mod matrix_utils; // Declared pub for testing
+pub mod matrix_utils;
 mod generate_round_keys;
 mod format_digest;
+mod perturb_expansion;
 
-#[cfg(target_arch = "wasm32")]
-use crate::bitslice_des_64_wasm::des;
-#[cfg(not(target_arch = "wasm32"))]
-use crate::bitslice_des_64::des;
+pub mod base;
+pub mod bitslice_64;
+pub mod bitslice_v128;
 
 #[wasm_bindgen]
 pub fn rand_pwd(pwd_len: usize) -> String {
@@ -76,94 +69,10 @@ pub fn get_salt(key: &str) -> String {
     result
 }
 
-#[allow(static_mut_refs)]
-#[wasm_bindgen]
-pub fn crypt3(pwd: &str, salt: &str) -> String {
-    // Keep only the first 2 characters
-    let salt = &salt[0..2];
-    let mut data = 0u64;
-    let pwd_bin = matrix_utils::to_binary_array(pwd);
-    let k = generate_round_keys::generate_round_keys(pwd_bin);
-    let r_expanded_precomputed = des::generate_r_expanded_tables_cached(salt);
-
-    // Crypt(3) calls DES 25 times
-    for _ in 0..25 {
-        data = des::des(data, &k, &r_expanded_precomputed);
-    }
-    
-    format_digest::format_digest(data)
-}
-
-#[cfg(not(target_arch = "wasm32"))]
-pub fn crypt3_64(pwds: &Vec<String>, salt: &str) -> Vec<String> {
-    // Keep only the first 2 characters
-    let salt = &salt[0..2];
-
-    let mut data = [0u64; 64];
-    let pwd_bins = matrix_utils::to_binary_arrays(pwds);
-    let keys = generate_round_keys::generate_transposed_round_keys_64(&pwd_bins); 
-    let expansion_table = des::perturb_expansion(&salt);
-
-    // Crypt(3) calls DES 25 times
-    for _ in 0..25 {
-        data = bitslice_des_64::des(&data, &keys, &expansion_table);
-    }
-
-    data.iter().map(
-        |&tripcode_u64| format_digest::format_digest(tripcode_u64)
-    ).collect()
-}
-
-#[cfg(target_arch = "wasm32")]
-pub fn crypt3_64(pwds: &Vec<String>, salt: &str) -> Vec<String> {
-    // Keep only the first 2 characters
-    let salt = &salt[0..2];
-
-    let mut data1 = [0u64; 64];
-    let mut data2 = [0u64; 64];
-    let pwd_bins1 = matrix_utils::to_binary_arrays(&(&pwds[0..64]).to_vec());
-    let pwd_bins2 = matrix_utils::to_binary_arrays(&(&pwds[64..128]).to_vec());
-    let keys1 = generate_round_keys::generate_transposed_round_keys_64(&pwd_bins1);
-    let keys2 = generate_round_keys::generate_transposed_round_keys_64(&pwd_bins2);
-    let expansion_table = des::perturb_expansion(&salt);
-
-    unsafe {
-        let keys = crate::bitslice_des_64_wasm::keys_to_v128(&keys1, &keys2);    
-
-        // Crypt(3) calls DES 25 times
-        for _ in 0..25 {
-            (data1, data2) = des(&data1, &data2, &keys, &expansion_table);
-        }
-}
-
-    data1.iter().chain(data2.iter()).map(
-        |&tripcode_u64| format_digest::format_digest(tripcode_u64)
-    ).collect()
-}
-
-pub fn crypt3_128(pwds: &Vec<String>, salt: &str) -> Vec<String> {
-    // Keep only the first 2 characters
-    let salt = &salt[0..2];
-
-    let mut data = [0u64; 128];
-    let pwd_bins = matrix_utils::to_binary_arrays_128(pwds);
-    let keys = generate_round_keys::generate_transposed_round_keys_128(&pwd_bins);
-     let expansion_table = des::perturb_expansion(&salt);
-
-    // Crypt(3) calls DES 25 times
-    for _ in 0..25 {
-        data = bitslice_des_128::des(&data, &keys, &expansion_table);
-    }
-
-    data.iter().map(
-        |&tripcode_u64| format_digest::format_digest(tripcode_u64)
-    ).collect()
-}
-
 pub fn run_x_iterations_common(iter_n: u32, regex_pattern: &str) -> HashMap<String,String> {
     let re = Regex::new(regex_pattern).unwrap();
     let mut results = HashMap::new();
-    
+ 
     // Only calculate the salt (first part of the password)
     // once every x iterations to reduce the cache misses
     // from the hash table lookup. Also increases speed in 50k
@@ -171,17 +80,14 @@ pub fn run_x_iterations_common(iter_n: u32, regex_pattern: &str) -> HashMap<Stri
     // table has to be perturbed.
     let first_3_chars = &rand_pwd(3);
     let salt = get_salt(&first_3_chars);
-
     for _ in 0..iter_n {
         let last_5_chars = rand_pwd(6);
         let pwd = format!("{}{}", first_3_chars, last_5_chars);
-        let tripcode = crypt3(&pwd, &salt);
-
+        let tripcode = base::crypt3::crypt3(&pwd, &salt);
         if re.is_match(&tripcode) {
             results.insert(pwd, tripcode);
         }
     }
-
     results
 }
 
@@ -202,33 +108,16 @@ fn make_passwords_batch(batch_size: usize) -> (String, Vec<String>) {
     (get_salt(&first_3_chars), pwds)
 }
 
-pub fn run_x_iterations_common_64(iter_n: u32, regex_pattern: &str) -> HashMap<String,String> {
+pub fn run_x_iterations_common_bitslice(iter_n: u32, regex_pattern: &str) -> HashMap<String,String> {
     let re = Regex::new(regex_pattern).unwrap();
     let mut results = HashMap::new();
+    const PASSWORD_BATCH_SIZE :usize = 64;
     
     for _ in 0..iter_n {
-        let (salt, pwds) = make_passwords_batch(128);
-        let tripcodes = crypt3_64(&pwds, &salt);
+        let (salt, pwds) = make_passwords_batch(PASSWORD_BATCH_SIZE);
+        let tripcodes = bitslice_64::crypt3_64::crypt3(&pwds, &salt);
 
-        for i in 0..128 {
-            if re.is_match(&tripcodes[i]) {
-                results.insert(pwds[i].clone(), tripcodes[i].clone());
-            }
-        }
-    }
-
-    results
-}
-
-pub fn run_x_iterations_common_128(iter_n: u32, regex_pattern: &str) -> HashMap<String,String> {
-    let re = Regex::new(regex_pattern).unwrap();
-    let mut results = HashMap::new();
-    
-    for _ in 0..iter_n {
-        let (salt, pwds) = make_passwords_batch(128);
-        let tripcodes = crypt3_128(&pwds, &salt);    
-    
-        for i in 0..128 {
+        for i in 0..PASSWORD_BATCH_SIZE {
             if re.is_match(&tripcodes[i]) {
                 results.insert(pwds[i].clone(), tripcodes[i].clone());
             }
@@ -241,20 +130,35 @@ pub fn run_x_iterations_common_128(iter_n: u32, regex_pattern: &str) -> HashMap<
 
 #[cfg(target_arch = "wasm32")]
 #[wasm_bindgen]
-pub fn run_x_iterations(iter_n: i32, regex_pattern: &str) -> JsValue {
+pub fn run_x_iterations(iter_n: u32, regex_pattern: &str) -> JsValue {
     let results = run_x_iterations_common(iter_n as u32, regex_pattern);
     to_value(&results).unwrap()
 }
 #[cfg(target_arch = "wasm32")]
 #[wasm_bindgen]
-pub fn run_x_iterations_64(iter_n: i32, regex_pattern: &str) -> JsValue {
-    let results = run_x_iterations_common_64(iter_n as u32, regex_pattern);
+pub fn run_x_iterations_64(iter_n: u32, regex_pattern: &str) -> JsValue {
+    let results = run_x_iterations_common_bitslice(iter_n as u32, regex_pattern);
     to_value(&results).unwrap()
 }
+
 #[cfg(target_arch = "wasm32")]
 #[wasm_bindgen]
-pub fn run_x_iterations_128(iter_n: i32, regex_pattern: &str) -> JsValue {
-    let results = run_x_iterations_common_128(iter_n as u32, regex_pattern);
+pub fn run_x_iterations_v128(iter_n: u32, regex_pattern: &str) -> JsValue {
+    let re = Regex::new(regex_pattern).unwrap();
+    let mut results = HashMap::new();
+    const PASSWORD_BATCH_SIZE :usize = 128;
+    
+    for _ in 0..iter_n {
+        let (salt, pwds) = make_passwords_batch(PASSWORD_BATCH_SIZE);
+        let tripcodes = bitslice_v128::crypt3_v128::crypt3(&pwds, &salt);
+
+        for i in 0..PASSWORD_BATCH_SIZE {
+            if re.is_match(&tripcodes[i]) {
+                results.insert(pwds[i].clone(), tripcodes[i].clone());
+            }
+        }
+    }
+
     to_value(&results).unwrap()
 }
 
@@ -264,11 +168,7 @@ pub fn run_x_iterations(iter_n: u32, regex_pattern: &str) -> HashMap<String,Stri
 }
 #[cfg(not(target_arch = "wasm32"))]
 pub fn run_x_iterations_64(iter_n: u32, regex_pattern: &str) -> HashMap<String,String> {
-    run_x_iterations_common_64(iter_n, regex_pattern)
-}
-#[cfg(not(target_arch = "wasm32"))]
-pub fn run_x_iterations_128(iter_n: u32, regex_pattern: &str) -> HashMap<String,String> {
-    run_x_iterations_common_128(iter_n, regex_pattern)
+    run_x_iterations_common_bitslice(iter_n, regex_pattern)
 }
 
 fn main() {

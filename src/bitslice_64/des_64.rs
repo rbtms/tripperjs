@@ -1,6 +1,6 @@
 use crate::constants::*;
 use crate::matrix_utils::transpose_64x64;
-use crate::bitslice_sboxes_64::*;
+use crate::bitslice_64::sboxes::*;
 
 const fn _precompute_initial_lr_64() -> [[u64; 256]; 8] {
     let mut tables = [[0u64; 256]; 8];
