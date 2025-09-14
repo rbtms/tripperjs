@@ -42,6 +42,8 @@ fn generate_tripcode_v128(pwd: &str) -> String {
 }
 
 // ---- Correctness tests ----
+// Correctness tests verify that tripcode generation produces expected output
+// by comparing generated tripcodes against known test cases from a file.
 
 fn run_correctness_test(f: &dyn Fn(&str) -> String) {
     // Read test cases from file at compile time
@@ -90,6 +92,8 @@ fn test_correctness_v128() {
 }
 
 // ---- Performance tests ----
+// Performance tests measure tripcodes per second by running functions repeatedly
+// for a fixed duration
 
 fn now_secs() -> f64 {
     Date::now() / 1000.0

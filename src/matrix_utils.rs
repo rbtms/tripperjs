@@ -1,3 +1,16 @@
+/// Converts a string password into a 64-bit binary representation.
+/// 
+/// This function takes the first 8 characters of the input string and converts
+/// each character into a 64-bit value by:
+/// 1. Reversing the bits of each character
+/// 2. Shifting the result right by 1 bit
+/// 3. Placing each character's value in the appropriate bit position (8-bit chunks)
+/// 
+/// # Arguments
+/// * `pwd` - A string slice representing the password to convert
+/// 
+/// # Returns
+/// * `u64` - The 64-bit binary representation of the password
 pub fn to_binary_array(pwd: &str) -> u64 {
     let mut pwd_bin = 0u64;
 
@@ -8,19 +21,36 @@ pub fn to_binary_array(pwd: &str) -> u64 {
     pwd_bin
 }
 
-pub fn to_binary_arrays(pwds: &Vec<String>) -> [u64; 64] {
+/// Converts a vector of password strings into an array of 64-bit binary representations.
+/// 
+/// This function take 64 passwords from the input vector and converts each
+/// one into a 64-bit binary value using `to_binary_array`.
+/// 
+/// # Arguments
+/// * `pwds` - A vector of strings representing passwords to convert
+/// 
+/// # Returns
+/// * `[u64; 64]` - An array of 64 64-bit binary values
+pub fn to_binary_array_64(pwds: &Vec<String>) -> [u64; 64] {
     std::array::from_fn(|i| to_binary_array(&pwds[i]))
 }
 
-pub fn to_binary_arrays_128(pwds: &Vec<String>) -> [u64; 128] {
-    std::array::from_fn(|i| to_binary_array(&pwds[i]))
-}
-
+/// Extracts a column from a 64x64 bit matrix represented as an array of 64 u64 values.
+/// 
+/// This function treats the input slice as a 64x64 binary matrix where each u64 represents
+/// a row. It extracts the specified column index and returns it as a u64 value.
+/// 
+/// # Arguments
+/// * `m` - A reference to an array of 64 u64 values representing the matrix rows
+/// * `col_i` - The column index to extract (0-63)
+/// 
+/// # Returns
+/// * `u64` - The column as a u64 value with bits set according to the column values
 #[inline(always)]
-pub fn get_matrix_column(m: &[u64; 32], col_i: usize) -> u64 {
+pub fn get_matrix_column(matrix: &[u64; 32], col_i: usize) -> u64 {
     let mut col = 0u64;
 
-    for (i, &row) in m.iter().enumerate() {
+    for (i, &row) in matrix.iter().enumerate() {
         col |= ((row>>col_i)&1) << i;
     }
 
@@ -51,6 +81,9 @@ pub fn get_matrix_column(m: &[u64; 32], col_i: usize) -> u64 {
 /// Overall, this method is much more efficient than naïvely iterating over all 4096 bits,
 /// and is suitable for applications such as graphics, cryptography, or linear algebra where
 /// bitwise matrix operations are required.
+///
+/// # Arguments
+/// * `matrix` - A mutable reference to an array of 64 u64 values representing the matrix to transpose
 pub fn transpose_64x64(matrix: &mut [u64; 64]) {
     const MASKS: [u64; 6] = [
         0x5555555555555555, // 1-bit mask

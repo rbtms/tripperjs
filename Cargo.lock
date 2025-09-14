@@ -287,7 +287,6 @@ dependencies = [
  "getrandom",
  "js-sys",
  "log",
- "once_cell",
  "rand",
  "regex",
  "serde",

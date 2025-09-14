@@ -16,6 +16,10 @@ pub const INITIAL_PERMUTATION_R: [usize; 32] = [
     62, 54, 46, 38, 30, 22, 14, 6
 ];
 
+/// Precomputes initial permutation tables for the left and right halves of DES
+/// 
+/// This function takes a permutation table and converts it into precomputed lookup tables
+/// for faster bit manipulation during the initial permutation step in DES.
 const fn precompute_initial_l_r(l_r: [usize; 32]) -> [[u32; 256]; 8] {
     let mut tables = [[0u32; 256]; 8];
 
@@ -41,6 +45,10 @@ const fn precompute_initial_l_r(l_r: [usize; 32]) -> [[u32; 256]; 8] {
 pub static INITIAL_L_PRECOMPUTED: [[u32; 256]; 8] = precompute_initial_l_r(INITIAL_PERMUTATION_L);
 pub static INITIAL_R_PRECOMPUTED: [[u32; 256]; 8] = precompute_initial_l_r(INITIAL_PERMUTATION_R);
 
+/// Precomputes final permutation tables for the left and right halves of DES
+/// 
+/// This function takes a permutation table and converts it into precomputed lookup tables
+/// for faster bit manipulation during the final permutation step in DES.
 const fn precompute_final_l_r(l_r: [usize; 32]) -> [[u64; 256]; 4] {
     let mut tables = [[0u64; 256]; 4];
 
@@ -69,20 +77,6 @@ const fn precompute_final_l_r(l_r: [usize; 32]) -> [[u64; 256]; 4] {
 
 pub static FINAL_L_PRECOMPUTED: [[u64; 256]; 4] = precompute_final_l_r(INITIAL_PERMUTATION_L);
 pub static FINAL_R_PRECOMPUTED: [[u64; 256]; 4] = precompute_final_l_r(INITIAL_PERMUTATION_R);
-
-/***************************
-* Final permutation (IP-1)
-***************************/
-// static FINAL_TABLE: [u8; 64] = [
-//     39, 7, 47, 15, 55, 23, 63, 31,
-//     38, 6, 46, 14, 54, 22, 62, 30,
-//     37, 5, 45, 13, 53, 21, 61, 29,
-//     36, 4, 44, 12, 52, 20, 60, 28,
-//     35, 3, 43, 11, 51, 19, 59, 27,
-//     34, 2, 42, 10, 50, 18, 58, 26,
-//     33, 1, 41,  9, 49, 17, 57, 25,
-//     32, 0, 40,  8, 48, 16, 56, 24
-// ];
 
 /***********************************************
 * Expansion table (E) used in the DES function
@@ -172,6 +166,12 @@ pub static S_BOX_TABLE: [usize; 512] = [
      2,  1, 14,  7,  4, 10,  8, 13, 15, 12,  9,  0,  3,  5,  6, 11
 ];
 
+/// Precomputes S-box lookup values for DES algorithm optimization
+/// 
+/// This function takes the S-box tables and inverse straight table to precompute
+/// lookup values that map 6-bit inputs to their corresponding 32-bit outputs
+/// for all 8 S-boxes.
+/// 
 pub static S_VAL: [[u32; 64]; 8] = {
     let mut s_val = [[0u32; 64]; 8];
     let mut m = 0;

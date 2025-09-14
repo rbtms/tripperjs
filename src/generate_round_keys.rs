@@ -114,6 +114,9 @@ const fn precompute_parity_drop_key() -> [[u64; 256]; 8] {
 
 static PARITY_DROP_PRECOMPUTED: [[u64; 256]; 8] = precompute_parity_drop_key();
 
+// Precomputes compression tables for DES key scheduling
+// These tables are used to efficiently compute the round keys by mapping
+// input bits through the parity drop and circular shift permutations
 const fn precompute_compress_tables() -> [[[u64; 256]; 7]; 16] {
     let mut tables = [[[0u64; 256]; 7]; 16]; // 16 rounds, 7 bytes for 56-bit parity-drop key
 
@@ -147,6 +150,18 @@ static CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED: [[[u64; 256]; 7]; 16] = precomput
 
 // ------------------------------------------------------------------------------------------------
 
+// Generates 16 round keys from a 64-bit key for DES encryption
+//
+// This function applies the DES key scheduling algorithm which includes:
+// 1. Parity drop to remove parity bits from input key
+// 2. Circular left shifts for each round
+// 3. Compression permutation to produce 48-bit round keys
+//
+// # Arguments
+// * `key` -The 64-bit secret key (with parity bits)
+//
+// # Returns
+// * `[u64; 16]``: Array of 16 round keys, each 48 bits wide
 #[inline(always)]
 pub fn generate_round_keys(key: u64) -> [u64; 16] {
     let mut k = [0u64; 16];
@@ -188,8 +203,18 @@ pub fn generate_round_keys(key: u64) -> [u64; 16] {
     k
 }
 
+// Generates transposed round keys for 64 passwords simultaneously
+//
+// This function generates round keys for multiple passwords and transposes the result
+// The transpose operation converts from [password][round] format to [round][password] format.
+//
+// # Arguments:
+// * `pwds_bin` - Array of 64 64-bit password keys
+//
+// # Returns
+// * `[[u64; 64]; 16]` - 16 arrays of 64 round key bits each transposed
 pub fn generate_transposed_round_keys_64(pwds_bin: &[u64; 64]) -> [[u64; 64]; 16] {
-    let mut keys = [[0u64; 64]; 16]; // [round][bit index across 64 passwords]
+    let mut keys = [[0u64; 64]; 16];
 
     // Add all the entries for every round
     for (pwd_i, &pwd_bin) in pwds_bin.iter().enumerate() {
@@ -198,30 +223,9 @@ pub fn generate_transposed_round_keys_64(pwds_bin: &[u64; 64]) -> [[u64; 64]; 16
             keys[i][pwd_i] = round_keys[i];
         }
     }
-
-    // Transpose the entries
-    //std::array::from_fn(|i| transpose_64x64(&&mut keys[i]))
     
     for i in 0..16 {
         matrix_utils::transpose_64x64(&mut keys[i]);
-    }
-
-    keys
-}
-
-pub fn generate_transposed_round_keys_128(pwds_bin: &[u64; 128]) -> [[u128; 64]; 16] {
-    let mut keys = [[0u128; 64]; 16]; // [round][bit index across 64 passwords]
-
-    for pwd_idx in 0..64 {
-        let round_keys = generate_round_keys(pwds_bin[pwd_idx]);
-
-        for (round, &round_key) in round_keys.iter().enumerate() {
-            // Pack each bit of rk into keys[round][bit]
-            for bit in 0..64 {
-                let bit_val = (round_key >> bit) & 1;
-                keys[round][bit] |= (bit_val as u128) << pwd_idx;
-            }
-        }
     }
 
     keys

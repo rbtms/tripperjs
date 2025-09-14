@@ -1,5 +1,7 @@
 use crate::constants::*;
 
+/// This table contains 11 rows of 64 characters each, used to map
+/// 6-bit values (0-63) to printable ASCII characters.
 const FORMAT_TABLES: [[char; 64]; 11] = {
     let mut tables = [['.'; 64]; 11];
     let mut n = 0;
@@ -27,6 +29,13 @@ const FORMAT_TABLES: [[char; 64]; 11] = {
     tables
 };
 
+/// Converts a 64-bit digest value into a formatted string representation
+/// 
+/// # Arguments
+/// * `data` - A 64-bit unsigned integer representing the digest to format
+/// 
+/// # Returns
+/// * `String` - A 10-character formatted string representation of the digest
 pub fn format_digest(data: u64) -> String {
     let mut s: String = String::with_capacity(10);
 

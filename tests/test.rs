@@ -27,6 +27,8 @@ fn generate_tripcode_64(pwd: &str) -> String {
 }
 
 // ---- Correctness tests ----
+// Correctness tests verify that tripcode generation produces expected output
+// by comparing generated tripcodes against known test cases from a file.
 
 fn run_correctness_test(f: &dyn Fn(&str) -> String) {
     //println!("Running correctness tests...");
@@ -70,9 +72,13 @@ fn test_correctness() {
 }
 
 #[test]
-fn test_correctness_64() {
+fn test_correctness_64() { 
     run_correctness_test(&generate_tripcode_64);
 }
+
+// ---- Performance tests ----
+// Performance tests measure tripcodes per second by running functions repeatedly
+// for a fixed duration
 
 fn run_performance_test(name: &str, f: &dyn Fn(u32, &str) -> HashMap<String, String>, items_per_iter: u32) {
     let iter_per_batch = 1000;
@@ -89,10 +95,10 @@ fn run_performance_test(name: &str, f: &dyn Fn(u32, &str) -> HashMap<String, Str
     let tripcodes_per_second = (iterations as f64 / duration_secs).round() as u64;
 
     //println!("    Total iterations: {}", iterations);
-    println!("    run_x_iterations: {} tripcodes/s", tripcodes_per_second);
+    println!("    {name}: {tripcodes_per_second} tripcodes/s");
 }
 
-//#[test]
+#[test]
 fn test_performance() {
     run_performance_test("run_x_iterations", &run_x_iterations, 1);
 }
