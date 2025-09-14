@@ -68,15 +68,15 @@ static INITIAL_LR_PRECOMPUTED_64: [[u64; 256]; 8] = {
 /// * `exp` - The expansion permutation table
 #[target_feature(enable = "simd128")]
 pub unsafe fn des_round(l: &mut [v128; 32], r: &[v128; 32], k_round: &[v128; 64], exp: &[usize; 48]) {
-    s1( v128_xor(k_round[0], r[exp[0]]),  v128_xor(k_round[1], r[exp[1]]),
-        v128_xor(k_round[2], r[exp[2]]),  v128_xor(k_round[3], r[exp[3]]),
-        v128_xor(k_round[4], r[exp[4]]),  v128_xor(k_round[5], r[exp[5]]),
+    s1( v128_xor(k_round[0], r[exp[0]]),   v128_xor(k_round[1], r[exp[1]]),
+        v128_xor(k_round[2], r[exp[2]]),   v128_xor(k_round[3], r[exp[3]]),
+        v128_xor(k_round[4], r[exp[4]]),   v128_xor(k_round[5], r[exp[5]]),
         l
     );
 
-    s2( v128_xor(k_round[6], r[exp[6]]),  v128_xor(k_round[7],  r[exp[7]]),
-        v128_xor(k_round[8], r[exp[8]]),  v128_xor(k_round[9],  r[exp[9]]),
-        v128_xor(k_round[10], r[exp[10]]),v128_xor(k_round[11], r[exp[11]]),
+    s2( v128_xor(k_round[6], r[exp[6]]),   v128_xor(k_round[7],  r[exp[7]]),
+        v128_xor(k_round[8], r[exp[8]]),   v128_xor(k_round[9],  r[exp[9]]),
+        v128_xor(k_round[10], r[exp[10]]), v128_xor(k_round[11], r[exp[11]]),
         l
     );
 
