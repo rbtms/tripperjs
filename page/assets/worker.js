@@ -29,9 +29,9 @@ function createMessage(iterationCounter, batchBuffer) {
 
 /**
  * Main message handler for the worker.
- * Listens for start requests with regex + iteration count, initializes WASM, 
+ * Listens for start requests with regex + iteration count, initializes WASM,
  * and runs tripcode iterations in a loop until stopped.
- * 
+ *
  * @param {MessageEvent} e - Message containing:
  *   @param {string} e.data.regex - Regex string to search
  *   @param {number} e.data.iterPerBatch - Iterations per batch
@@ -39,7 +39,7 @@ function createMessage(iterationCounter, batchBuffer) {
 onmessage = async (e) => {
     const { regex, iterPerBatch } = e.data;
     await initWasm();
-    
+
     let active = true;
     let iterationCounter = 0;
     let batchBuffer = [];
@@ -48,7 +48,7 @@ onmessage = async (e) => {
     /**
      * Inner message handler for stop requests.
      * When receiving 'stop', it breaks the active loop.
-     * 
+     *
      * @param {MessageEvent} msg - Message containing 'stop' command
      */
     self.onmessage = (msg) => {
@@ -61,7 +61,7 @@ onmessage = async (e) => {
     /**
      * While active, repeatedly runs tripcode iterations and posts results back to the main thread.
      * Uses a short delay between batches to avoid blocking the event loop.
-     * 
+     *
      * Posts back an object:
      * {
      *   batch: Array<[string, string]>, // Array of [password, tripcode]
@@ -83,7 +83,7 @@ onmessage = async (e) => {
         iterationCounter = 0;
         lastSent = now;
       }
-      
+
       //
       //await new Promise(r => setTimeout(r, 10));
     }

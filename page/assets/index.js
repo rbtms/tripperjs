@@ -181,7 +181,7 @@ class TripcodeSearch {
       this.results.addMatches(batch);
       this.updateSpeed();
     };
-    
+
     worker.postMessage({ regex: this.regexStr, iterPerBatch: this.ITER_PER_BATCH });
     this.workers.push(worker);
     this.ui.updateWorkerCount(this.workers.length);
@@ -192,7 +192,7 @@ class TripcodeSearch {
    */
   removeWorker() {
     if (this.workers.length === 0) return;
-    
+
     const worker = this.workers.pop();
     worker.terminate();
     this.ui.updateWorkerCount(this.workers.length);

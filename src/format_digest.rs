@@ -30,10 +30,10 @@ const FORMAT_TABLES: [[char; 64]; 11] = {
 };
 
 /// Converts a 64-bit digest value into a formatted string representation
-/// 
+///
 /// # Arguments
 /// * `data` - A 64-bit unsigned integer representing the digest to format
-/// 
+///
 /// # Returns
 /// * `String` - A 10-character formatted string representation of the digest
 pub fn format_digest(data: u64) -> String {

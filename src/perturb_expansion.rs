@@ -11,13 +11,13 @@ use crate::constants::*;
 /// 3. If a bit is set to 1, corresponding positions in the expansion table are swapped
 /// 4. The swapping occurs between positions in the first half and second half of the table
 ///
-/// 
+///
 /// # Arguments
 /// * `salt` - A string slice containing at least 2 bytes used for perturbation
-/// 
+///
 /// # Returns
 /// * `[usize; 48]` - A new array with perturbed values based on the salt
-/// 
+///
 pub fn perturb_expansion(salt: &str) -> [usize; 48] {
     let salt_bytes = salt.as_bytes();
     let mut expansion_table = EXPANSION_TABLE.clone();
@@ -29,7 +29,7 @@ pub fn perturb_expansion(salt: &str) -> [usize; 48] {
         if c > CHAR_CODE_Z { c -= 6; }
         if c > CHAR_CODE_9 { c -= 7; }
         c -= CHAR_CODE_DOT;
-        
+
         for m in 0..6 {
             /********************************************
             * Right shift through the first 6 bits of c
@@ -38,7 +38,7 @@ pub fn perturb_expansion(salt: &str) -> [usize; 48] {
             if ((c >> m) & 1) == 1 {
                 let a = row + m;
                 let b = row + m + 24;
-                
+
                 (expansion_table[a], expansion_table[b]) =
                 (expansion_table[b], expansion_table[a]);
             }

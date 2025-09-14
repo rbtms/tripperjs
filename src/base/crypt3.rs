@@ -5,16 +5,16 @@ use crate::format_digest::format_digest;
 use crate::wasm_bindgen;
 
 /// Main cryptographic function implementing crypt(3) algorithm
-/// 
+///
 /// This function performs DES encryption 25 times in a loop to create a hash-like
 /// output. It takes a password and salt, converts the password to binary,
 /// generates round keys, creates precomputed DES tables from the salt, then
 /// applies DES transformation 25 times before formatting the result.
-/// 
+///
 /// # Arguments
 /// * `pwd` - A string slice containing the password to be processed
 /// * `salt` - A string slice containing the salt (only first 2 characters are used)
-/// 
+///
 /// # Returns
 /// * `String` - The formatted digest result
 #[wasm_bindgen]
@@ -30,6 +30,6 @@ pub fn crypt3(pwd: &str, salt: &str) -> String {
     for _ in 0..25 {
         data = des::des(data, &k, &r_expanded_precomputed);
     }
-    
+
     format_digest(data)
 }

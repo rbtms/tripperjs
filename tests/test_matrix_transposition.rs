@@ -1,6 +1,7 @@
 use std::time::Instant;
 use tripperjs_wasm::matrix_utils;
 
+// Test that matrices are transposed correctly
 #[test]
 fn test_matrix_transposition_correctness() {
     let mut matrix: [u64; 64] = [
@@ -48,6 +49,7 @@ fn test_matrix_transposition_correctness() {
     }
 }
 
+// Test the number of matrices per second that the module is capable of processing
 #[test]
 fn test_matrix_transposition_performance() {
     let mut matrix: [u64; 64] = [

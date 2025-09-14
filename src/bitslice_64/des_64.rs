@@ -3,7 +3,7 @@ use crate::matrix_utils::transpose_64x64;
 use crate::bitslice_64::sboxes::*;
 
 /// Precomputes the initial L and R permutation tables for 64-bit DES.
-/// 
+///
 /// This function initializes a lookup table that maps input bytes to their
 /// permuted positions according to the INITIAL_PERMUTATION_L and INITIAL_PERMUTATION_R
 /// constants. The result is used to efficiently apply the initial permutation to data blocks.
@@ -54,18 +54,18 @@ static INITIAL_LR_PRECOMPUTED_64: [[u64; 256]; 8] = _precompute_initial_lr_64();
 // ------------------------------------------------------------------------------------------------
 
 /// Performs a single DES round using bitsliced operations.
-/// 
+///
 /// This function applies the standard DES round function (F-function) to the
 /// right half of the data block using the given round key and expansion table.
 /// The result is XORed with the left half to produce the new left half.
-/// 
+///
 /// # Parameters
 /// * `l` - Mutable reference to the left half of the data block
 /// * `r` - Right half of the data block
 /// * `k_round` - Round key for this DES round
 /// * `exp` - Expansion table mapping 32 bits to 48 bits
 fn des_round(l: &mut [u64; 32], r: [u64; 32], k_round: &[u64; 64], exp: &[usize; 48]) {
-    s1(k_round[0] ^ r[exp[0]], k_round[1] ^ r[exp[1]], k_round[2] ^ r[exp[2]], 
+    s1(k_round[0] ^ r[exp[0]], k_round[1] ^ r[exp[1]], k_round[2] ^ r[exp[2]],
          k_round[3] ^ r[exp[3]], k_round[4] ^ r[exp[4]], k_round[5] ^ r[exp[5]], l);
     s2(k_round[6] ^ r[exp[6]], k_round[7] ^ r[exp[7]], k_round[8] ^ r[exp[8]],
          k_round[9] ^ r[exp[9]], k_round[10] ^ r[exp[10]], k_round[11] ^ r[exp[11]], l);
@@ -82,17 +82,17 @@ fn des_round(l: &mut [u64; 32], r: [u64; 32], k_round: &[u64; 64], exp: &[usize;
     s8(k_round[42] ^ r[exp[42]], k_round[43] ^ r[exp[43]], k_round[44] ^ r[exp[44]],
          k_round[45] ^ r[exp[45]], k_round[46] ^ r[exp[46]], k_round[47] ^ r[exp[47]], l);
 }
- 
+
 /// Initializes the left and right halves of the DES block from input data.
-/// 
+///
 /// This function applies the initial permutation to the input data blocks
 /// and separates them into left and right halves. The output data is
 /// in a transposed format (bitsliced), where each entry represents
 /// one bit position across all blocks.
-/// 
+///
 /// # Parameters
 /// * `data` - Input data blocks
-/// 
+///
 /// # Returns
 /// A tuple containing the left and right halves of the permuted data
 pub fn init_lr(data: &[u64; 64]) -> ([u64; 32], [u64; 32]) {
@@ -117,16 +117,16 @@ pub fn init_lr(data: &[u64; 64]) -> ([u64; 32], [u64; 32]) {
 }
 
 /// Applies the final permutation to the DES output.
-/// 
+///
 /// This function reverses the initial permutation by applying the final
 /// permutation table. It combines the left and right halves, transposes
 /// the result, and applies precomputed lookup tables to produce the final
 /// permuted output blocks.
-/// 
+///
 /// # Parameters
 /// * `l` - Left half of the data
 /// * `r` - Right half of the data
-/// 
+///
 /// # Returns
 /// The final permuted data
 fn final_permutation(l: &[u64; 32], r: &[u64; 32]) -> [u64; 64] {
@@ -159,16 +159,16 @@ fn final_permutation(l: &[u64; 32], r: &[u64; 32]) -> [u64; 64] {
 }
 
 /// Performs the complete DES encryption on input data using the specified keys.
-/// 
+///
 /// This is the main function that executes a full DES encryption process,
 /// including initial permutation, 16 rounds of DES operations, and final
 /// permutation. The input data and key are expected to be in bitsliced format.
-/// 
+///
 /// # Parameters
 /// * `data` - Input data blocks in transposed format
 /// * `k` - Round keys for all 16 DES rounds
 /// * `expansion_table` - Expansion table mapping 32 bits to 48 bits (48 usize values)
-/// 
+///
 /// # Returns
 /// The encrypted data as 64 u64 blocks in transposed format
 pub fn des(data: &[u64; 64], k: &[[u64; 64]; 16], expansion_table: &[usize; 48]) -> [u64; 64] {
@@ -180,7 +180,7 @@ pub fn des(data: &[u64; 64], k: &[[u64; 64]; 16], expansion_table: &[usize; 48])
         des_round(&mut l, r, &k[round_n], expansion_table);
         (l, r) = (r, l);
     }
-    
+
     // Swap L and R at the end to allow reversing
     (l, r) = (r, l);
 

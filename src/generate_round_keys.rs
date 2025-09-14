@@ -50,11 +50,11 @@ static SHIFT_OFFSET: [usize; 16] = [1, 2, 4, 6, 8, 10, 12, 14, 15, 17, 19, 21, 2
 *        * right arrays.
 *        ****************************************************/
 *        let offset = SHIFT_OFFSET[n];
-*        
+*
 *        /************************************************
 *        * Apply compression permutation
 *        * Originally this loop checked if the value
-*        * in the compression table was lower than 28.   
+*        * in the compression table was lower than 28.
 *        * Since they turn >=28 after a given index (23),
 *        * I decided to optimize it by chunks.
 *        ************************************************/
@@ -183,7 +183,7 @@ pub fn generate_round_keys(key: u64) -> [u64; 16] {
     let parity_drop_b5 = ((parity_drop_key>>32)&0xFF) as usize;
     let parity_drop_b6 = ((parity_drop_key>>40)&0xFF) as usize;
     let parity_drop_b7 = ((parity_drop_key>>48)&0xFF) as usize;
-        
+
     /**********************
     * Generate round keys
     **********************/
@@ -223,7 +223,7 @@ pub fn generate_transposed_round_keys_64(pwds_bin: &[u64; 64]) -> [[u64; 64]; 16
             keys[i][pwd_i] = round_keys[i];
         }
     }
-    
+
     for i in 0..16 {
         matrix_utils::transpose_64x64(&mut keys[i]);
     }

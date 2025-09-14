@@ -21,7 +21,7 @@ fn generate_tripcode_64(pwd: &str) -> String {
     for _ in 0..64 {
         pwds.push(pwd.to_string())
     }
-    
+
     // Return the first one since they're all the same
     crypt3_64::crypt3(&pwds, &salt)[0].clone()
 }
@@ -39,7 +39,7 @@ fn run_correctness_test(f: &dyn Fn(&str) -> String) {
 
     //let pool = "#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}";
     let pool = "&\'<>@[\\]^_`"; // Characters that somehow produce incorrect tripcodes
-    
+
     for line in contents.lines().filter(|l| !l.trim().is_empty()) {
         let mut parts = line.split_whitespace();
         let input = parts.next().expect("Missing input");
@@ -72,7 +72,7 @@ fn test_correctness() {
 }
 
 #[test]
-fn test_correctness_64() { 
+fn test_correctness_64() {
     run_correctness_test(&generate_tripcode_64);
 }
 

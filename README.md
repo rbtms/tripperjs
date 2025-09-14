@@ -17,4 +17,4 @@ I wanted to learn more about how crypt(3) worked.<br>
 It was hella fun to make.
 
 ## But it could be faster if...
-You are welcome to fork this github.
+You are welcome to fork this github. Contributions are welcome as well.

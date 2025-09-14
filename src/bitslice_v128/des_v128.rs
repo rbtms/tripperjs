@@ -116,7 +116,7 @@ pub unsafe fn des_round(l: &mut [v128; 32], r: &[v128; 32], k_round: &[v128; 64]
         l
     );
 }
- 
+
 /// Initializes the left and right halves for DES encryption from raw data.
 ///
 /// This function takes two 64-element arrays of u64 values representing the input blocks,
@@ -238,7 +238,7 @@ pub unsafe fn final_permutation(l: &[v128; 32], r: &[v128; 32]) -> ([u64; 64], [
 ///
 /// # Parameters
 /// * `data1` - First 64-element array of u64 values representing the first input block
-/// * `data2` - Second 64-element array of u64 values representing the second input block  
+/// * `data2` - Second 64-element array of u64 values representing the second input block
 /// * `k` - Array of round keys
 /// * `expansion_table` - The expansion permutation table
 ///

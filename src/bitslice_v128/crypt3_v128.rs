@@ -13,20 +13,20 @@ use crate::format_digest::format_digest;
 use crate::bitslice_v128::des_v128;
 
 /// Main cryptographic function implementing crypt(3) algorithm
-/// 
+///
 /// It processes tripcodes in matrices of 64 elements at a time
 /// by using bitsliced DES, as well as v128 vectors for WASM
 /// optimization.
-/// 
+///
 /// This function performs DES encryption 25 times in a loop to create a hash-like
 /// output. It takes a password and salt, converts the password to binary,
 /// generates round keys, creates precomputed DES tables from the salt, then
 /// applies DES transformation 25 times before formatting the result.
-/// 
+///
 /// # Arguments
 /// * `pwds` - A vector of password strings to be hashed
 /// * `salt` - A salt string used for the hashing process
-/// 
+///
 /// # Returns
 /// * `Vec<String>` - A vector of formatted digest strings representing the hashed passwords
 pub fn crypt3(pwds: &Vec<String>, salt: &str) -> Vec<String> {
@@ -42,7 +42,7 @@ pub fn crypt3(pwds: &Vec<String>, salt: &str) -> Vec<String> {
     let expansion_table = perturb_expansion(&salt);
 
     unsafe {
-        let keys = des_v128::keys_to_v128(&keys1, &keys2);    
+        let keys = des_v128::keys_to_v128(&keys1, &keys2);
 
         // Crypt(3) calls DES 25 times
         for _ in 0..25 {

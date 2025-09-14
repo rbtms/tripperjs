@@ -24,7 +24,7 @@ fn generate_tripcode_64(pwd: &str) -> String {
     for _ in 0..128 {
         pwds.push(pwd.to_string())
     }
-    
+
     let hashes = crypt3_64::crypt3(&pwds, &salt);
     hashes[0].clone()
 }
@@ -36,7 +36,7 @@ fn generate_tripcode_v128(pwd: &str) -> String {
     for _ in 0..128 {
         pwds.push(pwd.to_string())
     }
- 
+
     // Return the first one since they're all the same
     crypt3_v128::crypt3(&pwds, &salt)[0].clone()
 }

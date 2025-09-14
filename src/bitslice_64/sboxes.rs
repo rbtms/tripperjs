@@ -2,7 +2,7 @@ use crate::constants::INVERSE_STRAIGHT_TABLE;
 
 /// Applies the S1-S8 substitution box to the input bits and XORs the result
 /// into the output slice.
-/// 
+///
 /// # Parameters
 /// * `a1`, `a2`, `a3`, `a4`, `a5`, `a6` - Input bits to be processed
 /// * `l` - Mutable reference to the output array where results are XORed in
