@@ -22,6 +22,7 @@ regex = "1.0"
 rand = "0.8"
 getrandom = { version = "0.2", features = ["js"] }
 js-sys = "*"
+lazy_static = "*"
 
 [profile.release]
 opt-level = 3

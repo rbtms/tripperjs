@@ -106,7 +106,7 @@ pub static EXPANSION_TABLE: [usize; 48] =  [
 *   18, 12, 29,  5, 21, 10,  3, 24
 * ];
 ****************************************************/
-pub static INVERSE_STRAIGHT_TABLE: [usize; 32] = [
+pub const INVERSE_STRAIGHT_TABLE: [usize; 32] = [
      8, 16, 22, 30, 12, 27,  1, 17,
     23, 15, 29,  5, 25, 19,  9,  0,
      7, 13, 24,  2,  3, 28, 10, 18,

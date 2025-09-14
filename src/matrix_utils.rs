@@ -1,3 +1,9 @@
+use lazy_static::lazy_static;
+#[cfg(target_arch = "wasm32")]
+use std::arch::wasm32::*;
+#[cfg(target_arch = "wasm32")]
+use crate::bitslice_v128::v128_utils;
+
 /// Converts a string password into a 64-bit binary representation.
 ///
 /// This function takes the first 8 characters of the input string and converts
@@ -111,3 +117,45 @@ pub fn transpose_64x64(matrix: &mut [u64; 64]) {
         }
     }
 }
+
+#[cfg(target_arch = "wasm32")]
+lazy_static! {
+    static ref TRANSPOSE_V128_MASKS: [v128; 6] = {
+        unsafe {[
+            v128_utils::load_u64_to_v128(0x5555555555555555),
+            v128_utils::load_u64_to_v128(0x3333333333333333),
+            v128_utils::load_u64_to_v128(0x0f0f0f0f0f0f0f0f),
+            v128_utils::load_u64_to_v128(0x00ff00ff00ff00ff),
+            v128_utils::load_u64_to_v128(0x0000ffff0000ffff),
+            v128_utils::load_u64_to_v128(0x00000000ffffffff),
+        ]}
+    };
+}
+
+#[cfg(target_arch = "wasm32")]
+pub unsafe fn transpose_64x64_v128(matrix: &mut [v128; 64]) {
+    // Iterate over each of the 6 stages (levels) of the butterfly network.
+    for level in 0..6 {
+        let s = 1 << level;
+        let mask = TRANSPOSE_V128_MASKS[level];
+
+        // Process the matrix in chunks of size s*2 rows
+        for i in (0..64).step_by(s * 2) {
+            for j in 0..s {
+                let a = matrix[i + j];
+                let b = matrix[i + j + s];
+
+                // Compute t = ((a >> s) ^ b) & mask
+                let a_shr = i64x2_shr(a, s as u32);
+                let t = v128_and(v128_xor(a_shr, b), mask);
+
+                // matrix[i + j]     = a ^ (t << s)
+                // matrix[i + j + s] = b ^ t
+                let t_shl = i64x2_shl(t, s as u32);
+                matrix[i + j] = v128_xor(a, t_shl);
+                matrix[i + j + s] = v128_xor(b, t);
+            }
+        }
+    }
+}
+

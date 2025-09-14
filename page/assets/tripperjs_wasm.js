@@ -179,6 +179,19 @@ function getDataViewMemory0() {
     return cachedDataViewMemory0;
 }
 /**
+ * Main cryptographic function implementing crypt(3) algorithm
+ *
+ * This function performs DES encryption 25 times in a loop to create a hash-like
+ * output. It takes a password and salt, converts the password to binary,
+ * generates round keys, creates precomputed DES tables from the salt, then
+ * applies DES transformation 25 times before formatting the result.
+ *
+ * # Arguments
+ * * `pwd` - A string slice containing the password to be processed
+ * * `salt` - A string slice containing the salt (only first 2 characters are used)
+ *
+ * # Returns
+ * * `String` - The formatted digest result
  * @param {string} pwd
  * @param {string} salt
  * @returns {string}
@@ -201,6 +214,13 @@ export function crypt3(pwd, salt) {
 }
 
 /**
+ * Generate a random password of specified length using a predefined character set.
+ *
+ * # Arguments
+ * * `pwd_len` - The desired length of the password to generate
+ *
+ * # Returns
+ * A randomly generated password string of the specified length
  * @param {number} pwd_len
  * @returns {string}
  */
@@ -218,6 +238,18 @@ export function rand_pwd(pwd_len) {
 }
 
 /**
+ * Generate a salt value from a given key by processing the first three characters.
+ *
+ * The function:
+ * 1. Appends "H." to the input key
+ * 2. Takes substring from index 1, length 2 (in bytes)
+ * 3. Applies character replacements for valid ASCII range characters
+ *
+ * # Arguments
+ * * `key` - Input string used to generate the salt
+ *
+ * # Returns
+ * A processed salt string with specific character mappings applied
  * @param {string} key
  * @returns {string}
  */
@@ -234,6 +266,26 @@ export function get_salt(key) {
     } finally {
         wasm.__wbindgen_free(deferred2_0, deferred2_1, 1);
     }
+}
+
+/**
+ * WASM-exported function to run iterations using v128 bitslice optimizations.
+ *
+ * # Arguments
+ * * `iter_n` - Number of iterations to run (converted from u32)
+ * * `regex_pattern` - Regular expression pattern to match against generated tripcodes
+ *
+ * # Returns
+ * A JavaScript value containing the HashMap of results
+ * @param {number} iter_n
+ * @param {string} regex_pattern
+ * @returns {any}
+ */
+export function run_x_iterations_v128(iter_n, regex_pattern) {
+    const ptr0 = passStringToWasm0(regex_pattern, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.run_x_iterations_v128(iter_n, ptr0, len0);
+    return ret;
 }
 
 /**
@@ -257,18 +309,6 @@ export function run_x_iterations_64(iter_n, regex_pattern) {
     const ptr0 = passStringToWasm0(regex_pattern, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len0 = WASM_VECTOR_LEN;
     const ret = wasm.run_x_iterations_64(iter_n, ptr0, len0);
-    return ret;
-}
-
-/**
- * @param {number} iter_n
- * @param {string} regex_pattern
- * @returns {any}
- */
-export function run_x_iterations_v128(iter_n, regex_pattern) {
-    const ptr0 = passStringToWasm0(regex_pattern, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.run_x_iterations_v128(iter_n, ptr0, len0);
     return ret;
 }
 

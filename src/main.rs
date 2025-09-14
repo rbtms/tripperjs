@@ -25,12 +25,28 @@ pub mod bitslice_v128;
 #[wasm_bindgen]
 pub fn rand_pwd(pwd_len: usize) -> String {
     const ALLOWED: &[u8] = b"#$%()*+,-./0123456789:;=?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz{|}";
+    const ALLOWED_LEN: u32 = 80;
 
     let mut rng = thread_rng();
     let mut pwd  = Vec::with_capacity(pwd_len);
 
     for _ in 0..pwd_len {
-        let index = rng.next_u32() % (ALLOWED.len() as u32);
+        let index = rng.next_u32() % ALLOWED_LEN;
+        pwd.push(ALLOWED[index as usize]);
+    }
+
+    String::from_utf8(pwd).unwrap()
+}
+
+pub fn rand_pwd_5(pwd_len: usize) -> String {
+    const ALLOWED: &[u8] = b"#$%()*+,-./0123456789:;=?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz{|}";
+    const ALLOWED_LEN: u32 = 80;
+
+    let mut rng = thread_rng();
+    let mut pwd  = Vec::with_capacity(pwd_len);
+
+    for _ in 0..pwd_len {
+        let index = rng.next_u32() % ALLOWED_LEN;
         pwd.push(ALLOWED[index as usize]);
     }
 
@@ -96,15 +112,19 @@ pub fn get_salt(key: &str) -> String {
 /// # Returns
 /// A tuple containing (salt, vector_of_passwords) for the generated batch
 fn make_passwords_batch(batch_size: usize) -> (String, Vec<String>) {
-    let mut pwds =Vec::with_capacity(batch_size);
-    let first_3_chars = &rand_pwd(3);
+    let prefix = rand_pwd(3);
+    let salt = get_salt(&prefix);
+
+    let mut pwds = Vec::with_capacity(batch_size);
 
     for _ in 0..batch_size {
-        let last_5_chars = rand_pwd(5);
-        pwds.push(format!("{}{}", first_3_chars, last_5_chars));
+        let mut pwd = String::with_capacity(8);
+        pwd.push_str(&prefix);
+        pwd.push_str(&rand_pwd(5));
+        pwds.push(pwd);
     }
 
-    (get_salt(&first_3_chars), pwds)
+    (salt, pwds)
 }
 
 /// Generate password and tripcode combinations for a specified number of iterations,

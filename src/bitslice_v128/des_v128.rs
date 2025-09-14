@@ -2,7 +2,7 @@
 #![feature(stdsimd)]
 use std::arch::wasm32::*;
 use crate::constants::*;
-use crate::matrix_utils::transpose_64x64;
+use crate::matrix_utils::{transpose_64x64, transpose_64x64_v128};
 use crate::bitslice_v128::sboxes_v128::*;
 use crate::bitslice_v128::v128_utils;
 
@@ -135,25 +135,27 @@ pub unsafe fn init_lr(data1: &[u64; 64], data2: &[u64; 64]) -> ([v128; 32], [v12
     let mut _data2 = [0u64; 64];
 
     for i in 0..64 {
+        let [b0, b1, b2, b3, b4, b5, b6, b7] = data1[i].to_le_bytes();
         _data1[i] =
-              INITIAL_LR_PRECOMPUTED_64[0][ (data1[i]     &0xFF) as usize]
-            | INITIAL_LR_PRECOMPUTED_64[1][((data1[i]>> 8)&0xFF) as usize]
-            | INITIAL_LR_PRECOMPUTED_64[2][((data1[i]>>16)&0xFF) as usize]
-            | INITIAL_LR_PRECOMPUTED_64[3][((data1[i]>>24)&0xFF) as usize]
-            | INITIAL_LR_PRECOMPUTED_64[4][((data1[i]>>32)&0xFF) as usize]
-            | INITIAL_LR_PRECOMPUTED_64[5][((data1[i]>>40)&0xFF) as usize]
-            | INITIAL_LR_PRECOMPUTED_64[6][((data1[i]>>48)&0xFF) as usize]
-            | INITIAL_LR_PRECOMPUTED_64[7][((data1[i]>>56)&0xFF) as usize];
+              INITIAL_LR_PRECOMPUTED_64[0][b0 as usize]
+            | INITIAL_LR_PRECOMPUTED_64[1][b1 as usize]
+            | INITIAL_LR_PRECOMPUTED_64[2][b2 as usize]
+            | INITIAL_LR_PRECOMPUTED_64[3][b3 as usize]
+            | INITIAL_LR_PRECOMPUTED_64[4][b4 as usize]
+            | INITIAL_LR_PRECOMPUTED_64[5][b5 as usize]
+            | INITIAL_LR_PRECOMPUTED_64[6][b6 as usize]
+            | INITIAL_LR_PRECOMPUTED_64[7][b7 as usize];
 
+        let [b0, b1, b2, b3, b4, b5, b6, b7] = data2[i].to_le_bytes();
         _data2[i] =
-              INITIAL_LR_PRECOMPUTED_64[0][ (data2[i]      &0xFF) as usize]
-            | INITIAL_LR_PRECOMPUTED_64[1][((data2[i]>> 8)&0xFF) as usize]
-            | INITIAL_LR_PRECOMPUTED_64[2][((data2[i]>>16)&0xFF) as usize]
-            | INITIAL_LR_PRECOMPUTED_64[3][((data2[i]>>24)&0xFF) as usize]
-            | INITIAL_LR_PRECOMPUTED_64[4][((data2[i]>>32)&0xFF) as usize]
-            | INITIAL_LR_PRECOMPUTED_64[5][((data2[i]>>40)&0xFF) as usize]
-            | INITIAL_LR_PRECOMPUTED_64[6][((data2[i]>>48)&0xFF) as usize]
-            | INITIAL_LR_PRECOMPUTED_64[7][((data2[i]>>56)&0xFF) as usize];
+              INITIAL_LR_PRECOMPUTED_64[0][b0 as usize]
+            | INITIAL_LR_PRECOMPUTED_64[1][b1 as usize]
+            | INITIAL_LR_PRECOMPUTED_64[2][b2 as usize]
+            | INITIAL_LR_PRECOMPUTED_64[3][b3 as usize]
+            | INITIAL_LR_PRECOMPUTED_64[4][b4 as usize]
+            | INITIAL_LR_PRECOMPUTED_64[5][b5 as usize]
+            | INITIAL_LR_PRECOMPUTED_64[6][b6 as usize]
+            | INITIAL_LR_PRECOMPUTED_64[7][b7 as usize];
     }
 
     transpose_64x64(&mut _data1);
@@ -186,45 +188,38 @@ pub unsafe fn final_permutation(l: &[v128; 32], r: &[v128; 32]) -> ([u64; 64], [
     let mut data1 = [0u64; 64];
     let mut data2 = [0u64; 64];
 
-    for i in 0..32 {
-        let v_l = l[i];
-        let v_r = r[i];
-        data1[i]       = v128_utils::extract_v128_lane0(v_l);
-        data1[32 + i]  = v128_utils::extract_v128_lane0(v_r);
-        data2[i]       = v128_utils::extract_v128_lane1(v_l);
-        data2[32 + i]  = v128_utils::extract_v128_lane1(v_r);
-    }
+    let mut data = v128_utils::concat_v128_arrays(l, r);
 
-    transpose_64x64(&mut data1);
-    transpose_64x64(&mut data2);
+    transpose_64x64_v128(&mut data);
 
     let mut blocks1 = [0u64; 64];
     let mut blocks2 = [0u64; 64];
 
-    for block_i in 0..64 {
-        let l_col1 = data1[block_i] & 0xFFFFFFFF;
-        let r_col1 = data1[block_i] >> 32;
-        blocks1[block_i] =
-               FINAL_L_PRECOMPUTED[0][ (l_col1        & 0xFF) as usize]
-             | FINAL_L_PRECOMPUTED[1][((l_col1 >>  8) & 0xFF) as usize]
-             | FINAL_L_PRECOMPUTED[2][((l_col1 >> 16) & 0xFF) as usize]
-             | FINAL_L_PRECOMPUTED[3][((l_col1 >> 24) & 0xFF) as usize]
-             | FINAL_R_PRECOMPUTED[0][ (r_col1        & 0xFF) as usize]
-             | FINAL_R_PRECOMPUTED[1][((r_col1 >>  8) & 0xFF) as usize]
-             | FINAL_R_PRECOMPUTED[2][((r_col1 >> 16) & 0xFF) as usize]
-             | FINAL_R_PRECOMPUTED[3][((r_col1 >> 24) & 0xFF) as usize];
+    for block_i in 0..32 {
+        let col1 = v128_utils::extract_v128_lane0(data[block_i]);
+        let [l0, l1, l2, l3, r0, r1, r2, r3] = col1.to_le_bytes();
 
-        let l_col2 = data2[block_i] & 0xFFFFFFFF;
-        let r_col2 = data2[block_i] >> 32;
+        blocks1[block_i] =
+               FINAL_L_PRECOMPUTED[0][l0 as usize]
+             | FINAL_L_PRECOMPUTED[1][l1 as usize]
+             | FINAL_L_PRECOMPUTED[2][l2 as usize]
+             | FINAL_L_PRECOMPUTED[3][l3 as usize]
+             | FINAL_R_PRECOMPUTED[0][r0 as usize]
+             | FINAL_R_PRECOMPUTED[1][r1 as usize]
+             | FINAL_R_PRECOMPUTED[2][r2 as usize]
+             | FINAL_R_PRECOMPUTED[3][r3 as usize];
+
+        let col2 = v128_utils::extract_v128_lane1(data[block_i]);
+        let [l0, l1, l2, l3, r0, r1, r2, r3] = col2.to_le_bytes();
         blocks2[block_i] =
-               FINAL_L_PRECOMPUTED[0][ (l_col2        & 0xFF) as usize]
-             | FINAL_L_PRECOMPUTED[1][((l_col2 >>  8) & 0xFF) as usize]
-             | FINAL_L_PRECOMPUTED[2][((l_col2 >> 16) & 0xFF) as usize]
-             | FINAL_L_PRECOMPUTED[3][((l_col2 >> 24) & 0xFF) as usize]
-             | FINAL_R_PRECOMPUTED[0][ (r_col2        & 0xFF) as usize]
-             | FINAL_R_PRECOMPUTED[1][((r_col2 >>  8) & 0xFF) as usize]
-             | FINAL_R_PRECOMPUTED[2][((r_col2 >> 16) & 0xFF) as usize]
-             | FINAL_R_PRECOMPUTED[3][((r_col2 >> 24) & 0xFF) as usize];
+               FINAL_L_PRECOMPUTED[0][l0 as usize]
+             | FINAL_L_PRECOMPUTED[1][l1 as usize]
+             | FINAL_L_PRECOMPUTED[2][l2 as usize]
+             | FINAL_L_PRECOMPUTED[3][l3 as usize]
+             | FINAL_R_PRECOMPUTED[0][r0 as usize]
+             | FINAL_R_PRECOMPUTED[1][r1 as usize]
+             | FINAL_R_PRECOMPUTED[2][r2 as usize]
+             | FINAL_R_PRECOMPUTED[3][r3 as usize];
     }
 
     (blocks1, blocks2)
