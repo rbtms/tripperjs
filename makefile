@@ -13,6 +13,7 @@ test:
 test_avx512:
 	RUSTFLAGS="-C target-feature=+avx512f" make _test
 
+# Run WASM tests
 _test_wasm:
 	# Remove previous builds
 	rm -r ./target/wasm* || true
@@ -37,11 +38,13 @@ _test_wasm:
 test_wasm:
 	RUSTFLAGS="-C target-feature=+simd128,+bulk-memory" make _test_wasm
 
+# Run matrix tests
 test_matrix:
 	cargo test test_matrix --release -- --nocapture
 
 #---- Building -------------------------------------------------------------------------------------
 
+# Build the WASM module in release mode
 _build_wasm:
 	wasm-pack build --target web --release
 	cp ./pkg/tripperjs_wasm_bg.wasm ./page/assets/
@@ -50,6 +53,7 @@ _build_wasm:
 build_wasm:
 	RUSTFLAGS="-C target-feature=+simd128,+bulk-memory" make _build_wasm
 
+# Build the WASM module with debug symbols
 _build_wasm_debug:
 	wasm-pack build --target web --debug
 	cp ./pkg/tripperjs_wasm_bg.wasm ./page/assets/
@@ -60,6 +64,7 @@ build_wasm_debug:
 
 #---- Profiling -----------------------------------------------------------------------------------
 
+# Profile the tests
 profile:
 	sudo sh -c 'echo 1 > /proc/sys/kernel/perf_event_paranoid'
 	@bash -c '\
@@ -71,6 +76,8 @@ profile:
 		perf report && \
 		rm -f perf.data perf.data.old out.folded \
 	'
+
+# Profile the tests in release mode
 profile_release:
 	sudo sh -c 'echo 1 > /proc/sys/kernel/perf_event_paranoid'
 	@bash -c '\
@@ -83,6 +90,7 @@ profile_release:
 		rm -f perf.data perf.data.old out.folded \
 	'
 
+# Profile matrix transposition performance
 profile_matrix:
 	sudo sh -c 'echo 1 > /proc/sys/kernel/perf_event_paranoid'
 	@bash -e -o pipefail -c '\
@@ -100,6 +108,7 @@ profile_matrix:
 		rm -f perf.data perf.data.old out.folded \
 	'
 
+# Profile matrix transposition performance in release mode
 profile_matrix_release:
 	sudo sh -c 'echo 1 > /proc/sys/kernel/perf_event_paranoid'
 	@bash -e -o pipefail -c '\
