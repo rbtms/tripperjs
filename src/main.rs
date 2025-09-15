@@ -38,21 +38,6 @@ pub fn rand_pwd(pwd_len: usize) -> String {
     String::from_utf8(pwd).unwrap()
 }
 
-pub fn rand_pwd_5(pwd_len: usize) -> String {
-    const ALLOWED: &[u8] = b"#$%()*+,-./0123456789:;=?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz{|}";
-    const ALLOWED_LEN: u32 = 80;
-
-    let mut rng = thread_rng();
-    let mut pwd  = Vec::with_capacity(pwd_len);
-
-    for _ in 0..pwd_len {
-        let index = rng.next_u32() % ALLOWED_LEN;
-        pwd.push(ALLOWED[index as usize]);
-    }
-
-    String::from_utf8(pwd).unwrap()
-}
-
 /// Generate a salt value from a given key by processing the first three characters.
 ///
 /// The function:

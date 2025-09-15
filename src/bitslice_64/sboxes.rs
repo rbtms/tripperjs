@@ -7,6 +7,7 @@ use crate::constants::INVERSE_STRAIGHT_TABLE;
 /// * `a1`, `a2`, `a3`, `a4`, `a5`, `a6` - Input bits to be processed
 /// * `l` - Mutable reference to the output array where results are XORed in
 
+#[inline(always)]
 pub fn s1 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64, l: &mut[u64; 32])  {
     let x1 = !a4;
     let x2 = !a1;
@@ -80,6 +81,7 @@ pub fn s1 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64, l: &mut[u64; 32
     l[INVERSE_STRAIGHT_TABLE[2]] ^= x63;
 }
 
+#[inline(always)]
 pub fn s2 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64, l: &mut[u64; 32])  {
     let x1 = !a5;
     let x2 = !a1;
@@ -146,6 +148,7 @@ pub fn s2 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64, l: &mut[u64; 32
     l[INVERSE_STRAIGHT_TABLE[7]] ^= x56;
 }
 
+#[inline(always)]
 pub fn s3 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64, l: &mut[u64; 32])  {
     let x1 = !a5;
     let x2 = !a6;
@@ -213,6 +216,7 @@ pub fn s3 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64, l: &mut[u64; 32
     l[INVERSE_STRAIGHT_TABLE[9]] ^= x57;
 }
 
+#[inline(always)]
 pub fn s4 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64, l: &mut[u64; 32])  {
     let x1 = !a1;
     let x2 = !a3;
@@ -265,6 +269,7 @@ pub fn s4 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64, l: &mut[u64; 32
     l[INVERSE_STRAIGHT_TABLE[14]] ^= x42;
 }
 
+#[inline(always)]
 pub fn s5 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64, l: &mut[u64; 32])  {
     let x1 = !a6;
     let x2 = !a3;
@@ -337,6 +342,7 @@ pub fn s5 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64, l: &mut[u64; 32
     l[INVERSE_STRAIGHT_TABLE[19]] ^= x62;
 }
 
+#[inline(always)]
 pub fn s6 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64, l: &mut[u64; 32])  {
     let x1 = !a2;
     let x2 = !a5;
@@ -404,6 +410,7 @@ pub fn s6 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64, l: &mut[u64; 32
     l[INVERSE_STRAIGHT_TABLE[22]] ^= x57;
 }
 
+#[inline(always)]
 pub fn s7 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64, l: &mut[u64; 32])  {
     let x1 = !a2;
     let x2 = !a5;
@@ -471,6 +478,7 @@ pub fn s7 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64, l: &mut[u64; 32
     l[INVERSE_STRAIGHT_TABLE[26]] ^= x57;
 }
 
+#[inline(always)]
 pub fn s8 (a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64, l: &mut[u64; 32])  {
     let x1 = !a1;
     let x2 = !a4;
