@@ -1,5 +1,5 @@
 use crate::constants::*;
-use crate::matrix_utils::transpose_64x64;
+use crate::matrix_utils;
 use crate::bitslice_64::sboxes::*;
 
 /// Precomputes the initial L and R permutation tables for 64-bit DES.
@@ -110,7 +110,7 @@ pub fn init_lr(data: &[u64; 64]) -> ([u64; 32], [u64; 32]) {
         | INITIAL_LR_PRECOMPUTED_64[7][((block>>56)&0xFF) as usize];
     }
 
-    transpose_64x64(&mut _data);
+    matrix_utils::transpose_64x64(&mut _data);
 
     // L / R
     ( _data[0..32].try_into().unwrap(),  _data[32..64].try_into().unwrap() )
@@ -138,7 +138,7 @@ fn final_permutation(l: &[u64; 32], r: &[u64; 32]) -> [u64; 64] {
     data[32..].copy_from_slice(r);
 
     // Transpose the bitsliced result
-    transpose_64x64(&mut data);
+    matrix_utils::transpose_64x64(&mut data);
 
     for block_i in 0..64 {
         let l_col = data[block_i]&0xFFFFFFFF;
