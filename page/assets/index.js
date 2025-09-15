@@ -161,7 +161,7 @@ class TripcodeSearch {
     this.regexStr = regexStr;
     this.totalIterations = 0;
     this.lastUpdate = performance.now();
-    this.workers = []; // Initialize BEFORE creating UI
+    this.workers = [];
 
     const resultsParent = document.getElementById('results');
     this.ui = new TripcodeSearchUI(this.regexStr, this);

@@ -1,7 +1,7 @@
 /**
  * Imports the WebAssembly initialization function and the tripcode iteration runner.
  */
-import wasmInit, { run_x_iterations, run_x_iterations_64 } from './tripperjs_wasm.js';
+import wasmInit, { run_x_iterations, run_x_iterations_v128 } from './tripperjs_wasm.js';
 
 let wasmReady = false;
 
@@ -21,7 +21,7 @@ function createMessage(iterationCounter, batchBuffer) {
     let batch = [];
 
     if (batchBuffer.length > 0) {
-      batch = Array.from(batchBuffer.splice(0)); // send & clear buffer
+      batch = Array.from(batchBuffer);
     }
 
     return { batch, iterations: iterationCounter };
@@ -69,7 +69,7 @@ onmessage = async (e) => {
      * }
      */
     while (active) {
-      const batchMap = run_x_iterations_64(iterPerBatch, regex);
+      const batchMap = run_x_iterations_v128(iterPerBatch, regex);
       iterationCounter += iterPerBatch*128;
 
       if (batchMap.size > 0) {
@@ -80,6 +80,7 @@ onmessage = async (e) => {
       if (!lastSent || now - lastSent > 200) { // 5 messages/s
         postMessage(createMessage(iterationCounter, batchBuffer));
 
+        batchBuffer = [];
         iterationCounter = 0;
         lastSent = now;
       }
