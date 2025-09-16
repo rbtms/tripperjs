@@ -36,7 +36,7 @@ _test_wasm:
 	echo "Found wasm file: $$WASM_FILE"; \
 	GECKODRIVER=/tmp/geckodriver wasm-bindgen-test-runner $$WASM_FILE --nocapture
 test_wasm:
-	RUSTFLAGS="-C target-feature=+simd128,+bulk-memory" make _test_wasm
+	RUSTFLAGS="-C target-feature=+simd128,+bulk-memory,+extended-const" make _test_wasm
 
 # Run matrix tests
 test_matrix:
@@ -51,16 +51,16 @@ _build_wasm:
 	cp ./pkg/tripperjs_wasm.js      ./page/assets/
 	rm -r ./pkg
 build_wasm:
-	RUSTFLAGS="-C target-feature=+simd128,+bulk-memory" make _build_wasm
+	RUSTFLAGS="-C target-feature=+simd128,+bulk-memory,+extended-const" make _build_wasm
 
 # Build the WASM module with debug symbols
 _build_wasm_debug:
-	wasm-pack build --target web --debug
+	wasm-pack build --target web --profiling
 	cp ./pkg/tripperjs_wasm_bg.wasm ./page/assets/
 	cp ./pkg/tripperjs_wasm.js      ./page/assets/
 	rm -r ./pkg
 build_wasm_debug:
-	RUSTFLAGS="-C target-feature=+simd128,+bulk-memory" make _build_wasm_debug
+	RUSTFLAGS="-C target-feature=+simd128,+bulk-memory,+extended-const" make _build_wasm_debug
 
 #---- Profiling -----------------------------------------------------------------------------------
 
