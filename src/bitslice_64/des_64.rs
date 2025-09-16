@@ -162,18 +162,17 @@ fn final_permutation(l: &[u64; 32], r: &[u64; 32]) -> [u64; 64] {
     matrix_utils::transpose_64x64(&mut data);
 
     for block_i in 0..64 {
-        let l_col = data[block_i]&0xFFFFFFFF;
-        let r_col = data[block_i]>>32;
+        let block = data[block_i];
 
         blocks[block_i] =
-           FINAL_L_PRECOMPUTED[0][ (l_col        & 0xFF) as usize]
-         | FINAL_L_PRECOMPUTED[1][((l_col >>  8) & 0xFF) as usize]
-         | FINAL_L_PRECOMPUTED[2][((l_col >> 16) & 0xFF) as usize]
-         | FINAL_L_PRECOMPUTED[3][((l_col >> 24) & 0xFF) as usize]
-         | FINAL_R_PRECOMPUTED[0][ (r_col        & 0xFF) as usize]
-         | FINAL_R_PRECOMPUTED[1][((r_col >>  8) & 0xFF) as usize]
-         | FINAL_R_PRECOMPUTED[2][((r_col >> 16) & 0xFF) as usize]
-         | FINAL_R_PRECOMPUTED[3][((r_col >> 24) & 0xFF) as usize];
+           FINAL_L_PRECOMPUTED[0][ (block        & 0xFF) as usize]
+         | FINAL_L_PRECOMPUTED[1][((block >>  8) & 0xFF) as usize]
+         | FINAL_L_PRECOMPUTED[2][((block >> 16) & 0xFF) as usize]
+         | FINAL_L_PRECOMPUTED[3][((block >> 24) & 0xFF) as usize]
+         | FINAL_R_PRECOMPUTED[0][((block >> 32) & 0xFF) as usize]
+         | FINAL_R_PRECOMPUTED[1][((block >> 40) & 0xFF) as usize]
+         | FINAL_R_PRECOMPUTED[2][((block >> 48) & 0xFF) as usize]
+         | FINAL_R_PRECOMPUTED[3][((block >> 56) & 0xFF) as usize];
     }
 
     blocks
@@ -192,15 +191,21 @@ fn final_permutation(l: &[u64; 32], r: &[u64; 32]) -> [u64; 64] {
 ///
 /// # Returns
 /// The encrypted data as 64 u64 blocks in transposed format
-pub fn des(data: &[u64; 64], k: &[[u64; 64]; 16], expansion_table: &[usize; 48]) -> [u64; 64] {
+#[inline(always)]
+pub fn des_25(data: &[u64; 64], k: &[[u64; 64]; 16], expansion_table: &[usize; 48]) -> [u64; 64] {
     // Apply initial permutation and separate into left and right parts
     let (mut l, mut r) = init_lr(&data);
 
-    // Round 0 through 16
-    for round_n in 0..8 {
-        des_rounds(&mut l, &mut r, &k[round_n*2], &k[round_n*2+1], expansion_table);
+    for _ in 0..25 {
+        // Round 0 through 16
+        for round_n in 0..8 {
+            des_rounds(&mut l, &mut r, &k[round_n*2], &k[round_n*2+1], expansion_table);
+        }
+
+        // Swap L and R at the end of each DES 16-round group
+        (l, r) = (r, l);
     }
 
-    // Apply final permutation swapping L and R at the end
-    final_permutation(&r, &l)
+    // Apply final permutation
+    final_permutation(&l, &r)
 }

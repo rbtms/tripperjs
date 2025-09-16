@@ -29,9 +29,8 @@ pub fn crypt3(pwds: &Vec<String>, salt: &str) -> Vec<String> {
     let expansion_table = perturb_expansion_cached(&salt);
 
     // Crypt(3) calls DES 25 times
-    for _ in 0..25 {
-        data = des_64::des(&data, &keys, &expansion_table);
-    }
+    data = des_64::des_25(&data, &keys, &expansion_table);
+
     data.iter().map(
         |&tripcode_u64| format_digest::format_digest(tripcode_u64)
     ).collect()

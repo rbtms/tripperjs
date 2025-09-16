@@ -227,19 +227,25 @@ pub unsafe fn final_permutation(l: &[v128; 32], r: &[v128; 32]) -> ([u64; 64], [
 /// # Returns
 /// A tuple containing (output_blocks1, output_blocks2)
 #[target_feature(enable = "simd128")]
-pub fn des(data1: &[u64; 64], data2: &[u64; 64], k: &[[v128; 64]; 16], expansion_table: &[usize; 48])
+pub fn des_25(data1: &[u64; 64], data2: &[u64; 64], k: &[[v128; 64]; 16], expansion_table: &[usize; 48])
     -> ([u64; 64], [u64; 64]) {
     unsafe {
         let (mut l, mut r) = init_lr(data1, data2);
 
-        for round_n in 0..8 {
-            des_rounds(&mut l, &mut r, &k[round_n*2], &k[round_n*2+1], expansion_table);
+        for _ in 0..25 {
+            for round_n in 0..8 {
+                des_rounds(&mut l, &mut r, &k[round_n*2], &k[round_n*2+1], expansion_table);
+            }
+
+            // Swap L and R at the end of each DES 16-round group
+            (l, r) = (r, l);
         }
 
-        // Apply final permutation swapping L and R at the end
-        final_permutation(&r, &l)
+        // Apply final permutation
+        final_permutation(&l, &r)
     }
 }
+
 
 /// Converts standard DES keys into v128 vectors for SIMD processing.
 ///

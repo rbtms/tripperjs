@@ -45,9 +45,7 @@ pub fn crypt3(pwds: &Vec<String>, salt: &str) -> Vec<String> {
         let keys = des_v128::keys_to_v128(&keys1, &keys2);
 
         // Crypt(3) calls DES 25 times
-        for _ in 0..25 {
-            (data1, data2) = des_v128::des(&data1, &data2, &keys, &expansion_table);
-        }
+        (data1, data2) = des_v128::des_25(&data1, &data2, &keys, &expansion_table);
     }
 
     data1.iter().chain(data2.iter()).map(
