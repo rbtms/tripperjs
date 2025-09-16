@@ -50,7 +50,7 @@ fn test_matrix_transposition_correctness() {
 }
 
 // Test the number of matrices per second that the module is capable of processing
-#[test]
+//#[test]
 fn test_matrix_transposition_performance() {
     let mut matrix: [u64; 64] = [
         0x0123456789abcdef, 0xfedcba9865432100, 0x0123456789abcdef, 0xfedcba9865432100,

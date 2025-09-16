@@ -55,7 +55,7 @@ static INITIAL_LR_PRECOMPUTED_64: [[u64; 256]; 8] = {
 
 // ------------------------------------------------------------------------------------------------
 
-/// Performs a single DES round using SIMD operations.
+/// Performs two DES round using SIMD operations to avoid swaps between L and R.
 ///
 /// This function computes one round of the DES encryption algorithm using vectorized operations.
 /// It applies S-box substitutions to the expanded right half XORed with the round key,
@@ -64,57 +64,44 @@ static INITIAL_LR_PRECOMPUTED_64: [[u64; 256]; 8] = {
 /// # Parameters
 /// * `l` - Mutable reference to the left half bitsliced data
 /// * `r` - Reference to the right half bitsliced data
-/// * `k_round` - The round key data
+/// * `k_round_r` - The round key data for the round depending on R
+/// * `k_round_l` - The round key data for the round depending on L
 /// * `exp` - The expansion permutation table
 #[target_feature(enable = "simd128")]
-pub unsafe fn des_round(l: &mut [v128; 32], r: &[v128; 32], k_round: &[v128; 64], exp: &[usize; 48]) {
-    s1( v128_xor(k_round[0], r[exp[0]]),   v128_xor(k_round[1], r[exp[1]]),
-        v128_xor(k_round[2], r[exp[2]]),   v128_xor(k_round[3], r[exp[3]]),
-        v128_xor(k_round[4], r[exp[4]]),   v128_xor(k_round[5], r[exp[5]]),
-        l
-    );
+pub unsafe fn des_rounds(l: &mut [v128; 32], r: &mut [v128; 32], k_round_r: &[v128; 64], k_round_l: &[v128; 64], exp: &[usize; 48]) {
+    s1(v128_xor(k_round_r[0],  r[exp[0]]),  v128_xor(k_round_r[1],  r[exp[1]]),  v128_xor(k_round_r[2],  r[exp[2]]),
+       v128_xor(k_round_r[3],  r[exp[3]]),  v128_xor(k_round_r[4],  r[exp[4]]),  v128_xor(k_round_r[5],  r[exp[5]]),  l);
+    s2(v128_xor(k_round_r[6],  r[exp[6]]),  v128_xor(k_round_r[7],  r[exp[7]]),  v128_xor(k_round_r[8],  r[exp[8]]),
+       v128_xor(k_round_r[9],  r[exp[9]]),  v128_xor(k_round_r[10], r[exp[10]]), v128_xor(k_round_r[11], r[exp[11]]), l);
+    s3(v128_xor(k_round_r[12], r[exp[12]]), v128_xor(k_round_r[13], r[exp[13]]), v128_xor(k_round_r[14], r[exp[14]]),
+       v128_xor(k_round_r[15], r[exp[15]]), v128_xor(k_round_r[16], r[exp[16]]), v128_xor(k_round_r[17], r[exp[17]]), l);
+    s4(v128_xor(k_round_r[18], r[exp[18]]), v128_xor(k_round_r[19], r[exp[19]]), v128_xor(k_round_r[20], r[exp[20]]),
+       v128_xor(k_round_r[21], r[exp[21]]), v128_xor(k_round_r[22], r[exp[22]]), v128_xor(k_round_r[23], r[exp[23]]), l);
+    s5(v128_xor(k_round_r[24], r[exp[24]]), v128_xor(k_round_r[25], r[exp[25]]), v128_xor(k_round_r[26], r[exp[26]]),
+       v128_xor(k_round_r[27], r[exp[27]]), v128_xor(k_round_r[28], r[exp[28]]), v128_xor(k_round_r[29], r[exp[29]]), l);
+    s6(v128_xor(k_round_r[30], r[exp[30]]), v128_xor(k_round_r[31], r[exp[31]]), v128_xor(k_round_r[32], r[exp[32]]),
+       v128_xor(k_round_r[33], r[exp[33]]), v128_xor(k_round_r[34], r[exp[34]]), v128_xor(k_round_r[35], r[exp[35]]), l);
+    s7(v128_xor(k_round_r[36], r[exp[36]]), v128_xor(k_round_r[37], r[exp[37]]), v128_xor(k_round_r[38], r[exp[38]]),
+       v128_xor(k_round_r[39], r[exp[39]]), v128_xor(k_round_r[40], r[exp[40]]), v128_xor(k_round_r[41], r[exp[41]]), l);
+    s8(v128_xor(k_round_r[42], r[exp[42]]), v128_xor(k_round_r[43], r[exp[43]]), v128_xor(k_round_r[44], r[exp[44]]),
+       v128_xor(k_round_r[45], r[exp[45]]), v128_xor(k_round_r[46], r[exp[46]]), v128_xor(k_round_r[47], r[exp[47]]), l);
 
-    s2( v128_xor(k_round[6], r[exp[6]]),   v128_xor(k_round[7],  r[exp[7]]),
-        v128_xor(k_round[8], r[exp[8]]),   v128_xor(k_round[9],  r[exp[9]]),
-        v128_xor(k_round[10], r[exp[10]]), v128_xor(k_round[11], r[exp[11]]),
-        l
-    );
-
-    s3( v128_xor(k_round[12], r[exp[12]]), v128_xor(k_round[13], r[exp[13]]),
-        v128_xor(k_round[14], r[exp[14]]), v128_xor(k_round[15], r[exp[15]]),
-        v128_xor(k_round[16], r[exp[16]]), v128_xor(k_round[17], r[exp[17]]),
-        l
-    );
-
-    s4( v128_xor(k_round[18], r[exp[18]]), v128_xor(k_round[19], r[exp[19]]),
-        v128_xor(k_round[20], r[exp[20]]), v128_xor(k_round[21], r[exp[21]]),
-        v128_xor(k_round[22], r[exp[22]]), v128_xor(k_round[23], r[exp[23]]),
-        l
-    );
-
-    s5( v128_xor(k_round[24], r[exp[24]]), v128_xor(k_round[25], r[exp[25]]),
-        v128_xor(k_round[26], r[exp[26]]), v128_xor(k_round[27], r[exp[27]]),
-        v128_xor(k_round[28], r[exp[28]]), v128_xor(k_round[29], r[exp[29]]),
-        l
-    );
-
-    s6( v128_xor(k_round[30], r[exp[30]]), v128_xor(k_round[31], r[exp[31]]),
-        v128_xor(k_round[32], r[exp[32]]), v128_xor(k_round[33], r[exp[33]]),
-        v128_xor(k_round[34], r[exp[34]]), v128_xor(k_round[35], r[exp[35]]),
-        l
-    );
-
-    s7( v128_xor(k_round[36], r[exp[36]]), v128_xor(k_round[37], r[exp[37]]),
-        v128_xor(k_round[38], r[exp[38]]), v128_xor(k_round[39], r[exp[39]]),
-        v128_xor(k_round[40], r[exp[40]]), v128_xor(k_round[41], r[exp[41]]),
-        l
-    );
-
-    s8( v128_xor(k_round[42], r[exp[42]]), v128_xor(k_round[43], r[exp[43]]),
-        v128_xor(k_round[44], r[exp[44]]), v128_xor(k_round[45], r[exp[45]]),
-        v128_xor(k_round[46], r[exp[46]]), v128_xor(k_round[47], r[exp[47]]),
-        l
-    );
+    s1(v128_xor(k_round_l[0],  l[exp[0]]),  v128_xor(k_round_l[1],  l[exp[1]]),  v128_xor(k_round_l[2],  l[exp[2]]),
+       v128_xor(k_round_l[3],  l[exp[3]]),  v128_xor(k_round_l[4],  l[exp[4]]),  v128_xor(k_round_l[5],  l[exp[5]]),  r);
+    s2(v128_xor(k_round_l[6],  l[exp[6]]),  v128_xor(k_round_l[7],  l[exp[7]]),  v128_xor(k_round_l[8],  l[exp[8]]),
+       v128_xor(k_round_l[9],  l[exp[9]]),  v128_xor(k_round_l[10], l[exp[10]]), v128_xor(k_round_l[11], l[exp[11]]), r);
+    s3(v128_xor(k_round_l[12], l[exp[12]]), v128_xor(k_round_l[13], l[exp[13]]), v128_xor(k_round_l[14], l[exp[14]]),
+       v128_xor(k_round_l[15], l[exp[15]]), v128_xor(k_round_l[16], l[exp[16]]), v128_xor(k_round_l[17], l[exp[17]]), r);
+    s4(v128_xor(k_round_l[18], l[exp[18]]), v128_xor(k_round_l[19], l[exp[19]]), v128_xor(k_round_l[20], l[exp[20]]),
+       v128_xor(k_round_l[21], l[exp[21]]), v128_xor(k_round_l[22], l[exp[22]]), v128_xor(k_round_l[23], l[exp[23]]), r);
+    s5(v128_xor(k_round_l[24], l[exp[24]]), v128_xor(k_round_l[25], l[exp[25]]), v128_xor(k_round_l[26], l[exp[26]]),
+       v128_xor(k_round_l[27], l[exp[27]]), v128_xor(k_round_l[28], l[exp[28]]), v128_xor(k_round_l[29], l[exp[29]]), r);
+    s6(v128_xor(k_round_l[30], l[exp[30]]), v128_xor(k_round_l[31], l[exp[31]]), v128_xor(k_round_l[32], l[exp[32]]),
+       v128_xor(k_round_l[33], l[exp[33]]), v128_xor(k_round_l[34], l[exp[34]]), v128_xor(k_round_l[35], l[exp[35]]), r);
+    s7(v128_xor(k_round_l[36], l[exp[36]]), v128_xor(k_round_l[37], l[exp[37]]), v128_xor(k_round_l[38], l[exp[38]]),
+       v128_xor(k_round_l[39], l[exp[39]]), v128_xor(k_round_l[40], l[exp[40]]), v128_xor(k_round_l[41], l[exp[41]]), r);
+    s8(v128_xor(k_round_l[42], l[exp[42]]), v128_xor(k_round_l[43], l[exp[43]]), v128_xor(k_round_l[44], l[exp[44]]),
+       v128_xor(k_round_l[45], l[exp[45]]), v128_xor(k_round_l[46], l[exp[46]]), v128_xor(k_round_l[47], l[exp[47]]), r);
 }
 
 /// Initializes the left and right halves for DES encryption from raw data.
@@ -245,14 +232,12 @@ pub fn des(data1: &[u64; 64], data2: &[u64; 64], k: &[[v128; 64]; 16], expansion
     unsafe {
         let (mut l, mut r) = init_lr(data1, data2);
 
-        for round_n in 0..16 {
-            des_round(&mut l, &r, &k[round_n], expansion_table);
-            (l, r) = (r, l);
+        for round_n in 0..8 {
+            des_rounds(&mut l, &mut r, &k[round_n*2], &k[round_n*2+1], expansion_table);
         }
 
-        (l, r) = (r, l);
-
-        final_permutation(&l, &r)
+        // Apply final permutation swapping L and R at the end
+        final_permutation(&r, &l)
     }
 }
 

@@ -23,6 +23,7 @@ rand = "0.8"
 getrandom = { version = "0.2", features = ["js"] }
 js-sys = "*"
 lazy_static = "*"
+once_cell="*"
 
 [profile.release]
 opt-level = 3

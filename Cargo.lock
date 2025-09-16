@@ -294,6 +294,7 @@ dependencies = [
  "js-sys",
  "lazy_static",
  "log",
+ "once_cell",
  "rand",
  "regex",
  "serde",

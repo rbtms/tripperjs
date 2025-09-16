@@ -1,4 +1,9 @@
 use crate::constants::*;
+use std::collections::HashMap;
+use std::sync::OnceLock;
+
+static PERTURB_EXPANSION_CACHE: OnceLock<std::sync::Mutex<HashMap<[u8; 2], [usize; 48]>>> = OnceLock::new();
+
 
 /// This function takes a salt string and uses its first two characters to modify the
 /// EXPANSION_TABLE through bit manipulation. Each character is processed to determine
@@ -46,4 +51,28 @@ pub fn perturb_expansion(salt: &str) -> [usize; 48] {
     }
 
     expansion_table
+}
+
+/// Cached version of perturb_expansion for performance optimization
+pub fn perturb_expansion_cached(salt: &str) -> [usize; 48] {
+    // Initialize the global cache once
+    let cache = PERTURB_EXPANSION_CACHE.get_or_init(|| std::sync::Mutex::new(HashMap::new()));
+    let key = [salt.as_bytes()[0], salt.as_bytes()[1]];
+
+    // Check the cache
+    { let map = cache.lock().unwrap();
+      if let Some(tables) = map.get(&key) {
+          return *tables;
+      }
+    }
+
+    // Not in cache
+    let tables = perturb_expansion(salt);
+
+    // Insert into cache
+    { let mut map = cache.lock().unwrap();
+      map.insert(key, tables);
+    }
+
+    tables
 }

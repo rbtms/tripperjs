@@ -7,7 +7,7 @@ use serde_wasm_bindgen::to_value;
 
 mod constants;
 pub mod matrix_utils;
-mod generate_round_keys;
+pub mod generate_round_keys;
 mod format_digest;
 mod perturb_expansion;
 
@@ -96,7 +96,7 @@ pub fn get_salt(key: &str) -> String {
 ///
 /// # Returns
 /// A tuple containing (salt, vector_of_passwords) for the generated batch
-fn make_passwords_batch(batch_size: usize) -> (String, Vec<String>) {
+pub fn make_passwords_batch(batch_size: usize) -> (String, Vec<String>) {
     let prefix = rand_pwd(3);
     let salt = get_salt(&prefix);
 

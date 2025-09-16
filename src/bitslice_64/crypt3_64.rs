@@ -1,7 +1,7 @@
 use crate::matrix_utils;
 use crate::generate_round_keys;
 use crate::format_digest;
-use crate::perturb_expansion::perturb_expansion;
+use crate::perturb_expansion::perturb_expansion_cached;
 use crate::bitslice_64::des_64;
 
 /// Main cryptographic function implementing crypt(3) algorithm
@@ -26,7 +26,8 @@ pub fn crypt3(pwds: &Vec<String>, salt: &str) -> Vec<String> {
     let mut data = [0u64; 64];
     let pwd_bins = matrix_utils::to_binary_array_64(pwds);
     let keys = generate_round_keys::generate_transposed_round_keys_64(&pwd_bins);
-    let expansion_table = perturb_expansion(&salt);
+    let expansion_table = perturb_expansion_cached(&salt);
+
     // Crypt(3) calls DES 25 times
     for _ in 0..25 {
         data = des_64::des(&data, &keys, &expansion_table);
