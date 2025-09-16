@@ -76,6 +76,21 @@ fn test_correctness_64() {
     run_correctness_test(&generate_tripcode_64);
 }
 
+// Test _64 results aganist base
+#[test]
+fn test_correctness_run_x_iterations() {
+    let tripcodes = run_x_iterations_64(1000, "aa");
+
+    assert!(tripcodes.len() > 0, "There should be matches for a simple tripcode.");
+
+    for (pwd, tripcode) in tripcodes {
+        let correct_tripcode = crypt3::crypt3(&pwd, &get_salt(&pwd));
+        assert!(tripcode == correct_tripcode,
+            "The generated tripcode is incorrect. It should be {correct_tripcode}, but it's {tripcode}"
+        );
+    }
+}
+
 // ---- Performance tests ----
 // Performance tests measure tripcodes per second by running functions repeatedly
 // for a fixed duration
