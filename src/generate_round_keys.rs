@@ -230,3 +230,32 @@ pub fn generate_transposed_round_keys_64(pwds_bin: &[u64; 64]) -> [[u64; 64]; 16
 
     keys
 }
+
+/// Converts standard DES keys into v128 vectors for SIMD processing.
+///
+/// This function takes two arrays of round keys (one for each block array) and packs
+/// them into v128 vectors where the first key is in lane 0 and second key is in lane 1.
+///
+/// # Parameters
+/// * `keys1` - Array of 16 round keys, each containing 64 u64 values
+/// * `keys2` - Array of 16 round keys, each containing 64 u64 values
+///
+/// # Returns
+/// A vectorized array with the keys
+#[cfg(target_arch = "wasm32")]
+use std::arch::wasm32::*;
+#[cfg(target_arch = "wasm32")]
+pub fn keys_to_v128(keys1: &[[u64; 64]; 16], keys2: &[[u64; 64]; 16]) -> [[v128; 64]; 16] {
+    let mut keys_v128: [[v128; 64]; 16] = [[unsafe { i64x2(0, 0) }; 64]; 16];
+
+    unsafe {
+        for round in 0..16 {
+            for i in 0..64 {
+                // Pack keys1[round][i] into lane 0 and keys2[round][i] into lane 1
+                keys_v128[round][i] = i64x2(keys1[round][i] as i64, keys2[round][i] as i64);
+            }
+        }
+    }
+
+    keys_v128
+}

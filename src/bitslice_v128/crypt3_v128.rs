@@ -35,14 +35,14 @@ pub fn crypt3(pwds: &Vec<String>, salt: &str) -> Vec<String> {
 
     let mut data1 = [0u64; 64];
     let mut data2 = [0u64; 64];
-    let pwd_bins1 = matrix_utils::to_binary_array_64(&(&pwds[0..64]).to_vec());
-    let pwd_bins2 = matrix_utils::to_binary_array_64(&(&pwds[64..128]).to_vec());
+    let pwd_bins1 = matrix_utils::to_binary_array_64(&pwds[0..64].to_vec());
+    let pwd_bins2 = matrix_utils::to_binary_array_64(&pwds[64..128].to_vec());
     let keys1 = generate_round_keys::generate_transposed_round_keys_64(&pwd_bins1);
     let keys2: [[u64; 64]; 16] = generate_round_keys::generate_transposed_round_keys_64(&pwd_bins2);
-    let expansion_table = perturb_expansion_cached(&salt);
+    let expansion_table = perturb_expansion_cached(salt);
 
     unsafe {
-        let keys = des_v128::keys_to_v128(&keys1, &keys2);
+        let keys = generate_round_keys::keys_to_v128(&keys1, &keys2);
 
         // Crypt(3) calls DES 25 times
         (data1, data2) = des_v128::des_25(&data1, &data2, &keys, &expansion_table);

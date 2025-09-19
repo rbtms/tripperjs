@@ -16,7 +16,7 @@ test_avx512:
 # Run WASM tests
 _test_wasm:
 	# Remove previous builds
-	rm -r ./target/wasm* || true
+	rm -r ./target/wasm32-unknown-unknown/release/deps/test_wasm* || true
 
 	# Download geckodriver if not already in /tmp
 	@test -f /tmp/geckodriver || ( \
@@ -54,13 +54,13 @@ build_wasm:
 	RUSTFLAGS="-C target-feature=+simd128,+bulk-memory,+extended-const" make _build_wasm
 
 # Build the WASM module with debug symbols
-_build_wasm_debug:
+_build_wasm_profile:
 	wasm-pack build --target web --profiling
 	cp ./pkg/tripperjs_wasm_bg.wasm ./page/assets/
 	cp ./pkg/tripperjs_wasm.js      ./page/assets/
 	rm -r ./pkg
-build_wasm_debug:
-	RUSTFLAGS="-C target-feature=+simd128,+bulk-memory,+extended-const" make _build_wasm_debug
+build_wasm_profile:
+	RUSTFLAGS="-C target-feature=+simd128,+bulk-memory,+extended-const" make _build_wasm_profile
 
 #---- Profiling -----------------------------------------------------------------------------------
 
