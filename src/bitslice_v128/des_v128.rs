@@ -147,13 +147,13 @@ pub unsafe fn init_lr(data1: &[u64; 64], data2: &[u64; 64]) -> ([v128; 32], [v12
     transpose_64x64(&mut _data1);
     transpose_64x64(&mut _data2);
 
-    let mut l: [v128; 32] = [u64x2_splat(0); 32];
-    let mut r: [v128; 32] = [u64x2_splat(0); 32];
+    let l = std::array::from_fn(|i| {
+        unsafe { v128_utils::load_u64x2_to_v128(_data1[i], _data2[i]) }
+    });
 
-    for i in 0..32 {
-        l[i] = unsafe { v128_utils::load_u64x2_to_v128(_data1[i], _data2[i]) };
-        r[i] = unsafe { v128_utils::load_u64x2_to_v128(_data1[32+i], _data2[32+i]) };
-    }
+    let r = std::array::from_fn(|i| {
+        unsafe { v128_utils::load_u64x2_to_v128(_data1[32 + i], _data2[32 + i]) }
+    });
 
     (l, r)
 }
