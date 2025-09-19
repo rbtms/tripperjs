@@ -117,13 +117,12 @@ static PARITY_DROP_PRECOMPUTED: [[u64; 256]; 8] = precompute_parity_drop_key();
 // Precomputes compression tables for DES key scheduling
 // These tables are used to efficiently compute the round keys by mapping
 // input bits through the parity drop and circular shift permutations
-const fn precompute_compress_tables() -> [[[u64; 256]; 7]; 16] {
-    let mut tables = [[[0u64; 256]; 7]; 16]; // 16 rounds, 7 bytes for 56-bit parity-drop key
-
+const fn precompute_compress_tables() -> [[[u64; 16]; 256]; 7] {
+    let mut tables = [[[0u64; 16]; 256]; 7];
     let mut round = 0;
     while round < 16 {
         let mut out_bit = 0;
-        while out_bit < 48 { // 48 bits per round key
+        while out_bit < 48 {
             let input_bit = PARITY_DROP_INDEXES[48 * round + out_bit];
             let input_byte = input_bit / 8;
             let bit_in_byte = input_bit % 8;
@@ -132,20 +131,18 @@ const fn precompute_compress_tables() -> [[[u64; 256]; 7]; 16] {
             let mut b = 0;
             while b < 256 {
                 if ((b >> bit_in_byte) & 1) != 0 {
-                    tables[round][input_byte][b as usize] |= mask;
+                    tables[input_byte][b][round] |= mask;
                 }
                 b += 1;
             }
-
             out_bit += 1;
         }
         round += 1;
     }
-
     tables
 }
 
-static CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED: [[[u64; 256]; 7]; 16] = precompute_compress_tables();
+static CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED: [[[u64; 16]; 256]; 7] = precompute_compress_tables();
 
 
 // ------------------------------------------------------------------------------------------------
@@ -166,38 +163,26 @@ static CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED: [[[u64; 256]; 7]; 16] = precomput
 pub fn generate_round_keys(key: u64) -> [u64; 16] {
     let mut k = [0u64; 16];
 
-    let parity_drop_key = PARITY_DROP_PRECOMPUTED[0][(key&0xFF) as usize]
-        | PARITY_DROP_PRECOMPUTED[1][((key>>8) &0xFF) as usize]
-        | PARITY_DROP_PRECOMPUTED[2][((key>>16)&0xFF) as usize]
-        | PARITY_DROP_PRECOMPUTED[3][((key>>24)&0xFF) as usize]
-        | PARITY_DROP_PRECOMPUTED[4][((key>>32)&0xFF) as usize]
-        | PARITY_DROP_PRECOMPUTED[5][((key>>40)&0xFF) as usize]
-        | PARITY_DROP_PRECOMPUTED[6][((key>>48)&0xFF) as usize]
-        | PARITY_DROP_PRECOMPUTED[7][((key>>56)&0xFF) as usize];
+    let [b0, b1, b2, b3, b4, b5, b6, b7] = key.to_le_bytes();
+    let parity_drop_key = PARITY_DROP_PRECOMPUTED[0][b0 as usize]
+        | PARITY_DROP_PRECOMPUTED[1][b1 as usize]
+        | PARITY_DROP_PRECOMPUTED[2][b2 as usize]
+        | PARITY_DROP_PRECOMPUTED[3][b3 as usize]
+        | PARITY_DROP_PRECOMPUTED[4][b4 as usize]
+        | PARITY_DROP_PRECOMPUTED[5][b5 as usize]
+        | PARITY_DROP_PRECOMPUTED[6][b6 as usize]
+        | PARITY_DROP_PRECOMPUTED[7][b7 as usize];
 
-
-    let parity_drop_b1 = (parity_drop_key&0xFF) as usize;
-    let parity_drop_b2 = ((parity_drop_key>>8)&0xFF) as usize;
-    let parity_drop_b3 = ((parity_drop_key>>16)&0xFF) as usize;
-    let parity_drop_b4 = ((parity_drop_key>>24)&0xFF) as usize;
-    let parity_drop_b5 = ((parity_drop_key>>32)&0xFF) as usize;
-    let parity_drop_b6 = ((parity_drop_key>>40)&0xFF) as usize;
-    let parity_drop_b7 = ((parity_drop_key>>48)&0xFF) as usize;
-
-    /**********************
-    * Generate round keys
-    **********************/
-    for n in 0..16 {
-        /*******************************************************
-        * Apply circular left shift and compression permutation
-        *******************************************************/
-        k[n] |= CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED[n][0][parity_drop_b1]
-              | CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED[n][1][parity_drop_b2]
-              | CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED[n][2][parity_drop_b3]
-              | CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED[n][3][parity_drop_b4]
-              | CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED[n][4][parity_drop_b5]
-              | CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED[n][5][parity_drop_b6]
-              | CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED[n][6][parity_drop_b7];
+    let [b0, b1, b2, b3, b4, b5, b6, _] = parity_drop_key.to_le_bytes();
+    for (round_n, key) in k.iter_mut().enumerate() {
+        // Apply circular left shift and compression permutation
+        *key = CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED[0][b0 as usize][round_n]
+             | CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED[1][b1 as usize][round_n]
+             | CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED[2][b2 as usize][round_n]
+             | CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED[3][b3 as usize][round_n]
+             | CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED[4][b4 as usize][round_n]
+             | CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED[5][b5 as usize][round_n]
+             | CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED[6][b6 as usize][round_n];
     }
 
     k
@@ -213,6 +198,7 @@ pub fn generate_round_keys(key: u64) -> [u64; 16] {
 //
 // # Returns
 // * `[[u64; 64]; 16]` - 16 arrays of 64 round key bits each transposed
+#[inline(always)]
 pub fn generate_transposed_round_keys_64(pwds_bin: &[u64; 64]) -> [[u64; 64]; 16] {
     let mut keys = [[0u64; 64]; 16];
 
@@ -246,6 +232,7 @@ pub fn generate_transposed_round_keys_64(pwds_bin: &[u64; 64]) -> [[u64; 64]; 16
 #[cfg(target_arch = "wasm32")]
 use std::arch::wasm32::*;
 #[cfg(target_arch = "wasm32")]
+#[inline(always)]
 pub fn keys_to_v128(keys1: &[[u64; 64]; 16], keys2: &[[u64; 64]; 16]) -> [[v128; 64]; 16] {
     let mut keys_v128: [[v128; 64]; 16] = [[ i64x2(0, 0); 64]; 16];
 
