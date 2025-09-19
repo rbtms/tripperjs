@@ -32,7 +32,7 @@ const fn precompute_initial_l_r(l_r: [usize; 32]) -> [[u32; 256]; 8] {
         let mut b = 0;
         while b < 256u64 {
             let mask = (((b >> bit_index) & 1) << i) as u32;
-            tables[byte_index as usize][b as usize] |= mask;
+            tables[byte_index][b as usize] |= mask;
             b += 1;
         }
 

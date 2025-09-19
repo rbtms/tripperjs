@@ -37,7 +37,7 @@ pub fn to_binary_array(pwd: &str) -> u64 {
 ///
 /// # Returns
 /// * `[u64; 64]` - An array of 64 64-bit binary values
-pub fn to_binary_array_64(pwds: &Vec<String>) -> [u64; 64] {
+pub fn to_binary_array_64(pwds: &[String]) -> [u64; 64] {
     std::array::from_fn(|i| to_binary_array(&pwds[i]))
 }
 
@@ -101,9 +101,8 @@ pub fn transpose_64x64(matrix: &mut [u64; 64]) {
     ];
 
     // Iterate over each of the 6 stages (levels) of the butterfly network.
-    for level in 0..6 {
+    for (level, mask) in MASKS.iter().enumerate() {
         let s = 1 << level;
-        let mask = MASKS[level];
 
         // Process the matrix in chunks of size s*2 rows
         for i in (0..64).step_by(s * 2) {
@@ -158,4 +157,3 @@ pub unsafe fn transpose_64x64_v128(matrix: &mut [v128; 64]) {
         }
     }
 }
-

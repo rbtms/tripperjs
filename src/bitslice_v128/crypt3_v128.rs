@@ -1,13 +1,6 @@
 #![cfg(target_arch = "wasm32")]
-use wasm_bindgen::prelude::*;
-use rand::prelude::{thread_rng, RngCore};
-use std::collections::HashMap;
-use regex::Regex;
-use serde_wasm_bindgen::to_value;
-
 use crate::matrix_utils;
 use crate::generate_round_keys;
-use crate::format_digest;
 use crate::perturb_expansion::perturb_expansion_cached;
 use crate::format_digest::format_digest;
 use crate::bitslice_v128::des_v128;
@@ -29,14 +22,11 @@ use crate::bitslice_v128::des_v128;
 ///
 /// # Returns
 /// * `Vec<String>` - A vector of formatted digest strings representing the hashed passwords
-pub fn crypt3(pwds: &Vec<String>, salt: &str) -> Vec<String> {
-    // Keep only the first 2 characters
-    let salt = &salt[0..2];
-
+pub fn crypt3(pwds: &[String], salt: &str) -> Vec<String> {
     let mut data1 = [0u64; 64];
     let mut data2 = [0u64; 64];
-    let pwd_bins1 = matrix_utils::to_binary_array_64(&pwds[0..64].to_vec());
-    let pwd_bins2 = matrix_utils::to_binary_array_64(&pwds[64..128].to_vec());
+    let pwd_bins1 = matrix_utils::to_binary_array_64(&pwds[0..64]);
+    let pwd_bins2 = matrix_utils::to_binary_array_64(&pwds[64..128]);
     let keys1 = generate_round_keys::generate_transposed_round_keys_64(&pwd_bins1);
     let keys2: [[u64; 64]; 16] = generate_round_keys::generate_transposed_round_keys_64(&pwd_bins2);
     let expansion_table = perturb_expansion_cached(salt);

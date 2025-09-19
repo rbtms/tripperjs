@@ -1,14 +1,13 @@
 #![cfg(target_arch = "wasm32")]
-#![feature(stdsimd)]
 use std::arch::wasm32::*;
 use crate::constants::INVERSE_STRAIGHT_TABLE;
 
-/// Applies the S1-S8 substitution box to the input bits and XORs the result
-/// into the output slice.
-///
-/// # Parameters
-/// * `a1`, `a2`, `a3`, `a4`, `a5`, `a6` - Input bits to be processed
-/// * `l` - Mutable reference to the output array where results are XORed in
+// Applies the S1-S8 substitution box to the input bits and XORs the result
+// into the output slice.
+//
+// # Parameters
+// * `a1`, `a2`, `a3`, `a4`, `a5`, `a6` - Input bits to be processed
+// * `l` - Mutable reference to the output array where results are XORed in
 
 #[inline(always)]
 pub fn s1(a1: v128, a2: v128, a3: v128, a4: v128, a5: v128, a6: v128, l: &mut [v128; 32]) {
@@ -85,7 +84,7 @@ pub fn s1(a1: v128, a2: v128, a3: v128, a4: v128, a5: v128, a6: v128, l: &mut [v
     l[INVERSE_STRAIGHT_TABLE[3]] = v128_xor(l[INVERSE_STRAIGHT_TABLE[3]], x22);
 }
 
-#[target_feature(enable = "simd128")]
+#[inline(always)]
 pub fn s2(a1: v128, a2: v128, a3: v128, a4: v128, a5: v128, a6: v128, l: &mut [v128; 32]) {
     let x1 = v128_not(a5);
     let x2 = v128_not(a1);
@@ -154,7 +153,7 @@ pub fn s2(a1: v128, a2: v128, a3: v128, a4: v128, a5: v128, a6: v128, l: &mut [v
 
 }
 
-#[target_feature(enable = "simd128")]
+#[inline(always)]
 pub fn s3(a1: v128, a2: v128, a3: v128, a4: v128, a5: v128, a6: v128, l: &mut [v128; 32]) {
     let x1 = v128_not(a5);
     let x2 = v128_not(a6);
@@ -223,7 +222,7 @@ pub fn s3(a1: v128, a2: v128, a3: v128, a4: v128, a5: v128, a6: v128, l: &mut [v
     l[INVERSE_STRAIGHT_TABLE[11]] = v128_xor(l[INVERSE_STRAIGHT_TABLE[11]], x20);  // corresponds to out4
 }
 
-#[target_feature(enable = "simd128")]
+#[inline(always)]
 pub fn s4(a1: v128, a2: v128, a3: v128, a4: v128, a5: v128, a6: v128, l: &mut [v128; 32]) {
     let x1 = v128_not(a1);
     let x2 = v128_not(a3);
@@ -249,11 +248,9 @@ pub fn s4(a1: v128, a2: v128, a3: v128, a4: v128, a5: v128, a6: v128, l: &mut [v
     let x22 = v128_xor(x16, x21);
     let x23 = v128_and(a6, x22);
     let x24 = v128_xor(x13, x23);
-
     let x25 = v128_not(x13);
     let x26 = v128_or(a6, x22);
     let x27 = v128_xor(x25, x26);
-
     let x28 = v128_and(a2, x11);
     let x29 = v128_xor(x28, x17);
     let x30 = v128_xor(a3, x10);
@@ -267,7 +264,6 @@ pub fn s4(a1: v128, a2: v128, a3: v128, a4: v128, a5: v128, a6: v128, l: &mut [v
     let x38 = v128_xor(x36, x37);
     let x39 = v128_and(a6, x38);
     let x40 = v128_xor(x33, x39);
-
     let x41 = v128_xor(x26, x38);
     let x42 = v128_xor(x41, x40);
 
@@ -277,7 +273,7 @@ pub fn s4(a1: v128, a2: v128, a3: v128, a4: v128, a5: v128, a6: v128, l: &mut [v
     l[INVERSE_STRAIGHT_TABLE[15]] = v128_xor(l[INVERSE_STRAIGHT_TABLE[15]], x40);
 }
 
-#[target_feature(enable = "simd128")]
+#[inline(always)]
 pub fn s5(a1: v128, a2: v128, a3: v128, a4: v128, a5: v128, a6: v128, l: &mut [v128; 32]) {
     let x1 = v128_not(a6);
     let x2 = v128_not(a3);
@@ -351,7 +347,7 @@ pub fn s5(a1: v128, a2: v128, a3: v128, a4: v128, a5: v128, a6: v128, l: &mut [v
     l[INVERSE_STRAIGHT_TABLE[19]] = v128_xor(l[INVERSE_STRAIGHT_TABLE[19]], x62);
 }
 
-#[target_feature(enable = "simd128")]
+#[inline(always)]
 pub fn s6(a1: v128, a2: v128, a3: v128, a4: v128, a5: v128, a6: v128, l: &mut [v128; 32]) {
     let x1 = v128_not(a2);
     let x2 = v128_not(a5);
@@ -420,7 +416,7 @@ pub fn s6(a1: v128, a2: v128, a3: v128, a4: v128, a5: v128, a6: v128, l: &mut [v
     l[INVERSE_STRAIGHT_TABLE[23]] = v128_xor(l[INVERSE_STRAIGHT_TABLE[23]], x36);
 }
 
-#[target_feature(enable = "simd128")]
+#[inline(always)]
 pub fn s7(a1: v128, a2: v128, a3: v128, a4: v128, a5: v128, a6: v128, l: &mut [v128; 32]) {
     let x1 = v128_not(a2);
     let x2 = v128_not(a5);
@@ -489,7 +485,7 @@ pub fn s7(a1: v128, a2: v128, a3: v128, a4: v128, a5: v128, a6: v128, l: &mut [v
     l[INVERSE_STRAIGHT_TABLE[27]] = v128_xor(l[INVERSE_STRAIGHT_TABLE[27]], x34);
 }
 
-#[target_feature(enable = "simd128")]
+#[inline(always)]
 pub fn s8(a1: v128, a2: v128, a3: v128, a4: v128, a5: v128, a6: v128, l: &mut [v128; 32]) {
     let x1 = v128_not(a1);
     let x2 = v128_not(a4);

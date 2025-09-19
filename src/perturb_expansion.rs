@@ -25,10 +25,10 @@ static PERTURB_EXPANSION_CACHE: OnceLock<std::sync::Mutex<HashMap<[u8; 2], [usiz
 ///
 pub fn perturb_expansion(salt: &str) -> [usize; 48] {
     let salt_bytes = salt.as_bytes();
-    let mut expansion_table = EXPANSION_TABLE.clone();
+    let mut expansion_table = EXPANSION_TABLE;
 
-    for n in 0..2 {
-        let mut c = salt_bytes[n];
+    for (n, &c) in salt_bytes[0..2].iter().enumerate() {
+        let mut c = c;
         let row = 6*n;
 
         if c > CHAR_CODE_Z { c -= 6; }

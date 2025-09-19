@@ -1,5 +1,4 @@
 #![cfg(target_arch = "wasm32")]
-#![feature(stdsimd)]
 use std::arch::wasm32::*;
 use crate::constants::*;
 use crate::matrix_utils::{transpose_64x64, transpose_64x64_v128};
@@ -26,8 +25,8 @@ static INITIAL_LR_PRECOMPUTED_64: [[u64; 256]; 8] = {
 
         let mut b = 0;
         while b < 256u64 {
-            let mask = (((b >> bit_index) & 1) << i) as u64;
-            tables[byte_index as usize][b as usize] |= mask;
+            let mask = ((b >> bit_index) & 1) << i;
+            tables[byte_index][b as usize] |= mask;
             b += 1;
         }
 
@@ -42,8 +41,8 @@ static INITIAL_LR_PRECOMPUTED_64: [[u64; 256]; 8] = {
 
         let mut b = 0;
         while b < 256u64 {
-            let mask = (((b >> bit_index) & 1) << i) as u64;
-            tables[byte_index as usize][b as usize] |= mask << 32;
+            let mask = ((b >> bit_index) & 1) << i;
+            tables[byte_index][b as usize] |= mask << 32;
             b += 1;
         }
 
@@ -152,8 +151,8 @@ pub unsafe fn init_lr(data1: &[u64; 64], data2: &[u64; 64]) -> ([v128; 32], [v12
     let mut r: [v128; 32] = [u64x2_splat(0); 32];
 
     for i in 0..32 {
-        l[i] = v128_utils::load_u64x2_to_v128(_data1[i], _data2[i]);
-        r[i] = v128_utils::load_u64x2_to_v128(_data1[32+i], _data2[32+i]);
+        l[i] = unsafe { v128_utils::load_u64x2_to_v128(_data1[i], _data2[i]) };
+        r[i] = unsafe { v128_utils::load_u64x2_to_v128(_data1[32+i], _data2[32+i]) };
     }
 
     (l, r)
@@ -171,19 +170,16 @@ pub unsafe fn init_lr(data1: &[u64; 64], data2: &[u64; 64]) -> ([v128; 32], [v12
 /// # Returns
 /// A tuple containing (blocks1, blocks2) where each is a 64-element array of u64 values
 #[target_feature(enable = "simd128")]
-pub unsafe fn final_permutation(l: &[v128; 32], r: &[v128; 32]) -> ([u64; 64], [u64; 64]) {
-    let mut data1 = [0u64; 64];
-    let mut data2 = [0u64; 64];
+pub fn final_permutation(l: &[v128; 32], r: &[v128; 32]) -> ([u64; 64], [u64; 64]) {
+    let mut data = unsafe { v128_utils::concat_v128_arrays(l, r) };
 
-    let mut data = v128_utils::concat_v128_arrays(l, r);
-
-    transpose_64x64_v128(&mut data);
+    unsafe { transpose_64x64_v128(&mut data); }
 
     let mut blocks1 = [0u64; 64];
     let mut blocks2 = [0u64; 64];
 
     for block_i in 0..32 {
-        let col1 = v128_utils::extract_v128_lane0(data[block_i]);
+        let col1 = unsafe { v128_utils::extract_v128_lane0(data[block_i]) };
         let [l0, l1, l2, l3, r0, r1, r2, r3] = col1.to_le_bytes();
 
         blocks1[block_i] =
@@ -196,7 +192,7 @@ pub unsafe fn final_permutation(l: &[v128; 32], r: &[v128; 32]) -> ([u64; 64], [
              | FINAL_R_PRECOMPUTED[2][r2 as usize]
              | FINAL_R_PRECOMPUTED[3][r3 as usize];
 
-        let col2 = v128_utils::extract_v128_lane1(data[block_i]);
+        let col2 = unsafe { v128_utils::extract_v128_lane1(data[block_i]) };
         let [l0, l1, l2, l3, r0, r1, r2, r3] = col2.to_le_bytes();
         blocks2[block_i] =
                FINAL_L_PRECOMPUTED[0][l0 as usize]

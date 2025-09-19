@@ -20,13 +20,13 @@ use crate::bitslice_64::des_64;
 ///
 /// # Returns
 /// * `Vec<String>` - A vector of formatted digest strings representing the hashed passwords
-pub fn crypt3(pwds: &Vec<String>, salt: &str) -> Vec<String> {
+pub fn crypt3(pwds: &[String], salt: &str) -> Vec<String> {
     // Keep only the first 2 characters
     let salt = &salt[0..2];
     let mut data = [0u64; 64];
     let pwd_bins = matrix_utils::to_binary_array_64(pwds);
     let keys = generate_round_keys::generate_transposed_round_keys_64(&pwd_bins);
-    let expansion_table = perturb_expansion_cached(&salt);
+    let expansion_table = perturb_expansion_cached(salt);
 
     // Crypt(3) calls DES 25 times
     data = des_64::des_25(&data, &keys, &expansion_table);

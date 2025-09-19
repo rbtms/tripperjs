@@ -176,7 +176,7 @@ pub fn generate_round_keys(key: u64) -> [u64; 16] {
         | PARITY_DROP_PRECOMPUTED[7][((key>>56)&0xFF) as usize];
 
 
-    let parity_drop_b1 = ((parity_drop_key>>0)&0xFF) as usize;
+    let parity_drop_b1 = (parity_drop_key&0xFF) as usize;
     let parity_drop_b2 = ((parity_drop_key>>8)&0xFF) as usize;
     let parity_drop_b3 = ((parity_drop_key>>16)&0xFF) as usize;
     let parity_drop_b4 = ((parity_drop_key>>24)&0xFF) as usize;
@@ -224,8 +224,9 @@ pub fn generate_transposed_round_keys_64(pwds_bin: &[u64; 64]) -> [[u64; 64]; 16
         }
     }
 
-    for i in 0..16 {
-        matrix_utils::transpose_64x64(&mut keys[i]);
+    // Modify keys in-place
+    for key in keys.iter_mut() {
+        matrix_utils::transpose_64x64(key);
     }
 
     keys
@@ -246,14 +247,12 @@ pub fn generate_transposed_round_keys_64(pwds_bin: &[u64; 64]) -> [[u64; 64]; 16
 use std::arch::wasm32::*;
 #[cfg(target_arch = "wasm32")]
 pub fn keys_to_v128(keys1: &[[u64; 64]; 16], keys2: &[[u64; 64]; 16]) -> [[v128; 64]; 16] {
-    let mut keys_v128: [[v128; 64]; 16] = [[unsafe { i64x2(0, 0) }; 64]; 16];
+    let mut keys_v128: [[v128; 64]; 16] = [[ i64x2(0, 0); 64]; 16];
 
-    unsafe {
-        for round in 0..16 {
-            for i in 0..64 {
-                // Pack keys1[round][i] into lane 0 and keys2[round][i] into lane 1
-                keys_v128[round][i] = i64x2(keys1[round][i] as i64, keys2[round][i] as i64);
-            }
+    for round in 0..16 {
+        for i in 0..64 {
+            // Pack keys1[round][i] into lane 0 and keys2[round][i] into lane 1
+            keys_v128[round][i] = i64x2(keys1[round][i] as i64, keys2[round][i] as i64);
         }
     }
 

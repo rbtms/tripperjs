@@ -4,7 +4,8 @@ use crate::constants::*;
 use crate::perturb_expansion;
 
 
-static R_EXPANDED_CACHE: OnceLock<std::sync::Mutex<HashMap<[u8; 2], [[u64; 256]; 4]>>> = OnceLock::new();
+type RExpandedHashmap = HashMap<[u8; 2], [[u64; 256]; 4]>;
+static R_EXPANDED_CACHE: OnceLock<std::sync::Mutex<RExpandedHashmap>> = OnceLock::new();
 
 /// Generates expanded tables for DES rounds using a salt value for perturbation
 ///
@@ -144,20 +145,20 @@ pub fn des(data: u64, k: &[u64; 16], r_expanded_precomputed: &[[u64; 256]; 4]) -
       | INITIAL_R_PRECOMPUTED[7][((data>>56)&0xFF) as usize];
 
     // Round 0 through 16
-    for round_n in 0..16 {
-        (l, r) = des_round(l, r, r_expanded_precomputed, k[round_n]);
+    for &k_round in k {
+        (l, r) = des_round(l, r, r_expanded_precomputed, k_round);
     }
 
     // Swap L and R at the end to allow reversing
     (l, r) = (r, l);
 
     // Apply final permutation
-    return FINAL_L_PRECOMPUTED[0][ (l        & 0xFF) as usize]
-         | FINAL_L_PRECOMPUTED[1][((l >>  8) & 0xFF) as usize]
-         | FINAL_L_PRECOMPUTED[2][((l >> 16) & 0xFF) as usize]
-         | FINAL_L_PRECOMPUTED[3][((l >> 24) & 0xFF) as usize]
-         | FINAL_R_PRECOMPUTED[0][ (r        & 0xFF) as usize]
-         | FINAL_R_PRECOMPUTED[1][((r >>  8) & 0xFF) as usize]
-         | FINAL_R_PRECOMPUTED[2][((r >> 16) & 0xFF) as usize]
-         | FINAL_R_PRECOMPUTED[3][((r >> 24) & 0xFF) as usize];
+    FINAL_L_PRECOMPUTED[0][ (l & 0xFF) as usize]
+        | FINAL_L_PRECOMPUTED[1][((l >>  8) & 0xFF) as usize]
+        | FINAL_L_PRECOMPUTED[2][((l >> 16) & 0xFF) as usize]
+        | FINAL_L_PRECOMPUTED[3][((l >> 24) & 0xFF) as usize]
+        | FINAL_R_PRECOMPUTED[0][ (r        & 0xFF) as usize]
+        | FINAL_R_PRECOMPUTED[1][((r >>  8) & 0xFF) as usize]
+        | FINAL_R_PRECOMPUTED[2][((r >> 16) & 0xFF) as usize]
+        | FINAL_R_PRECOMPUTED[3][((r >> 24) & 0xFF) as usize]
 }

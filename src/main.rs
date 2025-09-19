@@ -1,3 +1,4 @@
+#![allow(clippy::missing_safety_doc)]
 use wasm_bindgen::prelude::*;
 use rand::prelude::{thread_rng, RngCore};
 use std::collections::HashMap;
@@ -210,15 +211,16 @@ pub fn run_x_iterations_64(iter_n: u32, regex_pattern: &str) -> HashMap<String,S
 #[cfg(target_arch = "wasm32")]
 #[wasm_bindgen]
 pub fn run_x_iterations(iter_n: u32, regex_pattern: &str) -> JsValue {
-    let results = run_x_iterations_common(iter_n as u32, regex_pattern);
+    let results = run_x_iterations_common(iter_n, regex_pattern);
     to_value(&results).unwrap()
 }
 #[cfg(target_arch = "wasm32")]
 #[wasm_bindgen]
 pub fn run_x_iterations_64(iter_n: u32, regex_pattern: &str) -> JsValue {
-    let results = run_x_iterations_common_bitslice(iter_n as u32, regex_pattern);
+    let results = run_x_iterations_common_bitslice(iter_n, regex_pattern);
     to_value(&results).unwrap()
 }
 
+#[allow(dead_code)]
 fn main() {
 }

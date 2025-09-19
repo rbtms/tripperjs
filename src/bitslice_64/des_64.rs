@@ -21,8 +21,8 @@ const fn _precompute_initial_lr_64() -> [[u64; 256]; 8] {
 
         let mut b = 0;
         while b < 256u64 {
-            let mask = (((b >> bit_index) & 1) << i) as u64;
-            tables[byte_index as usize][b as usize] |= mask;
+            let mask = ((b >> bit_index) & 1) << i;
+            tables[byte_index][b as usize] |= mask;
             b += 1;
         }
 
@@ -37,8 +37,8 @@ const fn _precompute_initial_lr_64() -> [[u64; 256]; 8] {
 
         let mut b = 0;
         while b < 256u64 {
-            let mask = (((b >> bit_index) & 1) << i) as u64;
-            tables[byte_index as usize][b as usize] |= mask << 32;
+            let mask= ((b >> bit_index) & 1) << i;
+            tables[byte_index][b as usize] |= mask << 32;
             b += 1;
         }
 
@@ -194,7 +194,7 @@ fn final_permutation(l: &[u64; 32], r: &[u64; 32]) -> [u64; 64] {
 #[inline(always)]
 pub fn des_25(data: &[u64; 64], k: &[[u64; 64]; 16], expansion_table: &[usize; 48]) -> [u64; 64] {
     // Apply initial permutation and separate into left and right parts
-    let (mut l, mut r) = init_lr(&data);
+    let (mut l, mut r) = init_lr(data);
 
     for _ in 0..25 {
         // Round 0 through 16

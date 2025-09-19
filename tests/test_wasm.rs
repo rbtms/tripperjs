@@ -5,8 +5,6 @@ use tripperjs_wasm::bitslice_v128::crypt3_v128;
 use tripperjs_wasm::{get_salt, run_x_iterations, run_x_iterations_64, run_x_iterations_v128};
 use wasm_bindgen::prelude::JsValue;
 use wasm_bindgen_test::*;
-use web_sys::console;
-use wasm_bindgen;
 use js_sys::Date;
 
 wasm_bindgen_test_configure!(run_in_browser);
@@ -76,7 +74,7 @@ fn run_correctness_test(f: &dyn Fn(&str) -> String) {
     }
 }
 
-//#[wasm_bindgen_test]
+#[wasm_bindgen_test]
 fn test_correctness() {
     run_correctness_test(&generate_tripcode);
 }
