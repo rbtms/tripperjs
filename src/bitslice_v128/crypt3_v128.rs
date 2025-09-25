@@ -28,7 +28,7 @@ pub fn crypt3(pwds: &[String], salt: &str) -> Vec<String> {
     let pwd_bins1 = matrix_utils::to_binary_array_64(&pwds[0..64]);
     let pwd_bins2 = matrix_utils::to_binary_array_64(&pwds[64..128]);
     let keys1 = generate_round_keys::generate_transposed_round_keys_64(&pwd_bins1);
-    let keys2: [[u64; 64]; 16] = generate_round_keys::generate_transposed_round_keys_64(&pwd_bins2);
+    let keys2 = generate_round_keys::generate_transposed_round_keys_64(&pwd_bins2);
     let expansion_table = perturb_expansion_cached(salt);
 
     unsafe {

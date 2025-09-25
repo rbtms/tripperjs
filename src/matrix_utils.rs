@@ -41,28 +41,6 @@ pub fn to_binary_array_64(pwds: &[String]) -> [u64; 64] {
     std::array::from_fn(|i| to_binary_array(&pwds[i]))
 }
 
-/// Extracts a column from a 64x64 bit matrix represented as an array of 64 u64 values.
-///
-/// This function treats the input slice as a 64x64 binary matrix where each u64 represents
-/// a row. It extracts the specified column index and returns it as a u64 value.
-///
-/// # Arguments
-/// * `m` - A reference to an array of 64 u64 values representing the matrix rows
-/// * `col_i` - The column index to extract (0-63)
-///
-/// # Returns
-/// * `u64` - The column as a u64 value with bits set according to the column values
-#[inline(always)]
-pub fn get_matrix_column(matrix: &[u64; 32], col_i: usize) -> u64 {
-    let mut col = 0u64;
-
-    for (i, &row) in matrix.iter().enumerate() {
-        col |= ((row>>col_i)&1) << i;
-    }
-
-    col
-}
-
 /// Performs an in-place transposition of a 64x64 bit matrix using a butterfly network.
 ///
 /// This function treats the 64-element array `matrix` as a 64x64 binary matrix,
@@ -90,6 +68,7 @@ pub fn get_matrix_column(matrix: &[u64; 32], col_i: usize) -> u64 {
 ///
 /// # Arguments
 /// * `matrix` - A mutable reference to an array of 64 u64 values representing the matrix to transpose
+#[inline(always)]
 pub fn transpose_64x64(matrix: &mut [u64; 64]) {
     const MASKS: [u64; 6] = [
         0x5555555555555555, // 1-bit mask

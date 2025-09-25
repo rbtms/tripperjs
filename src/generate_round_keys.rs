@@ -4,7 +4,7 @@ use crate::matrix_utils;
 * Parity drop table used to contract the key
 * from 64 bits to 56 and to permutate the result
 *************************************************/
-static PARITY_DROP_TABLE: [usize; 56] = [
+const PARITY_DROP_TABLE: [usize; 56] = [
     56, 48, 40, 32, 24, 16,  8,  0,
     57, 49, 41, 33, 25, 17,  9,  1,
     58, 50, 42, 34, 26, 18, 10,  2,
@@ -18,7 +18,7 @@ static PARITY_DROP_TABLE: [usize; 56] = [
 * Compression table used to contract round keys
 * from 56 bits to 48 bits
 ************************************************/
-static COMPRESSION_TABLE: [usize; 48] = [
+const COMPRESSION_TABLE: [usize; 48] = [
     13, 16, 10, 23,  0,  4,  2, 27,
     14,  5, 20,  9, 22, 18, 11,  3,
     25,  7, 15,  6, 26, 19, 12,  1,
@@ -36,7 +36,7 @@ static COMPRESSION_TABLE: [usize; 48] = [
 *   static SHIFT_TABLE: [usize; 16] = [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1];
 *
 ********************************************************************/
-static SHIFT_OFFSET: [usize; 16] = [1, 2, 4, 6, 8, 10, 12, 14, 15, 17, 19, 21, 23, 25, 27, 28];
+const SHIFT_OFFSET: [usize; 16] = [1, 2, 4, 6, 8, 10, 12, 14, 15, 17, 19, 21, 23, 25, 27, 28];
 
 /******************************************************************************
 *   Precomputation of the indexes used for round keys calculation.
@@ -68,7 +68,7 @@ static SHIFT_OFFSET: [usize; 16] = [1, 2, 4, 6, 8, 10, 12, 14, 15, 17, 19, 21, 2
 *            let index = (offset+value%28) + 28;
 *        }
 *******************************************************************************/
-static PARITY_DROP_INDEXES: [usize; 16*48] = {
+const PARITY_DROP_INDEXES: [usize; 16*48] = {
     let mut indexes = [0usize; 16*48];
     let mut n = 0;
     while n < 16 {
@@ -87,8 +87,7 @@ static PARITY_DROP_INDEXES: [usize; 16*48] = {
     indexes
 };
 
-
-const fn precompute_parity_drop_key() -> [[u64; 256]; 8] {
+const PARITY_DROP_PRECOMPUTED:[[u64; 256]; 8] = {
     let mut tables = [[0u64; 256]; 8]; // 8 bytes of input
 
     let mut out_bit = 0;
@@ -110,14 +109,12 @@ const fn precompute_parity_drop_key() -> [[u64; 256]; 8] {
     }
 
     tables
-}
-
-static PARITY_DROP_PRECOMPUTED: [[u64; 256]; 8] = precompute_parity_drop_key();
+};
 
 // Precomputes compression tables for DES key scheduling
 // These tables are used to efficiently compute the round keys by mapping
 // input bits through the parity drop and circular shift permutations
-const fn precompute_compress_tables() -> [[[u64; 16]; 256]; 7] {
+static CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED: [[[u64; 16]; 256]; 7] = {
     let mut tables = [[[0u64; 16]; 256]; 7];
     let mut round = 0;
     while round < 16 {
@@ -140,10 +137,7 @@ const fn precompute_compress_tables() -> [[[u64; 16]; 256]; 7] {
         round += 1;
     }
     tables
-}
-
-static CIRCULAR_SHIFT_PERMUTATION_PRECOMPUTED: [[[u64; 16]; 256]; 7] = precompute_compress_tables();
-
+};
 
 // ------------------------------------------------------------------------------------------------
 

@@ -115,7 +115,7 @@ pub unsafe fn des_rounds(l: &mut [v128; 32], r: &mut [v128; 32], k_round_r: &[v1
 ///
 /// # Returns
 /// A tuple containing (left_half, right_half) where each is an array of 32 v128 vectors
-#[target_feature(enable = "simd128")]
+#[inline(always)]
 pub unsafe fn init_lr(data1: &[u64; 64], data2: &[u64; 64]) -> ([v128; 32], [v128; 32]) {
     let mut _data1 = [0u64; 64];
     let mut _data2 = [0u64; 64];
@@ -169,7 +169,7 @@ pub unsafe fn init_lr(data1: &[u64; 64], data2: &[u64; 64]) -> ([v128; 32], [v12
 ///
 /// # Returns
 /// A tuple containing (blocks1, blocks2) where each is a 64-element array of u64 values
-#[target_feature(enable = "simd128")]
+#[inline(always)]
 pub fn final_permutation(l: &[v128; 32], r: &[v128; 32]) -> ([u64; 64], [u64; 64]) {
     let mut data = unsafe { v128_utils::concat_v128_arrays(l, r) };
 
@@ -222,7 +222,6 @@ pub fn final_permutation(l: &[v128; 32], r: &[v128; 32]) -> ([u64; 64], [u64; 64
 ///
 /// # Returns
 /// A tuple containing (output_blocks1, output_blocks2)
-#[target_feature(enable = "simd128")]
 pub unsafe fn des_25(data1: &[u64; 64], data2: &[u64; 64], k: &[[v128; 64]; 16], expansion_table: &[usize; 48])
     -> ([u64; 64], [u64; 64]) {
     unsafe {

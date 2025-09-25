@@ -39,6 +39,31 @@ pub fn rand_pwd(pwd_len: usize) -> String {
     String::from_utf8(pwd).unwrap()
 }
 
+/// Create a batch of passwords with a common salt prefix to reduce the number
+/// of times the expansion table has to be perturbed, hence allowing faster
+/// processing of tripcodes.
+///
+/// # Arguments
+/// * `batch_size` - Number of passwords to generate in the batch
+///
+/// # Returns
+/// A tuple containing (salt, vector_of_passwords) for the generated batch
+pub fn make_passwords_batch(batch_size: usize) -> (String, Vec<String>) {
+    let prefix = rand_pwd(3);
+    let salt = get_salt(&prefix);
+
+    let mut pwds = Vec::with_capacity(batch_size);
+
+    for _ in 0..batch_size {
+        let mut pwd = String::with_capacity(8);
+        pwd.push_str(&prefix);
+        pwd.push_str(&rand_pwd(5));
+        pwds.push(pwd);
+    }
+
+    (salt, pwds)
+}
+
 /// Generate a salt value from a given key by processing the first three characters.
 ///
 /// The function:
@@ -86,31 +111,6 @@ pub fn get_salt(key: &str) -> String {
     }
 
     result
-}
-
-/// Create a batch of passwords with a common salt prefix to reduce the number
-/// of times the expansion table has to be perturbed, hence allowing faster
-/// processing of tripcodes.
-///
-/// # Arguments
-/// * `batch_size` - Number of passwords to generate in the batch
-///
-/// # Returns
-/// A tuple containing (salt, vector_of_passwords) for the generated batch
-pub fn make_passwords_batch(batch_size: usize) -> (String, Vec<String>) {
-    let prefix = rand_pwd(3);
-    let salt = get_salt(&prefix);
-
-    let mut pwds = Vec::with_capacity(batch_size);
-
-    for _ in 0..batch_size {
-        let mut pwd = String::with_capacity(8);
-        pwd.push_str(&prefix);
-        pwd.push_str(&rand_pwd(5));
-        pwds.push(pwd);
-    }
-
-    (salt, pwds)
 }
 
 /// Generate password and tripcode combinations for a specified number of iterations,
